@@ -345,6 +345,11 @@ class KuveytTurk(ResourcesMixin):
         return self._shared.config.environment
 
     @property
+    def redirect_uri(self) -> str | None:
+        """Authorization code akışında kullanılan yönlendirme adresi (tanımlıysa)."""
+        return self._shared.config.redirect_uri
+
+    @property
     def auth(self) -> Auth:
         """OAuth2 işlemleri (bkz. :class:`Auth`)."""
         return Auth(self)

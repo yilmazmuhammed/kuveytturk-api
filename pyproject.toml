@@ -37,6 +37,7 @@ dependencies = [
 dev = [
     "pytest>=8",
     "pytest-asyncio>=0.23",
+    "flask>=3",          # yalnızca examples/web_app ve testi için
     "ruff>=0.6",
     "mypy>=1.10",
     "build>=1.2",

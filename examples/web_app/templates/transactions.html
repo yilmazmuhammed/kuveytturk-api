@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Hesap hareketleri{% endblock %}
+{% block content %}
+  <h1>Ek no {{ suffix }} · son {{ days }} gün</h1>
+  <p>
+    <a href="{{ url_for('accounts') }}">← Hesaplarım</a>
+    <span class="muted"> · Dönem:</span>
+    {% for option in (7, 30, 90, 365) %}
+      <a href="{{ url_for('transactions', suffix=suffix, days=option) }}">{{ option }} gün</a>{% if not loop.last %} · {% endif %}
+    {% endfor %}
+  </p>
+  {% if activities %}
+    <div class="card scroll">
+      <table>
+        <thead><tr><th>Tarih</th><th class="num">Tutar</th><th>Döviz</th><th class="num">Bakiye</th><th>Açıklama</th></tr></thead>
+        <tbody>
+        {% for activity in activities %}
+          <tr>
+            <td>{{ (activity.date or "")[:16] | replace("T", " ") }}</td>
+            <td class="num">{{ activity.amount | money }}</td>
+            <td>{{ activity.fxCode }}</td>
+            <td class="num">{{ activity.balance | money }}</td>
+            <td class="wrap-text">{{ activity.description }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">Bu dönemde hareket yok. Daha uzun bir dönem seçmeyi deneyin.</p>
+  {% endif %}
+{% endblock %}

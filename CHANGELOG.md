@@ -16,7 +16,8 @@
 - Sandbox'ta doğrulananlar: token alma, imzalı GET/POST, hesap listesi ve hareketleri, kurlar,
   IBAN sorgulama, şube/ATM listeleri. Dokümanı hatalı olan para transferi uç noktasının zorunlu
   alanları sandbox'tan tespit edildi.
-- Çalıştırılabilir örnek uygulamalar (`examples/`)
+- Çalıştırılabilir örnek uygulamalar (`examples/`), müşteri girişi yapan örnek bir web
+  uygulaması dahil (`examples/web_app`)
 - Hata sınıfları ve yalnızca GET istekleri için otomatik yeniden deneme
 - İstek/yanıt logları: `enable_logging("debug")` ya da `KUVEYTTURK_LOG=debug`; token ve imza
   maskelenir

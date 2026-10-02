@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Kurlar{% endblock %}
+{% block content %}
+  <h1>Döviz kurları</h1>
+  <p class="muted">Bu sayfa müşteri girişi gerektirmez.</p>
+  {% if rates %}
+    <div class="card scroll">
+      <table>
+        <thead><tr><th>Kod</th><th>Ad</th><th class="num">Alış</th><th class="num">Satış</th></tr></thead>
+        <tbody>
+        {% for rate in rates %}
+          <tr><td>{{ rate.fxCode }}</td><td>{{ rate.fxName or rate.name }}</td><td class="num">{{ rate.buyRate }}</td><td class="num">{{ rate.sellRate }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">Kur bilgisi alınamadı.</p>
+  {% endif %}
+{% endblock %}

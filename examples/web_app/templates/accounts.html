@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Hesaplarım{% endblock %}
+{% block content %}
+  <h1>Hesaplarım</h1>
+  {% if accounts %}
+    <div class="card scroll">
+      <table>
+        <thead><tr><th>Ek no</th><th>Hesap</th><th>Tür</th><th>Döviz</th><th class="num">Bakiye</th><th class="num">Kullanılabilir</th><th>IBAN</th><th></th></tr></thead>
+        <tbody>
+        {% for account in accounts %}
+          <tr>
+            <td>{{ account.suffix }}</td>
+            <td>{{ account.name or "—" }}</td>
+            <td>{{ account.type or account.productType or "" }}</td>
+            <td>{{ account.fxCode or account.fxId }}</td>
+            <td class="num">{{ account.balance | money }}</td>
+            <td class="num">{{ account.availableBalance | money }}</td>
+            <td>{{ account.iban }}</td>
+            <td><a href="{{ url_for('transactions', suffix=account.suffix) }}">Hareketler</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">Bu müşteriye ait hesap bulunamadı.</p>
+  {% endif %}
+{% endblock %}

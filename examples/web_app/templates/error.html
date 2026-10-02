@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Hata{% endblock %}
+{% block content %}
+  <h1>İşlem tamamlanamadı</h1>
+  <div class="flash error" role="alert">{{ message }}</div>
+  <p><a href="{{ url_for('index') }}">Ana sayfaya dön</a></p>
+{% endblock %}

@@ -55,6 +55,8 @@ apidocs/            İndirilen API Market dokümanları (Markdown; menu.json + <
 scripts/            fetch_docs.py, build_spec.py, generate.py, docstore.py (apidocs okuma/yazma)
 ENDPOINTS.md        Üretilen uç nokta listesi
 examples/           Çalıştırılabilir örnek uygulamalar (ortak yardımcılar: _common.py)
+examples/web_app/   Müşteri girişi yapan Flask uygulaması (authorization code akışı). Önizleme:
+                    .claude/launch.json -> "web-app-example" (port 8000 = Redirect URI'nin portu)
 ```
 
 Senkron ve asenkron istemci aynı davranmak zorunda: ortak mantık `_base.py`'de durur, iki
@@ -135,6 +137,9 @@ alan eklerken sır sızdırmadığını `tests/test_logging.py`'deki gibi test e
   güncel olduğunu (`generate.py --check`) denetler.
 - `tests/test_examples.py` örnek uygulamaları dokümandaki örnek yanıtlarla çalıştırır. Uç nokta
   adları (özellikle `spec/overrides.json`'daki adlar) değişirse örnekler ve README de güncellenir.
+- `tests/test_web_app.py` web uygulamasını Flask test istemcisiyle uçtan uca sınar (Flask yoksa
+  atlanır). Girişin banka sayfasındaki adımı (müşteri no + parola) otomatik denenemez; onu
+  kullanıcı tarayıcıda yapar.
 - Para hareketi yapan örnekler varsayılan olarak deneme modunda çalışır (`--execute` olmadan
   istek atmaz); bu davranışı koru. Dokümanda olmayan gövde alanlarını tahminle ekleme.
 - Canlı testler (`-m live`) yalnızca `KUVEYTTURK_LIVE=1` iken çalışır ve `.env` ister. Yalnızca

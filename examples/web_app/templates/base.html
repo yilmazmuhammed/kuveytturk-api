@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Örnek uygulama{% endblock %} · kuveytturk-api</title>
+  <style>
+    :root { --ink: #1c2420; --muted: #5e6b64; --line: #dfe5e1; --bg: #f6f8f7; --card: #fff; --accent: #006b45; --accent-ink: #fff; --warn: #8a3b12; --warn-bg: #fdf1e7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --ink: #e7ece9; --muted: #9aa8a1; --line: #2c3631; --bg: #121715; --card: #1a211e; --accent: #3fb98a; --accent-ink: #0b1310; --warn: #f0b48c; --warn-bg: #33221a; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: var(--bg); }
+    header { border-bottom: 1px solid var(--line); background: var(--card); }
+    .wrap { max-width: 60rem; margin: 0 auto; padding: 0 1rem; }
+    header .wrap { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; align-items: center; padding-block: .85rem; }
+    .brand { font-weight: 650; margin-right: auto; }
+    .brand small { font-weight: 400; color: var(--muted); margin-left: .4rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    a { color: var(--accent); }
+    main.wrap { padding-block: 1.75rem 3rem; }
+    h1 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 .75rem; text-wrap: balance; }
+    p { margin: 0 0 1rem; max-width: 62ch; }
+    .muted { color: var(--muted); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: .6rem; padding: 1.25rem; margin-bottom: 1.25rem; }
+    .button, button { display: inline-block; font: inherit; font-weight: 600; padding: .6rem 1.1rem; border-radius: .5rem; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); text-decoration: none; cursor: pointer; }
+    button.plain { background: none; color: var(--accent); border-color: var(--line); font-weight: 500; padding: .35rem .8rem; }
+    .flash { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: .5rem; padding: .7rem 1rem; margin-bottom: 1.25rem; }
+    .flash.error { background: var(--warn-bg); color: var(--warn); border-color: var(--warn-bg); border-left-color: var(--warn); }
+    .scroll { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+    th, td { text-align: left; padding: .55rem .75rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    th { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+    td.num, th.num { text-align: right; }
+    td.wrap-text { white-space: normal; min-width: 14rem; }
+    ol { padding-left: 1.2rem; max-width: 62ch; }
+    @media (max-width: 32rem) { .card { padding: .75rem; } th, td { padding: .5rem .45rem; } }
+    code { font-size: .9em; background: var(--bg); border: 1px solid var(--line); border-radius: .3rem; padding: .05rem .3rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <span class="brand">Örnek uygulama <small>{{ environment }}</small></span>
+      <nav>
+        <a href="{{ url_for('index') }}">Ana sayfa</a>
+        <a href="{{ url_for('rates') }}">Kurlar</a>
+        {% if connected %}
+          <a href="{{ url_for('accounts') }}">Hesaplarım</a>
+          <form method="post" action="{{ url_for('logout') }}"><button class="plain">Bağlantıyı kaldır</button></form>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    {% for message in get_flashed_messages() %}<div class="flash" role="status">{{ message }}</div>{% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

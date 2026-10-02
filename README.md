@@ -92,7 +92,8 @@ for hesap in hesaplar["accountList"]:
     print(hesap["suffix"], hesap["iban"], hesap["balance"])
 ```
 
-**Web uygulamaları** — yönlendirmeyi ve callback'i kendi rotalarınızda yaparsınız:
+**Web uygulamaları** — yönlendirmeyi ve callback'i kendi rotalarınızda yaparsınız
+(çalışan tam bir örnek: [`examples/web_app`](https://github.com/yilmazmuhammed/kuveytturk-api/tree/main/examples/web_app)):
 
 ```python
 # 1) Kullanıcıyı bankaya yönlendirin
@@ -188,7 +189,7 @@ kt.post("/v1/ornek", scope="public", body={"alan": "değer"})
 | [`iban_lookup.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/iban_lookup.py) | IBAN sahibini ve bankasını sorgulama |
 | [`money_transfer.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/money_transfer.py) | Bir IBAN'a para transferi (önce alıcı doğrulama), durum sorgulama |
 | [`async_usage.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/async_usage.py) | Asenkron istemci |
-| [`web_app_flow.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/web_app_flow.py) | Web uygulamasında müşteri girişi iskeleti |
+| [`web_app/`](https://github.com/yilmazmuhammed/kuveytturk-api/tree/main/examples/web_app) | Müşteri girişi yapan örnek web uygulaması (Flask): bağlan, hesaplar, hareketler |
 
 ```bash
 python examples/account_list.py --only-open

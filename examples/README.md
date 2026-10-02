@@ -16,7 +16,7 @@ python examples/account_list.py
 | [`iban_lookup.py`](iban_lookup.py) | IBAN'ın sahibini ve bankasını sorgular | CC |
 | [`money_transfer.py`](money_transfer.py) | Bir IBAN'a para transferi ve durum sorgulama | CC |
 | [`async_usage.py`](async_usage.py) | Asenkron istemciyle eşzamanlı istekler | CC |
-| [`web_app_flow.py`](web_app_flow.py) | Web uygulamasında müşteri girişi iskeleti | AC |
+| [`web_app/`](web_app/) | Müşteri girişi yapan örnek web uygulaması (Flask); ayrıntı: [web_app/README.md](web_app/README.md) | AC |
 
 **CC** (client credentials): ek adım gerekmez. **AC** (authorization code): ilk çalıştırmada
 tarayıcı açılır ve müşteri girişi istenir; bunun için uygulamanızın Redirect URI'si

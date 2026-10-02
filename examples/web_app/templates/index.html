@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Ana sayfa{% endblock %}
+{% block content %}
+  {% if connected %}
+    <h1>Kuveyt Türk hesabınız bağlı</h1>
+    <p>Bu tarayıcı için alınan token sunucuda saklanıyor; süresi dolunca kendiliğinden yenilenir.</p>
+    <p><a class="button" href="{{ url_for('accounts') }}">Hesaplarımı göster</a></p>
+  {% else %}
+    <h1>Kuveyt Türk hesabınızı bağlayın</h1>
+    <p>Hesaplarınızı ve hareketlerinizi burada görmek için Kuveyt Türk'te giriş yapıp bu uygulamaya izin vermeniz gerekir. Parolanız yalnızca bankanın sayfasına girilir; bu uygulama onu görmez.</p>
+    <p><a class="button" href="{{ url_for('login') }}">Kuveyt Türk ile bağlan</a></p>
+  {% endif %}
+
+  <div class="card">
+    <strong>Arka planda olanlar</strong>
+    <ol class="muted">
+      <li><code>/login</code> rastgele bir <code>state</code> üretip oturuma yazar ve sizi bankanın giriş sayfasına yönlendirir (istenen izinler: {{ scopes | join(", ") }}).</li>
+      <li>Banka, girişten sonra tarayıcıyı Redirect URI'ye <code>code</code> ve <code>state</code> ile geri yollar.</li>
+      <li>Callback <code>state</code>'i doğrular, <code>code</code>'u token'a çevirir ve token'ı bu tarayıcıya özel bir anahtarla sunucuda saklar.</li>
+      <li>Hesap sayfaları API'yi o token'la çağırır.</li>
+    </ol>
+  </div>
+  <p class="muted">Kurlar sayfası müşteri girişi gerektirmez; uygulamanın kendi kimliğiyle (client credentials) çalışır.</p>
+{% endblock %}

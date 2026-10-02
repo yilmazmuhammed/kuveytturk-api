@@ -288,6 +288,11 @@ class AsyncKuveytTurk(AsyncResourcesMixin):
         return self._shared.config.environment
 
     @property
+    def redirect_uri(self) -> str | None:
+        """Authorization code akışında kullanılan yönlendirme adresi (tanımlıysa)."""
+        return self._shared.config.redirect_uri
+
+    @property
     def auth(self) -> AsyncAuth:
         """OAuth2 işlemleri (bkz. :class:`AsyncAuth`)."""
         return AsyncAuth(self)
