@@ -10,5 +10,11 @@
 - İsteklerin RSA-SHA256 ile imzalanması; `generate_key_pair` ile anahtar üretimi
 - Token depoları: `MemoryTokenStore`, `FileTokenStore`, özel depolar için `TokenStore` protokolü
 - Çok kullanıcılı kullanım için `as_user()`
-- API Market dokümanından üretilen uç nokta metotları (bkz. `ENDPOINTS.md`)
+- API Market dokümanından üretilen uç nokta metotları: 23 kaynak altında 192 uç nokta
+  (bkz. `ENDPOINTS.md`). Portalda yalnızca "bizimle iletişime geçin" yazan ve sunucudan
+  kaldırılmış (pasif) sayfalar kapsam dışıdır.
+- Sandbox'ta doğrulananlar: token alma, imzalı GET/POST, hesap listesi ve hareketleri, kurlar,
+  IBAN sorgulama, şube/ATM listeleri. Dokümanı hatalı olan para transferi uç noktasının zorunlu
+  alanları sandbox'tan tespit edildi.
+- Çalıştırılabilir örnek uygulamalar (`examples/`)
 - Hata sınıfları ve yalnızca GET istekleri için otomatik yeniden deneme

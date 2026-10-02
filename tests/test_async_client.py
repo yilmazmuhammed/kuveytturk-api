@@ -142,3 +142,12 @@ async def test_aclose_only_closes_owned_client(private_pem):
     await kt.aclose()
     assert http.is_closed
     assert "sandbox" in repr(kt)
+
+
+async def test_invalid_scope_error_names_the_missing_scope(make_async_client):
+    from kuveytturk_api import AuthenticationError
+
+    recorder = Recorder(token=lambda r: httpx.Response(400, json={"error": "invalid_scope"}))
+    async with make_async_client(recorder) as kt:
+        with pytest.raises(AuthenticationError, match="'loans' kapsamı için yetkili değil"):
+            await kt.get("/v1/data/loans", scope="loans")

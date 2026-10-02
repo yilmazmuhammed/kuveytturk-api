@@ -88,7 +88,10 @@ class Auth:
         with self._shared.token_lock:
             token = None if force else self._shared.store.get(key)
             if token is None or token.is_expired():
-                token = self._fetch(_base.client_credentials_grant(scope))
+                try:
+                    token = self._fetch(_base.client_credentials_grant(scope))
+                except AuthenticationError as exc:
+                    raise _base.explain_scope_error(exc, scope) from exc
                 self._shared.store.set(key, token)
             return token
 

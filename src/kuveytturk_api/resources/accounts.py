@@ -18,6 +18,53 @@ __all__ = ["Accounts", "AsyncAccounts"]
 class Accounts(Resource):
     """Hesap yönetimi (kurumun kendi hesapları) - ``kt.accounts``."""
 
+    def account_activity_list(
+        self,
+        *,
+        begin_date: DateLike,
+        end_date: DateLike,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Account Activity List.
+
+        ``POST /v1/accountActivities``
+
+        Kapsam: ``account_activities`` · Akış: client credentials
+
+        Retrieves the account activities within the specified date range for the client making
+        the request.
+
+        Args:
+            begin_date: (``BeginDate``, gövde, zorunlu) Specifies after which date the account
+                activities will be retrieved.
+            end_date: (``EndDate``, gövde, zorunlu) Specifies before which date the account
+                activities will be retrieved.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/account-activity-list
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "BeginDate": begin_date,
+                "EndDate": end_date,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return self._client.request(
+            "POST",
+            "/v1/accountActivities",
+            scope="account_activities",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     def account_list_v3(
         self,
         *,
@@ -256,6 +303,90 @@ class Accounts(Resource):
             options=request_options,
         )
 
+    def account_verification_v2(
+        self,
+        *,
+        correlation_identifier: str,
+        context: str,
+        uetr: str,
+        creditor_account: str,
+        creditor_name: str,
+        creditor_address: Mapping[str, Any] | None = None,
+        creditor_organisation_identification: Mapping[str, Any] | None = None,
+        creditor_agent: Mapping[str, Any] | None = None,
+        creditor_agent_branch_identification: str | None = None,
+        x_bic: str | None = None,
+        subject_dn: str | None = None,
+        institution: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Prevalidation Data Provider.
+
+        ``POST /v2/accounts/verification``
+
+        Kapsam: ``accounts`` · Akış: client credentials
+
+        This API verifies beneficiary account information before processing a payment or
+        transfer. The verification is performed using creditor account, creditor name, creditor
+        address, creditor organisation identification and creditor agent information.
+
+        Args:
+            correlation_identifier: (gövde, zorunlu) Unique correlation identifier used to track
+                the verification request.
+            context: (gövde, zorunlu) Context information related to the verification request.
+            uetr: (gövde, zorunlu) Unique end_to_end Transaction Reference associated with the
+                transaction.
+            creditor_account: (gövde, zorunlu) Creditor account number or account identifier to
+                be verified.
+            creditor_name: (gövde, zorunlu) Name of the creditor to be verified.
+            creditor_address: (gövde) Address information of the creditor.
+            creditor_organisation_identification: (gövde) Organisation identification
+                information of the creditor.
+            creditor_agent: (gövde) Financial institution or agent information of the creditor.
+            creditor_agent_branch_identification: (gövde) Branch identification of the creditor
+                agent.
+            x_bic: (``x-bic``, gövde) BIC value provided in the request context.
+            subject_dn: (``SubjectDN``, gövde) Subject distinguished name information used for
+                certificate or institution identification.
+            institution: (``Institution``, gövde) Institution information associated with the
+                verification request.
+
+        Yanıt alanları: correlation_identifier, response, account_validation_status,
+        creditor_account_match, creditor_name_match, creditor_address_match,
+        creditor_organisation_identification_match
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/prevalidation-data-provider
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "correlation_identifier": correlation_identifier,
+                "context": context,
+                "uetr": uetr,
+                "creditor_account": creditor_account,
+                "creditor_name": creditor_name,
+                "creditor_address": creditor_address,
+                "creditor_organisation_identification": creditor_organisation_identification,
+                "creditor_agent": creditor_agent,
+                "creditor_agent_branch_identification": creditor_agent_branch_identification,
+                "x-bic": x_bic,
+                "SubjectDN": subject_dn,
+                "Institution": institution,
+            },
+            extra_body,
+        )
+        return self._client.request(
+            "POST",
+            "/v2/accounts/verification",
+            scope="accounts",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     def pdf_receipt_v3(
         self,
         *,
@@ -348,6 +479,53 @@ class Accounts(Resource):
 
 class AsyncAccounts(AsyncResource):
     """Hesap yönetimi (kurumun kendi hesapları) (asenkron) - ``kt.accounts``."""
+
+    async def account_activity_list(
+        self,
+        *,
+        begin_date: DateLike,
+        end_date: DateLike,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Account Activity List.
+
+        ``POST /v1/accountActivities``
+
+        Kapsam: ``account_activities`` · Akış: client credentials
+
+        Retrieves the account activities within the specified date range for the client making
+        the request.
+
+        Args:
+            begin_date: (``BeginDate``, gövde, zorunlu) Specifies after which date the account
+                activities will be retrieved.
+            end_date: (``EndDate``, gövde, zorunlu) Specifies before which date the account
+                activities will be retrieved.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/account-activity-list
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "BeginDate": begin_date,
+                "EndDate": end_date,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/accountActivities",
+            scope="account_activities",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
 
     async def account_list_v3(
         self,
@@ -584,6 +762,90 @@ class AsyncAccounts(AsyncResource):
             flow="client_credentials",
             path_params={"suffix": suffix},
             query=_query,
+            options=request_options,
+        )
+
+    async def account_verification_v2(
+        self,
+        *,
+        correlation_identifier: str,
+        context: str,
+        uetr: str,
+        creditor_account: str,
+        creditor_name: str,
+        creditor_address: Mapping[str, Any] | None = None,
+        creditor_organisation_identification: Mapping[str, Any] | None = None,
+        creditor_agent: Mapping[str, Any] | None = None,
+        creditor_agent_branch_identification: str | None = None,
+        x_bic: str | None = None,
+        subject_dn: str | None = None,
+        institution: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Prevalidation Data Provider.
+
+        ``POST /v2/accounts/verification``
+
+        Kapsam: ``accounts`` · Akış: client credentials
+
+        This API verifies beneficiary account information before processing a payment or
+        transfer. The verification is performed using creditor account, creditor name, creditor
+        address, creditor organisation identification and creditor agent information.
+
+        Args:
+            correlation_identifier: (gövde, zorunlu) Unique correlation identifier used to track
+                the verification request.
+            context: (gövde, zorunlu) Context information related to the verification request.
+            uetr: (gövde, zorunlu) Unique end_to_end Transaction Reference associated with the
+                transaction.
+            creditor_account: (gövde, zorunlu) Creditor account number or account identifier to
+                be verified.
+            creditor_name: (gövde, zorunlu) Name of the creditor to be verified.
+            creditor_address: (gövde) Address information of the creditor.
+            creditor_organisation_identification: (gövde) Organisation identification
+                information of the creditor.
+            creditor_agent: (gövde) Financial institution or agent information of the creditor.
+            creditor_agent_branch_identification: (gövde) Branch identification of the creditor
+                agent.
+            x_bic: (``x-bic``, gövde) BIC value provided in the request context.
+            subject_dn: (``SubjectDN``, gövde) Subject distinguished name information used for
+                certificate or institution identification.
+            institution: (``Institution``, gövde) Institution information associated with the
+                verification request.
+
+        Yanıt alanları: correlation_identifier, response, account_validation_status,
+        creditor_account_match, creditor_name_match, creditor_address_match,
+        creditor_organisation_identification_match
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/prevalidation-data-provider
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "correlation_identifier": correlation_identifier,
+                "context": context,
+                "uetr": uetr,
+                "creditor_account": creditor_account,
+                "creditor_name": creditor_name,
+                "creditor_address": creditor_address,
+                "creditor_organisation_identification": creditor_organisation_identification,
+                "creditor_agent": creditor_agent,
+                "creditor_agent_branch_identification": creditor_agent_branch_identification,
+                "x-bic": x_bic,
+                "SubjectDN": subject_dn,
+                "Institution": institution,
+            },
+            extra_body,
+        )
+        return await self._client.request(
+            "POST",
+            "/v2/accounts/verification",
+            scope="accounts",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
             options=request_options,
         )
 

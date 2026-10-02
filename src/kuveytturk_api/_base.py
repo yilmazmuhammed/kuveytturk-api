@@ -359,6 +359,22 @@ def parse_token_response(status_code: int, text: str, *, previous: Token | None 
     return token
 
 
+def explain_scope_error(
+    error: AuthenticationError, scope: str | Iterable[str]
+) -> AuthenticationError:
+    """``invalid_scope`` hatasını, hangi kapsamın eksik olduğunu söyleyen bir hataya çevirir."""
+    if error.error != "invalid_scope":
+        return error
+    wanted = " ".join(normalize_scopes(scope))
+    return AuthenticationError(
+        f"Uygulamanız {wanted!r} kapsamı için yetkili değil (invalid_scope). Geliştirici "
+        "portalında uygulamanıza bu kapsamı içeren API ürününü ekleyin.",
+        error=error.error,
+        error_description=error.error_description,
+        status_code=error.status_code,
+    )
+
+
 def plan_auth(
     options: Mapping[str, Any], *, scope: str, flow: str, default_user: str | None
 ) -> AuthPlan:

@@ -1,5 +1,44 @@
 [
  {
+  "id": "3641",
+  "title": "Account Activity List",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/account-activity-list",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/accountActivities",
+  "version": "1.0",
+  "scope": "account_activities",
+  "flow": "client_credentials",
+  "description": "Retrieves the account activities within the specified date range for the client making the request.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "BeginDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Specifies after which date the account activities will be retrieved.",
+    "name": "begin_date"
+   },
+   {
+    "wire": "EndDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Specifies before which date the account activities will be retrieved.",
+    "name": "end_date"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "accounts",
+  "name": "account_activity_list"
+ },
+ {
   "id": "2050",
   "title": "Account List V3",
   "category": "Account Management - Own",
@@ -296,6 +335,121 @@
   "name": "account_transactions_v4_detail"
  },
  {
+  "id": "4873",
+  "title": "Prevalidation Data Provider",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/prevalidation-data-provider",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v2/accounts/verification",
+  "version": "2.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This API verifies beneficiary account information before processing a payment or transfer. The verification is performed using creditor account, creditor name, creditor address, creditor organisation identification and creditor agent information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "correlation_identifier",
+    "type": "str",
+    "required": true,
+    "description": "Unique correlation identifier used to track the verification request.",
+    "name": "correlation_identifier"
+   },
+   {
+    "wire": "context",
+    "type": "str",
+    "required": true,
+    "description": "Context information related to the verification request.",
+    "name": "context"
+   },
+   {
+    "wire": "uetr",
+    "type": "str",
+    "required": true,
+    "description": "Unique end_to_end Transaction Reference associated with the transaction.",
+    "name": "uetr"
+   },
+   {
+    "wire": "creditor_account",
+    "type": "str",
+    "required": true,
+    "description": "Creditor account number or account identifier to be verified.",
+    "name": "creditor_account"
+   },
+   {
+    "wire": "creditor_name",
+    "type": "str",
+    "required": true,
+    "description": "Name of the creditor to be verified.",
+    "name": "creditor_name"
+   },
+   {
+    "wire": "creditor_address",
+    "type": "object",
+    "required": false,
+    "description": "Address information of the creditor.",
+    "name": "creditor_address"
+   },
+   {
+    "wire": "creditor_organisation_identification",
+    "type": "object",
+    "required": false,
+    "description": "Organisation identification information of the creditor.",
+    "name": "creditor_organisation_identification"
+   },
+   {
+    "wire": "creditor_agent",
+    "type": "object",
+    "required": false,
+    "description": "Financial institution or agent information of the creditor.",
+    "name": "creditor_agent"
+   },
+   {
+    "wire": "creditor_agent_branch_identification",
+    "type": "str",
+    "required": false,
+    "description": "Branch identification of the creditor agent.",
+    "name": "creditor_agent_branch_identification"
+   },
+   {
+    "wire": "x-bic",
+    "type": "str",
+    "required": false,
+    "description": "BIC value provided in the request context.",
+    "name": "x_bic"
+   },
+   {
+    "wire": "SubjectDN",
+    "type": "str",
+    "required": false,
+    "description": "Subject distinguished name information used for certificate or institution identification.",
+    "name": "subject_dn"
+   },
+   {
+    "wire": "Institution",
+    "type": "str",
+    "required": false,
+    "description": "Institution information associated with the verification request.",
+    "name": "institution"
+   }
+  ],
+  "response_fields": [
+   "correlation_identifier",
+   "response",
+   "account_validation_status",
+   "creditor_account_match",
+   "creditor_name_match",
+   "creditor_address_match",
+   "creditor_organisation_identification_match"
+  ],
+  "language": "en",
+  "resource": "accounts",
+  "name": "account_verification_v2"
+ },
+ {
   "id": "798",
   "title": "PDF Receipt V3",
   "category": "Account Management - Own",
@@ -369,6 +523,175 @@
   "language": "tr",
   "resource": "accounts",
   "name": "receipt_v3"
+ },
+ {
+  "id": "4886",
+  "title": "Architecht Career Change",
+  "category": "Architecht",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/architecht/architecht-career-change",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/architechtintegration/career/insertAssignment",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to create an assignment record for career integration. The request includes person, organization, job, position, assignment grade, identity number and effective date information. The response returns the execution reference and assignment creation result.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "assignmentContract"
+  ],
+  "body_params": [
+   {
+    "wire": "personId",
+    "type": "int",
+    "required": true,
+    "description": "Person ID for whom the assignment will be created.",
+    "name": "person_id"
+   },
+   {
+    "wire": "organizationId",
+    "type": "int",
+    "required": true,
+    "description": "Organization ID associated with the assignment.",
+    "name": "organization_id"
+   },
+   {
+    "wire": "jobId",
+    "type": "int",
+    "required": true,
+    "description": "Job ID associated with the assignment.",
+    "name": "job_id"
+   },
+   {
+    "wire": "positionId",
+    "type": "int",
+    "required": true,
+    "description": "Position ID associated with the assignment.",
+    "name": "position_id"
+   },
+   {
+    "wire": "assignmentGrade",
+    "type": "int",
+    "required": true,
+    "description": "Assignment grade information.",
+    "name": "assignment_grade"
+   },
+   {
+    "wire": "identityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identity number of the person.",
+    "name": "identity_number"
+   },
+   {
+    "wire": "effectiveStartDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Effective start date of the assignment. Format: dd.MM.yyyy.",
+    "name": "effective_start_date"
+   },
+   {
+    "wire": "effectiveEndDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Effective end date of the assignment. Format: dd.MM.yyyy.",
+    "name": "effective_end_date"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "insertResult",
+   "processStatus",
+   "assignmentId"
+  ],
+  "language": "en",
+  "resource": "architecht",
+  "name": "architecht_career_change"
+ },
+ {
+  "id": "4889",
+  "title": "Customer Consent Cancellation",
+  "category": "Architecht",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/architecht/customer-consent-cancellation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/airapi/revoke-consent",
+  "version": "1.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This API is used to revoke customer consent records. The request includes the customer ID and token data list for the consents to be cancelled. The response returns the operation status with HTTP code and message information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "customerId",
+    "type": "str",
+    "required": true,
+    "description": "Customer ID for which consent records will be revoked.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "tokenData",
+    "type": "array",
+    "required": true,
+    "description": "List of token data values identifying the consent records to be revoked.",
+    "name": "token_data"
+   }
+  ],
+  "response_fields": [
+   "httpcode",
+   "message"
+  ],
+  "language": "en",
+  "resource": "architecht",
+  "name": "customer_consent_cancellation"
+ },
+ {
+  "id": "4890",
+  "title": "Customer Consent List",
+  "category": "Architecht",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/architecht/customer-consent-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/airapi/consent-list",
+  "version": "1.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve the customer consent list. The service returns consent records filtered by customer ID and token type. The response includes token information, consent status, creation date, TPP name and TPP ID.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "customerid",
+    "type": "int",
+    "required": true,
+    "description": "Customer ID for which the consent list will be retrieved.",
+    "name": "customerid"
+   },
+   {
+    "wire": "tokentype",
+    "type": "int",
+    "required": true,
+    "description": "Token type used to filter consent records.",
+    "name": "tokentype"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "token",
+   "status",
+   "created",
+   "tpp",
+   "tppId"
+  ],
+  "language": "en",
+  "resource": "architecht",
+  "name": "customer_consent_list"
  },
  {
   "id": "1949",
@@ -535,6 +858,59 @@
   "name": "credit_card_transactions_list_v3"
  },
  {
+  "id": "4917",
+  "title": "Virtual Card Limit Update",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/virtual-card-limit-update",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/cards/virtualcardlimitupdate",
+  "version": "1.0",
+  "scope": "cards",
+  "flow": "authorization_code",
+  "description": "This API updates the limit of a virtual credit card for the authenticated customer. > This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "CreditCardNumber",
+    "type": "str",
+    "required": true,
+    "description": "Virtual credit card number whose limit will be updated.",
+    "name": "credit_card_number"
+   },
+   {
+    "wire": "Limit",
+    "type": "number",
+    "required": true,
+    "description": "New limit amount to be assigned to the virtual credit card.",
+    "name": "limit"
+   },
+   {
+    "wire": "CustomerId",
+    "type": "int",
+    "required": true,
+    "description": "Unique customer identifier.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "LanguageId",
+    "type": "int",
+    "required": true,
+    "description": "Language identifier used for localized messages and responses.",
+    "name": "language_id"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "cards",
+  "name": "virtual_card_limit_update"
+ },
+ {
   "id": "4670",
   "title": "cheque-information-micro",
   "category": "Cash Management",
@@ -600,17 +976,154 @@
   "name": "cheque_information_micro"
  },
  {
-  "id": "3351",
-  "title": "Dijital Bankacılık İadesi",
-  "category": "Nakit Yönetimi",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-iadesi",
-  "status": "ACTIVE",
+  "id": "1901",
+  "title": "Digital Banking Payment",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/digital-banking-payment",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/vpos/digitalPayment",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Collects the payment information from the customer's profile provided in the parameters.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "DigitalPaymentTransactionContract"
+  ],
+  "body_params": [
+   {
+    "wire": "TransactionId",
+    "type": "str",
+    "required": true,
+    "description": "Processing of a singular number.",
+    "name": "transaction_id"
+   },
+   {
+    "wire": "MerchantId",
+    "type": "str",
+    "required": true,
+    "description": "Company code defined by the Bank",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "SoftDescriptor",
+    "type": "str",
+    "required": true,
+    "description": "Merchant processing token.",
+    "name": "soft_descriptor"
+   },
+   {
+    "wire": "ProductType",
+    "type": "str",
+    "required": true,
+    "description": "Calculated costs and commission types of payment",
+    "name": "product_type"
+   },
+   {
+    "wire": "CostAmount",
+    "type": "number",
+    "required": true,
+    "description": "Transaction fees received from customers",
+    "name": "cost_amount"
+   },
+   {
+    "wire": "ComissionAmount",
+    "type": "number",
+    "required": true,
+    "description": "A commission fee will be taken from the workplace.",
+    "name": "comission_amount"
+   },
+   {
+    "wire": "Amount",
+    "type": "number",
+    "required": true,
+    "description": "Transaction amount",
+    "name": "amount"
+   },
+   {
+    "wire": "TransactionCurrency",
+    "type": "int",
+    "required": true,
+    "description": "Transaction currency",
+    "name": "transaction_currency"
+   },
+   {
+    "wire": "TokenInterval",
+    "type": "int",
+    "required": true,
+    "description": "Token claimed in minutes validity period",
+    "name": "token_interval"
+   },
+   {
+    "wire": "SuccessRedirectUrl",
+    "type": "str",
+    "required": false,
+    "description": "Customer redirects address for success by banking",
+    "name": "success_redirect_url"
+   },
+   {
+    "wire": "FailRedirectUrl",
+    "type": "str",
+    "required": false,
+    "description": "Customer redirect address for fail by banking",
+    "name": "fail_redirect_url"
+   },
+   {
+    "wire": "PaymentMethod",
+    "type": "str",
+    "required": true,
+    "description": "Payment method is information",
+    "name": "payment_method"
+   },
+   {
+    "wire": "OS",
+    "type": "str",
+    "required": false,
+    "description": "Operating system info of the mobile application.",
+    "name": "os"
+   },
+   {
+    "wire": "ProductTypeCondition",
+    "type": "str",
+    "required": false,
+    "description": "Calculated cost and commission information for different product type",
+    "name": "product_type_condition"
+   },
+   {
+    "wire": "Pan",
+    "type": "str",
+    "required": false,
+    "description": "The process, which indicates that the customer information",
+    "name": "pan"
+   }
+  ],
+  "response_fields": [
+   "AccessToken",
+   "TokenExpireDate",
+   "ReturnCode",
+   "ReturnMessage",
+   "ApplicationName",
+   "ApplicationParameter"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "digital_banking_payment"
+ },
+ {
+  "id": "1116",
+  "title": "Digital Banking Refund",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/digital-banking-refund",
+  "status": "",
   "method": "POST",
   "path": "/v1/vpos/digitalPaymentRefund",
   "version": "1.0",
   "scope": "digital_payments",
   "flow": "client_credentials",
-  "description": "Önceki gün içerisinde yapılan işlemlerde iade veya kısmi iade yapılır.",
+  "description": "Does a refund or a partial refund on the transactions made during the previous day.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -622,42 +1135,42 @@
     "wire": "TransactionId",
     "type": "str",
     "required": true,
-    "description": "İade işleminin tekil işlem numarası",
+    "description": "The singular transaction number of the return transaction",
     "name": "transaction_id"
    },
    {
     "wire": "OrgTransactionId",
     "type": "str",
     "required": true,
-    "description": "ComPay tarafından bankaya iade edilen orijinal işlemin benzersiz işlem numarası",
+    "description": "The unique transaction number of the original transaction returned by ComPay to the bank",
     "name": "org_transaction_id"
    },
    {
     "wire": "Amount",
     "type": "number",
     "required": true,
-    "description": "İade edilecek bilgi miktarı",
+    "description": "The amount of information to be returned",
     "name": "amount"
    },
    {
     "wire": "Currency",
     "type": "str",
     "required": true,
-    "description": "İşlem para birimi",
+    "description": "Transaction currency",
     "name": "currency"
    },
    {
     "wire": "ComissionAmount",
     "type": "number",
     "required": true,
-    "description": "İade işlemi için işyerinden alınacak komisyon tutarı.",
+    "description": "Amount of commission to be taken from the workplace for the return transaction.",
     "name": "comission_amount"
    },
    {
     "wire": "Description",
     "type": "str",
     "required": true,
-    "description": "İşlem açıklaması",
+    "description": "Transaction description",
     "name": "description"
    }
   ],
@@ -665,22 +1178,22 @@
    "ReturnCode",
    "ReturnMessage"
   ],
-  "language": "tr",
+  "language": "en",
   "resource": "cash_management",
-  "name": "dijital_bankacilik_iadesi"
+  "name": "digital_banking_refund"
  },
  {
-  "id": "3350",
-  "title": "Dijital Bankacılık İşlem Durumu",
-  "category": "Nakit Yönetimi",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-islem-durumu",
-  "status": "ACTIVE",
+  "id": "1094",
+  "title": "Digital Banking Transaction Status",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/digital-banking-transaction-status",
+  "status": "",
   "method": "POST",
   "path": "/v1/vpos/digitalPaymentStatus",
   "version": "1.0",
   "scope": "digital_payments",
   "flow": "client_credentials",
-  "description": "Parametrelerde belirtilen işlemin durumunu döndürür.",
+  "description": "Returns the status of the transaction provided in the parameters.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -692,7 +1205,7 @@
     "wire": "TransactionId",
     "type": "str",
     "required": true,
-    "description": "İşlemin tekil işlem numarası",
+    "description": "The singular transaction number of the transaction",
     "name": "transaction_id"
    }
   ],
@@ -708,146 +1221,9 @@
    "TransactionId",
    "OrgTransactionId"
   ],
-  "language": "tr",
+  "language": "en",
   "resource": "cash_management",
-  "name": "dijital_bankacilik_islem_durumu"
- },
- {
-  "id": "3352",
-  "title": "Dijital Bankacılık Ödeme",
-  "category": "Nakit Yönetimi",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-odeme",
-  "status": "ACTIVE",
-  "method": "POST",
-  "path": "/v1/vpos/digitalPayment",
-  "version": "1.0",
-  "scope": "digital_payments",
-  "flow": "client_credentials",
-  "description": "Parametrelerde sağlanan müşteri profilinden ödeme bilgilerini toplar.",
-  "path_params": [],
-  "query_params": [],
-  "body_kind": "object",
-  "body_wrap": [
-   "DigitalPaymentTransactionContract"
-  ],
-  "body_params": [
-   {
-    "wire": "TransactionId",
-    "type": "str",
-    "required": true,
-    "description": "Tekil bir sayının işlenmesi.",
-    "name": "transaction_id"
-   },
-   {
-    "wire": "MerchantId",
-    "type": "str",
-    "required": true,
-    "description": "Banka tarafından belirlenen şirket kodu",
-    "name": "merchant_id"
-   },
-   {
-    "wire": "SoftDescriptor",
-    "type": "str",
-    "required": true,
-    "description": "Tüccar işlem belirteci.",
-    "name": "soft_descriptor"
-   },
-   {
-    "wire": "ProductType",
-    "type": "str",
-    "required": true,
-    "description": "Hesaplanan maliyetler ve komisyon ödeme türleri",
-    "name": "product_type"
-   },
-   {
-    "wire": "CostAmount",
-    "type": "number",
-    "required": false,
-    "description": "",
-    "name": "cost_amount"
-   },
-   {
-    "wire": "ComissionAmount",
-    "type": "number",
-    "required": true,
-    "description": "A commission fee will be taken from the workplace.",
-    "name": "comission_amount"
-   },
-   {
-    "wire": "Amount",
-    "type": "number",
-    "required": true,
-    "description": "İşlem tutarı",
-    "name": "amount"
-   },
-   {
-    "wire": "TransactionCurrency",
-    "type": "int",
-    "required": true,
-    "description": "İşlem para birimi",
-    "name": "transaction_currency"
-   },
-   {
-    "wire": "TokenInterval",
-    "type": "int",
-    "required": true,
-    "description": "Dakikalar içinde talep edilen token geçerlilik süresi",
-    "name": "token_interval"
-   },
-   {
-    "wire": "SuccessRedirectUrl",
-    "type": "str",
-    "required": false,
-    "description": "Müşteri, bankacılığın başarısı için adresi yönlendiriyor",
-    "name": "success_redirect_url"
-   },
-   {
-    "wire": "FailRedirectUrl",
-    "type": "str",
-    "required": false,
-    "description": "Müşteri yönlendirme adresi bankacılık tarafından başarısız oldu",
-    "name": "fail_redirect_url"
-   },
-   {
-    "wire": "PaymentMethod",
-    "type": "str",
-    "required": true,
-    "description": "Ödeme yöntemi bilgisi",
-    "name": "payment_method"
-   },
-   {
-    "wire": "OS",
-    "type": "str",
-    "required": false,
-    "description": "Mobil uygulamanın işletim sistemi bilgisi.",
-    "name": "os"
-   },
-   {
-    "wire": "ProductTypeCondition",
-    "type": "str",
-    "required": false,
-    "description": "Farklı ürün tipleri için hesaplanan maliyet ve komisyon bilgileri",
-    "name": "product_type_condition"
-   },
-   {
-    "wire": "Pan",
-    "type": "str",
-    "required": false,
-    "description": "Müşteri bilgilerinin doğruluğunu gösteren işlem",
-    "name": "pan"
-   }
-  ],
-  "response_fields": [
-   "AccessToken",
-   "TokenExpireDate",
-   "ReturnCode",
-   "ReturnMessage",
-   "ApplicationName",
-   "ApplicationParameter"
-  ],
-  "language": "tr",
-  "resource": "cash_management",
-  "name": "dijital_bankacilik_odeme"
+  "name": "digital_banking_transaction_status"
  },
  {
   "id": "3674",
@@ -886,7 +1262,7 @@
   "response_fields": [],
   "language": "en",
   "resource": "cash_management",
-  "name": "school_installment_payment_system_active_registration_inquiry_api"
+  "name": "school_installment_payment_system_active_registration_inquiry"
  },
  {
   "id": "3672",
@@ -930,7 +1306,7 @@
   "response_fields": [],
   "language": "en",
   "resource": "cash_management",
-  "name": "school_installment_system_registration_and_installment_cancellation_api"
+  "name": "school_installment_system_registration_and_installment_cancellation"
  },
  {
   "id": "3673",
@@ -1274,6 +1650,66 @@
   "name": "supplier_financing_order_last_approval_by_supplier"
  },
  {
+  "id": "1661",
+  "title": "Supplier Financing Repayment Plan Calculation",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-repayment-plan-calculation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplierfinance/getpaybackplan",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "It is the API where the order is canceled by the vendor.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "SupplierTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identify the supplier tax number.",
+    "name": "supplier_tax_number"
+   },
+   {
+    "wire": "SupplierOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Order number.",
+    "name": "supplier_order_id"
+   },
+   {
+    "wire": "MaturityDayCount",
+    "type": "int",
+    "required": false,
+    "description": "Maturity day count.",
+    "name": "maturity_day_count"
+   },
+   {
+    "wire": "EarlyPaymentDayCount",
+    "type": "int",
+    "required": false,
+    "description": "Early payment day count.",
+    "name": "early_payment_day_count"
+   }
+  ],
+  "response_fields": [
+   "SupplierOrderGuidId",
+   "OrderNumber",
+   "Status",
+   "StatusName",
+   "ResultMessage",
+   "executionReferenceId"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_repayment_plan_calculation"
+ },
+ {
   "id": "4895",
   "title": "Supplier Financing Vendor Company Invoice Approval",
   "category": "Cash Management",
@@ -1611,17 +2047,268 @@
   "name": "supplier_financing_vendor_order_initiation"
  },
  {
-  "id": "3339",
-  "title": "Tedarikçi Finansman Geri Ödeme Planı Hesaplaması",
-  "category": "Nakit Yönetimi",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/tedarikci-finansman-geri-odeme-plani-hesaplamasi",
+  "id": "4896",
+  "title": "Customer Overall Limit Values",
+  "category": "Credibility",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/credibility/customer-overall-limit-values",
   "status": "ACTIVE",
   "method": "POST",
-  "path": "/v1/supplierfinance/getpaybackplan",
+  "path": "/v1/Loans/LastAllotmentTopLimit",
   "version": "1.0",
   "scope": "loans",
   "flow": "client_credentials",
-  "description": "Siparişin satıcı tarafından iptal edildiği API'dir.",
+  "description": "Retrieves the latest allotment top limit information for the specified account number. The response includes customer and group level cash, non-cash, total limit, and risk information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "accountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Account number used to retrieve the latest allotment top limit information.",
+    "name": "account_number"
+   }
+  ],
+  "response_fields": [
+   "CashLimit",
+   "NonCashLimit",
+   "TotalLimit",
+   "CashRisk",
+   "NonCashRisk",
+   "TotalRisk",
+   "GroupCashLimit",
+   "GroupNonCashLimit",
+   "GroupTotalLimit",
+   "GroupCashRisk",
+   "GroupNonCashRisk",
+   "GroupTotalRisk"
+  ],
+  "language": "en",
+  "resource": "credibility",
+  "name": "customer_overall_limit_values"
+ },
+ {
+  "id": "4897",
+  "title": "Final Credit Decision Recommendation",
+  "category": "Credibility",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/credibility/final-credit-decision-recommendation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/Loans/AllotmentFinalDecision",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Retrieves final credit decision recommendation and allotment decision summary information for the provided account number list, group number, and Credere ART report number. The response includes approved limits, product limits, guarantor information, collateral limits, constraints, summary details, other conditions, and approval date.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "accountNumberList",
+    "type": "array",
+    "required": true,
+    "description": "List of account numbers to be included in the allotment final decision inquiry.",
+    "name": "account_number_list"
+   },
+   {
+    "wire": "groupNumber",
+    "type": "int",
+    "required": true,
+    "description": "Group number used to retrieve the allotment decision summary.",
+    "name": "group_number"
+   },
+   {
+    "wire": "credereArtReportNumber",
+    "type": "int",
+    "required": true,
+    "description": "Credere ART report number associated with the allotment decision.",
+    "name": "credere_art_report_number"
+   }
+  ],
+  "response_fields": [
+   "TopLimitList",
+   "AllotmentTopLimit",
+   "customerName",
+   "approvedCashLimit",
+   "approvedNonCashLimit",
+   "totalLimit",
+   "ProductLimitList",
+   "allotmentProductLimit",
+   "productName",
+   "approvedLimit",
+   "collateralType",
+   "collateralRange",
+   "collateralMargin",
+   "GuarantorList",
+   "allotmentGuarantor",
+   "description",
+   "OtherConditions",
+   "textValue",
+   "CollateralLimitList",
+   "allotmentCollateralLimit",
+   "approvedTotalLimit",
+   "ConstraintList",
+   "allotmentConstraint",
+   "name",
+   "typeName",
+   "constraintDetail",
+   "amount",
+   "SummaryList",
+   "allotmentSummary",
+   "allotmentSummaryName",
+   "previousLimitAmount",
+   "demandLimitAmount",
+   "approvedLimitAmount",
+   "approvedContendLimitAmount",
+   "systemDemandLimitAmount",
+   "firmDemandLimit",
+   "previousMaturity",
+   "demandMaturity",
+   "approvedMaturity",
+   "approvedContentMaturity",
+   "firmDemandMaturity",
+   "systemDemandMaturity",
+   "previousCollateralDescription",
+   "demandCollateralDescription",
+   "approvedCollateralDescription",
+   "approvedContentCollateralDescription",
+   "firmDemandCollateralDescription",
+   "systemDemandCollateralDescription",
+   "ApprovalDate"
+  ],
+  "language": "en",
+  "resource": "credibility",
+  "name": "final_credit_decision_recommendation"
+ },
+ {
+  "id": "4865",
+  "title": "Send Invoice Detail V2",
+  "category": "Credibility",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/credibility/send-invoice-detail-v2",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v2/purchase/invoice",
+  "version": "1.0",
+  "scope": "payments",
+  "flow": "client_credentials",
+  "description": "Submits invoice details to the BOA system for delivery records related to the purchase process. The request includes the delivery ID list, invoice serial number, invoice date, document content and document extension. The response returns whether the invoice submission was successful and includes error details if available.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "DeliveryIdList",
+    "type": "array",
+    "required": true,
+    "description": "List of delivery record IDs to be associated with the invoice.",
+    "name": "delivery_id_list"
+   },
+   {
+    "wire": "InvoiceNumberSerial",
+    "type": "str",
+    "required": true,
+    "description": "Invoice serial and number information.",
+    "name": "invoice_number_serial"
+   },
+   {
+    "wire": "InvoiceDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Invoice date.",
+    "name": "invoice_date"
+   },
+   {
+    "wire": "Attachment",
+    "type": "str",
+    "required": true,
+    "description": "Content of the invoice document. It is typically sent as base64 encoded document data.",
+    "name": "attachment"
+   },
+   {
+    "wire": "DocumentExtension",
+    "type": "str",
+    "required": true,
+    "description": "File extension of the submitted invoice document. For example: pdf, jpg, png.",
+    "name": "document_extension"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "credibility",
+  "name": "send_invoice_detail_v2"
+ },
+ {
+  "id": "4888",
+  "title": "Tardes Agricultural Score Inquiry",
+  "category": "Credibility",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/credibility/tardes-agricultural-score-inquiry",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/inquiry/gettardesscore",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Retrieves Tardes agricultural score details by using the provided identity number and daily query preference. The response includes Tardes score information and the related score reason details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "identityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identity number used to retrieve Tardes agricultural score details.",
+    "name": "identity_number"
+   },
+   {
+    "wire": "forceDaily",
+    "type": "bool",
+    "required": true,
+    "description": "Indicates whether the score inquiry should be performed as a daily query.",
+    "name": "force_daily"
+   }
+  ],
+  "response_fields": [
+   "tardesScoreInfo",
+   "tardesScoreId",
+   "referenceNumber",
+   "identityNumber",
+   "identityType",
+   "agricultureScore",
+   "scoreDate",
+   "exceptionCode",
+   "exceptionName",
+   "processStage",
+   "lastTransactionDate",
+   "systemDate",
+   "updateSystemDate",
+   "resourceCode",
+   "tardesScoreReasons",
+   "tardesScoreReasonCodeId",
+   "reasonCode",
+   "reasonName"
+  ],
+  "language": "en",
+  "resource": "credibility",
+  "name": "tardes_agricultural_score_inquiry"
+ },
+ {
+  "id": "4899",
+  "title": "Taxpayer - GIB Identity Information",
+  "category": "Credibility",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/credibility/taxpayer-gib-identity-information",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/inquiry/gib-tax-payer",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Retrieves taxpayer identity and registration information from GIB by using the provided identity number, online query preference, and resource code. The response includes taxpayer identity, tax office, company, establishment, birth, address, occupation, branch, and activity details.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -1630,38 +2317,178 @@
   ],
   "body_params": [
    {
-    "wire": "SupplierTaxNumber",
+    "wire": "IdentityNumber",
     "type": "str",
     "required": true,
-    "description": "Tedarikçi vergi numarasını tanımlayın.",
-    "name": "supplier_tax_number"
+    "description": "Identity number or tax number used to retrieve taxpayer information.",
+    "name": "identity_number"
    },
    {
-    "wire": "SupplierOrderId",
+    "wire": "ForceOnline",
+    "type": "bool",
+    "required": true,
+    "description": "Indicates whether the inquiry should be performed online instead of using existing cached data.",
+    "name": "force_online"
+   },
+   {
+    "wire": "ResourceCode",
     "type": "str",
     "required": true,
-    "description": "Sipariş numarası.",
-    "name": "supplier_order_id"
-   },
-   {
-    "wire": "MaturityDayCount",
-    "type": "int",
-    "required": false,
-    "description": "Vade günü sayımı.",
-    "name": "maturity_day_count"
-   },
-   {
-    "wire": "EarlyPaymentDayCount",
-    "type": "int",
-    "required": false,
-    "description": "Erken ödeme günü sayımı.",
-    "name": "early_payment_day_count"
+    "description": "Resource code used for the taxpayer inquiry process.",
+    "name": "resource_code"
    }
   ],
-  "response_fields": [],
-  "language": "tr",
-  "resource": "cash_management",
-  "name": "tedarikci_finansman_geri_odeme_plani_hesaplamasi"
+  "response_fields": [
+   "queryResult",
+   "errorCodeDescription",
+   "queryReferenceNumber",
+   "taxPayerId",
+   "identityNumber",
+   "taxNumber",
+   "taxOfficeCode",
+   "taxOfficeName",
+   "title",
+   "surname",
+   "name",
+   "fathersName",
+   "corporatePersonQualifiedCode",
+   "corporatePersonQualifiedCodeDescription",
+   "companyType",
+   "companyTypeDescription",
+   "firmStatus",
+   "firmStatusDescription",
+   "taxLiabilityBeginDate",
+   "taxLiabilityEndDate",
+   "establishmentDate",
+   "establishmentCityName",
+   "establishmentCityCode",
+   "establishmentCountyName",
+   "establishmentCountyCode",
+   "birthDate",
+   "birthCityName",
+   "birthCityCode",
+   "birthCountyName",
+   "birthCountyCode",
+   "isPotential",
+   "requestXML",
+   "responseXML",
+   "requestDate",
+   "responseDate",
+   "taxPayerHomeAddressContract",
+   "taxPayerWorkAddressContract",
+   "addressType",
+   "uAVTNumber",
+   "town",
+   "cityName",
+   "cityCode",
+   "countyName",
+   "countyCode",
+   "village",
+   "district",
+   "street",
+   "outerDoorNumber",
+   "innerDoorNumber",
+   "systemDate",
+   "addressText",
+   "occupationListInfoContract",
+   "activityCode",
+   "activityDescription",
+   "branchInformationList",
+   "workStartDate",
+   "workLeftDate",
+   "workplaceQualification",
+   "workplaceType",
+   "workLeftType",
+   "transportTaxOfficeCode",
+   "potential",
+   "branchName",
+   "branchNumber",
+   "taxOffice",
+   "activityInformationList",
+   "activityName",
+   "activityStartDate",
+   "activityEndDate",
+   "activityState",
+   "activityOrder"
+  ],
+  "language": "en",
+  "resource": "credibility",
+  "name": "taxpayer_gib_identity_information"
+ },
+ {
+  "id": "1893",
+  "title": "Account Transactions for the Organization",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/account-transactions-for-the-organization",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/donations/transactions",
+  "version": "1.0",
+  "scope": "donations",
+  "flow": "authorization_code",
+  "description": "Returns the list of all transactions between the start and end date made to the organization.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "organizationId",
+    "type": "int",
+    "required": true,
+    "description": "Organization Code",
+    "name": "organization_id"
+   },
+   {
+    "wire": "password",
+    "type": "str",
+    "required": true,
+    "description": "Organization Password",
+    "name": "password"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Report Start Date",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Report End Date",
+    "name": "end_date"
+   },
+   {
+    "wire": "campaignAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Customer Account Suffix",
+    "name": "campaign_account_suffix"
+   }
+  ],
+  "response_fields": [
+   "AccountNumber",
+   "AccountSuffix",
+   "Balance",
+   "FECName",
+   "IBAN",
+   "BranchId",
+   "BranchName",
+   "TransactionCount",
+   "TransactionList",
+   "Amount",
+   "TranDate",
+   "ValueDate",
+   "BusinessKey",
+   "CurrentBalance",
+   "Description",
+   "SenderIdentityNumber"
+  ],
+  "language": "en",
+  "resource": "donations",
+  "name": "account_transactions_for_the_organization"
  },
  {
   "id": "980",
@@ -3025,6 +3852,64 @@
   "name": "ecommerce_pre_approved_monthly_payments_v1_2"
  },
  {
+  "id": "4926",
+  "title": "Corporate App Agreement V2",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/corporate-app-agreement-v2",
+  "status": "COMING_SOON",
+  "method": "GET",
+  "path": "/v2/corporateAppAgreementData",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve credit card agreement documents before submitting a corporate credit card application. The service fetches the related corporate agreement data using the customer number, product code, language information, and application date, and returns the agreement contents in Base64 format.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "customerNumber",
+    "type": "int",
+    "required": true,
+    "description": "Customer number for which corporate credit card agreements will be retrieved.",
+    "name": "customer_number"
+   },
+   {
+    "wire": "languageId",
+    "type": "int",
+    "required": true,
+    "description": "Language information used to return agreement documents.",
+    "name": "language_id"
+   },
+   {
+    "wire": "applicationDateTime",
+    "type": "str",
+    "required": false,
+    "description": "Application date information. Format: yyyy-MM-dd.",
+    "name": "application_date_time"
+   },
+   {
+    "wire": "productCode",
+    "type": "str",
+    "required": true,
+    "description": "Credit card product code for which agreement documents will be retrieved.",
+    "name": "product_code"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "agreementListContract",
+   "agreementData",
+   "agreementDataName",
+   "interestFreeContractID",
+   "apiExecutionContract",
+   "errors"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "corporate_app_agreement_v2"
+ },
+ {
   "id": "4927",
   "title": "Corporate Credit Card Application",
   "category": "Financing Solutions",
@@ -3120,6 +4005,75 @@
   "language": "en",
   "resource": "financing",
   "name": "corporate_credit_card_application"
+ },
+ {
+  "id": "3584",
+  "title": "Credit Limit Request",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/credit-limit-request",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/loans/allotmentLimit",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "authorization_code",
+  "description": "You can request the customer''s (sent via token) credit limits in the bank. You can learn about top limits, product limits, and product collateral limits.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "accountNumber",
+   "status",
+   "AllotmentStatusName",
+   "maturityDate",
+   "tranDate"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "credit_limit_request"
+ },
+ {
+  "id": "4898",
+  "title": "Customer Current Credit Allocation Flow Information",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/customer-current-credit-allocation-flow-information",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/Loans/GetLatestRouteHistoryByAccountNumber",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Retrieves the latest route history records for the specified account number. The response includes allotment, authority, status, workflow, action, and user information related to the latest credit allocation route history.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "accountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Account number used to retrieve the latest route history records.",
+    "name": "account_number"
+   }
+  ],
+  "response_fields": [
+   "accountNumber",
+   "authorityType",
+   "status",
+   "allotmentId",
+   "allotmentMainId",
+   "credereArtReportNumber",
+   "wFInstanceId",
+   "name",
+   "actionName",
+   "userCode"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "customer_current_credit_allocation_flow_information"
  },
  {
   "id": "4922",
@@ -3261,6 +4215,50 @@
   "name": "get_digital_channel_card_application_list_v2"
  },
  {
+  "id": "4923",
+  "title": "Individual App Agreement V2",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/individual-app-agreement-v2",
+  "status": "COMING_SOON",
+  "method": "GET",
+  "path": "/v2/individualAppAgreement",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve credit card agreement documents before submitting an individual credit card application. The service fetches the related agreement data using the customer number and product code, and returns the agreement contents in Base64 format.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "customerNumber",
+    "type": "int",
+    "required": true,
+    "description": "Customer number for which individual credit card agreements will be retrieved.",
+    "name": "customer_number"
+   },
+   {
+    "wire": "productCode",
+    "type": "str",
+    "required": true,
+    "description": "Credit card product code for which agreement documents will be retrieved.",
+    "name": "product_code"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "agreementListContract",
+   "agreementData",
+   "agreementDataName",
+   "interestFreeContractID",
+   "apiExecutionContract",
+   "errors"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "individual_app_agreement_v2"
+ },
+ {
   "id": "4930",
   "title": "Individual Credit Card Application V2",
   "category": "Financing Solutions",
@@ -3362,6 +4360,420 @@
   "language": "en",
   "resource": "financing",
   "name": "individual_credit_card_application_v2"
+ },
+ {
+  "id": "3592",
+  "title": "Loan/Finance Calculation",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/loan-finance-calculation",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/calculations/loan",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Calculates the loan repayment plan according to the provided product type, installment count, funding amount, and calculation preference. The response includes monthly profit rate, total installment amount, total profit amount, tax amounts, and installment details.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "ProductCode",
+    "type": "str",
+    "required": true,
+    "description": "Product type code used for the loan calculation.",
+    "name": "product_code"
+   },
+   {
+    "wire": "InstallmentCount",
+    "type": "int",
+    "required": true,
+    "description": "Number of installments to be used in the repayment plan.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "FundingAmount",
+    "type": "number",
+    "required": true,
+    "description": "Loan funding amount to be calculated.",
+    "name": "funding_amount"
+   },
+   {
+    "wire": "IsTotalAmountByInstallmentAmount",
+    "type": "bool",
+    "required": true,
+    "description": "Indicates whether the calculation will be performed based on installment amount.",
+    "name": "is_total_amount_by_installment_amount"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "monthlyProfitRate",
+   "fundingAmount",
+   "installmentCount",
+   "totalInstallmentAmount",
+   "totalProfitAmount",
+   "totalRUSFAmount",
+   "totalBITTAmount",
+   "installments",
+   "order",
+   "amount",
+   "principalAmount",
+   "profitAmount",
+   "bittAmount",
+   "rusfAmount",
+   "remainingPrincipalAmount"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "loan_finance_calculation"
+ },
+ {
+  "id": "3588",
+  "title": "Loan/Finance Info",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/loan-finance-info",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/loans/{projectNumber}/info",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "authorization_code",
+  "description": "Returns a loan belong to given account and project number.",
+  "path_params": [
+   {
+    "wire": "projectNumber",
+    "type": "int",
+    "required": true,
+    "description": "Represents the procy identifier number.",
+    "name": "project_number"
+   }
+  ],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "productName",
+   "projectNumber",
+   "type",
+   "fxCode",
+   "projectStartDate",
+   "projectFinishDate",
+   "totalLoanAmount",
+   "loanAmount",
+   "remainDebt",
+   "paymentStatus"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "loan_finance_info"
+ },
+ {
+  "id": "3589",
+  "title": "Loan/Finance Installments",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/loan-finance-installments",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/loans/{projectNumber}/installments",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "authorization_code",
+  "description": "Returns list of installments belonging to the given project (each loan is considered as a project) number.",
+  "path_params": [
+   {
+    "wire": "projectNumber",
+    "type": "int",
+    "required": true,
+    "description": "Indicates the project number (Project number is the ID-code given to each loan).",
+    "name": "project_number"
+   }
+  ],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "installmentNumber",
+   "fxCode",
+   "paymentStatus",
+   "maturityDate",
+   "installmentAmount",
+   "paymentAmount",
+   "collectedBITTAmount",
+   "collectedPrincipalAmount",
+   "collectedProfitAmount",
+   "collectedRUSFAmount",
+   "collectedVATAmount",
+   "installmentRemaining"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "loan_finance_installments"
+ },
+ {
+  "id": "3590",
+  "title": "Loan/Finance List",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/loan-finance-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/loans",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "authorization_code",
+  "description": "Returns a list of loans belonging to the given account number.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "productName",
+   "projectNumber",
+   "type",
+   "fxCode",
+   "projectStartDate",
+   "projectFinishDate",
+   "totalLoanAmount",
+   "loanAmount",
+   "remainDebt",
+   "paymentStatus"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "loan_finance_list"
+ },
+ {
+  "id": "3591",
+  "title": "Loans Price List",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/loans-price-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/loans/pricelist",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Provides information about the prices of loan product information.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "productType",
+    "type": "int",
+    "required": true,
+    "description": "Refers to the loan product type. The expected values are from 1 to 3.",
+    "name": "product_type"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "productName",
+   "nonPaymentPeriod",
+   "bITTRate",
+   "commissionRate",
+   "expertiseAmount",
+   "vehiclePledgeAmount",
+   "hypothecAmount",
+   "customerTypeDescription",
+   "pricingInfoList",
+   "MinMaturity",
+   "Maturity",
+   "ListPriceRate",
+   "VarianceNo",
+   "UpdateDate",
+   "bankName",
+   "productTypeName"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "loans_price_list"
+ },
+ {
+  "id": "4902",
+  "title": "Send Leasing Confirmation Form",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/send-leasing-confirmation-form",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/leasing/confirmation-form",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Receives the leasing confirmation form together with the related reference, transaction amount, customs tax amount, and customs firm information. The response returns the operation result for the confirmation form submission.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "referenceNumber",
+    "type": "int",
+    "required": true,
+    "description": "Reference number associated with the leasing transaction.",
+    "name": "reference_number"
+   },
+   {
+    "wire": "transactionAmount",
+    "type": "number",
+    "required": true,
+    "description": "Transaction amount of the leasing operation.",
+    "name": "transaction_amount"
+   },
+   {
+    "wire": "customsTaxAmount",
+    "type": "number",
+    "required": true,
+    "description": "Customs tax amount related to the leasing transaction.",
+    "name": "customs_tax_amount"
+   },
+   {
+    "wire": "confirmationForm",
+    "type": "str",
+    "required": true,
+    "description": "Confirmation form content or reference information submitted for the leasing transaction.",
+    "name": "confirmation_form"
+   },
+   {
+    "wire": "customsFirmId",
+    "type": "int",
+    "required": true,
+    "description": "Identifier of the customs firm related to the leasing transaction.",
+    "name": "customs_firm_id"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "financing",
+  "name": "send_leasing_confirmation_form"
+ },
+ {
+  "id": "4904",
+  "title": "Send Leasing Current Account File",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/send-leasing-current-account-file",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/leasing/current-documents",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Receives the leasing current account document and import file closing document for the specified reference number. The response returns the operation result for the document submission.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "referenceNumber",
+    "type": "int",
+    "required": true,
+    "description": "Reference number associated with the leasing transaction.",
+    "name": "reference_number"
+   },
+   {
+    "wire": "currentExcel",
+    "type": "str",
+    "required": true,
+    "description": "Current account Excel document content or reference information submitted for the leasing transaction.",
+    "name": "current_excel"
+   },
+   {
+    "wire": "importFileClosing",
+    "type": "str",
+    "required": true,
+    "description": "Import file closing document content or reference information submitted for the leasing transaction.",
+    "name": "import_file_closing"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "financing",
+  "name": "send_leasing_current_account_file"
+ },
+ {
+  "id": "4903",
+  "title": "Send Leasing Release Documents",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/send-leasing-release-documents",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/leasing/exit-documents",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Receives leasing release documents for the specified reference number. The request may include invoice, customs declaration, exit Excel, tax payment receipt, invoice list, customs declaration list, and exit information details. The response returns the operation result for the document submission.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "document"
+  ],
+  "body_params": [
+   {
+    "wire": "ReferenceNumber",
+    "type": "int",
+    "required": true,
+    "description": "Reference number associated with the leasing transaction.",
+    "name": "reference_number"
+   },
+   {
+    "wire": "Invoice",
+    "type": "str",
+    "required": false,
+    "description": "Invoice document content or reference information submitted for the leasing transaction.",
+    "name": "invoice"
+   },
+   {
+    "wire": "CustomsDeclaration",
+    "type": "str",
+    "required": false,
+    "description": "Customs declaration document content or reference information submitted for the leasing transaction.",
+    "name": "customs_declaration"
+   },
+   {
+    "wire": "ExitExcel",
+    "type": "str",
+    "required": false,
+    "description": "Exit Excel document content or reference information submitted for the leasing transaction.",
+    "name": "exit_excel"
+   },
+   {
+    "wire": "TaxPaymentReceipt",
+    "type": "str",
+    "required": false,
+    "description": "Tax payment receipt document content or reference information submitted for the leasing transaction.",
+    "name": "tax_payment_receipt"
+   },
+   {
+    "wire": "InvoiceList",
+    "type": "array",
+    "required": false,
+    "description": "List of invoice records related to the leasing release documents.",
+    "name": "invoice_list"
+   },
+   {
+    "wire": "CustomsDeclarationList",
+    "type": "array",
+    "required": false,
+    "description": "List of customs declaration records related to the leasing release documents.",
+    "name": "customs_declaration_list"
+   },
+   {
+    "wire": "ExitInformationList",
+    "type": "array",
+    "required": false,
+    "description": "List of exit information records related to the leasing release documents.",
+    "name": "exit_information_list"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "financing",
+  "name": "send_leasing_release_documents"
  },
  {
   "id": "1999",
@@ -3785,6 +5197,123 @@
   "name": "hgs_usage_transactions"
  },
  {
+  "id": "3424",
+  "title": "Bank Branch List",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/bank-branch-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/data/banks/{bankId}/branches",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Returns the list of branches of given bank id and city id within Turkish Banking System.",
+  "path_params": [
+   {
+    "wire": "bankId",
+    "type": "int",
+    "required": true,
+    "description": "Bank code for listing branches",
+    "name": "bank_id"
+   }
+  ],
+  "query_params": [
+   {
+    "wire": "cityId",
+    "type": "int",
+    "required": true,
+    "description": "Specify the city of branches",
+    "name": "city_id"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "branchId",
+   "name"
+  ],
+  "language": "en",
+  "resource": "information",
+  "name": "bank_branch_list"
+ },
+ {
+  "id": "3425",
+  "title": "Bank List",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/bank-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/data/banks",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Returns the list of banks within Turkish Banking System.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "bankId",
+   "name"
+  ],
+  "language": "en",
+  "resource": "information",
+  "name": "bank_list"
+ },
+ {
+  "id": "3426",
+  "title": "Calculate Profit Share Rate",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/calculate-profit-share-rate",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/calculateprofitsharerate",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API calculates the profit share rate according to Kuveyt Turk rates and gives information about the profit to be obtained.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "expireDay",
+    "type": "int",
+    "required": true,
+    "description": "Specifies the number of days to be due. Takes the max value of 999",
+    "name": "expire_day"
+   },
+   {
+    "wire": "fxType",
+    "type": "int",
+    "required": true,
+    "description": "Specifies the type of currency to be calculated. (Takes the value \"0\" for TL.), (Takes the value \"1\" for USD.), (Takes the value \"19\" for EUR), (Takes the value \"24\" for XAU(gr). )",
+    "name": "fx_type"
+   },
+   {
+    "wire": "product",
+    "type": "int",
+    "required": true,
+    "description": "Specifies the product group to be calculated. (It takes the value \"2\" for the participation account.), (It takes the value \"3\" for the participation account with interim profit share payment.)",
+    "name": "product"
+   },
+   {
+    "wire": "amount",
+    "type": "number",
+    "required": true,
+    "description": "Specifies the amount to be deposited into the participation account.",
+    "name": "amount"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "information",
+  "name": "calculate_profit_share_rate"
+ },
+ {
   "id": "4892",
   "title": "Central Notification",
   "category": "Notification Services",
@@ -3836,17 +5365,745 @@
   "name": "central_notification"
  },
  {
-  "id": "4874",
-  "title": "Money Transfer Report For Kuveyt Türk Investment Securities Inc.",
-  "category": "Other",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/money-transfer-report-for-kuveyt-turk-investment-securities-inc",
+  "id": "3428",
+  "title": "Collect Installment",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/collect-installment",
   "status": "ACTIVE",
   "method": "POST",
-  "path": "/v1/investment/report-for-account-activities",
+  "path": "/v1/collections/collectInstallment",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Collects the installment from the customer's account provided in the parameters.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "processId",
+    "type": "int",
+    "required": true,
+    "description": "Installment Id.",
+    "name": "process_id"
+   },
+   {
+    "wire": "collectionAccountNumber",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "collection_account_number"
+   },
+   {
+    "wire": "collectionAccountSuffix",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "collection_account_suffix"
+   },
+   {
+    "wire": "accountNumber",
+    "type": "int",
+    "required": true,
+    "description": "The account number of the customer.",
+    "name": "account_number"
+   },
+   {
+    "wire": "accountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "The account suffix number of the customer.",
+    "name": "account_suffix"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "information",
+  "name": "collect_installment"
+ },
+ {
+  "id": "3429",
+  "title": "Collection List",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/collection-list",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/collections",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Returns the list of collection records associated with the account number provided in the parameters.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "accountNumber",
+    "type": "int",
+    "required": true,
+    "description": "The account number of the customer.",
+    "name": "account_number"
+   },
+   {
+    "wire": "accountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "The account suffix number of the customer.",
+    "name": "account_suffix"
+   },
+   {
+    "wire": "processId",
+    "type": "int",
+    "required": true,
+    "description": "Installment Id.",
+    "name": "process_id"
+   },
+   {
+    "wire": "isPTTCollection",
+    "type": "bool",
+    "required": true,
+    "description": "Whether the collection is the PTT Collection.",
+    "name": "is_ptt_collection"
+   }
+  ],
+  "response_fields": [
+   "processId",
+   "installmentType",
+   "installmentTypeName",
+   "projectAccountNumber",
+   "projectAccountSuffix",
+   "projectBranchId",
+   "maturityDate",
+   "installmentAmount",
+   "debtFEC",
+   "isLeasing",
+   "customerMainState"
+  ],
+  "language": "en",
+  "resource": "information",
+  "name": "collection_list"
+ },
+ {
+  "id": "3437",
+  "title": "Get Class Info",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/get-class-info",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/erp/lms/getClassInfo",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "To ensure that the active training information of the class is displayed on the screens placed at the doors of the classrooms.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "classroomId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "classroom_id"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "information",
+  "name": "get_class_info"
+ },
+ {
+  "id": "3444",
+  "title": "IBAN Validation Utility",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/iban-validation-utility",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/validation/ibanvalidator",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API endpoint is a utility endpoint that performs validity control for a given IBAN (i.e. Internation Bank Identifier Number). The validity control is performed format-wise only. This implies that the existence/reality of the IBAN or its association with any Bank is not taken into concern during the validity control.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "iban",
+    "type": "str",
+    "required": true,
+    "description": "This input parameter represents the IBAN (i.e. International Bank Identifier Number) that is associated with a bank account. Its usage is mandatory in the request call and It can be associated with any world-wide bank (i.e. it does not necessarly have to be associated with Kuveyt Turk).",
+    "name": "iban"
+   }
+  ],
+  "response_fields": [
+   "IsValid",
+   "ValidationMessage"
+  ],
+  "language": "en",
+  "resource": "information",
+  "name": "iban_validation_utility"
+ },
+ {
+  "id": "3448",
+  "title": "Kuveyt Turk ATM List",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/kuveyt-turk-atm-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/data/atms",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Returns the list of off-site Kuveyt Turk ATMs.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "name",
+   "cityName",
+   "longitude",
+   "latitude",
+   "address"
+  ],
+  "language": "en",
+  "resource": "information",
+  "name": "kuveyt_turk_atm_list"
+ },
+ {
+  "id": "3449",
+  "title": "Kuveyt Turk Branch List",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/kuveyt-turk-branch-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/data/branches",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Returns the list of Kuveyt Turk branches.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "name",
+   "cityName",
+   "longitude",
+   "latitude",
+   "address",
+   "phone",
+   "fax",
+   "email"
+  ],
+  "language": "en",
+  "resource": "information",
+  "name": "kuveyt_turk_branch_list"
+ },
+ {
+  "id": "3450",
+  "title": "Kuveyt Turk XTM List",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/kuveyt-turk-xtm-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/data/xtms",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Returns the list of Kuveyt Turk XTMs.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "name",
+   "cityName",
+   "longitude",
+   "latitude",
+   "address"
+  ],
+  "language": "en",
+  "resource": "information",
+  "name": "kuveyt_turk_xtm_list"
+ },
+ {
+  "id": "3451",
+  "title": "Loan/Finance Calculation Parameter",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/loan-finance-calculation-parameter",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/data/loans",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Returns the list of loan product types. This API is used to determine loan calculation parameters.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "productTypeCode",
+   "productName"
+  ],
+  "language": "en",
+  "resource": "information",
+  "name": "loan_finance_calculation_parameter"
+ },
+ {
+  "id": "1135",
+  "title": "MoneyGram Country List",
+  "category": "MoneyGram",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/moneygram/moneygram-country-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/moneygram/countrylist",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "&lt;div class=\"alert alert-warning\"&gt; Note: This API is in beta stage. Request and response models may change over time. &lt;/div&gt; Returns the list of countries within MoneyGram Payment System.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "countryCode",
+   "countryName",
+   "countryNameTR",
+   "baseReceiveCurrency"
+  ],
+  "language": "en",
+  "resource": "moneygram",
+  "name": "money_gram_country_list"
+ },
+ {
+  "id": "1133",
+  "title": "MoneyGram Currency List",
+  "category": "MoneyGram",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/moneygram/moneygram-currency-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/moneygram/currencylist",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "&lt;div class=\"alert alert-warning\"&gt; Note: This API is in beta stage. Request and response models may change over time. &lt;/div&gt; Returns the list of currencies of interested countries within Moneygram Payment System.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "currencyCode",
+   "currencyName",
+   "currencyNameTR"
+  ],
+  "language": "en",
+  "resource": "moneygram",
+  "name": "money_gram_currency_list"
+ },
+ {
+  "id": "1160",
+  "title": "MoneyGram Get Fee",
+  "category": "MoneyGram",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/moneygram/moneygram-get-fee",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/moneygram/getfee",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "authorization_code",
+  "description": "Get fee results. Countries can pay only with allowed currencies. In order to proceed the transfer, sender must select payment type accordibg these results. The parameters sent include receiveCountry, amount, and choiceType.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "receiveCountry",
+    "type": "str",
+    "required": true,
+    "description": "Indicates receive country code info.",
+    "name": "receive_country"
+   },
+   {
+    "wire": "sendCurrency",
+    "type": "str",
+    "required": true,
+    "description": "Indicates send currency code info.",
+    "name": "send_currency"
+   },
+   {
+    "wire": "amount",
+    "type": "number",
+    "required": true,
+    "description": "Amount that will be sent.",
+    "name": "amount"
+   },
+   {
+    "wire": "choiceType",
+    "type": "int",
+    "required": true,
+    "description": "Fee type according to send amount.",
+    "name": "choice_type"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "moneygram",
+  "name": "money_gram_get_fee"
+ },
+ {
+  "id": "1674",
+  "title": "MoneyGram Query Fee",
+  "category": "MoneyGram",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/moneygram/moneygram-query-fee",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/moneygram/queryfee",
   "version": "1.0",
   "scope": "transfers",
   "flow": "client_credentials",
-  "description": "Retrieves the account activities report for Kuveyt Türk Investment Securities Inc. according to the provided language and transaction date. The response includes money transfer and account activity details such as transaction identifier, transfer type, amount, intermediary account number, currency, comment, and system date.",
+  "description": "Get fee results. Countries can pay only with allowed currencies. In order to proceed the transfer, sender must select payment type accordibg these results. The parameters sent include receiveCountry, amount, and choiceType.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "receiveCountry",
+    "type": "str",
+    "required": true,
+    "description": "Indicates receive country code info.",
+    "name": "receive_country"
+   },
+   {
+    "wire": "amount",
+    "type": "number",
+    "required": true,
+    "description": "Amount that will be sent.",
+    "name": "amount"
+   },
+   {
+    "wire": "choiceType",
+    "type": "int",
+    "required": true,
+    "description": "Fee type according to send amount.",
+    "name": "choice_type"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "sendAmount",
+   "feeAmount",
+   "sendCurrency",
+   "totalAmount",
+   "validReceiveAmount",
+   "validReceiveCurrency",
+   "validExchangeRate",
+   "receiveCountryName",
+   "deliveryOption",
+   "deliveryOptionNameTR"
+  ],
+  "language": "en",
+  "resource": "moneygram",
+  "name": "money_gram_query_fee"
+ },
+ {
+  "id": "1159",
+  "title": "MoneyGram Query Reference",
+  "category": "MoneyGram",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/moneygram/moneygram-query-reference",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/moneygram/queryreference",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "authorization_code",
+  "description": "According the reference number, returns detail informations about the money transfer.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "referenceNumber",
+    "type": "str",
+    "required": true,
+    "description": "Transaction reference number.",
+    "name": "reference_number"
+   }
+  ],
+  "response_fields": [
+   "ReferenceNumber",
+   "TransactionStatusTR",
+   "SenderFirstName",
+   "SenderLastName",
+   "ReceiverFirstName",
+   "ReceiverLastName",
+   "DateTimeSent",
+   "ReceiveAmount",
+   "ReceiveCurrency",
+   "SenderCountry",
+   "DeliveryOption",
+   "SenderHomePhone",
+   "SenderAddress",
+   "OriginalSendFee",
+   "OriginalExchangeRate",
+   "SenderCity",
+   "ReceiverCountry"
+  ],
+  "language": "en",
+  "resource": "moneygram",
+  "name": "money_gram_query_reference"
+ },
+ {
+  "id": "1673",
+  "title": "MoneyGram Send",
+  "category": "MoneyGram",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/moneygram/moneygram-send",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/moneygram/send",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "authorization_code",
+  "description": "According the customer information, sender person can send money to countries which moneygram payment system allows.In order to proceed the transfer, Kuveyt Turk sends a one-time-password via SMS to the customer and gives a transaction id to the developer, the customer enters the code to the third party app, and the third party app sends the id and the SMS code to Kuveyt Turk via “Moneygram Send” API.If the id and the sms codes match, then Kuveyt Turk authenticates the transaction.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "MoneyGramTranContract",
+   "SendMoneygramContract"
+  ],
+  "body_params": [
+   {
+    "wire": "TransactionContract",
+    "type": "object",
+    "required": false,
+    "description": "",
+    "name": "transaction_contract"
+   },
+   {
+    "wire": "SenderCustomer",
+    "type": "object",
+    "required": false,
+    "description": "",
+    "name": "sender_customer"
+   },
+   {
+    "wire": "ReceiverCustomer",
+    "type": "object",
+    "required": false,
+    "description": "",
+    "name": "receiver_customer"
+   }
+  ],
+  "response_fields": [
+   "ReferenceNumber"
+  ],
+  "language": "en",
+  "resource": "moneygram",
+  "name": "money_gram_send"
+ },
+ {
+  "id": "4905",
+  "title": "Calculate Welcome Participation Account Profit Share",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/calculate-welcome-participation-account-profit-share",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/welcomeprofitsharecalculation",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Calculates the welcome participation account profit share according to the provided product, maturity, currency, deposit amount, currency range, index currency, and FATSI code information. The response includes net and gross profit share rates for the selected term and yearly calculation.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "_productCode",
+    "type": "str",
+    "required": true,
+    "description": "Product code used for the welcome profit share calculation.",
+    "name": "product_code"
+   },
+   {
+    "wire": "_maturityTerm",
+    "type": "int",
+    "required": true,
+    "description": "Maturity term or expiry day used in the calculation.",
+    "name": "maturity_term"
+   },
+   {
+    "wire": "fec",
+    "type": "int",
+    "required": true,
+    "description": "Currency type identifier used for the deposit amount.",
+    "name": "fec"
+   },
+   {
+    "wire": "productGroup",
+    "type": "int",
+    "required": true,
+    "description": "Product group identifier used for the calculation.",
+    "name": "product_group"
+   },
+   {
+    "wire": "depositAmount",
+    "type": "number",
+    "required": true,
+    "description": "Deposit amount used in the profit share calculation.",
+    "name": "deposit_amount"
+   },
+   {
+    "wire": "CurrencyBegin",
+    "type": "number",
+    "required": false,
+    "description": "Beginning currency value used in the calculation.",
+    "name": "currency_begin"
+   },
+   {
+    "wire": "CurrencyEnd",
+    "type": "number",
+    "required": false,
+    "description": "Ending currency value used in the calculation.",
+    "name": "currency_end"
+   },
+   {
+    "wire": "IndexFec",
+    "type": "int",
+    "required": false,
+    "description": "Index currency identifier used in the calculation.",
+    "name": "index_fec"
+   },
+   {
+    "wire": "FatsiCode",
+    "type": "int",
+    "required": false,
+    "description": "FATSI code used in the profit share calculation.",
+    "name": "fatsi_code"
+   }
+  ],
+  "response_fields": [
+   "NetProfitShare",
+   "GrossProfitShare",
+   "NetProfitShareYearly",
+   "GrossProfitShareYearly"
+  ],
+  "language": "en",
+  "resource": "other",
+  "name": "calculate_welcome_participation_account_profit_share"
+ },
+ {
+  "id": "4900",
+  "title": "CrediTech Intelligence Inquiry By Credit Allocation Status",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/creditech-intelligence-inquiry-by-credit-allocation-status",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/Loans/GetInquiryPermissionCheckByCreditechtReportNumber",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Checks the inquiry permission status for the specified Creditecht report number. The response returns the inquiry permission check result for the related report.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "creditechtReportNumber",
+    "type": "int",
+    "required": true,
+    "description": "Creditecht report number used to check inquiry permission status.",
+    "name": "creditecht_report_number"
+   }
+  ],
+  "response_fields": [
+   "isInquiryPermissionCheck"
+  ],
+  "language": "en",
+  "resource": "other",
+  "name": "credi_tech_intelligence_inquiry_by_credit_allocation_status"
+ },
+ {
+  "id": "4885",
+  "title": "CreditTech Pos API",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/credittech-pos-api",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/data/credittechpos",
+  "version": "1.0",
+  "scope": "payments",
+  "flow": "client_credentials",
+  "description": "Retrieves CreditTech POS data for the specified identity number and query period range. The response includes the response date and a list of POS transaction amount records grouped by tax number and period information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "input"
+  ],
+  "body_params": [
+   {
+    "wire": "QueryBeginPeriod",
+    "type": "int",
+    "required": true,
+    "description": "Start period of the query in YYYYMM format.",
+    "name": "query_begin_period"
+   },
+   {
+    "wire": "QueryEndPeriod",
+    "type": "int",
+    "required": true,
+    "description": "End period of the query in YYYYMM format.",
+    "name": "query_end_period"
+   },
+   {
+    "wire": "IdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identity number or tax number used to query CreditTech POS data.",
+    "name": "identity_number"
+   }
+  ],
+  "response_fields": [
+   "ResponseDate",
+   "DataContractList",
+   "LocalAmount",
+   "QueryBeginPeriod",
+   "QueryEndPeriod",
+   "TaxNumber"
+  ],
+  "language": "en",
+  "resource": "other",
+  "name": "credit_tech_pos"
+ },
+ {
+  "id": "4879",
+  "title": "Fraud Notifications Exists",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/fraud-notifications-exists",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/inquiry/is-fraud-notification-exists",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Checks whether an active fraud notification record exists for the provided identity number. The response indicates whether a matching fraud notification record was found.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -3855,87 +6112,279 @@
   ],
   "body_params": [
    {
-    "wire": "languageId",
-    "type": "int",
+    "wire": "IdentityNumber",
+    "type": "str",
     "required": true,
-    "description": "Language identifier used for report content and descriptions.",
-    "name": "language_id"
-   },
-   {
-    "wire": "transactionDate",
-    "type": "datetime",
-    "required": true,
-    "description": "Transaction date used to retrieve account activities.",
-    "name": "transaction_date"
+    "description": "Identity number or tax number used to check whether a fraud notification record exists.",
+    "name": "identity_number"
    }
   ],
   "response_fields": [
-   "accountActivities",
-   "bankMoneyTransferId",
-   "transactionId",
-   "transferType",
-   "transferAmount",
-   "intermediaryAccountNumber",
-   "currency",
-   "comment",
-   "systemDate"
+   "isExists"
   ],
   "language": "en",
   "resource": "other",
-  "name": "money_transfer_report_for_kuveyt_turk_investment_securities_inc"
+  "name": "fraud_notifications_exists"
  },
  {
-  "id": "4917",
-  "title": "Virtual Card Limit Update",
+  "id": "4880",
+  "title": "Get Fraud Notifications Last Day",
   "category": "Other",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/virtual-card-limit-update",
-  "status": "",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/get-fraud-notifications-last-day",
+  "status": "ACTIVE",
   "method": "POST",
-  "path": "/v1/cards/virtualcardlimitupdate",
+  "path": "/v1/inquiry/get-fraud-notifications-daily",
   "version": "1.0",
-  "scope": "cards",
-  "flow": "authorization_code",
-  "description": "This API updates the limit of a virtual credit card for the authenticated customer. > This API is in beta stage. Request and response models may change over time.",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API retrieves fraud notification records for the last 24 hours based on the given reference date. The response includes corporation and individual fraud notification records.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
   "body_wrap": [
-   "request"
+   "contract"
   ],
   "body_params": [
    {
-    "wire": "CreditCardNumber",
-    "type": "str",
+    "wire": "referenceDate",
+    "type": "datetime",
     "required": true,
-    "description": "Virtual credit card number whose limit will be updated.",
-    "name": "credit_card_number"
+    "description": "Reference date used to retrieve fraud notifications for the last 24 hours.",
+    "name": "reference_date"
+   }
+  ],
+  "response_fields": [
+   "corporationRecords",
+   "blackListCorporationID",
+   "title",
+   "taxNumber",
+   "tradeRegisterNumber",
+   "customerNumber",
+   "companyType",
+   "address",
+   "city",
+   "county",
+   "neighborhood",
+   "phone",
+   "inquirySource",
+   "firstAuthorizedPersonName",
+   "firstAuthorizedPersonLastName",
+   "description",
+   "blackListTypeID",
+   "userName",
+   "host_Name",
+   "dateAdded",
+   "updateUserName",
+   "updateHostName",
+   "dateUpdated",
+   "status",
+   "blackListDetailId",
+   "divitInstanceId",
+   "isActive",
+   "senderName",
+   "attemptDate",
+   "senderBankCode",
+   "fraudType",
+   "individualRecords",
+   "blackListPersonalID",
+   "firstName",
+   "lastName",
+   "mothersName",
+   "fathersName",
+   "identityNumber",
+   "birthDate",
+   "birthPlace",
+   "birthPlaceText",
+   "jobTitle"
+  ],
+  "language": "en",
+  "resource": "other",
+  "name": "get_fraud_notifications_last_day"
+ },
+ {
+  "id": "4901",
+  "title": "Get Process Design Xml By Business Process Id",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/get-process-design-xml-by-business-process-id",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/bpm/post/grcprocessdesignxml",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve the process design XML definition for a specified business process. The request includes the business process ID, and the response returns the corresponding BPMN process design XML content.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "businessProcessId",
+    "type": "int",
+    "required": true,
+    "description": "Business process ID for which the process design XML definition will be retrieved.",
+    "name": "business_process_id"
+   }
+  ],
+  "response_fields": [
+   "responseValue"
+  ],
+  "language": "en",
+  "resource": "other",
+  "name": "get_process_design_xml_by_business_process_id"
+ },
+ {
+  "id": "4887",
+  "title": "Saglam Pay Get Customer Full Info",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/saglam-pay-get-customer-full-info",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/get-customer-info-by-customerId-full",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Retrieves full customer-related account and money transfer information by using the provided customer and account details. The response includes the execution reference identifier and money transfer transaction identifier generated for the operation.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "SenderAccountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Sender customer account number used for the operation.",
+    "name": "sender_account_number"
    },
    {
-    "wire": "Limit",
+    "wire": "SenderAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Sender account suffix used to identify the source account.",
+    "name": "sender_account_suffix"
+   },
+   {
+    "wire": "ReceiverAccountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Receiver account number used to identify the destination account.",
+    "name": "receiver_account_number"
+   },
+   {
+    "wire": "ReceiverAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Receiver account suffix used to identify the destination account.",
+    "name": "receiver_account_suffix"
+   },
+   {
+    "wire": "MoneyTransferDescription",
+    "type": "str",
+    "required": false,
+    "description": "Description text for the money transfer transaction.",
+    "name": "money_transfer_description"
+   },
+   {
+    "wire": "MoneyTransferAmount",
     "type": "number",
     "required": true,
-    "description": "New limit amount to be assigned to the virtual credit card.",
-    "name": "limit"
+    "description": "Amount of the money transfer transaction.",
+    "name": "money_transfer_amount"
    },
    {
-    "wire": "CustomerId",
+    "wire": "TransferType",
     "type": "int",
     "required": true,
-    "description": "Unique customer identifier.",
-    "name": "customer_id"
+    "description": "Transfer type information used for the money transfer operation.",
+    "name": "transfer_type"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "ExecutionReferenceId",
+   "MoneyTransferTransactionId"
+  ],
+  "language": "en",
+  "resource": "other",
+  "name": "saglam_pay_get_customer_full_info"
+ },
+ {
+  "id": "4878",
+  "title": "Visa Payment Status Notification",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/visa-payment-status-notification",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/StatusNotify",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Sends a document for status notification by using the provided document template identifier and Base64 encoded document content. The response returns the generated document operation identifier and operation result.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "documentApiContract"
+  ],
+  "body_params": [
+   {
+    "wire": "DocumentTemplateId",
+    "type": "int",
+    "required": true,
+    "description": "Document template identifier used for the status notification document.",
+    "name": "document_template_id"
    },
    {
-    "wire": "LanguageId",
-    "type": "int",
+    "wire": "DocBase64Content",
+    "type": "str",
     "required": true,
-    "description": "Language identifier used for localized messages and responses.",
-    "name": "language_id"
+    "description": "Base64 encoded content of the document to be sent.",
+    "name": "doc_base64_content"
    }
   ],
   "response_fields": [],
   "language": "en",
   "resource": "other",
-  "name": "virtual_card_limit_update"
+  "name": "visa_payment_status_notification"
+ },
+ {
+  "id": "4877",
+  "title": "Visa Statement Delivery",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/visa-statement-delivery",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/StatementDelivery",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Sends a document for statement delivery by using the provided document template identifier and Base64 encoded document content. The response returns the generated document operation identifier and operation result.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "documentApiContract"
+  ],
+  "body_params": [
+   {
+    "wire": "DocumentTemplateId",
+    "type": "int",
+    "required": true,
+    "description": "Document template identifier used for the statement delivery document.",
+    "name": "document_template_id"
+   },
+   {
+    "wire": "DocBase64Content",
+    "type": "str",
+    "required": true,
+    "description": "Base64 encoded content of the document to be sent.",
+    "name": "doc_base64_content"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "other",
+  "name": "visa_statement_delivery"
  },
  {
   "id": "3681",
@@ -4513,6 +6962,76 @@
   "language": "en",
   "resource": "payment_solutions",
   "name": "pos_transaction_details_v3"
+ },
+ {
+  "id": "3260",
+  "title": "Üçüncü Taraf Sağlayıcı (TPP) için POS İşlemleri Özeti V2",
+  "category": "Ödeme Çözümleri",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/odeme-cozumleri/ucuncu-taraf-saglayici-tpp-icin-pos-islemleri-ozeti-v2",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v2/pos/transactions",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "authorization_code",
+  "description": "Bu API, belirtilen müşteri ve üye işyeri numarası için verilen tarih aralığı ve ekstre tipine göre POS işlem bilgilerini getirir. > Bu API beta aşamasındadır. İstek ve yanıt modelleri zamanla değişebilir.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "POS işlem bilgileri getirilecek müşterinin tekil müşteri numarasıdır.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "memberNumber",
+    "type": "str",
+    "required": true,
+    "description": "POS işlem bilgileri sorgulanacak üye işyeri numarasıdır.",
+    "name": "member_number"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": true,
+    "description": "İşlem sorgu döneminin başlangıç tarihidir.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": true,
+    "description": "İşlem sorgu döneminin bitiş tarihidir.",
+    "name": "end_date"
+   },
+   {
+    "wire": "extractType",
+    "type": "str",
+    "required": true,
+    "description": "POS işlem sorgusunu filtrelemek için kullanılan ekstre tipidir.",
+    "name": "extract_type"
+   }
+  ],
+  "response_fields": [
+   "posTransactions",
+   "blockedDate",
+   "amount",
+   "commissionRate",
+   "commissionAmount",
+   "bsmv",
+   "blockedNumber",
+   "unBlockedDate",
+   "netAmount",
+   "internationalFecCode",
+   "fecCode"
+  ],
+  "language": "tr",
+  "resource": "payment_solutions",
+  "name": "pos_transactions_summary_for_tpp_v2"
  },
  {
   "id": "3408",
@@ -5456,6 +7975,256 @@
   "name": "check_money_transfers_status_from_kt_bank_to_kuveyt_turk"
  },
  {
+  "id": "4875",
+  "title": "Do Stamp Duty Tax Payment Offline",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/do-stamp-duty-tax-payment-offline",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/tax/do-stamp-duty-tax-payment-offline",
+  "version": "1.0",
+  "scope": "payments",
+  "flow": "client_credentials",
+  "description": "Performs an offline stamp duty tax payment according to the provided taxpayer, payment, account, tax office, debit, accrual, vehicle, ATM amount, and reference information. The response includes payment, tax, amount, branch, channel, business key, taxpayer, transaction date, payer, corporation, and transaction reference details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "contract",
+    "type": "object",
+    "required": true,
+    "description": "Contains the offline stamp duty tax payment request details.",
+    "name": "contract"
+   },
+   {
+    "wire": "resourceCode",
+    "type": "str",
+    "required": true,
+    "description": "Resource code used for the tax payment operation.",
+    "name": "resource_code"
+   },
+   {
+    "wire": "doNotification",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether notification should be sent after the payment.",
+    "name": "do_notification"
+   },
+   {
+    "wire": "MainDebitContract",
+    "type": "object",
+    "required": true,
+    "description": "Contains main debit details of the tax payment.",
+    "name": "main_debit_contract"
+   },
+   {
+    "wire": "TaxCode",
+    "type": "str",
+    "required": true,
+    "description": "Tax code of the main debit record.",
+    "name": "tax_code"
+   },
+   {
+    "wire": "InstallmentNumber",
+    "type": "int",
+    "required": true,
+    "description": "Installment number of the tax payment.",
+    "name": "installment_number"
+   },
+   {
+    "wire": "TaxAmount",
+    "type": "number",
+    "required": true,
+    "description": "Main tax amount.",
+    "name": "tax_amount"
+   },
+   {
+    "wire": "SubTaxAmount",
+    "type": "number",
+    "required": false,
+    "description": "Sub tax amount.",
+    "name": "sub_tax_amount"
+   },
+   {
+    "wire": "TotalAmount",
+    "type": "number",
+    "required": true,
+    "description": "Total payment amount.",
+    "name": "total_amount"
+   },
+   {
+    "wire": "DueDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Due date of the tax payment.",
+    "name": "due_date"
+   },
+   {
+    "wire": "DebitContractList",
+    "type": "array",
+    "required": false,
+    "description": "List of debit details related to the main debit record.",
+    "name": "debit_contract_list"
+   },
+   {
+    "wire": "OpsatirOId",
+    "type": "str",
+    "required": false,
+    "description": "OPSATIR object identifier of the debit detail.",
+    "name": "opsatir_o_id"
+   },
+   {
+    "wire": "OpshOId",
+    "type": "str",
+    "required": false,
+    "description": "OPSH object identifier of the debit detail.",
+    "name": "opsh_o_id"
+   },
+   {
+    "wire": "TableType",
+    "type": "int",
+    "required": false,
+    "description": "Table type of the debit detail.",
+    "name": "table_type"
+   },
+   {
+    "wire": "SerialAndOrderNumber",
+    "type": "str",
+    "required": false,
+    "description": "Serial and order number of the debit detail.",
+    "name": "serial_and_order_number"
+   },
+   {
+    "wire": "SubTaxCode",
+    "type": "str",
+    "required": false,
+    "description": "Sub tax code of the debit detail.",
+    "name": "sub_tax_code"
+   },
+   {
+    "wire": "Amount",
+    "type": "number",
+    "required": true,
+    "description": "Amount of the debit detail.",
+    "name": "amount"
+   },
+   {
+    "wire": "Description",
+    "type": "str",
+    "required": false,
+    "description": "Description of the debit detail.",
+    "name": "description"
+   },
+   {
+    "wire": "DiscountAmount",
+    "type": "number",
+    "required": false,
+    "description": "Discount amount of the debit detail.",
+    "name": "discount_amount"
+   },
+   {
+    "wire": "TotalDiscountAmount",
+    "type": "number",
+    "required": false,
+    "description": "Total discount amount of the main debit record.",
+    "name": "total_discount_amount"
+   },
+   {
+    "wire": "ServiceCallId",
+    "type": "int",
+    "required": false,
+    "description": "Service call identifier related to the tax inquiry or payment.",
+    "name": "service_call_id"
+   },
+   {
+    "wire": "EarlyPaymentState",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether early payment status applies.",
+    "name": "early_payment_state"
+   },
+   {
+    "wire": "LateState",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether late payment status applies.",
+    "name": "late_state"
+   },
+   {
+    "wire": "ValidInstallment",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether the installment is valid for payment.",
+    "name": "valid_installment"
+   },
+   {
+    "wire": "BeginInstallmentDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Begin date of the installment period.",
+    "name": "begin_installment_date"
+   },
+   {
+    "wire": "EndInstallmentDate",
+    "type": "datetime",
+    "required": false,
+    "description": "End date of the installment period.",
+    "name": "end_installment_date"
+   },
+   {
+    "wire": "AccrualNumber",
+    "type": "str",
+    "required": false,
+    "description": "Accrual number of the tax payment.",
+    "name": "accrual_number"
+   },
+   {
+    "wire": "Name",
+    "type": "str",
+    "required": false,
+    "description": "Name related to the tax record.",
+    "name": "name"
+   },
+   {
+    "wire": "TaxPriceId",
+    "type": "int",
+    "required": false,
+    "description": "Tax price identifier.",
+    "name": "tax_price_id"
+   }
+  ],
+  "response_fields": [
+   "installmentNumber",
+   "paymentId",
+   "taxCode",
+   "taxOfficeCode",
+   "period",
+   "year",
+   "serialNumber",
+   "orderNumber",
+   "paymentType",
+   "amount",
+   "branchId",
+   "channelId",
+   "businessKey",
+   "taxNumber",
+   "isOnlinePayment",
+   "transactionDate",
+   "firstName",
+   "lastName",
+   "corporationName",
+   "transactionReference",
+   "errors",
+   "message",
+   "code"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "do_stamp_duty_tax_payment_offline"
+ },
+ {
   "id": "4856",
   "title": "Insert Money Transfers From KT Bank To Kuveyt Turk",
   "category": "Payments",
@@ -5817,6 +8586,1315 @@
   "name": "send_order_distribution_detail_v2"
  },
  {
+  "id": "4872",
+  "title": "Consume Insurance Queue",
+  "category": "SGK",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sgk/consume-insurance-queue",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/insurance/consumeQueue",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Consumes an insurance queue message by using the provided unique identifier, business key, and Base64 encoded data. The response indicates whether the queue consumption operation was completed successfully.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "QueueMessage"
+  ],
+  "body_params": [
+   {
+    "wire": "UniqueId",
+    "type": "str",
+    "required": true,
+    "description": "Unique identifier of the queue message.",
+    "name": "unique_id"
+   },
+   {
+    "wire": "BusinessKey",
+    "type": "number",
+    "required": true,
+    "description": "Business key associated with the queue message.",
+    "name": "business_key"
+   },
+   {
+    "wire": "Base64Data",
+    "type": "str",
+    "required": true,
+    "description": "Base64 encoded content of the queue message.",
+    "name": "base64_data"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "sgk",
+  "name": "consume_insurance_queue"
+ },
+ {
+  "id": "4868",
+  "title": "PR - Customer Validation",
+  "category": "SMS-OTP",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sms-otp/pr-customer-validation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/paymentrequest/customerValidation",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Validates customer information for payment request operations by using the provided IBAN and title. The response includes customer, IBAN, title match, payment request permission, customer status, language, FAST limit, customer type, and result details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "iban",
+    "type": "str",
+    "required": true,
+    "description": "IBAN used to validate the customer for payment request operations.",
+    "name": "iban"
+   },
+   {
+    "wire": "title",
+    "type": "str",
+    "required": true,
+    "description": "Customer title used to validate title matching for the provided IBAN.",
+    "name": "title"
+   }
+  ],
+  "response_fields": [
+   "customerId",
+   "isIbanFound",
+   "isIbanActive",
+   "isTitleMatch",
+   "isPaymentRequestAllowed",
+   "isCustomerActive",
+   "languageId",
+   "fastLimit",
+   "customerType"
+  ],
+  "language": "en",
+  "resource": "sms_otp",
+  "name": "pr_customer_validation"
+ },
+ {
+  "id": "4871",
+  "title": "PR - Get Account Details By IBAN",
+  "category": "SMS-OTP",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sms-otp/pr-get-account-details-by-iban",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/paymentrequest/getAccountByIban",
+  "version": "1.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "Retrieves account balance information for payment request operations by using the provided IBAN and account number. The response includes balance and blocked balance details for the related account.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "iBAN",
+    "type": "str",
+    "required": true,
+    "description": "IBAN used to retrieve account balance details.",
+    "name": "i_ban"
+   },
+   {
+    "wire": "accountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Account number used together with the IBAN to retrieve account balance details.",
+    "name": "account_number"
+   }
+  ],
+  "response_fields": [
+   "balance",
+   "blockedBalance"
+  ],
+  "language": "en",
+  "resource": "sms_otp",
+  "name": "pr_get_account_details_by_iban"
+ },
+ {
+  "id": "4869",
+  "title": "PR - Get FAST Result",
+  "category": "SMS-OTP",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sms-otp/pr-get-fast-result",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/paymentrequest/getFastResult",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Retrieves the FAST transaction result for payment request operations by using the provided OI reference number. The response includes the transfer completion date and result code of the related FAST transaction.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "oiReference",
+    "type": "str",
+    "required": true,
+    "description": "OI reference number used to retrieve the FAST transaction result.",
+    "name": "oi_reference"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "transferCompleteDate",
+   "resultCode"
+  ],
+  "language": "en",
+  "resource": "sms_otp",
+  "name": "pr_get_fast_result"
+ },
+ {
+  "id": "4870",
+  "title": "PR - Payment Request Control",
+  "category": "SMS-OTP",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sms-otp/pr-payment-request-control",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/paymentrequest/paymentControl",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Checks and validates a payment request by using the provided payment reference, flow type, creditor identity, creditor title, creditor IBAN, amount, and payment intent information. The response returns the payment request control result, return code, and validation result details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "requestPaymentReference",
+    "type": "str",
+    "required": true,
+    "description": "Payment request reference number used to identify the payment request.",
+    "name": "request_payment_reference"
+   },
+   {
+    "wire": "requestPaymentFlowType",
+    "type": "str",
+    "required": true,
+    "description": "Flow type of the payment request.",
+    "name": "request_payment_flow_type"
+   },
+   {
+    "wire": "creditorIdentityValue",
+    "type": "str",
+    "required": true,
+    "description": "Identity value of the creditor.",
+    "name": "creditor_identity_value"
+   },
+   {
+    "wire": "creditorTitle",
+    "type": "str",
+    "required": true,
+    "description": "Title or name of the creditor.",
+    "name": "creditor_title"
+   },
+   {
+    "wire": "creditorIBAN",
+    "type": "str",
+    "required": true,
+    "description": "IBAN of the creditor account.",
+    "name": "creditor_iban"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": true,
+    "description": "Payment request amount.",
+    "name": "amount"
+   },
+   {
+    "wire": "paymentIntent",
+    "type": "str",
+    "required": true,
+    "description": "Payment intent or purpose information of the payment request.",
+    "name": "payment_intent"
+   }
+  ],
+  "response_fields": [
+   "isSuccess",
+   "returnCode"
+  ],
+  "language": "en",
+  "resource": "sms_otp",
+  "name": "pr_payment_request_control"
+ },
+ {
+  "id": "4891",
+  "title": "PR - Payment Transaction",
+  "category": "SMS-OTP",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sms-otp/pr-payment-transaction",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/paymentrequest/transfer",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "client_credentials",
+  "description": "Retrieves the account list for payment request transfer operations according to the provided customer, language, account suffix, balance, account status, current account, and multi-signature sharing filters. The response includes account details such as account name, suffix, balance, available balance, currency, IBAN, product type, opening date, branch information, customer name, maturity dates, and active status.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "accountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Customer account number used to retrieve the account list.",
+    "name": "account_number"
+   },
+   {
+    "wire": "languageId",
+    "type": "int",
+    "required": true,
+    "description": "Language identifier used for account information and descriptions.",
+    "name": "language_id"
+   },
+   {
+    "wire": "accountSuffix",
+    "type": "int",
+    "required": false,
+    "description": "Account suffix used to filter the account list.",
+    "name": "account_suffix"
+   },
+   {
+    "wire": "onlyHasAvaibleBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only accounts with available balance should be returned.",
+    "name": "only_has_avaible_balance"
+   },
+   {
+    "wire": "onlyOpen",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only open accounts should be returned.",
+    "name": "only_open"
+   },
+   {
+    "wire": "onlyWithNoBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only accounts with no balance should be returned.",
+    "name": "only_with_no_balance"
+   },
+   {
+    "wire": "onlyCurrent",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only current accounts should be returned.",
+    "name": "only_current"
+   },
+   {
+    "wire": "sharedWithMultiSignature",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether accounts shared with multi-signature authorization should be included.",
+    "name": "shared_with_multi_signature"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "accountList",
+   "name",
+   "suffix",
+   "fxId",
+   "iban",
+   "type",
+   "openDate",
+   "branchName",
+   "branchId",
+   "withHoldingAmount",
+   "customerName",
+   "maturityBeginDate",
+   "maturityEndDate",
+   "isActive"
+  ],
+  "language": "en",
+  "resource": "sms_otp",
+  "name": "pr_payment_transaction"
+ },
+ {
+  "id": "1732",
+  "title": "KT Incident Activity Type List",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-activity-type-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/incident/activityTypes",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Returns the list of activity types to be used while inserting an activity.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "activityTypeId",
+   "activityTypeName"
+  ],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_activity_type_list"
+ },
+ {
+  "id": "1734",
+  "title": "KT Incident Cancel",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-cancel",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/cancel",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Cancels the given incident if the status of the incident permits and the user has a right to perform the operation.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "incidentId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "incident_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "user_name"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_cancel"
+ },
+ {
+  "id": "4849",
+  "title": "KT Incident Creation",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-creation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/operation/create",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Creates an incident record with the provided summary, description, product, user, BT incident, customer, document, and optional field information. The response returns the created incident identifier and operation result.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "summaryDescription",
+    "type": "str",
+    "required": true,
+    "description": "Short summary of the incident.",
+    "name": "summary_description"
+   },
+   {
+    "wire": "incidentDescription",
+    "type": "str",
+    "required": true,
+    "description": "Detailed description of the incident.",
+    "name": "incident_description"
+   },
+   {
+    "wire": "productId",
+    "type": "int",
+    "required": true,
+    "description": "Product identifier related to the incident.",
+    "name": "product_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "User name of the person creating or associated with the incident.",
+    "name": "user_name"
+   },
+   {
+    "wire": "btIncidentId",
+    "type": "int",
+    "required": false,
+    "description": "BT incident identifier associated with the incident.",
+    "name": "bt_incident_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": false,
+    "description": "Customer identifier related to the incident.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "documentList",
+    "type": "array",
+    "required": false,
+    "description": "List of documents attached to the incident.",
+    "name": "document_list"
+   },
+   {
+    "wire": "optionalFieldList",
+    "type": "array",
+    "required": false,
+    "description": "List of additional key-value fields related to the incident.",
+    "name": "optional_field_list"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_creation"
+ },
+ {
+  "id": "4884",
+  "title": "KT Incident Creation By Company",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-creation-by-company",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/company/incident/create",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Creates a company incident record with the provided incident details, customer information, related reference information, optional documents, and additional optional fields. The response returns the created incident identifier and operation result.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "summaryDescription",
+    "type": "str",
+    "required": true,
+    "description": "Short summary of the incident.",
+    "name": "summary_description"
+   },
+   {
+    "wire": "incidentDescription",
+    "type": "str",
+    "required": true,
+    "description": "Detailed description of the incident.",
+    "name": "incident_description"
+   },
+   {
+    "wire": "productId",
+    "type": "int",
+    "required": true,
+    "description": "Product identifier related to the incident.",
+    "name": "product_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "User name of the person creating or associated with the incident.",
+    "name": "user_name"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier related to the incident.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "referanceId",
+    "type": "int",
+    "required": false,
+    "description": "Reference identifier associated with the incident.",
+    "name": "referance_id"
+   },
+   {
+    "wire": "softwareCompanyId",
+    "type": "int",
+    "required": true,
+    "description": "Software company identifier associated with the incident.",
+    "name": "software_company_id"
+   },
+   {
+    "wire": "documentList",
+    "type": "array",
+    "required": false,
+    "description": "List of documents attached to the incident.",
+    "name": "document_list"
+   },
+   {
+    "wire": "optionalFieldList",
+    "type": "array",
+    "required": false,
+    "description": "List of additional key-value fields related to the incident.",
+    "name": "optional_field_list"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_creation_by_company"
+ },
+ {
+  "id": "1711",
+  "title": "KT Incident Defined Document List",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-defined-document-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/incident/defiendDocuments",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Returns the list of defined documents to be used for attaching documents while creating an incident record.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "docId",
+   "docName",
+   "isMandatory"
+  ],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_defined_document_list"
+ },
+ {
+  "id": "4851",
+  "title": "KT Incident Info",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-info",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/information/info",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Retrieves detailed incident information by using the provided incident identifier and user name. The response includes incident ownership, assignment, product, status, date, workflow, and solution details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "incidentId",
+    "type": "int",
+    "required": true,
+    "description": "Unique identifier of the incident to be queried.",
+    "name": "incident_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "User name of the requester or user associated with the incident query.",
+    "name": "user_name"
+   }
+  ],
+  "response_fields": [
+   "userName",
+   "assignedUserCode",
+   "demandUnitId",
+   "summaryDescription",
+   "incidentDescription",
+   "productId",
+   "statusId",
+   "incidentId",
+   "incidentNo",
+   "btIncidentId",
+   "flowStatusId",
+   "assignmentGroupId",
+   "openDate",
+   "closeDate",
+   "startDate",
+   "solutionTypeId",
+   "solutionMethod",
+   "solutionDescription",
+   "divitInstanceId",
+   "workFlowInstanceId"
+  ],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_info"
+ },
+ {
+  "id": "1894",
+  "title": "KT Incident Insert Activity",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-insert-activity",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/insertActivity",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Inserts an activity record for the given incident as the given activity type.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "incidentId",
+    "type": "int",
+    "required": true,
+    "description": "ID of the incident to which activity record will be inserted.",
+    "name": "incident_id"
+   },
+   {
+    "wire": "activityTypeId",
+    "type": "int",
+    "required": true,
+    "description": "Type ID of the activity. Detailed info can be found via KT Incident Activity Type List endpoint.",
+    "name": "activity_type_id"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": true,
+    "description": "Explanation of the activity.",
+    "name": "description"
+   },
+   {
+    "wire": "sendMail",
+    "type": "bool",
+    "required": true,
+    "description": "Whether an email about this activity will be sent to the user who creaeted the incident.",
+    "name": "send_mail"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_insert_activity"
+ },
+ {
+  "id": "1020",
+  "title": "KT Incident Insert Document",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-insert-document",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/insertDocument",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Inserts additional documents into the given incident.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "documentContract",
+    "type": "array",
+    "required": false,
+    "description": "",
+    "name": "document_contract"
+   },
+   {
+    "wire": "incidentId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "incident_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "user_name"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_insert_document"
+ },
+ {
+  "id": "4882",
+  "title": "KT Incident Neova Info",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-neova-info",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/neova/info",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Retrieves detailed Neova incident information by using the provided incident number. The response includes incident status, assignment, description, solution, product, creator user, history, activity, document, and optional field details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "incidentNo",
+    "type": "str",
+    "required": true,
+    "description": "Incident number used to retrieve Neova incident details.",
+    "name": "incident_no"
+   }
+  ],
+  "response_fields": [
+   "incidentId",
+   "incidentNo",
+   "statusId",
+   "assignmentGroupName",
+   "assignedUserCode",
+   "assignedUserName",
+   "summaryDescription",
+   "incidentDescription",
+   "solutionDescription",
+   "userName",
+   "optionalFieldList",
+   "key",
+   "product",
+   "productCode",
+   "productName",
+   "parentCategoryCode",
+   "demandUnitName",
+   "creatorUserInfo",
+   "userId",
+   "userCode",
+   "firstName",
+   "lastName",
+   "email",
+   "organizationName",
+   "incidentHistoryList",
+   "fieldName",
+   "previous",
+   "current",
+   "systemDate",
+   "activityList",
+   "activityDescription",
+   "description",
+   "documentList",
+   "docId",
+   "documentName",
+   "fileExtension",
+   "fileContent"
+  ],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_neova_info"
+ },
+ {
+  "id": "4881",
+  "title": "KT Incident Neova List",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-neova-list",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/neova/list",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Retrieves the Neova incident list according to the provided filter criteria. The request can include incident, category, product, demand unit, assignment, status, opening, solution, activity, action, and reopen count information. The response returns matching incident records with their category, product, assignment, status, date, description, solution, and reopen count details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "IncidentNo",
+    "type": "str",
+    "required": false,
+    "description": "Incident number used to filter the incident list.",
+    "name": "incident_no"
+   },
+   {
+    "wire": "ParentCategoryName",
+    "type": "str",
+    "required": false,
+    "description": "Parent category name used to filter incidents.",
+    "name": "parent_category_name"
+   },
+   {
+    "wire": "SubCategoryName",
+    "type": "str",
+    "required": false,
+    "description": "Subcategory name used to filter incidents.",
+    "name": "sub_category_name"
+   },
+   {
+    "wire": "ParentProductName",
+    "type": "str",
+    "required": false,
+    "description": "Parent product name used to filter incidents.",
+    "name": "parent_product_name"
+   },
+   {
+    "wire": "ProductName",
+    "type": "str",
+    "required": false,
+    "description": "Product name used to filter incidents.",
+    "name": "product_name"
+   },
+   {
+    "wire": "DemandUnitName",
+    "type": "str",
+    "required": false,
+    "description": "Demand unit name used to filter incidents.",
+    "name": "demand_unit_name"
+   },
+   {
+    "wire": "AssignmentGroupName",
+    "type": "str",
+    "required": false,
+    "description": "Assignment group name used to filter incidents.",
+    "name": "assignment_group_name"
+   },
+   {
+    "wire": "AssignmentPerson",
+    "type": "str",
+    "required": false,
+    "description": "Assigned person information used to filter incidents.",
+    "name": "assignment_person"
+   },
+   {
+    "wire": "StatusName",
+    "type": "str",
+    "required": false,
+    "description": "Status name used to filter incidents.",
+    "name": "status_name"
+   },
+   {
+    "wire": "OpenPersonName",
+    "type": "str",
+    "required": false,
+    "description": "Name of the user who opened the incident.",
+    "name": "open_person_name"
+   },
+   {
+    "wire": "OpenPersonGroupName",
+    "type": "str",
+    "required": false,
+    "description": "Group name of the user who opened the incident.",
+    "name": "open_person_group_name"
+   },
+   {
+    "wire": "OpenPersonParentGroupName",
+    "type": "str",
+    "required": false,
+    "description": "Parent group name of the user who opened the incident.",
+    "name": "open_person_parent_group_name"
+   },
+   {
+    "wire": "OpenDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Opening date used to filter incidents.",
+    "name": "open_date"
+   },
+   {
+    "wire": "SummaryDescription",
+    "type": "str",
+    "required": false,
+    "description": "Summary description used to filter incidents.",
+    "name": "summary_description"
+   },
+   {
+    "wire": "IncidentDescription",
+    "type": "str",
+    "required": false,
+    "description": "Incident description used to filter incidents.",
+    "name": "incident_description"
+   },
+   {
+    "wire": "CloseDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Closing date used to filter incidents.",
+    "name": "close_date"
+   },
+   {
+    "wire": "SolutionDescription",
+    "type": "str",
+    "required": false,
+    "description": "Solution description used to filter incidents.",
+    "name": "solution_description"
+   },
+   {
+    "wire": "SolutionType",
+    "type": "str",
+    "required": false,
+    "description": "Solution type used to filter incidents.",
+    "name": "solution_type"
+   },
+   {
+    "wire": "StatusId",
+    "type": "str",
+    "required": false,
+    "description": "Status identifier used to filter incidents.",
+    "name": "status_id"
+   },
+   {
+    "wire": "UserName",
+    "type": "str",
+    "required": false,
+    "description": "User name used in the incident list query.",
+    "name": "user_name"
+   },
+   {
+    "wire": "ActivityDescription",
+    "type": "str",
+    "required": false,
+    "description": "Activity description used to filter incidents.",
+    "name": "activity_description"
+   },
+   {
+    "wire": "ActionToBeTaken",
+    "type": "int",
+    "required": false,
+    "description": "Action to be taken value used to filter incidents.",
+    "name": "action_to_be_taken"
+   },
+   {
+    "wire": "ReopenCount",
+    "type": "int",
+    "required": false,
+    "description": "Reopen count used to filter incidents.",
+    "name": "reopen_count"
+   }
+  ],
+  "response_fields": [
+   "IncidentNo",
+   "ParentCategoryName",
+   "SubCategoryName",
+   "ParentProductName",
+   "ProductName",
+   "DemandUnitName",
+   "AssignmentGroupName",
+   "AssignmentPerson",
+   "StatusName",
+   "OpenPersonName",
+   "OpenPersonGroupName",
+   "OpenPersonParentGroupName",
+   "OpenDate",
+   "SummaryDescription",
+   "IncidentDescription",
+   "CloseDate",
+   "SolutionDescription",
+   "SolutionType",
+   "ReopenCount"
+  ],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_neova_list"
+ },
+ {
+  "id": "4883",
+  "title": "KT Incident Neova Update",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-neova-update",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/neova/update",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Updates Neova incident information according to the provided incident, category, product, demand unit, assignment, status, opening, solution, activity, action, and reopen count details. The response indicates whether the update operation was completed successfully.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "IncidentNo",
+    "type": "str",
+    "required": true,
+    "description": "Incident number of the record to be updated.",
+    "name": "incident_no"
+   },
+   {
+    "wire": "ParentCategoryName",
+    "type": "str",
+    "required": false,
+    "description": "Parent category name of the incident.",
+    "name": "parent_category_name"
+   },
+   {
+    "wire": "SubCategoryName",
+    "type": "str",
+    "required": false,
+    "description": "Subcategory name of the incident.",
+    "name": "sub_category_name"
+   },
+   {
+    "wire": "ParentProductName",
+    "type": "str",
+    "required": false,
+    "description": "Parent product name related to the incident.",
+    "name": "parent_product_name"
+   },
+   {
+    "wire": "ProductName",
+    "type": "str",
+    "required": false,
+    "description": "Product name related to the incident.",
+    "name": "product_name"
+   },
+   {
+    "wire": "DemandUnitName",
+    "type": "str",
+    "required": false,
+    "description": "Demand unit name related to the incident.",
+    "name": "demand_unit_name"
+   },
+   {
+    "wire": "AssignmentGroupName",
+    "type": "str",
+    "required": false,
+    "description": "Assignment group name responsible for the incident.",
+    "name": "assignment_group_name"
+   },
+   {
+    "wire": "AssignmentPerson",
+    "type": "str",
+    "required": false,
+    "description": "Assigned person information of the incident.",
+    "name": "assignment_person"
+   },
+   {
+    "wire": "StatusName",
+    "type": "str",
+    "required": false,
+    "description": "Status name of the incident.",
+    "name": "status_name"
+   },
+   {
+    "wire": "OpenPersonName",
+    "type": "str",
+    "required": false,
+    "description": "Name of the user who opened the incident.",
+    "name": "open_person_name"
+   },
+   {
+    "wire": "OpenPersonGroupName",
+    "type": "str",
+    "required": false,
+    "description": "Group name of the user who opened the incident.",
+    "name": "open_person_group_name"
+   },
+   {
+    "wire": "OpenPersonParentGroupName",
+    "type": "str",
+    "required": false,
+    "description": "Parent group name of the user who opened the incident.",
+    "name": "open_person_parent_group_name"
+   },
+   {
+    "wire": "OpenDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Date and time when the incident was opened.",
+    "name": "open_date"
+   },
+   {
+    "wire": "SummaryDescription",
+    "type": "str",
+    "required": false,
+    "description": "Short summary description of the incident.",
+    "name": "summary_description"
+   },
+   {
+    "wire": "IncidentDescription",
+    "type": "str",
+    "required": false,
+    "description": "Detailed description of the incident.",
+    "name": "incident_description"
+   },
+   {
+    "wire": "CloseDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Date and time when the incident was closed.",
+    "name": "close_date"
+   },
+   {
+    "wire": "SolutionDescription",
+    "type": "str",
+    "required": false,
+    "description": "Description of the solution applied to the incident.",
+    "name": "solution_description"
+   },
+   {
+    "wire": "SolutionType",
+    "type": "str",
+    "required": false,
+    "description": "Solution type applied to the incident.",
+    "name": "solution_type"
+   },
+   {
+    "wire": "StatusId",
+    "type": "str",
+    "required": false,
+    "description": "Status identifier of the incident.",
+    "name": "status_id"
+   },
+   {
+    "wire": "UserName",
+    "type": "str",
+    "required": false,
+    "description": "User name used in the incident update operation.",
+    "name": "user_name"
+   },
+   {
+    "wire": "ActivityDescription",
+    "type": "str",
+    "required": false,
+    "description": "Activity description related to the incident update.",
+    "name": "activity_description"
+   },
+   {
+    "wire": "ActionToBeTaken",
+    "type": "int",
+    "required": false,
+    "description": "Action to be taken value for the incident.",
+    "name": "action_to_be_taken"
+   },
+   {
+    "wire": "ReopenCount",
+    "type": "int",
+    "required": false,
+    "description": "Number of times the incident was reopened.",
+    "name": "reopen_count"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_neova_update"
+ },
+ {
+  "id": "684",
+  "title": "KT Incident Optional Field List",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-optional-field-list",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/optionalFieldList",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Returns the list of optional field related to the provided product.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "productId",
+    "type": "int",
+    "required": true,
+    "description": "Id of the product.",
+    "name": "product_id"
+   }
+  ],
+  "response_fields": [
+   "optionalFieldName",
+   "isMandatory"
+  ],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_optional_field_list"
+ },
+ {
+  "id": "4850",
+  "title": "KT Incident Product List",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-product-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/incident/information/products",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Retrieves the product list used for incident operations. The response includes product identifier, related demand unit workgroup, demand unit name, and product path information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "productId",
+   "demandUnitWorkgroupId",
+   "demandUnitName",
+   "productPath"
+  ],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_product_list"
+ },
+ {
+  "id": "1024",
+  "title": "KT Incident Reopen",
+  "category": "Support management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-reopen",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/incident/reopen",
+  "version": "1.0",
+  "scope": "incident_operations",
+  "flow": "client_credentials",
+  "description": "Reopens the given incident if the status of the incident permits and the user has a right to perform the operation.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "incidentId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "incident_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "user_name"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "support",
+  "name": "kt_incident_reopen"
+ },
+ {
   "id": "1908",
   "title": "Account List V2",
   "category": "Account Management - TPP",
@@ -5902,60 +9980,74 @@
   "name": "account_list_v2"
  },
  {
-  "id": "3040",
-  "title": "Ek No ile Hesap Listesi V2",
-  "category": "Hesap Yönetimi - Üçüncü Taraf Yazılım",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/hesap-yonetimi-ucuncu-taraf-yazilim/ek-no-ile-hesap-listesi-v2",
+  "id": "4867",
+  "title": "Account List V2 (withouth suffix)",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/account-list-v2-withouth-suffix",
   "status": "ACTIVE",
   "method": "GET",
   "path": "/v2/accounts/{suffix}",
   "version": "2.0",
   "scope": "accounts",
   "flow": "authorization_code",
-  "description": "Bu API, authorization context ile ilişkili müşterinin hesap listesini almak için kullanılır. Cevap; account number, account suffix, balance, available balance, currency bilgisi, IBAN, account type, branch bilgisi, customer name, maturity dates ve account status gibi hesap detaylarını içerir. Hesap listesi account suffix ve opsiyonel account status veya balance filtreleri ile filtrelenebilir.",
+  "description": "Retrieves the account information for the authenticated customer by account suffix. The response includes account details such as balance, available balance, currency, IBAN, account type, branch information, maturity dates and account status.",
   "path_params": [
    {
     "wire": "suffix",
     "type": "int",
-    "required": false,
-    "description": "Belirli bir hesabı almak için kullanılan account suffix değeridir. Bu değer optional route parameter olarak gönderilir.",
+    "required": true,
+    "description": "Account suffix used to retrieve a specific account.",
     "name": "suffix"
    }
   ],
   "query_params": [
    {
+    "wire": "CustomerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer number used to retrieve the account list.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "LanguageId",
+    "type": "int",
+    "required": false,
+    "description": "Language identifier used for localized account information.",
+    "name": "language_id"
+   },
+   {
     "wire": "onlyHasAvailableBalance",
     "type": "bool",
     "required": false,
-    "description": "Yalnızca available balance değeri bulunan hesapların döndürülüp döndürülmeyeceğini belirtir.",
+    "description": "Indicates whether only accounts with available balance should be returned.",
     "name": "only_has_available_balance"
    },
    {
     "wire": "onlyOpen",
     "type": "bool",
     "required": false,
-    "description": "Yalnızca açık hesapların döndürülüp döndürülmeyeceğini belirtir.",
+    "description": "Indicates whether only open accounts should be returned.",
     "name": "only_open"
    },
    {
     "wire": "onlyWithNoBalance",
     "type": "bool",
     "required": false,
-    "description": "Yalnızca bakiyesi olmayan hesapların döndürülüp döndürülmeyeceğini belirtir.",
+    "description": "Indicates whether only accounts with no balance should be returned.",
     "name": "only_with_no_balance"
    },
    {
     "wire": "onlyCurrent",
     "type": "bool",
     "required": false,
-    "description": "Yalnızca current account türündeki hesapların döndürülüp döndürülmeyeceğini belirtir.",
+    "description": "Indicates whether only current accounts should be returned.",
     "name": "only_current"
    },
    {
     "wire": "sharedWithMultiSignature",
     "type": "bool",
     "required": false,
-    "description": "Birden fazla imza gerektiren shared accounts bilgisinin dahil edilip edilmeyeceğini belirtir.",
+    "description": "Indicates whether accounts shared with multi-signature authorization should be included.",
     "name": "shared_with_multi_signature"
    }
   ],
@@ -5968,7 +10060,6 @@
    "accountNumber",
    "name",
    "suffix",
-   "balance",
    "availableBalance",
    "fxId",
    "fxCode",
@@ -5983,7 +10074,7 @@
    "maturityEndDate",
    "isActive"
   ],
-  "language": "tr",
+  "language": "en",
   "resource": "tpp_accounts",
   "name": "account_list_with_suffix_v2"
  },
@@ -6135,6 +10226,50 @@
   "name": "receipt_v2"
  },
  {
+  "id": "1943",
+  "title": "Cash Withdrawal from ATM via QR Code",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/cash-withdrawal-from-atm-via-qr-code",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/transfers/fromATMByQRCode",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "authorization_code",
+  "description": "This API enables cash withdrawal from an ATM via QR code. The customer scans the QR code displayed on the ATM using a mobile application and sends the QR code information to Kuveyt Türk through this service. To proceed with the transfer, Kuveyt Türk sends a one-time password via SMS to the customer and returns a transaction id to the developer. The customer enters the SMS code in the third-party application, and the third-party application sends the transaction id and SMS code to Kuveyt Türk through the Execute Money Transfer API. If the transaction id and SMS code match, Kuveyt Türk authenticates the transaction.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "SenderAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Account suffix of the sender account to be used for the cash withdrawal transaction.",
+    "name": "sender_account_suffix"
+   },
+   {
+    "wire": "Amount",
+    "type": "number",
+    "required": true,
+    "description": "Amount to be withdrawn from the ATM.",
+    "name": "amount"
+   },
+   {
+    "wire": "QRCode",
+    "type": "str",
+    "required": true,
+    "description": "QR code data read from the ATM and sent to the service for validation.",
+    "name": "qr_code"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "transfers",
+  "name": "cash_withdrawal_from_atm_via_qr_code"
+ },
+ {
   "id": "4685",
   "title": "Customer Iban Info for Money Transfer",
   "category": "Money Transfers",
@@ -6236,6 +10371,55 @@
   "language": "en",
   "resource": "transfers",
   "name": "internal_money_transfer"
+ },
+ {
+  "id": "4874",
+  "title": "Money Transfer Report For Kuveyt Türk Investment Securities Inc.",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/money-transfer-report-for-kuveyt-turk-investment-securities-inc",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/investment/report-for-account-activities",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "client_credentials",
+  "description": "Retrieves the account activities report for Kuveyt Türk Investment Securities Inc. according to the provided language and transaction date. The response includes money transfer and account activity details such as transaction identifier, transfer type, amount, intermediary account number, currency, comment, and system date.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "languageId",
+    "type": "int",
+    "required": true,
+    "description": "Language identifier used for report content and descriptions.",
+    "name": "language_id"
+   },
+   {
+    "wire": "transactionDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Transaction date used to retrieve account activities.",
+    "name": "transaction_date"
+   }
+  ],
+  "response_fields": [
+   "accountActivities",
+   "bankMoneyTransferId",
+   "transactionId",
+   "transferType",
+   "transferAmount",
+   "intermediaryAccountNumber",
+   "currency",
+   "comment",
+   "systemDate"
+  ],
+  "language": "en",
+  "resource": "transfers",
+  "name": "investment_account_activities_report"
  },
  {
   "id": "4687",
@@ -9074,5 +13258,370 @@
   "language": "en",
   "resource": "vpos",
   "name": "virtual_pos_sale_reversal"
+ },
+ {
+  "id": "4908",
+  "title": "Your Banking Account Application",
+  "category": "Your Banking",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/your-banking/your-banking-account-application",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/yourbank/accountApplications",
+  "version": "1.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This endpoint is used to create or validate a YourBank account application by checking the applicant’s identity information. The request includes identity details, application information, mobile phone information, SMS validation code, education, profession, and contact information. >This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "IdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identity number of the applicant.",
+    "name": "identity_number"
+   },
+   {
+    "wire": "ApplicationCode",
+    "type": "str",
+    "required": true,
+    "description": "Code of the application type.",
+    "name": "application_code"
+   },
+   {
+    "wire": "BirthDay",
+    "type": "datetime",
+    "required": true,
+    "description": "Birth date of the applicant.",
+    "name": "birth_day"
+   },
+   {
+    "wire": "NameAndSurname",
+    "type": "str",
+    "required": true,
+    "description": "Full name of the applicant.",
+    "name": "name_and_surname"
+   },
+   {
+    "wire": "IdentityCardSerial",
+    "type": "str",
+    "required": false,
+    "description": "Identity card serial information of the applicant.",
+    "name": "identity_card_serial"
+   },
+   {
+    "wire": "IdentityCardNumber",
+    "type": "str",
+    "required": false,
+    "description": "Identity card number of the applicant.",
+    "name": "identity_card_number"
+   },
+   {
+    "wire": "IdentityCardSerialNumber",
+    "type": "str",
+    "required": false,
+    "description": "Identity card serial number of the applicant.",
+    "name": "identity_card_serial_number"
+   },
+   {
+    "wire": "OccupationCityId",
+    "type": "int",
+    "required": false,
+    "description": "City identifier of the applicant’s occupation location.",
+    "name": "occupation_city_id"
+   },
+   {
+    "wire": "OccupationCountyId",
+    "type": "int",
+    "required": false,
+    "description": "County identifier of the applicant’s occupation location.",
+    "name": "occupation_county_id"
+   },
+   {
+    "wire": "GsmCountryCode",
+    "type": "int",
+    "required": true,
+    "description": "GSM country code of the applicant’s mobile phone number.",
+    "name": "gsm_country_code"
+   },
+   {
+    "wire": "GsmAreaCode",
+    "type": "int",
+    "required": true,
+    "description": "GSM area code of the applicant’s mobile phone number.",
+    "name": "gsm_area_code"
+   },
+   {
+    "wire": "GsmNumber",
+    "type": "str",
+    "required": true,
+    "description": "GSM number of the applicant.",
+    "name": "gsm_number"
+   },
+   {
+    "wire": "SMSValidationCode",
+    "type": "str",
+    "required": true,
+    "description": "SMS validation code sent to the applicant.",
+    "name": "sms_validation_code"
+   },
+   {
+    "wire": "MaidenhoodSurname",
+    "type": "str",
+    "required": false,
+    "description": "Maidenhood surname of the applicant.",
+    "name": "maidenhood_surname"
+   },
+   {
+    "wire": "EducationLevelId",
+    "type": "int",
+    "required": false,
+    "description": "Education level identifier of the applicant.",
+    "name": "education_level_id"
+   },
+   {
+    "wire": "ProfessionId",
+    "type": "int",
+    "required": false,
+    "description": "Profession identifier of the applicant.",
+    "name": "profession_id"
+   },
+   {
+    "wire": "EmailAddress",
+    "type": "str",
+    "required": false,
+    "description": "Email address of the applicant.",
+    "name": "email_address"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "your_banking",
+  "name": "your_banking_account_application"
+ },
+ {
+  "id": "4910",
+  "title": "Your Banking Account Application Documents",
+  "category": "Your Banking",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/your-banking/your-banking-account-application-documents",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/yourbank/accountApplicationDocuments",
+  "version": "1.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "Retrieves Your Banking account application documents according to the provided identity number, application code, and GSM information. The response includes document name, document code, document identifier, application code, document content, and document extension details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "IdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identity number used to retrieve account application documents.",
+    "name": "identity_number"
+   },
+   {
+    "wire": "ApplicationCode",
+    "type": "str",
+    "required": true,
+    "description": "Application code used to retrieve documents related to the account application.",
+    "name": "application_code"
+   },
+   {
+    "wire": "GsmCountryCode",
+    "type": "int",
+    "required": true,
+    "description": "GSM country code of the applicant.",
+    "name": "gsm_country_code"
+   },
+   {
+    "wire": "GsmAreaCode",
+    "type": "int",
+    "required": true,
+    "description": "GSM area code of the applicant.",
+    "name": "gsm_area_code"
+   },
+   {
+    "wire": "GsmNumber",
+    "type": "str",
+    "required": true,
+    "description": "GSM number of the applicant.",
+    "name": "gsm_number"
+   }
+  ],
+  "response_fields": [
+   "DocumentName",
+   "DocumentCode",
+   "DocumentId",
+   "ApplicationCode",
+   "DocumentContent",
+   "DocumentExtension"
+  ],
+  "language": "en",
+  "resource": "your_banking",
+  "name": "your_banking_account_application_documents"
+ },
+ {
+  "id": "4909",
+  "title": "Your Banking Account Application SMS Validation",
+  "category": "Your Banking",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/your-banking/your-banking-account-application-sms-validation",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/yourbank/accountSmsOtp",
+  "version": "1.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This endpoint is used to validate the SMS OTP code and create or update person information for a YourBank account application. The request includes the application identifier, applicant identity number, mobile phone information, SMS validation code, and address details. >This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "ApplicationId",
+    "type": "int",
+    "required": true,
+    "description": "Unique identifier of the account application.",
+    "name": "application_id"
+   },
+   {
+    "wire": "IdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identity number of the applicant.",
+    "name": "identity_number"
+   },
+   {
+    "wire": "GsmCountryCode",
+    "type": "int",
+    "required": true,
+    "description": "GSM country code of the applicant’s mobile phone number.",
+    "name": "gsm_country_code"
+   },
+   {
+    "wire": "GsmAreaCode",
+    "type": "int",
+    "required": true,
+    "description": "GSM area code of the applicant’s mobile phone number.",
+    "name": "gsm_area_code"
+   },
+   {
+    "wire": "GsmNumber",
+    "type": "str",
+    "required": true,
+    "description": "GSM number of the applicant.",
+    "name": "gsm_number"
+   },
+   {
+    "wire": "SMSValidationCode",
+    "type": "str",
+    "required": true,
+    "description": "SMS OTP validation code sent to the applicant.",
+    "name": "sms_validation_code"
+   },
+   {
+    "wire": "Block",
+    "type": "str",
+    "required": false,
+    "description": "Block information of the applicant’s address.",
+    "name": "block"
+   },
+   {
+    "wire": "DistrictName",
+    "type": "str",
+    "required": false,
+    "description": "District name of the applicant’s address.",
+    "name": "district_name"
+   },
+   {
+    "wire": "FlatNumber",
+    "type": "str",
+    "required": false,
+    "description": "Flat number of the applicant’s address.",
+    "name": "flat_number"
+   },
+   {
+    "wire": "StreetName",
+    "type": "str",
+    "required": false,
+    "description": "Street name of the applicant’s address.",
+    "name": "street_name"
+   },
+   {
+    "wire": "SiteName",
+    "type": "str",
+    "required": false,
+    "description": "Site name of the applicant’s address.",
+    "name": "site_name"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "your_banking",
+  "name": "your_banking_account_application_sms_validation"
+ },
+ {
+  "id": "4911",
+  "title": "Your Banking Account Application Status Query",
+  "category": "Your Banking",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/your-banking/your-banking-account-application-status-query",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/yourbank/accountApplicationStatus",
+  "version": "1.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This endpoint is used to retrieve account application status information for YourBank applications. The request includes the applicant identity number and mobile phone information. The response returns the matching application status records, including customer, application number, status, application code, and application type information. >This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "IdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identity number of the applicant whose account application status will be queried.",
+    "name": "identity_number"
+   },
+   {
+    "wire": "GsmAreaCode",
+    "type": "int",
+    "required": true,
+    "description": "GSM area code of the applicant’s mobile phone number.",
+    "name": "gsm_area_code"
+   },
+   {
+    "wire": "GsmNumber",
+    "type": "str",
+    "required": true,
+    "description": "GSM number of the applicant.",
+    "name": "gsm_number"
+   }
+  ],
+  "response_fields": [
+   "PersonId",
+   "CustomerName",
+   "ApplicationNumber",
+   "ApplicationStatus",
+   "StatusName",
+   "ApplicationCode",
+   "ApplicationTypeName"
+  ],
+  "language": "en",
+  "resource": "your_banking",
+  "name": "your_banking_account_application_status_query"
  }
 ]

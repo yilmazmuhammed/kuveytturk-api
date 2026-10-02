@@ -480,6 +480,65 @@ class PaymentSolutions(Resource):
             options=request_options,
         )
 
+    def pos_transactions_summary_for_tpp_v2(
+        self,
+        *,
+        customer_id: int,
+        member_number: str,
+        start_date: DateLike,
+        end_date: DateLike,
+        extract_type: str,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Üçüncü Taraf Sağlayıcı (TPP) için POS İşlemleri Özeti V2.
+
+        ``POST /v2/pos/transactions``
+
+        Kapsam: ``cards`` · Akış: authorization code (müşteri girişi gerekir)
+
+        Bu API, belirtilen müşteri ve üye işyeri numarası için verilen tarih aralığı ve ekstre
+        tipine göre POS işlem bilgilerini getirir. > Bu API beta aşamasındadır. İstek ve yanıt
+        modelleri zamanla değişebilir.
+
+        Args:
+            customer_id: (``customerId``, gövde, zorunlu) POS işlem bilgileri getirilecek
+                müşterinin tekil müşteri numarasıdır.
+            member_number: (``memberNumber``, gövde, zorunlu) POS işlem bilgileri sorgulanacak
+                üye işyeri numarasıdır.
+            start_date: (``startDate``, gövde, zorunlu) İşlem sorgu döneminin başlangıç
+                tarihidir.
+            end_date: (``endDate``, gövde, zorunlu) İşlem sorgu döneminin bitiş tarihidir.
+            extract_type: (``extractType``, gövde, zorunlu) POS işlem sorgusunu filtrelemek için
+                kullanılan ekstre tipidir.
+
+        Yanıt alanları: posTransactions, blockedDate, amount, commissionRate, commissionAmount,
+        bsmv, blockedNumber, unBlockedDate, netAmount, internationalFecCode, fecCode
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/odeme-cozumleri/ucuncu-taraf-saglayici-tpp-icin-pos-islemleri-ozeti-v2
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "customerId": customer_id,
+                "memberNumber": member_number,
+                "startDate": start_date,
+                "endDate": end_date,
+                "extractType": extract_type,
+            },
+            extra_body,
+        )
+        return self._client.request(
+            "POST",
+            "/v2/pos/transactions",
+            scope="cards",
+            flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     def pos_transactions_summary_v3(
         self,
         *,
@@ -1446,6 +1505,65 @@ class AsyncPaymentSolutions(AsyncResource):
             "/v3/pos/detail-transactions",
             scope="cards",
             flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def pos_transactions_summary_for_tpp_v2(
+        self,
+        *,
+        customer_id: int,
+        member_number: str,
+        start_date: DateLike,
+        end_date: DateLike,
+        extract_type: str,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Üçüncü Taraf Sağlayıcı (TPP) için POS İşlemleri Özeti V2.
+
+        ``POST /v2/pos/transactions``
+
+        Kapsam: ``cards`` · Akış: authorization code (müşteri girişi gerekir)
+
+        Bu API, belirtilen müşteri ve üye işyeri numarası için verilen tarih aralığı ve ekstre
+        tipine göre POS işlem bilgilerini getirir. > Bu API beta aşamasındadır. İstek ve yanıt
+        modelleri zamanla değişebilir.
+
+        Args:
+            customer_id: (``customerId``, gövde, zorunlu) POS işlem bilgileri getirilecek
+                müşterinin tekil müşteri numarasıdır.
+            member_number: (``memberNumber``, gövde, zorunlu) POS işlem bilgileri sorgulanacak
+                üye işyeri numarasıdır.
+            start_date: (``startDate``, gövde, zorunlu) İşlem sorgu döneminin başlangıç
+                tarihidir.
+            end_date: (``endDate``, gövde, zorunlu) İşlem sorgu döneminin bitiş tarihidir.
+            extract_type: (``extractType``, gövde, zorunlu) POS işlem sorgusunu filtrelemek için
+                kullanılan ekstre tipidir.
+
+        Yanıt alanları: posTransactions, blockedDate, amount, commissionRate, commissionAmount,
+        bsmv, blockedNumber, unBlockedDate, netAmount, internationalFecCode, fecCode
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/odeme-cozumleri/ucuncu-taraf-saglayici-tpp-icin-pos-islemleri-ozeti-v2
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "customerId": customer_id,
+                "memberNumber": member_number,
+                "startDate": start_date,
+                "endDate": end_date,
+                "extractType": extract_type,
+            },
+            extra_body,
+        )
+        return await self._client.request(
+            "POST",
+            "/v2/pos/transactions",
+            scope="cards",
+            flow="authorization_code",
             query=_query,
             body=_body,
             options=request_options,

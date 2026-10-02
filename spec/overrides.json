@@ -1,11 +1,24 @@
 {
   "_aciklama": "Doküman hatalarını düzeltmek için elle yazılan düzeltmeler. Anahtar doküman id'sidir (spec/endpoints.json içindeki \"id\"). Değerdeki alanlar katalogdaki alanların üzerine yazılır; \"resource\" ve \"name\" metodun yerini/adını değiştirir, \"skip\": true sayfayı tamamen atlar. Alt çizgiyle başlayan anahtarlar yok sayılır.",
 
+  "_adlar": "Yalnızca Türkçe sayfası olan uç noktalara İngilizce ad; 'Other' kategorisindekiler ait oldukları kaynağa.",
   "3257": {"name": "receipt_v3"},
-  "3040": {"name": "account_list_with_suffix_v2"},
-  "4907": {"resource": "tpp_accounts", "name": "receipt_v1"},
-  "1796": {"resource": "transfers"},
+  "3260": {"name": "pos_transactions_summary_for_tpp_v2"},
   "4689": {"name": "internal_money_transfer"},
+  "4867": {"resource": "tpp_accounts", "name": "account_list_with_suffix_v2"},
+  "4907": {"resource": "tpp_accounts", "name": "receipt_v1"},
+  "3641": {"resource": "accounts"},
+  "4873": {"resource": "accounts", "name": "account_verification_v2"},
+  "1796": {"resource": "transfers"},
+  "1943": {"resource": "transfers"},
+  "4874": {"resource": "transfers", "name": "investment_account_activities_report"},
+  "4917": {"resource": "cards"},
+  "1893": {"resource": "donations"},
+  "4875": {"resource": "payments"},
+
+  "_ornekler": "Portalın kendi örnek/deneme uç noktaları; kütüphaneye alınmaz.",
+  "3441": {"skip": true},
+  "4861": {"skip": true},
 
   "_3290": "Dokümandaki gövde alıcıyı hesap no + ek no ile tanımlıyor ve IBAN alanı içermiyor. Sandbox (2026-10-02) boş gövdeye şu doğrulama hatalarını döndü: receiverIban, moneyTransferAmount, senderAccountSuffix ve corporateWebUserName zorunlu. Zorunluluklar buna göre düzeltildi; dokümandaki diğer alanlar isteğe bağlı bırakıldı.",
   "3290": {

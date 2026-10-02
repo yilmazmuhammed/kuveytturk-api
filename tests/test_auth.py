@@ -219,3 +219,11 @@ def test_login_rejects_forged_state(make_client, monkeypatch):
     )
     with pytest.raises(AuthenticationError, match="state"):
         kt.auth.login("accounts")
+
+
+def test_invalid_scope_error_names_the_missing_scope(make_client):
+    recorder = Recorder(token=lambda r: httpx.Response(400, json={"error": "invalid_scope"}))
+    with pytest.raises(AuthenticationError, match="'loans' kapsamı için yetkili değil") as info:
+        make_client(recorder).get("/v1/data/loans", scope="Loans")
+    assert info.value.error == "invalid_scope"
+    assert info.value.status_code == 400

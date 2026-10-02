@@ -18,6 +18,59 @@ __all__ = ["AsyncTransfers", "Transfers"]
 class Transfers(Resource):
     """Para transferleri - ``kt.transfers``."""
 
+    def cash_withdrawal_from_atm_via_qr_code(
+        self,
+        *,
+        sender_account_suffix: int,
+        amount: Number,
+        qr_code: str,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Cash Withdrawal from ATM via QR Code.
+
+        ``POST /v1/transfers/fromATMByQRCode``
+
+        Kapsam: ``transfers`` · Akış: authorization code (müşteri girişi gerekir)
+
+        This API enables cash withdrawal from an ATM via QR code. The customer scans the QR code
+        displayed on the ATM using a mobile application and sends the QR code information to
+        Kuveyt Türk through this service. To proceed with the transfer, Kuveyt Türk sends a
+        one-time password via SMS to the customer and returns a transaction id to the developer.
+        The customer enters the SMS code in the third-party application, and the third-party
+        application sends the transaction id and SMS code to Kuveyt Türk through the Execute
+        Money Transfer API. If the transaction id and SMS code match, Kuveyt Türk authenticates
+        the transaction.
+
+        Args:
+            sender_account_suffix: (``SenderAccountSuffix``, gövde, zorunlu) Account suffix of
+                the sender account to be used for the cash withdrawal transaction.
+            amount: (``Amount``, gövde, zorunlu) Amount to be withdrawn from the ATM.
+            qr_code: (``QRCode``, gövde, zorunlu) QR code data read from the ATM and sent to the
+                service for validation.
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/cash-withdrawal-from-atm-via-qr-code
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "SenderAccountSuffix": sender_account_suffix,
+                "Amount": amount,
+                "QRCode": qr_code,
+            },
+            extra_body,
+        )
+        return self._client.request(
+            "POST",
+            "/v1/transfers/fromATMByQRCode",
+            scope="transfers",
+            flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     def customer_iban_info_for_money_transfer(
         self,
         *,
@@ -111,6 +164,58 @@ class Transfers(Resource):
         return self._client.request(
             "POST",
             "/v1/moneytransfer/interbankmoneytransfer",
+            scope="transfers",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def investment_account_activities_report(
+        self,
+        *,
+        language_id: int,
+        transaction_date: DateLike,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Money Transfer Report For Kuveyt Türk Investment Securities Inc..
+
+        ``POST /v1/investment/report-for-account-activities``
+
+        Kapsam: ``transfers`` · Akış: client credentials
+
+        Retrieves the account activities report for Kuveyt Türk Investment Securities Inc.
+        according to the provided language and transaction date. The response includes money
+        transfer and account activity details such as transaction identifier, transfer type,
+        amount, intermediary account number, currency, comment, and system date.
+
+        Args:
+            language_id: (``languageId``, gövde, zorunlu) Language identifier used for report
+                content and descriptions.
+            transaction_date: (``transactionDate``, gövde, zorunlu) Transaction date used to
+                retrieve account activities.
+
+        Gövde alanları istekte ``contract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: accountActivities, bankMoneyTransferId, transactionId, transferType,
+        transferAmount, intermediaryAccountNumber, currency, comment, systemDate
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/money-transfer-report-for-kuveyt-turk-investment-securities-inc
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "languageId": language_id,
+                "transactionDate": transaction_date,
+            },
+            extra_body,
+        )
+        _body = {"contract": _body}
+        return self._client.request(
+            "POST",
+            "/v1/investment/report-for-account-activities",
             scope="transfers",
             flow="client_credentials",
             query=_query,
@@ -456,6 +561,59 @@ class Transfers(Resource):
 class AsyncTransfers(AsyncResource):
     """Para transferleri (asenkron) - ``kt.transfers``."""
 
+    async def cash_withdrawal_from_atm_via_qr_code(
+        self,
+        *,
+        sender_account_suffix: int,
+        amount: Number,
+        qr_code: str,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Cash Withdrawal from ATM via QR Code.
+
+        ``POST /v1/transfers/fromATMByQRCode``
+
+        Kapsam: ``transfers`` · Akış: authorization code (müşteri girişi gerekir)
+
+        This API enables cash withdrawal from an ATM via QR code. The customer scans the QR code
+        displayed on the ATM using a mobile application and sends the QR code information to
+        Kuveyt Türk through this service. To proceed with the transfer, Kuveyt Türk sends a
+        one-time password via SMS to the customer and returns a transaction id to the developer.
+        The customer enters the SMS code in the third-party application, and the third-party
+        application sends the transaction id and SMS code to Kuveyt Türk through the Execute
+        Money Transfer API. If the transaction id and SMS code match, Kuveyt Türk authenticates
+        the transaction.
+
+        Args:
+            sender_account_suffix: (``SenderAccountSuffix``, gövde, zorunlu) Account suffix of
+                the sender account to be used for the cash withdrawal transaction.
+            amount: (``Amount``, gövde, zorunlu) Amount to be withdrawn from the ATM.
+            qr_code: (``QRCode``, gövde, zorunlu) QR code data read from the ATM and sent to the
+                service for validation.
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/cash-withdrawal-from-atm-via-qr-code
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "SenderAccountSuffix": sender_account_suffix,
+                "Amount": amount,
+                "QRCode": qr_code,
+            },
+            extra_body,
+        )
+        return await self._client.request(
+            "POST",
+            "/v1/transfers/fromATMByQRCode",
+            scope="transfers",
+            flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     async def customer_iban_info_for_money_transfer(
         self,
         *,
@@ -549,6 +707,58 @@ class AsyncTransfers(AsyncResource):
         return await self._client.request(
             "POST",
             "/v1/moneytransfer/interbankmoneytransfer",
+            scope="transfers",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def investment_account_activities_report(
+        self,
+        *,
+        language_id: int,
+        transaction_date: DateLike,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Money Transfer Report For Kuveyt Türk Investment Securities Inc..
+
+        ``POST /v1/investment/report-for-account-activities``
+
+        Kapsam: ``transfers`` · Akış: client credentials
+
+        Retrieves the account activities report for Kuveyt Türk Investment Securities Inc.
+        according to the provided language and transaction date. The response includes money
+        transfer and account activity details such as transaction identifier, transfer type,
+        amount, intermediary account number, currency, comment, and system date.
+
+        Args:
+            language_id: (``languageId``, gövde, zorunlu) Language identifier used for report
+                content and descriptions.
+            transaction_date: (``transactionDate``, gövde, zorunlu) Transaction date used to
+                retrieve account activities.
+
+        Gövde alanları istekte ``contract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: accountActivities, bankMoneyTransferId, transactionId, transferType,
+        transferAmount, intermediaryAccountNumber, currency, comment, systemDate
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/money-transfer-report-for-kuveyt-turk-investment-securities-inc
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "languageId": language_id,
+                "transactionDate": transaction_date,
+            },
+            extra_body,
+        )
+        _body = {"contract": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/investment/report-for-account-activities",
             scope="transfers",
             flow="client_credentials",
             query=_query,

@@ -84,7 +84,9 @@ class TppAccounts(Resource):
     def account_list_with_suffix_v2(
         self,
         *,
-        suffix: int | None = None,
+        suffix: int,
+        customer_id: int,
+        language_id: int | None = None,
         only_has_available_balance: bool | None = None,
         only_open: bool | None = None,
         only_with_no_balance: bool | None = None,
@@ -93,46 +95,43 @@ class TppAccounts(Resource):
         extra_query: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Ek No ile Hesap Listesi V2.
+        """Account List V2 (withouth suffix).
 
         ``GET /v2/accounts/{suffix}``
 
         Kapsam: ``accounts`` · Akış: authorization code (müşteri girişi gerekir)
 
-        Bu API, authorization context ile ilişkili müşterinin hesap listesini almak için
-        kullanılır. Cevap; account number, account suffix, balance, available balance, currency
-        bilgisi, IBAN, account type, branch bilgisi, customer name, maturity dates ve account
-        status gibi hesap detaylarını içerir. Hesap listesi account suffix ve opsiyonel account
-        status veya balance filtreleri ile filtrelenebilir.
+        Retrieves the account information for the authenticated customer by account suffix. The
+        response includes account details such as balance, available balance, currency, IBAN,
+        account type, branch information, maturity dates and account status.
 
         Args:
-            suffix: (yol) Belirli bir hesabı almak için kullanılan account suffix değeridir. Bu
-                değer optional route parameter olarak gönderilir.
-            only_has_available_balance: (``onlyHasAvailableBalance``, sorgu) Yalnızca available
-                balance değeri bulunan hesapların döndürülüp döndürülmeyeceğini belirtir.
-            only_open: (``onlyOpen``, sorgu) Yalnızca açık hesapların döndürülüp
-                döndürülmeyeceğini belirtir.
-            only_with_no_balance: (``onlyWithNoBalance``, sorgu) Yalnızca bakiyesi olmayan
-                hesapların döndürülüp döndürülmeyeceğini belirtir.
-            only_current: (``onlyCurrent``, sorgu) Yalnızca current account türündeki hesapların
-                döndürülüp döndürülmeyeceğini belirtir.
-            shared_with_multi_signature: (``sharedWithMultiSignature``, sorgu) Birden fazla imza
-                gerektiren shared accounts bilgisinin dahil edilip edilmeyeceğini belirtir.
+            suffix: (yol, zorunlu) Account suffix used to retrieve a specific account.
+            customer_id: (``CustomerId``, sorgu, zorunlu) Customer number used to retrieve the
+                account list.
+            language_id: (``LanguageId``, sorgu) Language identifier used for localized account
+                information.
+            only_has_available_balance: (``onlyHasAvailableBalance``, sorgu) Indicates whether
+                only accounts with available balance should be returned.
+            only_open: (``onlyOpen``, sorgu) Indicates whether only open accounts should be
+                returned.
+            only_with_no_balance: (``onlyWithNoBalance``, sorgu) Indicates whether only accounts
+                with no balance should be returned.
+            only_current: (``onlyCurrent``, sorgu) Indicates whether only current accounts
+                should be returned.
+            shared_with_multi_signature: (``sharedWithMultiSignature``, sorgu) Indicates whether
+                accounts shared with multi-signature authorization should be included.
 
-        Yanıt alanları: executionReferenceId, accountList, accountNumber, name, suffix, balance,
+        Yanıt alanları: executionReferenceId, accountList, accountNumber, name, suffix,
         availableBalance, fxId, fxCode, iban, type, openDate, branchName, branchId,
         withHoldingAmount, customerName, maturityBeginDate, maturityEndDate, isActive
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/hesap-yonetimi-ucuncu-taraf-yazilim/ek-no-ile-hesap-listesi-v2
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/account-list-v2-withouth-suffix
         """
-        _path = "/v2/accounts/{suffix}"
-        if suffix is None:
-            _path = _path.replace("/{suffix}", "")
-        _path_params: dict[str, Any] = {}
-        if suffix is not None:
-            _path_params["suffix"] = suffix
         _query = merge(
             {
+                "CustomerId": customer_id,
+                "LanguageId": language_id,
                 "onlyHasAvailableBalance": only_has_available_balance,
                 "onlyOpen": only_open,
                 "onlyWithNoBalance": only_with_no_balance,
@@ -143,10 +142,10 @@ class TppAccounts(Resource):
         )
         return self._client.request(
             "GET",
-            _path,
+            "/v2/accounts/{suffix}",
             scope="accounts",
             flow="authorization_code",
-            path_params=_path_params,
+            path_params={"suffix": suffix},
             query=_query,
             options=request_options,
         )
@@ -359,7 +358,9 @@ class AsyncTppAccounts(AsyncResource):
     async def account_list_with_suffix_v2(
         self,
         *,
-        suffix: int | None = None,
+        suffix: int,
+        customer_id: int,
+        language_id: int | None = None,
         only_has_available_balance: bool | None = None,
         only_open: bool | None = None,
         only_with_no_balance: bool | None = None,
@@ -368,46 +369,43 @@ class AsyncTppAccounts(AsyncResource):
         extra_query: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Ek No ile Hesap Listesi V2.
+        """Account List V2 (withouth suffix).
 
         ``GET /v2/accounts/{suffix}``
 
         Kapsam: ``accounts`` · Akış: authorization code (müşteri girişi gerekir)
 
-        Bu API, authorization context ile ilişkili müşterinin hesap listesini almak için
-        kullanılır. Cevap; account number, account suffix, balance, available balance, currency
-        bilgisi, IBAN, account type, branch bilgisi, customer name, maturity dates ve account
-        status gibi hesap detaylarını içerir. Hesap listesi account suffix ve opsiyonel account
-        status veya balance filtreleri ile filtrelenebilir.
+        Retrieves the account information for the authenticated customer by account suffix. The
+        response includes account details such as balance, available balance, currency, IBAN,
+        account type, branch information, maturity dates and account status.
 
         Args:
-            suffix: (yol) Belirli bir hesabı almak için kullanılan account suffix değeridir. Bu
-                değer optional route parameter olarak gönderilir.
-            only_has_available_balance: (``onlyHasAvailableBalance``, sorgu) Yalnızca available
-                balance değeri bulunan hesapların döndürülüp döndürülmeyeceğini belirtir.
-            only_open: (``onlyOpen``, sorgu) Yalnızca açık hesapların döndürülüp
-                döndürülmeyeceğini belirtir.
-            only_with_no_balance: (``onlyWithNoBalance``, sorgu) Yalnızca bakiyesi olmayan
-                hesapların döndürülüp döndürülmeyeceğini belirtir.
-            only_current: (``onlyCurrent``, sorgu) Yalnızca current account türündeki hesapların
-                döndürülüp döndürülmeyeceğini belirtir.
-            shared_with_multi_signature: (``sharedWithMultiSignature``, sorgu) Birden fazla imza
-                gerektiren shared accounts bilgisinin dahil edilip edilmeyeceğini belirtir.
+            suffix: (yol, zorunlu) Account suffix used to retrieve a specific account.
+            customer_id: (``CustomerId``, sorgu, zorunlu) Customer number used to retrieve the
+                account list.
+            language_id: (``LanguageId``, sorgu) Language identifier used for localized account
+                information.
+            only_has_available_balance: (``onlyHasAvailableBalance``, sorgu) Indicates whether
+                only accounts with available balance should be returned.
+            only_open: (``onlyOpen``, sorgu) Indicates whether only open accounts should be
+                returned.
+            only_with_no_balance: (``onlyWithNoBalance``, sorgu) Indicates whether only accounts
+                with no balance should be returned.
+            only_current: (``onlyCurrent``, sorgu) Indicates whether only current accounts
+                should be returned.
+            shared_with_multi_signature: (``sharedWithMultiSignature``, sorgu) Indicates whether
+                accounts shared with multi-signature authorization should be included.
 
-        Yanıt alanları: executionReferenceId, accountList, accountNumber, name, suffix, balance,
+        Yanıt alanları: executionReferenceId, accountList, accountNumber, name, suffix,
         availableBalance, fxId, fxCode, iban, type, openDate, branchName, branchId,
         withHoldingAmount, customerName, maturityBeginDate, maturityEndDate, isActive
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/hesap-yonetimi-ucuncu-taraf-yazilim/ek-no-ile-hesap-listesi-v2
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/account-list-v2-withouth-suffix
         """
-        _path = "/v2/accounts/{suffix}"
-        if suffix is None:
-            _path = _path.replace("/{suffix}", "")
-        _path_params: dict[str, Any] = {}
-        if suffix is not None:
-            _path_params["suffix"] = suffix
         _query = merge(
             {
+                "CustomerId": customer_id,
+                "LanguageId": language_id,
                 "onlyHasAvailableBalance": only_has_available_balance,
                 "onlyOpen": only_open,
                 "onlyWithNoBalance": only_with_no_balance,
@@ -418,10 +416,10 @@ class AsyncTppAccounts(AsyncResource):
         )
         return await self._client.request(
             "GET",
-            _path,
+            "/v2/accounts/{suffix}",
             scope="accounts",
             flow="authorization_code",
-            path_params=_path_params,
+            path_params={"suffix": suffix},
             query=_query,
             options=request_options,
         )

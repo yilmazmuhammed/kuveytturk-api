@@ -462,8 +462,9 @@ def parse_endpoint(page: dict[str, Any], category: str) -> tuple[dict[str, Any] 
     """
     warnings: list[str] = []
     markdown = page.get("body") or ""
-    preamble, sections = split_sections(markdown)
-    header = parse_header(preamble)
+    _, sections = split_sections(markdown)
+    # Başlık tablosu ilk "##" bölümünden önce gelir; bazı sayfalar ondan önce bir "# Başlık" satırı taşır.
+    header = parse_header(re.split(r"^#{2,4}\s", markdown, maxsplit=1, flags=re.M)[0])
     if "url" not in header or "method" not in header:
         return None, warnings
 
@@ -593,7 +594,9 @@ def parse_endpoint(page: dict[str, Any], category: str) -> tuple[dict[str, Any] 
 
 def method_name(title: str) -> str:
     title = re.sub(r"\(.*?\)", " ", title)
-    return snake(title) or "call"
+    name = snake(title) or "call"
+    # "... Inquiry API" gibi başlıklardaki anlamsız son eki at.
+    return name[: -len("_api")] if name.endswith("_api") and len(name) > len("_api") else name
 
 
 def assign_names(endpoints: list[dict[str, Any]], overrides: dict[str, Any]) -> None:
@@ -668,12 +671,15 @@ def main() -> int:
                 if doc_id not in pages:
                     missing += 1
                     continue
-                if overrides.get(doc_id, {}).get("skip"):
-                    skipped += 1
-                    continue
                 page = docstore.load_page(pages[doc_id])
                 page["id"] = doc_id
                 endpoint, warnings = parse_endpoint(page, category["name"])
+                if overrides.get(doc_id, {}).get("skip"):
+                    skipped += 1
+                    if endpoint is not None:
+                        # Atlanan uç noktanın öbür dildeki sayfası da kataloğa girmesin.
+                        seen.add((endpoint["method"], endpoint["path"].lower()))
+                    continue
                 if endpoint is None:
                     skipped += 1
                     if warnings:

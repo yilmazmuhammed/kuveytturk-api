@@ -10,7 +10,7 @@ from typing import Any
 
 from .._base import RequestOptions
 from ..response import APIResponse
-from ._resource import AsyncResource, DateLike, Resource, merge
+from ._resource import AsyncResource, DateLike, Number, Resource, merge
 
 __all__ = ["AsyncPayments", "Payments"]
 
@@ -232,6 +232,149 @@ class Payments(Resource):
             "/v1/groupmoneytransfer/incomingtransfer/checkstatuslist",
             scope="intrabank_money_transfers",
             flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def do_stamp_duty_tax_payment_offline(
+        self,
+        *,
+        contract: Mapping[str, Any],
+        resource_code: str,
+        main_debit_contract: Mapping[str, Any],
+        tax_code: str,
+        installment_number: int,
+        tax_amount: Number,
+        total_amount: Number,
+        due_date: DateLike,
+        amount: Number,
+        do_notification: bool | None = None,
+        sub_tax_amount: Number | None = None,
+        debit_contract_list: Sequence[Any] | None = None,
+        opsatir_o_id: str | None = None,
+        opsh_o_id: str | None = None,
+        table_type: int | None = None,
+        serial_and_order_number: str | None = None,
+        sub_tax_code: str | None = None,
+        description: str | None = None,
+        discount_amount: Number | None = None,
+        total_discount_amount: Number | None = None,
+        service_call_id: int | None = None,
+        early_payment_state: bool | None = None,
+        late_state: bool | None = None,
+        valid_installment: bool | None = None,
+        begin_installment_date: DateLike | None = None,
+        end_installment_date: DateLike | None = None,
+        accrual_number: str | None = None,
+        name: str | None = None,
+        tax_price_id: int | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Do Stamp Duty Tax Payment Offline.
+
+        ``POST /v1/tax/do-stamp-duty-tax-payment-offline``
+
+        Kapsam: ``payments`` · Akış: client credentials
+
+        Performs an offline stamp duty tax payment according to the provided taxpayer, payment,
+        account, tax office, debit, accrual, vehicle, ATM amount, and reference information. The
+        response includes payment, tax, amount, branch, channel, business key, taxpayer,
+        transaction date, payer, corporation, and transaction reference details.
+
+        Args:
+            contract: (gövde, zorunlu) Contains the offline stamp duty tax payment request
+                details.
+            resource_code: (``resourceCode``, gövde, zorunlu) Resource code used for the tax
+                payment operation.
+            do_notification: (``doNotification``, gövde) Indicates whether notification should
+                be sent after the payment.
+            main_debit_contract: (``MainDebitContract``, gövde, zorunlu) Contains main debit
+                details of the tax payment.
+            tax_code: (``TaxCode``, gövde, zorunlu) Tax code of the main debit record.
+            installment_number: (``InstallmentNumber``, gövde, zorunlu) Installment number of
+                the tax payment.
+            tax_amount: (``TaxAmount``, gövde, zorunlu) Main tax amount.
+            sub_tax_amount: (``SubTaxAmount``, gövde) Sub tax amount.
+            total_amount: (``TotalAmount``, gövde, zorunlu) Total payment amount.
+            due_date: (``DueDate``, gövde, zorunlu) Due date of the tax payment.
+            debit_contract_list: (``DebitContractList``, gövde) List of debit details related to
+                the main debit record.
+            opsatir_o_id: (``OpsatirOId``, gövde) OPSATIR object identifier of the debit detail.
+            opsh_o_id: (``OpshOId``, gövde) OPSH object identifier of the debit detail.
+            table_type: (``TableType``, gövde) Table type of the debit detail.
+            serial_and_order_number: (``SerialAndOrderNumber``, gövde) Serial and order number
+                of the debit detail.
+            sub_tax_code: (``SubTaxCode``, gövde) Sub tax code of the debit detail.
+            amount: (``Amount``, gövde, zorunlu) Amount of the debit detail.
+            description: (``Description``, gövde) Description of the debit detail.
+            discount_amount: (``DiscountAmount``, gövde) Discount amount of the debit detail.
+            total_discount_amount: (``TotalDiscountAmount``, gövde) Total discount amount of the
+                main debit record.
+            service_call_id: (``ServiceCallId``, gövde) Service call identifier related to the
+                tax inquiry or payment.
+            early_payment_state: (``EarlyPaymentState``, gövde) Indicates whether early payment
+                status applies.
+            late_state: (``LateState``, gövde) Indicates whether late payment status applies.
+            valid_installment: (``ValidInstallment``, gövde) Indicates whether the installment
+                is valid for payment.
+            begin_installment_date: (``BeginInstallmentDate``, gövde) Begin date of the
+                installment period.
+            end_installment_date: (``EndInstallmentDate``, gövde) End date of the installment
+                period.
+            accrual_number: (``AccrualNumber``, gövde) Accrual number of the tax payment.
+            name: (``Name``, gövde) Name related to the tax record.
+            tax_price_id: (``TaxPriceId``, gövde) Tax price identifier.
+
+        Yanıt alanları: installmentNumber, paymentId, taxCode, taxOfficeCode, period, year,
+        serialNumber, orderNumber, paymentType, amount, branchId, channelId, businessKey,
+        taxNumber, isOnlinePayment, transactionDate, firstName, lastName, corporationName,
+        transactionReference, errors, message, code
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/do-stamp-duty-tax-payment-offline
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "contract": contract,
+                "resourceCode": resource_code,
+                "doNotification": do_notification,
+                "MainDebitContract": main_debit_contract,
+                "TaxCode": tax_code,
+                "InstallmentNumber": installment_number,
+                "TaxAmount": tax_amount,
+                "SubTaxAmount": sub_tax_amount,
+                "TotalAmount": total_amount,
+                "DueDate": due_date,
+                "DebitContractList": debit_contract_list,
+                "OpsatirOId": opsatir_o_id,
+                "OpshOId": opsh_o_id,
+                "TableType": table_type,
+                "SerialAndOrderNumber": serial_and_order_number,
+                "SubTaxCode": sub_tax_code,
+                "Amount": amount,
+                "Description": description,
+                "DiscountAmount": discount_amount,
+                "TotalDiscountAmount": total_discount_amount,
+                "ServiceCallId": service_call_id,
+                "EarlyPaymentState": early_payment_state,
+                "LateState": late_state,
+                "ValidInstallment": valid_installment,
+                "BeginInstallmentDate": begin_installment_date,
+                "EndInstallmentDate": end_installment_date,
+                "AccrualNumber": accrual_number,
+                "Name": name,
+                "TaxPriceId": tax_price_id,
+            },
+            extra_body,
+        )
+        return self._client.request(
+            "POST",
+            "/v1/tax/do-stamp-duty-tax-payment-offline",
+            scope="payments",
+            flow="client_credentials",
             query=_query,
             body=_body,
             options=request_options,
@@ -840,6 +983,149 @@ class AsyncPayments(AsyncResource):
             "/v1/groupmoneytransfer/incomingtransfer/checkstatuslist",
             scope="intrabank_money_transfers",
             flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def do_stamp_duty_tax_payment_offline(
+        self,
+        *,
+        contract: Mapping[str, Any],
+        resource_code: str,
+        main_debit_contract: Mapping[str, Any],
+        tax_code: str,
+        installment_number: int,
+        tax_amount: Number,
+        total_amount: Number,
+        due_date: DateLike,
+        amount: Number,
+        do_notification: bool | None = None,
+        sub_tax_amount: Number | None = None,
+        debit_contract_list: Sequence[Any] | None = None,
+        opsatir_o_id: str | None = None,
+        opsh_o_id: str | None = None,
+        table_type: int | None = None,
+        serial_and_order_number: str | None = None,
+        sub_tax_code: str | None = None,
+        description: str | None = None,
+        discount_amount: Number | None = None,
+        total_discount_amount: Number | None = None,
+        service_call_id: int | None = None,
+        early_payment_state: bool | None = None,
+        late_state: bool | None = None,
+        valid_installment: bool | None = None,
+        begin_installment_date: DateLike | None = None,
+        end_installment_date: DateLike | None = None,
+        accrual_number: str | None = None,
+        name: str | None = None,
+        tax_price_id: int | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Do Stamp Duty Tax Payment Offline.
+
+        ``POST /v1/tax/do-stamp-duty-tax-payment-offline``
+
+        Kapsam: ``payments`` · Akış: client credentials
+
+        Performs an offline stamp duty tax payment according to the provided taxpayer, payment,
+        account, tax office, debit, accrual, vehicle, ATM amount, and reference information. The
+        response includes payment, tax, amount, branch, channel, business key, taxpayer,
+        transaction date, payer, corporation, and transaction reference details.
+
+        Args:
+            contract: (gövde, zorunlu) Contains the offline stamp duty tax payment request
+                details.
+            resource_code: (``resourceCode``, gövde, zorunlu) Resource code used for the tax
+                payment operation.
+            do_notification: (``doNotification``, gövde) Indicates whether notification should
+                be sent after the payment.
+            main_debit_contract: (``MainDebitContract``, gövde, zorunlu) Contains main debit
+                details of the tax payment.
+            tax_code: (``TaxCode``, gövde, zorunlu) Tax code of the main debit record.
+            installment_number: (``InstallmentNumber``, gövde, zorunlu) Installment number of
+                the tax payment.
+            tax_amount: (``TaxAmount``, gövde, zorunlu) Main tax amount.
+            sub_tax_amount: (``SubTaxAmount``, gövde) Sub tax amount.
+            total_amount: (``TotalAmount``, gövde, zorunlu) Total payment amount.
+            due_date: (``DueDate``, gövde, zorunlu) Due date of the tax payment.
+            debit_contract_list: (``DebitContractList``, gövde) List of debit details related to
+                the main debit record.
+            opsatir_o_id: (``OpsatirOId``, gövde) OPSATIR object identifier of the debit detail.
+            opsh_o_id: (``OpshOId``, gövde) OPSH object identifier of the debit detail.
+            table_type: (``TableType``, gövde) Table type of the debit detail.
+            serial_and_order_number: (``SerialAndOrderNumber``, gövde) Serial and order number
+                of the debit detail.
+            sub_tax_code: (``SubTaxCode``, gövde) Sub tax code of the debit detail.
+            amount: (``Amount``, gövde, zorunlu) Amount of the debit detail.
+            description: (``Description``, gövde) Description of the debit detail.
+            discount_amount: (``DiscountAmount``, gövde) Discount amount of the debit detail.
+            total_discount_amount: (``TotalDiscountAmount``, gövde) Total discount amount of the
+                main debit record.
+            service_call_id: (``ServiceCallId``, gövde) Service call identifier related to the
+                tax inquiry or payment.
+            early_payment_state: (``EarlyPaymentState``, gövde) Indicates whether early payment
+                status applies.
+            late_state: (``LateState``, gövde) Indicates whether late payment status applies.
+            valid_installment: (``ValidInstallment``, gövde) Indicates whether the installment
+                is valid for payment.
+            begin_installment_date: (``BeginInstallmentDate``, gövde) Begin date of the
+                installment period.
+            end_installment_date: (``EndInstallmentDate``, gövde) End date of the installment
+                period.
+            accrual_number: (``AccrualNumber``, gövde) Accrual number of the tax payment.
+            name: (``Name``, gövde) Name related to the tax record.
+            tax_price_id: (``TaxPriceId``, gövde) Tax price identifier.
+
+        Yanıt alanları: installmentNumber, paymentId, taxCode, taxOfficeCode, period, year,
+        serialNumber, orderNumber, paymentType, amount, branchId, channelId, businessKey,
+        taxNumber, isOnlinePayment, transactionDate, firstName, lastName, corporationName,
+        transactionReference, errors, message, code
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/do-stamp-duty-tax-payment-offline
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "contract": contract,
+                "resourceCode": resource_code,
+                "doNotification": do_notification,
+                "MainDebitContract": main_debit_contract,
+                "TaxCode": tax_code,
+                "InstallmentNumber": installment_number,
+                "TaxAmount": tax_amount,
+                "SubTaxAmount": sub_tax_amount,
+                "TotalAmount": total_amount,
+                "DueDate": due_date,
+                "DebitContractList": debit_contract_list,
+                "OpsatirOId": opsatir_o_id,
+                "OpshOId": opsh_o_id,
+                "TableType": table_type,
+                "SerialAndOrderNumber": serial_and_order_number,
+                "SubTaxCode": sub_tax_code,
+                "Amount": amount,
+                "Description": description,
+                "DiscountAmount": discount_amount,
+                "TotalDiscountAmount": total_discount_amount,
+                "ServiceCallId": service_call_id,
+                "EarlyPaymentState": early_payment_state,
+                "LateState": late_state,
+                "ValidInstallment": valid_installment,
+                "BeginInstallmentDate": begin_installment_date,
+                "EndInstallmentDate": end_installment_date,
+                "AccrualNumber": accrual_number,
+                "Name": name,
+                "TaxPriceId": tax_price_id,
+            },
+            extra_body,
+        )
+        return await self._client.request(
+            "POST",
+            "/v1/tax/do-stamp-duty-tax-payment-offline",
+            scope="payments",
+            flow="client_credentials",
             query=_query,
             body=_body,
             options=request_options,

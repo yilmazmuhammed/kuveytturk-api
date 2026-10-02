@@ -117,7 +117,7 @@ veritabanı...) `token_store=` ile verebilirsiniz.
 
 ## Uç noktalar
 
-Hazır metotlar kaynaklara ayrılmıştır: `kt.accounts`, `kt.tpp_accounts`, `kt.fx`, `kt.cards`,
+23 kaynak altında 192 uç nokta hazır metot olarak gelir. Hazır metotlar kaynaklara ayrılmıştır: `kt.accounts`, `kt.tpp_accounts`, `kt.fx`, `kt.cards`,
 `kt.treasury`... Tam liste: [ENDPOINTS.md](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/ENDPOINTS.md). Her metodun docstring'inde yolu,
 kapsamı, akışı, parametreleri ve resmî dokümanın bağlantısı bulunur.
 
@@ -150,6 +150,10 @@ yanit.results        # uyarı / bilgi mesajları
 yanit.data           # zarf dahil gövdenin tamamı
 yanit.status_code, yanit.headers
 ```
+
+Bir uç noktayı çağırabilmeniz için portaldaki uygulamanızda ilgili API ürününün (kapsamın)
+etkin olması gerekir; değilse `AuthenticationError` (`invalid_scope`) ya da `ForbiddenError`
+alırsınız. Dokümanda geçen bazı uç noktalar sandbox'ta bulunmayabilir (`NotFoundError`).
 
 ### Doküman eksikse ya da yanlışsa
 

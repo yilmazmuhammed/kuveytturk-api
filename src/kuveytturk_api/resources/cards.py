@@ -166,6 +166,60 @@ class Cards(Resource):
             options=request_options,
         )
 
+    def virtual_card_limit_update(
+        self,
+        *,
+        credit_card_number: str,
+        limit: Number,
+        customer_id: int,
+        language_id: int,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Virtual Card Limit Update.
+
+        ``POST /v1/cards/virtualcardlimitupdate``
+
+        Kapsam: ``cards`` · Akış: authorization code (müşteri girişi gerekir)
+
+        This API updates the limit of a virtual credit card for the authenticated customer. >
+        This API is in beta stage. Request and response models may change over time.
+
+        Args:
+            credit_card_number: (``CreditCardNumber``, gövde, zorunlu) Virtual credit card
+                number whose limit will be updated.
+            limit: (``Limit``, gövde, zorunlu) New limit amount to be assigned to the virtual
+                credit card.
+            customer_id: (``CustomerId``, gövde, zorunlu) Unique customer identifier.
+            language_id: (``LanguageId``, gövde, zorunlu) Language identifier used for localized
+                messages and responses.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/virtual-card-limit-update
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "CreditCardNumber": credit_card_number,
+                "Limit": limit,
+                "CustomerId": customer_id,
+                "LanguageId": language_id,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return self._client.request(
+            "POST",
+            "/v1/cards/virtualcardlimitupdate",
+            scope="cards",
+            flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
 
 class AsyncCards(AsyncResource):
     """Kredi kartı işlemleri (asenkron) - ``kt.cards``."""
@@ -315,5 +369,59 @@ class AsyncCards(AsyncResource):
             flow="client_credentials",
             path_params={"cardnumber": cardnumber},
             query=_query,
+            options=request_options,
+        )
+
+    async def virtual_card_limit_update(
+        self,
+        *,
+        credit_card_number: str,
+        limit: Number,
+        customer_id: int,
+        language_id: int,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Virtual Card Limit Update.
+
+        ``POST /v1/cards/virtualcardlimitupdate``
+
+        Kapsam: ``cards`` · Akış: authorization code (müşteri girişi gerekir)
+
+        This API updates the limit of a virtual credit card for the authenticated customer. >
+        This API is in beta stage. Request and response models may change over time.
+
+        Args:
+            credit_card_number: (``CreditCardNumber``, gövde, zorunlu) Virtual credit card
+                number whose limit will be updated.
+            limit: (``Limit``, gövde, zorunlu) New limit amount to be assigned to the virtual
+                credit card.
+            customer_id: (``CustomerId``, gövde, zorunlu) Unique customer identifier.
+            language_id: (``LanguageId``, gövde, zorunlu) Language identifier used for localized
+                messages and responses.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/virtual-card-limit-update
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "CreditCardNumber": credit_card_number,
+                "Limit": limit,
+                "CustomerId": customer_id,
+                "LanguageId": language_id,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/cards/virtualcardlimitupdate",
+            scope="cards",
+            flow="authorization_code",
+            query=_query,
+            body=_body,
             options=request_options,
         )

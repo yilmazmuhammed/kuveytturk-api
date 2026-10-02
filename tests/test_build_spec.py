@@ -78,6 +78,21 @@ def test_flow_detection_and_url_normalisation():
     assert any("akış" in w for w in warnings)
 
 
+def test_header_table_after_a_title_heading_is_recognised():
+    body = "# Bank Branch List\n\n" + HEADER.format(
+        url="/v1/data/banks/{bankId}/branches",
+        method="GET",
+        scope="public",
+        flow="client credentials",
+    )
+    endpoint, _ = build_spec.parse_endpoint(
+        {"id": "1", "title": "Bank Branch List", "body": body}, "X"
+    )
+    assert endpoint is not None
+    assert endpoint["path"] == "/v1/data/banks/{bankId}/branches"
+    assert endpoint["description"].startswith("Does something useful")
+
+
 def test_pages_without_endpoint_header_are_skipped():
     doc = {"id": "1", "title": "Guide", "body": "## Introduction\nJust prose."}
     assert build_spec.parse_endpoint(doc, "Introduction") == (None, [])

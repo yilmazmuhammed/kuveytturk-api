@@ -18,6 +18,62 @@ __all__ = ["AsyncDonations", "Donations"]
 class Donations(Resource):
     """Bağışlar - ``kt.donations``."""
 
+    def account_transactions_for_the_organization(
+        self,
+        *,
+        organization_id: int,
+        password: str,
+        start_date: DateLike,
+        end_date: DateLike,
+        campaign_account_suffix: int,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Account Transactions for the Organization.
+
+        ``POST /v1/donations/transactions``
+
+        Kapsam: ``donations`` · Akış: authorization code (müşteri girişi gerekir)
+
+        Returns the list of all transactions between the start and end date made to the
+        organization.
+
+        Args:
+            organization_id: (``organizationId``, gövde, zorunlu) Organization Code
+            password: (gövde, zorunlu) Organization Password
+            start_date: (``startDate``, gövde, zorunlu) Report Start Date
+            end_date: (``endDate``, gövde, zorunlu) Report End Date
+            campaign_account_suffix: (``campaignAccountSuffix``, gövde, zorunlu) Customer
+                Account Suffix
+
+        Yanıt alanları: AccountNumber, AccountSuffix, Balance, FECName, IBAN, BranchId,
+        BranchName, TransactionCount, TransactionList, Amount, TranDate, ValueDate, BusinessKey,
+        CurrentBalance, Description, SenderIdentityNumber
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/account-transactions-for-the-organization
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "organizationId": organization_id,
+                "password": password,
+                "startDate": start_date,
+                "endDate": end_date,
+                "campaignAccountSuffix": campaign_account_suffix,
+            },
+            extra_body,
+        )
+        return self._client.request(
+            "POST",
+            "/v1/donations/transactions",
+            scope="donations",
+            flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     def campaign_list_for_organization(
         self,
         *,
@@ -273,6 +329,62 @@ class Donations(Resource):
 
 class AsyncDonations(AsyncResource):
     """Bağışlar (asenkron) - ``kt.donations``."""
+
+    async def account_transactions_for_the_organization(
+        self,
+        *,
+        organization_id: int,
+        password: str,
+        start_date: DateLike,
+        end_date: DateLike,
+        campaign_account_suffix: int,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Account Transactions for the Organization.
+
+        ``POST /v1/donations/transactions``
+
+        Kapsam: ``donations`` · Akış: authorization code (müşteri girişi gerekir)
+
+        Returns the list of all transactions between the start and end date made to the
+        organization.
+
+        Args:
+            organization_id: (``organizationId``, gövde, zorunlu) Organization Code
+            password: (gövde, zorunlu) Organization Password
+            start_date: (``startDate``, gövde, zorunlu) Report Start Date
+            end_date: (``endDate``, gövde, zorunlu) Report End Date
+            campaign_account_suffix: (``campaignAccountSuffix``, gövde, zorunlu) Customer
+                Account Suffix
+
+        Yanıt alanları: AccountNumber, AccountSuffix, Balance, FECName, IBAN, BranchId,
+        BranchName, TransactionCount, TransactionList, Amount, TranDate, ValueDate, BusinessKey,
+        CurrentBalance, Description, SenderIdentityNumber
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/account-transactions-for-the-organization
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "organizationId": organization_id,
+                "password": password,
+                "startDate": start_date,
+                "endDate": end_date,
+                "campaignAccountSuffix": campaign_account_suffix,
+            },
+            extra_body,
+        )
+        return await self._client.request(
+            "POST",
+            "/v1/donations/transactions",
+            scope="donations",
+            flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
 
     async def campaign_list_for_organization(
         self,

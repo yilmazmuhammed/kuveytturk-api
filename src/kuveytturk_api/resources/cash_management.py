@@ -72,125 +72,19 @@ class CashManagement(Resource):
             options=request_options,
         )
 
-    def dijital_bankacilik_iadesi(
-        self,
-        *,
-        transaction_id: str,
-        org_transaction_id: str,
-        amount: Number,
-        currency: str,
-        comission_amount: Number,
-        description: str,
-        extra_query: Mapping[str, Any] | None = None,
-        extra_body: Mapping[str, Any] | None = None,
-        request_options: RequestOptions | None = None,
-    ) -> APIResponse:
-        """Dijital Bankacılık İadesi.
-
-        ``POST /v1/vpos/digitalPaymentRefund``
-
-        Kapsam: ``digital_payments`` · Akış: client credentials
-
-        Önceki gün içerisinde yapılan işlemlerde iade veya kısmi iade yapılır.
-
-        Args:
-            transaction_id: (``TransactionId``, gövde, zorunlu) İade işleminin tekil işlem
-                numarası
-            org_transaction_id: (``OrgTransactionId``, gövde, zorunlu) ComPay tarafından bankaya
-                iade edilen orijinal işlemin benzersiz işlem numarası
-            amount: (``Amount``, gövde, zorunlu) İade edilecek bilgi miktarı
-            currency: (``Currency``, gövde, zorunlu) İşlem para birimi
-            comission_amount: (``ComissionAmount``, gövde, zorunlu) İade işlemi için işyerinden
-                alınacak komisyon tutarı.
-            description: (``Description``, gövde, zorunlu) İşlem açıklaması
-
-        Gövde alanları istekte ``DigitalPaymentRefundTransactionContract`` nesnesinin içine
-        yerleştirilir.
-
-        Yanıt alanları: ReturnCode, ReturnMessage
-
-        Doküman: https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-iadesi
-        """
-        _query = merge({}, extra_query)
-        _body: Any = merge(
-            {
-                "TransactionId": transaction_id,
-                "OrgTransactionId": org_transaction_id,
-                "Amount": amount,
-                "Currency": currency,
-                "ComissionAmount": comission_amount,
-                "Description": description,
-            },
-            extra_body,
-        )
-        _body = {"DigitalPaymentRefundTransactionContract": _body}
-        return self._client.request(
-            "POST",
-            "/v1/vpos/digitalPaymentRefund",
-            scope="digital_payments",
-            flow="client_credentials",
-            query=_query,
-            body=_body,
-            options=request_options,
-        )
-
-    def dijital_bankacilik_islem_durumu(
-        self,
-        *,
-        transaction_id: str,
-        extra_query: Mapping[str, Any] | None = None,
-        extra_body: Mapping[str, Any] | None = None,
-        request_options: RequestOptions | None = None,
-    ) -> APIResponse:
-        """Dijital Bankacılık İşlem Durumu.
-
-        ``POST /v1/vpos/digitalPaymentStatus``
-
-        Kapsam: ``digital_payments`` · Akış: client credentials
-
-        Parametrelerde belirtilen işlemin durumunu döndürür.
-
-        Args:
-            transaction_id: (``TransactionId``, gövde, zorunlu) İşlemin tekil işlem numarası
-
-        Gövde alanları istekte ``DigitalPaymentStatContract`` nesnesinin içine yerleştirilir.
-
-        Yanıt alanları: ReturnCode, ReturnMessage, DiscountedAmount, ProductType, CostAmount,
-        ComissionAmount, Amount, TransactionType, TransactionId, OrgTransactionId
-
-        Doküman: https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-islem-durumu
-        """
-        _query = merge({}, extra_query)
-        _body: Any = merge(
-            {
-                "TransactionId": transaction_id,
-            },
-            extra_body,
-        )
-        _body = {"DigitalPaymentStatContract": _body}
-        return self._client.request(
-            "POST",
-            "/v1/vpos/digitalPaymentStatus",
-            scope="digital_payments",
-            flow="client_credentials",
-            query=_query,
-            body=_body,
-            options=request_options,
-        )
-
-    def dijital_bankacilik_odeme(
+    def digital_banking_payment(
         self,
         *,
         transaction_id: str,
         merchant_id: str,
         soft_descriptor: str,
         product_type: str,
+        cost_amount: Number,
         comission_amount: Number,
         amount: Number,
         transaction_currency: int,
         token_interval: int,
         payment_method: str,
-        cost_amount: Number | None = None,
         success_redirect_url: str | None = None,
         fail_redirect_url: str | None = None,
         os: str | None = None,
@@ -200,37 +94,37 @@ class CashManagement(Resource):
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Dijital Bankacılık Ödeme.
+        """Digital Banking Payment.
 
         ``POST /v1/vpos/digitalPayment``
 
         Kapsam: ``digital_payments`` · Akış: client credentials
 
-        Parametrelerde sağlanan müşteri profilinden ödeme bilgilerini toplar.
+        Collects the payment information from the customer's profile provided in the parameters.
 
         Args:
-            transaction_id: (``TransactionId``, gövde, zorunlu) Tekil bir sayının işlenmesi.
-            merchant_id: (``MerchantId``, gövde, zorunlu) Banka tarafından belirlenen şirket
-                kodu
-            soft_descriptor: (``SoftDescriptor``, gövde, zorunlu) Tüccar işlem belirteci.
-            product_type: (``ProductType``, gövde, zorunlu) Hesaplanan maliyetler ve komisyon
-                ödeme türleri
-            cost_amount: (``CostAmount``, gövde)
+            transaction_id: (``TransactionId``, gövde, zorunlu) Processing of a singular number.
+            merchant_id: (``MerchantId``, gövde, zorunlu) Company code defined by the Bank
+            soft_descriptor: (``SoftDescriptor``, gövde, zorunlu) Merchant processing token.
+            product_type: (``ProductType``, gövde, zorunlu) Calculated costs and commission
+                types of payment
+            cost_amount: (``CostAmount``, gövde, zorunlu) Transaction fees received from
+                customers
             comission_amount: (``ComissionAmount``, gövde, zorunlu) A commission fee will be
                 taken from the workplace.
-            amount: (``Amount``, gövde, zorunlu) İşlem tutarı
-            transaction_currency: (``TransactionCurrency``, gövde, zorunlu) İşlem para birimi
-            token_interval: (``TokenInterval``, gövde, zorunlu) Dakikalar içinde talep edilen
-                token geçerlilik süresi
-            success_redirect_url: (``SuccessRedirectUrl``, gövde) Müşteri, bankacılığın başarısı
-                için adresi yönlendiriyor
-            fail_redirect_url: (``FailRedirectUrl``, gövde) Müşteri yönlendirme adresi
-                bankacılık tarafından başarısız oldu
-            payment_method: (``PaymentMethod``, gövde, zorunlu) Ödeme yöntemi bilgisi
-            os: (``OS``, gövde) Mobil uygulamanın işletim sistemi bilgisi.
-            product_type_condition: (``ProductTypeCondition``, gövde) Farklı ürün tipleri için
-                hesaplanan maliyet ve komisyon bilgileri
-            pan: (``Pan``, gövde) Müşteri bilgilerinin doğruluğunu gösteren işlem
+            amount: (``Amount``, gövde, zorunlu) Transaction amount
+            transaction_currency: (``TransactionCurrency``, gövde, zorunlu) Transaction currency
+            token_interval: (``TokenInterval``, gövde, zorunlu) Token claimed in minutes
+                validity period
+            success_redirect_url: (``SuccessRedirectUrl``, gövde) Customer redirects address for
+                success by banking
+            fail_redirect_url: (``FailRedirectUrl``, gövde) Customer redirect address for fail
+                by banking
+            payment_method: (``PaymentMethod``, gövde, zorunlu) Payment method is information
+            os: (``OS``, gövde) Operating system info of the mobile application.
+            product_type_condition: (``ProductTypeCondition``, gövde) Calculated cost and
+                commission information for different product type
+            pan: (``Pan``, gövde) The process, which indicates that the customer information
 
         Gövde alanları istekte ``DigitalPaymentTransactionContract`` nesnesinin içine
         yerleştirilir.
@@ -238,7 +132,7 @@ class CashManagement(Resource):
         Yanıt alanları: AccessToken, TokenExpireDate, ReturnCode, ReturnMessage,
         ApplicationName, ApplicationParameter
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-odeme
+        Doküman: https://developer.kuveytturk.com.tr/documentation/cash-management/digital-banking-payment
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -272,7 +166,114 @@ class CashManagement(Resource):
             options=request_options,
         )
 
-    def school_installment_payment_system_active_registration_inquiry_api(
+    def digital_banking_refund(
+        self,
+        *,
+        transaction_id: str,
+        org_transaction_id: str,
+        amount: Number,
+        currency: str,
+        comission_amount: Number,
+        description: str,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Digital Banking Refund.
+
+        ``POST /v1/vpos/digitalPaymentRefund``
+
+        Kapsam: ``digital_payments`` · Akış: client credentials
+
+        Does a refund or a partial refund on the transactions made during the previous day.
+
+        Args:
+            transaction_id: (``TransactionId``, gövde, zorunlu) The singular transaction number
+                of the return transaction
+            org_transaction_id: (``OrgTransactionId``, gövde, zorunlu) The unique transaction
+                number of the original transaction returned by ComPay to the bank
+            amount: (``Amount``, gövde, zorunlu) The amount of information to be returned
+            currency: (``Currency``, gövde, zorunlu) Transaction currency
+            comission_amount: (``ComissionAmount``, gövde, zorunlu) Amount of commission to be
+                taken from the workplace for the return transaction.
+            description: (``Description``, gövde, zorunlu) Transaction description
+
+        Gövde alanları istekte ``DigitalPaymentRefundTransactionContract`` nesnesinin içine
+        yerleştirilir.
+
+        Yanıt alanları: ReturnCode, ReturnMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/cash-management/digital-banking-refund
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "TransactionId": transaction_id,
+                "OrgTransactionId": org_transaction_id,
+                "Amount": amount,
+                "Currency": currency,
+                "ComissionAmount": comission_amount,
+                "Description": description,
+            },
+            extra_body,
+        )
+        _body = {"DigitalPaymentRefundTransactionContract": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/digitalPaymentRefund",
+            scope="digital_payments",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def digital_banking_transaction_status(
+        self,
+        *,
+        transaction_id: str,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Digital Banking Transaction Status.
+
+        ``POST /v1/vpos/digitalPaymentStatus``
+
+        Kapsam: ``digital_payments`` · Akış: client credentials
+
+        Returns the status of the transaction provided in the parameters.
+
+        Args:
+            transaction_id: (``TransactionId``, gövde, zorunlu) The singular transaction number
+                of the transaction
+
+        Gövde alanları istekte ``DigitalPaymentStatContract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: ReturnCode, ReturnMessage, DiscountedAmount, ProductType, CostAmount,
+        ComissionAmount, Amount, TransactionType, TransactionId, OrgTransactionId
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/cash-management/digital-banking-transaction-status
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "TransactionId": transaction_id,
+            },
+            extra_body,
+        )
+        _body = {"DigitalPaymentStatContract": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/digitalPaymentStatus",
+            scope="digital_payments",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def school_installment_payment_system_active_registration_inquiry(
         self,
         *,
         identity_number: str,
@@ -321,7 +322,7 @@ class CashManagement(Resource):
             options=request_options,
         )
 
-    def school_installment_system_registration_and_installment_cancellation_api(
+    def school_installment_system_registration_and_installment_cancellation(
         self,
         *,
         client_id: str,
@@ -678,6 +679,60 @@ class CashManagement(Resource):
             options=request_options,
         )
 
+    def supplier_financing_repayment_plan_calculation(
+        self,
+        *,
+        supplier_tax_number: str,
+        supplier_order_id: str,
+        maturity_day_count: int | None = None,
+        early_payment_day_count: int | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Supplier Financing Repayment Plan Calculation.
+
+        ``POST /v1/supplierfinance/getpaybackplan``
+
+        Kapsam: ``loans`` · Akış: client credentials
+
+        It is the API where the order is canceled by the vendor.
+
+        Args:
+            supplier_tax_number: (``SupplierTaxNumber``, gövde, zorunlu) Identify the supplier
+                tax number.
+            supplier_order_id: (``SupplierOrderId``, gövde, zorunlu) Order number.
+            maturity_day_count: (``MaturityDayCount``, gövde) Maturity day count.
+            early_payment_day_count: (``EarlyPaymentDayCount``, gövde) Early payment day count.
+
+        Gövde alanları istekte ``contract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: SupplierOrderGuidId, OrderNumber, Status, StatusName, ResultMessage,
+        executionReferenceId
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-repayment-plan-calculation
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "SupplierTaxNumber": supplier_tax_number,
+                "SupplierOrderId": supplier_order_id,
+                "MaturityDayCount": maturity_day_count,
+                "EarlyPaymentDayCount": early_payment_day_count,
+            },
+            extra_body,
+        )
+        _body = {"contract": _body}
+        return self._client.request(
+            "POST",
+            "/v1/supplierfinance/getpaybackplan",
+            scope="loans",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     def supplier_financing_vendor_company_invoice_approval(
         self,
         *,
@@ -979,57 +1034,6 @@ class CashManagement(Resource):
             options=request_options,
         )
 
-    def tedarikci_finansman_geri_odeme_plani_hesaplamasi(
-        self,
-        *,
-        supplier_tax_number: str,
-        supplier_order_id: str,
-        maturity_day_count: int | None = None,
-        early_payment_day_count: int | None = None,
-        extra_query: Mapping[str, Any] | None = None,
-        extra_body: Mapping[str, Any] | None = None,
-        request_options: RequestOptions | None = None,
-    ) -> APIResponse:
-        """Tedarikçi Finansman Geri Ödeme Planı Hesaplaması.
-
-        ``POST /v1/supplierfinance/getpaybackplan``
-
-        Kapsam: ``loans`` · Akış: client credentials
-
-        Siparişin satıcı tarafından iptal edildiği API'dir.
-
-        Args:
-            supplier_tax_number: (``SupplierTaxNumber``, gövde, zorunlu) Tedarikçi vergi
-                numarasını tanımlayın.
-            supplier_order_id: (``SupplierOrderId``, gövde, zorunlu) Sipariş numarası.
-            maturity_day_count: (``MaturityDayCount``, gövde) Vade günü sayımı.
-            early_payment_day_count: (``EarlyPaymentDayCount``, gövde) Erken ödeme günü sayımı.
-
-        Gövde alanları istekte ``contract`` nesnesinin içine yerleştirilir.
-
-        Doküman: https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/tedarikci-finansman-geri-odeme-plani-hesaplamasi
-        """
-        _query = merge({}, extra_query)
-        _body: Any = merge(
-            {
-                "SupplierTaxNumber": supplier_tax_number,
-                "SupplierOrderId": supplier_order_id,
-                "MaturityDayCount": maturity_day_count,
-                "EarlyPaymentDayCount": early_payment_day_count,
-            },
-            extra_body,
-        )
-        _body = {"contract": _body}
-        return self._client.request(
-            "POST",
-            "/v1/supplierfinance/getpaybackplan",
-            scope="loans",
-            flow="client_credentials",
-            query=_query,
-            body=_body,
-            options=request_options,
-        )
-
 
 class AsyncCashManagement(AsyncResource):
     """Nakit yönetimi (asenkron) - ``kt.cash_management``."""
@@ -1088,125 +1092,19 @@ class AsyncCashManagement(AsyncResource):
             options=request_options,
         )
 
-    async def dijital_bankacilik_iadesi(
-        self,
-        *,
-        transaction_id: str,
-        org_transaction_id: str,
-        amount: Number,
-        currency: str,
-        comission_amount: Number,
-        description: str,
-        extra_query: Mapping[str, Any] | None = None,
-        extra_body: Mapping[str, Any] | None = None,
-        request_options: RequestOptions | None = None,
-    ) -> APIResponse:
-        """Dijital Bankacılık İadesi.
-
-        ``POST /v1/vpos/digitalPaymentRefund``
-
-        Kapsam: ``digital_payments`` · Akış: client credentials
-
-        Önceki gün içerisinde yapılan işlemlerde iade veya kısmi iade yapılır.
-
-        Args:
-            transaction_id: (``TransactionId``, gövde, zorunlu) İade işleminin tekil işlem
-                numarası
-            org_transaction_id: (``OrgTransactionId``, gövde, zorunlu) ComPay tarafından bankaya
-                iade edilen orijinal işlemin benzersiz işlem numarası
-            amount: (``Amount``, gövde, zorunlu) İade edilecek bilgi miktarı
-            currency: (``Currency``, gövde, zorunlu) İşlem para birimi
-            comission_amount: (``ComissionAmount``, gövde, zorunlu) İade işlemi için işyerinden
-                alınacak komisyon tutarı.
-            description: (``Description``, gövde, zorunlu) İşlem açıklaması
-
-        Gövde alanları istekte ``DigitalPaymentRefundTransactionContract`` nesnesinin içine
-        yerleştirilir.
-
-        Yanıt alanları: ReturnCode, ReturnMessage
-
-        Doküman: https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-iadesi
-        """
-        _query = merge({}, extra_query)
-        _body: Any = merge(
-            {
-                "TransactionId": transaction_id,
-                "OrgTransactionId": org_transaction_id,
-                "Amount": amount,
-                "Currency": currency,
-                "ComissionAmount": comission_amount,
-                "Description": description,
-            },
-            extra_body,
-        )
-        _body = {"DigitalPaymentRefundTransactionContract": _body}
-        return await self._client.request(
-            "POST",
-            "/v1/vpos/digitalPaymentRefund",
-            scope="digital_payments",
-            flow="client_credentials",
-            query=_query,
-            body=_body,
-            options=request_options,
-        )
-
-    async def dijital_bankacilik_islem_durumu(
-        self,
-        *,
-        transaction_id: str,
-        extra_query: Mapping[str, Any] | None = None,
-        extra_body: Mapping[str, Any] | None = None,
-        request_options: RequestOptions | None = None,
-    ) -> APIResponse:
-        """Dijital Bankacılık İşlem Durumu.
-
-        ``POST /v1/vpos/digitalPaymentStatus``
-
-        Kapsam: ``digital_payments`` · Akış: client credentials
-
-        Parametrelerde belirtilen işlemin durumunu döndürür.
-
-        Args:
-            transaction_id: (``TransactionId``, gövde, zorunlu) İşlemin tekil işlem numarası
-
-        Gövde alanları istekte ``DigitalPaymentStatContract`` nesnesinin içine yerleştirilir.
-
-        Yanıt alanları: ReturnCode, ReturnMessage, DiscountedAmount, ProductType, CostAmount,
-        ComissionAmount, Amount, TransactionType, TransactionId, OrgTransactionId
-
-        Doküman: https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-islem-durumu
-        """
-        _query = merge({}, extra_query)
-        _body: Any = merge(
-            {
-                "TransactionId": transaction_id,
-            },
-            extra_body,
-        )
-        _body = {"DigitalPaymentStatContract": _body}
-        return await self._client.request(
-            "POST",
-            "/v1/vpos/digitalPaymentStatus",
-            scope="digital_payments",
-            flow="client_credentials",
-            query=_query,
-            body=_body,
-            options=request_options,
-        )
-
-    async def dijital_bankacilik_odeme(
+    async def digital_banking_payment(
         self,
         *,
         transaction_id: str,
         merchant_id: str,
         soft_descriptor: str,
         product_type: str,
+        cost_amount: Number,
         comission_amount: Number,
         amount: Number,
         transaction_currency: int,
         token_interval: int,
         payment_method: str,
-        cost_amount: Number | None = None,
         success_redirect_url: str | None = None,
         fail_redirect_url: str | None = None,
         os: str | None = None,
@@ -1216,37 +1114,37 @@ class AsyncCashManagement(AsyncResource):
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Dijital Bankacılık Ödeme.
+        """Digital Banking Payment.
 
         ``POST /v1/vpos/digitalPayment``
 
         Kapsam: ``digital_payments`` · Akış: client credentials
 
-        Parametrelerde sağlanan müşteri profilinden ödeme bilgilerini toplar.
+        Collects the payment information from the customer's profile provided in the parameters.
 
         Args:
-            transaction_id: (``TransactionId``, gövde, zorunlu) Tekil bir sayının işlenmesi.
-            merchant_id: (``MerchantId``, gövde, zorunlu) Banka tarafından belirlenen şirket
-                kodu
-            soft_descriptor: (``SoftDescriptor``, gövde, zorunlu) Tüccar işlem belirteci.
-            product_type: (``ProductType``, gövde, zorunlu) Hesaplanan maliyetler ve komisyon
-                ödeme türleri
-            cost_amount: (``CostAmount``, gövde)
+            transaction_id: (``TransactionId``, gövde, zorunlu) Processing of a singular number.
+            merchant_id: (``MerchantId``, gövde, zorunlu) Company code defined by the Bank
+            soft_descriptor: (``SoftDescriptor``, gövde, zorunlu) Merchant processing token.
+            product_type: (``ProductType``, gövde, zorunlu) Calculated costs and commission
+                types of payment
+            cost_amount: (``CostAmount``, gövde, zorunlu) Transaction fees received from
+                customers
             comission_amount: (``ComissionAmount``, gövde, zorunlu) A commission fee will be
                 taken from the workplace.
-            amount: (``Amount``, gövde, zorunlu) İşlem tutarı
-            transaction_currency: (``TransactionCurrency``, gövde, zorunlu) İşlem para birimi
-            token_interval: (``TokenInterval``, gövde, zorunlu) Dakikalar içinde talep edilen
-                token geçerlilik süresi
-            success_redirect_url: (``SuccessRedirectUrl``, gövde) Müşteri, bankacılığın başarısı
-                için adresi yönlendiriyor
-            fail_redirect_url: (``FailRedirectUrl``, gövde) Müşteri yönlendirme adresi
-                bankacılık tarafından başarısız oldu
-            payment_method: (``PaymentMethod``, gövde, zorunlu) Ödeme yöntemi bilgisi
-            os: (``OS``, gövde) Mobil uygulamanın işletim sistemi bilgisi.
-            product_type_condition: (``ProductTypeCondition``, gövde) Farklı ürün tipleri için
-                hesaplanan maliyet ve komisyon bilgileri
-            pan: (``Pan``, gövde) Müşteri bilgilerinin doğruluğunu gösteren işlem
+            amount: (``Amount``, gövde, zorunlu) Transaction amount
+            transaction_currency: (``TransactionCurrency``, gövde, zorunlu) Transaction currency
+            token_interval: (``TokenInterval``, gövde, zorunlu) Token claimed in minutes
+                validity period
+            success_redirect_url: (``SuccessRedirectUrl``, gövde) Customer redirects address for
+                success by banking
+            fail_redirect_url: (``FailRedirectUrl``, gövde) Customer redirect address for fail
+                by banking
+            payment_method: (``PaymentMethod``, gövde, zorunlu) Payment method is information
+            os: (``OS``, gövde) Operating system info of the mobile application.
+            product_type_condition: (``ProductTypeCondition``, gövde) Calculated cost and
+                commission information for different product type
+            pan: (``Pan``, gövde) The process, which indicates that the customer information
 
         Gövde alanları istekte ``DigitalPaymentTransactionContract`` nesnesinin içine
         yerleştirilir.
@@ -1254,7 +1152,7 @@ class AsyncCashManagement(AsyncResource):
         Yanıt alanları: AccessToken, TokenExpireDate, ReturnCode, ReturnMessage,
         ApplicationName, ApplicationParameter
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-odeme
+        Doküman: https://developer.kuveytturk.com.tr/documentation/cash-management/digital-banking-payment
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -1288,7 +1186,114 @@ class AsyncCashManagement(AsyncResource):
             options=request_options,
         )
 
-    async def school_installment_payment_system_active_registration_inquiry_api(
+    async def digital_banking_refund(
+        self,
+        *,
+        transaction_id: str,
+        org_transaction_id: str,
+        amount: Number,
+        currency: str,
+        comission_amount: Number,
+        description: str,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Digital Banking Refund.
+
+        ``POST /v1/vpos/digitalPaymentRefund``
+
+        Kapsam: ``digital_payments`` · Akış: client credentials
+
+        Does a refund or a partial refund on the transactions made during the previous day.
+
+        Args:
+            transaction_id: (``TransactionId``, gövde, zorunlu) The singular transaction number
+                of the return transaction
+            org_transaction_id: (``OrgTransactionId``, gövde, zorunlu) The unique transaction
+                number of the original transaction returned by ComPay to the bank
+            amount: (``Amount``, gövde, zorunlu) The amount of information to be returned
+            currency: (``Currency``, gövde, zorunlu) Transaction currency
+            comission_amount: (``ComissionAmount``, gövde, zorunlu) Amount of commission to be
+                taken from the workplace for the return transaction.
+            description: (``Description``, gövde, zorunlu) Transaction description
+
+        Gövde alanları istekte ``DigitalPaymentRefundTransactionContract`` nesnesinin içine
+        yerleştirilir.
+
+        Yanıt alanları: ReturnCode, ReturnMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/cash-management/digital-banking-refund
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "TransactionId": transaction_id,
+                "OrgTransactionId": org_transaction_id,
+                "Amount": amount,
+                "Currency": currency,
+                "ComissionAmount": comission_amount,
+                "Description": description,
+            },
+            extra_body,
+        )
+        _body = {"DigitalPaymentRefundTransactionContract": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/digitalPaymentRefund",
+            scope="digital_payments",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def digital_banking_transaction_status(
+        self,
+        *,
+        transaction_id: str,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Digital Banking Transaction Status.
+
+        ``POST /v1/vpos/digitalPaymentStatus``
+
+        Kapsam: ``digital_payments`` · Akış: client credentials
+
+        Returns the status of the transaction provided in the parameters.
+
+        Args:
+            transaction_id: (``TransactionId``, gövde, zorunlu) The singular transaction number
+                of the transaction
+
+        Gövde alanları istekte ``DigitalPaymentStatContract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: ReturnCode, ReturnMessage, DiscountedAmount, ProductType, CostAmount,
+        ComissionAmount, Amount, TransactionType, TransactionId, OrgTransactionId
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/cash-management/digital-banking-transaction-status
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "TransactionId": transaction_id,
+            },
+            extra_body,
+        )
+        _body = {"DigitalPaymentStatContract": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/digitalPaymentStatus",
+            scope="digital_payments",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def school_installment_payment_system_active_registration_inquiry(
         self,
         *,
         identity_number: str,
@@ -1337,7 +1342,7 @@ class AsyncCashManagement(AsyncResource):
             options=request_options,
         )
 
-    async def school_installment_system_registration_and_installment_cancellation_api(
+    async def school_installment_system_registration_and_installment_cancellation(
         self,
         *,
         client_id: str,
@@ -1694,6 +1699,60 @@ class AsyncCashManagement(AsyncResource):
             options=request_options,
         )
 
+    async def supplier_financing_repayment_plan_calculation(
+        self,
+        *,
+        supplier_tax_number: str,
+        supplier_order_id: str,
+        maturity_day_count: int | None = None,
+        early_payment_day_count: int | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Supplier Financing Repayment Plan Calculation.
+
+        ``POST /v1/supplierfinance/getpaybackplan``
+
+        Kapsam: ``loans`` · Akış: client credentials
+
+        It is the API where the order is canceled by the vendor.
+
+        Args:
+            supplier_tax_number: (``SupplierTaxNumber``, gövde, zorunlu) Identify the supplier
+                tax number.
+            supplier_order_id: (``SupplierOrderId``, gövde, zorunlu) Order number.
+            maturity_day_count: (``MaturityDayCount``, gövde) Maturity day count.
+            early_payment_day_count: (``EarlyPaymentDayCount``, gövde) Early payment day count.
+
+        Gövde alanları istekte ``contract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: SupplierOrderGuidId, OrderNumber, Status, StatusName, ResultMessage,
+        executionReferenceId
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-repayment-plan-calculation
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "SupplierTaxNumber": supplier_tax_number,
+                "SupplierOrderId": supplier_order_id,
+                "MaturityDayCount": maturity_day_count,
+                "EarlyPaymentDayCount": early_payment_day_count,
+            },
+            extra_body,
+        )
+        _body = {"contract": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/supplierfinance/getpaybackplan",
+            scope="loans",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     async def supplier_financing_vendor_company_invoice_approval(
         self,
         *,
@@ -1988,57 +2047,6 @@ class AsyncCashManagement(AsyncResource):
         return await self._client.request(
             "POST",
             "/supplierfinance/saveordersupplier",
-            scope="loans",
-            flow="client_credentials",
-            query=_query,
-            body=_body,
-            options=request_options,
-        )
-
-    async def tedarikci_finansman_geri_odeme_plani_hesaplamasi(
-        self,
-        *,
-        supplier_tax_number: str,
-        supplier_order_id: str,
-        maturity_day_count: int | None = None,
-        early_payment_day_count: int | None = None,
-        extra_query: Mapping[str, Any] | None = None,
-        extra_body: Mapping[str, Any] | None = None,
-        request_options: RequestOptions | None = None,
-    ) -> APIResponse:
-        """Tedarikçi Finansman Geri Ödeme Planı Hesaplaması.
-
-        ``POST /v1/supplierfinance/getpaybackplan``
-
-        Kapsam: ``loans`` · Akış: client credentials
-
-        Siparişin satıcı tarafından iptal edildiği API'dir.
-
-        Args:
-            supplier_tax_number: (``SupplierTaxNumber``, gövde, zorunlu) Tedarikçi vergi
-                numarasını tanımlayın.
-            supplier_order_id: (``SupplierOrderId``, gövde, zorunlu) Sipariş numarası.
-            maturity_day_count: (``MaturityDayCount``, gövde) Vade günü sayımı.
-            early_payment_day_count: (``EarlyPaymentDayCount``, gövde) Erken ödeme günü sayımı.
-
-        Gövde alanları istekte ``contract`` nesnesinin içine yerleştirilir.
-
-        Doküman: https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/tedarikci-finansman-geri-odeme-plani-hesaplamasi
-        """
-        _query = merge({}, extra_query)
-        _body: Any = merge(
-            {
-                "SupplierTaxNumber": supplier_tax_number,
-                "SupplierOrderId": supplier_order_id,
-                "MaturityDayCount": maturity_day_count,
-                "EarlyPaymentDayCount": early_payment_day_count,
-            },
-            extra_body,
-        )
-        _body = {"contract": _body}
-        return await self._client.request(
-            "POST",
-            "/v1/supplierfinance/getpaybackplan",
             scope="loans",
             flow="client_credentials",
             query=_query,
