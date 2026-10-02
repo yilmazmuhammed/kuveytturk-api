@@ -11,7 +11,6 @@ import base64
 import datetime as _dt
 import enum
 import json
-import logging
 import os
 import secrets
 from collections.abc import Iterable, Mapping
@@ -56,9 +55,6 @@ RETRY_STATUS_CODES = frozenset({500, 502, 503, 504})
 BODY_METHODS = frozenset({"POST", "PUT", "PATCH"})
 
 ENV_PREFIX = "KUVEYTTURK_"
-
-#: İstekler DEBUG düzeyinde buraya yazılır (yalnızca metot, yol, durum; token ve gövde yazılmaz).
-logger = logging.getLogger("kuveytturk_api")
 
 
 class RequestOptions(TypedDict, total=False):
@@ -598,18 +594,6 @@ def should_retry(method: str, attempt: int, max_retries: int, status_code: int |
     if attempt >= max_retries or method.upper() not in IDEMPOTENT_METHODS:
         return False
     return status_code is None or status_code in RETRY_STATUS_CODES
-
-
-def log_exchange(request: PreparedRequest, status_code: int | None, attempt: int) -> None:
-    if logger.isEnabledFor(logging.DEBUG):
-        outcome = "ağ hatası" if status_code is None else f"HTTP {status_code}"
-        logger.debug(
-            "%s %s -> %s (deneme %d)",
-            request.method,
-            urlsplit(request.url).path,
-            outcome,
-            attempt + 1,
-        )
 
 
 def retry_delay(attempt: int) -> float:

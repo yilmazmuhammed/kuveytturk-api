@@ -433,10 +433,3 @@ def test_context_manager_closes_owned_http_client(private_pem):
         pass
     assert not external.is_closed
     external.close()
-
-
-def test_requests_are_logged_without_secrets(make_client, caplog):
-    recorder = Recorder(api=lambda r: httpx.Response(404, text="yok"))
-    with caplog.at_level("DEBUG", logger="kuveytturk_api"), pytest.raises(NotFoundError):
-        make_client(recorder).get("/v1/x", scope="public", query={"iban": "TR00SECRET"})
-    assert caplog.messages == ["GET /v1/x -> HTTP 404 (deneme 1)"]

@@ -12,10 +12,13 @@ Hızlı başlangıç::
     )
     print(kt.request("GET", "/v1/fx/rates", scope="public").value)
 
-Asenkron kullanım için :class:`AsyncKuveytTurk`.
+Asenkron kullanım için :class:`AsyncKuveytTurk`. İstek ve yanıtları görmek için
+:func:`enable_logging` ya da ``KUVEYTTURK_LOG=debug`` ortam değişkeni.
 """
 
 from ._base import DEFAULT_USER, Flow, RequestOptions
+from ._logging import enable_from_environment as _enable_logging_from_environment
+from ._logging import enable_logging
 from ._version import __version__
 from .async_client import AsyncAuth, AsyncKuveytTurk
 from .client import Auth, KuveytTurk
@@ -73,5 +76,9 @@ __all__ = [
     "TransportError",
     "UnauthorizedError",
     "__version__",
+    "enable_logging",
     "generate_key_pair",
 ]
+
+# KUVEYTTURK_LOG=debug (ya da info) verilmişse logları kod değiştirmeden açar.
+_enable_logging_from_environment()

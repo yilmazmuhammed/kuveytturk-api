@@ -18,3 +18,5 @@
   alanları sandbox'tan tespit edildi.
 - Çalıştırılabilir örnek uygulamalar (`examples/`)
 - Hata sınıfları ve yalnızca GET istekleri için otomatik yeniden deneme
+- İstek/yanıt logları: `enable_logging("debug")` ya da `KUVEYTTURK_LOG=debug`; token ve imza
+  maskelenir

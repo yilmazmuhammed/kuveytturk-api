@@ -230,6 +230,44 @@ yeniden denenir (`max_retries`, varsayılan 2). `POST` istekleri — para transf
 satımı gibi — **asla** kendiliğinden tekrarlanmaz; zaman aşımına uğrayan bir işlemin sonucunu
 kendiniz sorgulamalısınız.
 
+## Loglama ve hata ayıklama
+
+Gönderilen her isteği ve dönen yanıtı görmek için:
+
+```python
+import kuveytturk_api
+
+kuveytturk_api.enable_logging("debug")   # ya da "info": istek başına tek satır özet
+```
+
+Kod değiştirmeden, ortam değişkeniyle de açılabilir:
+
+```bash
+KUVEYTTURK_LOG=debug python examples/account_list.py
+```
+
+```text
+kuveytturk_api DEBUG → GET https://prep-gateway.kuveytturk.com.tr/v3/accounts?onlyOpen=true
+    Accept: application/json
+    Authorization: Bearer <gizlendi, 1900 karakter>
+    Signature: <gizlendi, 344 karakter>
+kuveytturk_api DEBUG ← GET /v3/accounts -> 200 (0.42 sn)
+    gövde: {"value":{"accountList":[...]},"success":true,...}
+```
+
+| Düzey | Ne yazılır |
+| - | - |
+| `info` | İstek başına tek satır: metot, yol, durum kodu, süre. Sorgu ve gövde yazılmaz. |
+| `debug` | İsteğin tamamı (adres, başlıklar, gövde) ve yanıtın gövdesi; token istekleri dahil. |
+
+Access token, imza, client secret, authorization code ve refresh token her iki düzeyde de
+maskelenir. `debug` düzeyinde gövdeler olduğu gibi yazılır ve **müşteri verisi içerir** (IBAN,
+bakiye, ad...); bu düzeyi yalnızca geliştirme sırasında kullanın.
+
+Loglar standart `logging` modülüyle `"kuveytturk_api"` adlı logger'a yazılır; kendi log
+yapılandırmanız varsa `enable_logging` yerine
+`logging.getLogger("kuveytturk_api").setLevel(logging.DEBUG)` demeniz yeterlidir.
+
 ## Asenkron kullanım
 
 ```python

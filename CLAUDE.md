@@ -43,6 +43,9 @@ src/kuveytturk_api/
   exceptions.py     KuveytTurkError hiyerarşisi
   environments.py   SANDBOX / PRODUCTION adresleri
   callback_server.py  auth.login() için tek kullanımlık yerel callback sunucusu
+  _logging.py       "kuveytturk_api" logger'ı: INFO tek satır özet, DEBUG istek/yanıtın tamamı
+                    (token, imza, client secret, code, refresh token maskelenir); enable_logging()
+                    ve KUVEYTTURK_LOG ortam değişkeni
   resources/        ÜRETİLEN uç nokta metotları (kt.accounts, kt.fx, ...). Elle düzenlenmez.
     _resource.py    Elle yazılan taban (Resource, AsyncResource, merge, tür takma adları)
 spec/endpoints.json Uç nokta kataloğu (build_spec.py çıktısı; commit edilir)
@@ -81,6 +84,10 @@ istemci yalnızca G/Ç'yi yapar. Birine eklenen davranış diğerine de eklenir 
   dayanan bir şey yazarken sandbox'ta gerçek yanıta bak; dokümana güvenme.
 - **Ortamlar**: sandbox `prep-identity` / `prep-gateway.kuveytturk.com.tr`; production
   `identity` / `gateway.kuveytturk.com.tr`.
+
+Bir isteğin sandbox'ta neden başarısız olduğunu anlamak için önce
+`KUVEYTTURK_LOG=debug venv/bin/python examples/...` ile isteği ve yanıtı gör. Loglara yeni bir
+alan eklerken sır sızdırmadığını `tests/test_logging.py`'deki gibi test et.
 
 ## Dokümanlar ve üreteç
 

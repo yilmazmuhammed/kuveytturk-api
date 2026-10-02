@@ -8,6 +8,7 @@ from __future__ import annotations
 import asyncio
 import copy
 import os
+import time
 import webbrowser
 from collections.abc import Iterable, Mapping
 from types import TracebackType
@@ -15,7 +16,7 @@ from typing import Any
 
 import httpx
 
-from . import _base
+from . import _base, _logging
 from ._base import DEFAULT_MAX_RETRIES, DEFAULT_TIMEOUT, DEFAULT_USER, Flow, RequestOptions
 from .callback_server import wait_for_callback
 from .environments import Environment
@@ -68,12 +69,18 @@ class AsyncAuth:
 
     async def _fetch(self, grant: Mapping[str, str], *, previous: Token | None = None) -> Token:
         url, headers, form = _base.build_token_request(self._shared.config, grant)
+        _logging.log_token_request(url, form)
+        started = time.perf_counter()
         try:
             response = await self._shared.http.post(
                 url, headers=headers, data=form, timeout=self._shared.config.timeout
             )
         except httpx.HTTPError as exc:
+            _logging.log_failure("POST", url, exc, time.perf_counter() - started, 0)
             raise TransportError(f"Token uç noktasına ulaşılamadı: {exc}") from exc
+        _logging.log_token_response(
+            url, response.status_code, response.text, time.perf_counter() - started
+        )
         return _base.parse_token_response(response.status_code, response.text, previous=previous)
 
     async def client_token(self, scope: str | Iterable[str], *, force: bool = False) -> Token:
@@ -308,6 +315,10 @@ class AsyncKuveytTurk(AsyncResourcesMixin):
         config = self._shared.config
         attempt = 0
         while True:
+            _logging.log_request(
+                prepared.method, prepared.url, prepared.headers, prepared.content, attempt
+            )
+            started = time.perf_counter()
             try:
                 response = await self._shared.http.request(
                     prepared.method,
@@ -317,13 +328,22 @@ class AsyncKuveytTurk(AsyncResourcesMixin):
                     timeout=timeout,
                 )
             except httpx.HTTPError as exc:
-                _base.log_exchange(prepared, None, attempt)
+                _logging.log_failure(
+                    prepared.method, prepared.url, exc, time.perf_counter() - started, attempt
+                )
                 if _base.should_retry(prepared.method, attempt, config.max_retries, None):
                     await asyncio.sleep(_base.retry_delay(attempt))
                     attempt += 1
                     continue
                 raise TransportError(f"{prepared.method} isteği gönderilemedi: {exc}") from exc
-            _base.log_exchange(prepared, response.status_code, attempt)
+            _logging.log_response(
+                prepared.method,
+                prepared.url,
+                response.status_code,
+                response.content,
+                time.perf_counter() - started,
+                attempt,
+            )
             if _base.should_retry(
                 prepared.method, attempt, config.max_retries, response.status_code
             ):
