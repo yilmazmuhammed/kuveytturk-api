@@ -1,0 +1,35 @@
+# --- Sırlar: ASLA commit edilmez ---
+.env
+.env.*
+!.env.example
+.secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+.kt_tokens*.json
+.kt_cc_tokens*.json
+.kuveytturk/
+
+# --- Eski deneme kodları ve geçici dosyalar ---
+.legacy/
+.cache/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+venv/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- IDE / OS ---
+.idea/
+.vscode/
+.DS_Store

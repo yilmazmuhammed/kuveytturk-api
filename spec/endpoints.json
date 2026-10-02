@@ -1,0 +1,3836 @@
+[
+ {
+  "id": "2050",
+  "title": "Account List V3",
+  "category": "Account Management - Own",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/account-management-own/account-list-v3",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v3/accounts",
+  "version": "3.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve the account list of the customer associated with the authorization context. The response includes account details such as account suffix, balance, available balance, currency information, IBAN, account type, branch information, customer name, maturity dates and account status. The account list can be filtered by account suffix and optional account status or balance filters.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "suffix",
+    "type": "int",
+    "required": false,
+    "description": "Account suffix used to retrieve a specific account.",
+    "name": "suffix"
+   },
+   {
+    "wire": "onlyHasAvailableBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only accounts with available balance should be returned.",
+    "name": "only_has_available_balance"
+   },
+   {
+    "wire": "onlyOpen",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only open accounts should be returned.",
+    "name": "only_open"
+   },
+   {
+    "wire": "onlyWithNoBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only accounts with no balance should be returned.",
+    "name": "only_with_no_balance"
+   },
+   {
+    "wire": "onlyCurrent",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only current accounts should be returned.",
+    "name": "only_current"
+   },
+   {
+    "wire": "sharedWithMultiSignature",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether shared accounts requiring multiple signatures should be included.",
+    "name": "shared_with_multi_signature"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "executionReferenceId",
+   "accountList",
+   "name",
+   "suffix",
+   "balance",
+   "avaibleBalance",
+   "fxId",
+   "iban",
+   "type",
+   "openDate",
+   "branchName",
+   "branchId",
+   "withHoldingAmount",
+   "customerName",
+   "maturityBeginDate",
+   "maturityEndDate",
+   "isActive"
+  ],
+  "language": "en",
+  "resource": "accounts",
+  "name": "account_list_v3"
+ },
+ {
+  "id": "4684",
+  "title": "Account List With Suffix v3",
+  "category": "Account Management - Own",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/account-management-own/account-list-with-suffix-v3",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v3/accounts/{suffix}",
+  "version": "3.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve account information for the specified account suffix of the customer associated with the authorization context. The response includes account details such as account suffix, balance, available balance, currency information, IBAN, account type, branch information, customer name, maturity dates and account status. Additional filters can be used to narrow the account list by balance, account status, current account type and shared account signature type.",
+  "path_params": [
+   {
+    "wire": "suffix",
+    "type": "int",
+    "required": true,
+    "description": "Account suffix used to retrieve a specific account. This value is sent as a route parameter.",
+    "name": "suffix"
+   }
+  ],
+  "query_params": [
+   {
+    "wire": "onlyHasAvailableBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only accounts with available balance should be returned.",
+    "name": "only_has_available_balance"
+   },
+   {
+    "wire": "onlyOpen",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only open accounts should be returned.",
+    "name": "only_open"
+   },
+   {
+    "wire": "onlyWithNoBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only accounts with no balance should be returned.",
+    "name": "only_with_no_balance"
+   },
+   {
+    "wire": "onlyCurrent",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only current accounts should be returned.",
+    "name": "only_current"
+   },
+   {
+    "wire": "sharedWithMultiSignature",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether shared accounts requiring multiple signatures should be included.",
+    "name": "shared_with_multi_signature"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "executionReferenceId",
+   "accountList",
+   "name",
+   "suffix",
+   "balance",
+   "avaibleBalance",
+   "fxId",
+   "iban",
+   "type",
+   "openDate",
+   "branchName",
+   "branchId",
+   "withHoldingAmount",
+   "customerName",
+   "maturityBeginDate",
+   "maturityEndDate",
+   "isActive"
+  ],
+  "language": "en",
+  "resource": "accounts",
+  "name": "account_list_with_suffix_v3"
+ },
+ {
+  "id": "752",
+  "title": "Account Transactions V3",
+  "category": "Account Management - Own",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/account-management-own/account-transactions-v3",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v3/accounts/{suffix}/transactions",
+  "version": "3.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve account transaction history for the specified account suffix of the customer associated with the authorization context. The transaction list can be filtered by item count, begin date and end date. The response includes transaction details such as transaction date, description, amount, balance, transaction reference, currency code, resource code, IBAN and request number.",
+  "path_params": [
+   {
+    "wire": "suffix",
+    "type": "int",
+    "required": true,
+    "description": "Account suffix for which transaction records will be retrieved. This value is sent as a route parameter.",
+    "name": "suffix"
+   }
+  ],
+  "query_params": [
+   {
+    "wire": "itemCount",
+    "type": "int",
+    "required": false,
+    "description": "Maximum number of account activity records to be returned.",
+    "name": "item_count"
+   },
+   {
+    "wire": "beginDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Start date from which account activity records will be retrieved.",
+    "name": "begin_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": false,
+    "description": "End date until which account activity records will be retrieved.",
+    "name": "end_date"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "executionReferenceId",
+   "accountActivities",
+   "suffix",
+   "date",
+   "description",
+   "amount",
+   "balance",
+   "transactionReference",
+   "fxCode",
+   "resourceCode",
+   "iban",
+   "reqNum"
+  ],
+  "language": "en",
+  "resource": "accounts",
+  "name": "account_transactions_v3"
+ },
+ {
+  "id": "3023",
+  "title": "Account Transactions V4 - Detail",
+  "category": "Account Management - Own",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/account-management-own/account-transactions-v4-detail",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v4/accounts/{suffix}/transactions",
+  "version": "4.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve account transaction history for the specified account suffix of the customer associated with the authorization context. The transaction list can be filtered by item count, begin date and end date. The response includes transaction details such as transaction date, description, amount, balance, transaction reference, currency code, resource code and IBAN.",
+  "path_params": [
+   {
+    "wire": "suffix",
+    "type": "int",
+    "required": true,
+    "description": "Account suffix for which transaction records will be retrieved. This value is sent as a route parameter.",
+    "name": "suffix"
+   }
+  ],
+  "query_params": [
+   {
+    "wire": "itemCount",
+    "type": "int",
+    "required": false,
+    "description": "Maximum number of account activity records to be returned.",
+    "name": "item_count"
+   },
+   {
+    "wire": "beginDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Start date from which account activity records will be retrieved.",
+    "name": "begin_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": false,
+    "description": "End date until which account activity records will be retrieved.",
+    "name": "end_date"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "executionReferenceId",
+   "accountActivities",
+   "suffix",
+   "date",
+   "description",
+   "amount",
+   "balance",
+   "transactionReference",
+   "fxCode",
+   "resourceCode",
+   "iban"
+  ],
+  "language": "en",
+  "resource": "accounts",
+  "name": "account_transactions_v4_detail"
+ },
+ {
+  "id": "798",
+  "title": "PDF Receipt V3",
+  "category": "Account Management - Own",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/account-management-own/pdf-receipt-v3",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v3/accounts/transactions/pdfReceipts",
+  "version": "3.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve PDF receipt data for a transaction. The customer account number is retrieved from the authorization context, and the transaction is identified by the executionReferenceId value sent in the request body. The response returns the receipt PDF content in Base64 format.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "executionReferenceId",
+    "type": "str",
+    "required": true,
+    "description": "Reference ID of the transaction for which the PDF receipt data will be retrieved.",
+    "name": "execution_reference_id"
+   }
+  ],
+  "response_fields": [
+   "contract",
+   "pdfData"
+  ],
+  "language": "en",
+  "resource": "accounts",
+  "name": "pdf_receipt_v3"
+ },
+ {
+  "id": "3257",
+  "title": "Dekont V3",
+  "category": "Hesap Yönetimi - Hesaplarınız",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/hesap-yonetimi-hesaplariniz/dekont-v3",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v3/accounts/transactions/receipts",
+  "version": "3.0",
+  "scope": "accounts",
+  "flow": "client_credentials",
+  "description": "Bu API, transactionReference değeri ile tanımlanan bir transaction için receipt bilgilerini almak amacıyla kullanılır. Servis; title, description, amount, currency bilgisi ve slip list, left header, right header, body ve footer bölümlerini içeren receipt detaylarını döndürür.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "transactionReference",
+    "type": "str",
+    "required": true,
+    "description": "Receipt bilgisi alınacak şifrelenmiş transaction reference değeridir.",
+    "name": "transaction_reference"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "title",
+   "description",
+   "amount",
+   "fecName",
+   "slipList",
+   "key",
+   "leftHeader",
+   "rightHeader",
+   "body",
+   "footer"
+  ],
+  "language": "tr",
+  "resource": "accounts",
+  "name": "receipt_v3"
+ },
+ {
+  "id": "1949",
+  "title": "Credit Card List V3",
+  "category": "Credit Card Transactions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/credit-card-transactions/credit-card-list-v3",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v3/creditcard/cardlist",
+  "version": "3.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve the credit card list for the customer. The response returns card information such as masked card number, shadow card number, expiration date, card holder name, card type and supplementary card type.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "customerNumber",
+    "type": "str",
+    "required": false,
+    "description": "Customer number for which the credit card list will be retrieved.",
+    "name": "customer_number"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "cardList",
+   "maskedCardNumber",
+   "shadowCardNumber",
+   "expireDate",
+   "ownerName",
+   "cardType",
+   "supplementaryCardType"
+  ],
+  "language": "en",
+  "resource": "cards",
+  "name": "credit_card_list_v3"
+ },
+ {
+  "id": "4919",
+  "title": "Credit Card Money Transfer",
+  "category": "Credit Card Transactions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/credit-card-transactions/credit-card-money-transfer",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/moneytransfer/creditcardmoneytransfer",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "client_credentials",
+  "description": "This API is used to initiate a money transfer transaction from a customer account to a credit card. The customer account number is retrieved from the authorization context. The request includes sender account suffix, receiver account information, transfer amount, transfer description and transfer type. The response returns the transaction execution reference and the created money transfer transaction ID.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "senderAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Sender account suffix number from which the money transfer amount will be withdrawn.",
+    "name": "sender_account_suffix"
+   },
+   {
+    "wire": "receiverAccountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Receiver account number associated with the credit card money transfer.",
+    "name": "receiver_account_number"
+   },
+   {
+    "wire": "receiverAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Receiver account suffix associated with the credit card money transfer.",
+    "name": "receiver_account_suffix"
+   },
+   {
+    "wire": "moneyTransferDescription",
+    "type": "str",
+    "required": false,
+    "description": "Description or comment added to the money transfer transaction.",
+    "name": "money_transfer_description"
+   },
+   {
+    "wire": "moneyTransferAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount that will be transferred.",
+    "name": "money_transfer_amount"
+   },
+   {
+    "wire": "transferType",
+    "type": "int",
+    "required": true,
+    "description": "Money transfer type used to identify the transfer scenario.",
+    "name": "transfer_type"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "moneyTransferTransactionId"
+  ],
+  "language": "en",
+  "resource": "cards",
+  "name": "credit_card_money_transfer"
+ },
+ {
+  "id": "1950",
+  "title": "Credit Card Transactions List V3",
+  "category": "Credit Card Transactions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/credit-card-transactions/credit-card-transactions-list-v3",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v3/creditcard/{cardnumber}/transactions",
+  "version": "3.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve credit card transaction information for the specified card number. The response includes pending provision transactions and current credit card transactions.",
+  "path_params": [
+   {
+    "wire": "cardnumber",
+    "type": "str",
+    "required": true,
+    "description": "Credit card number for which transaction information will be retrieved. This value is sent as a route parameter.",
+    "name": "cardnumber"
+   }
+  ],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "cardPendingProvisionInfoResponseModel",
+   "creditCardStatementTransactionType",
+   "amount",
+   "message",
+   "transactionDate",
+   "transactionHour",
+   "fecCode",
+   "domesticAmount",
+   "originalAmount",
+   "mccGroupCode",
+   "currentTransactionInfoResponseModel",
+   "transactionId",
+   "category",
+   "currencyDef",
+   "earnedGoldPoint",
+   "installmentNumber",
+   "isTransactionRefund",
+   "isTrnIncludeInstallment",
+   "mechantName",
+   "shadowCardNumber",
+   "transactionAmount",
+   "transactionTime",
+   "bkmUniqueMerchantId",
+   "totalInstallmentAmount",
+   "provisionNumber",
+   "errors",
+   "executionReferenceId"
+  ],
+  "language": "en",
+  "resource": "cards",
+  "name": "credit_card_transactions_list_v3"
+ },
+ {
+  "id": "4670",
+  "title": "cheque-information-micro",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/cheque-information-micro",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/cheque-information-micro",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "It is an API that provides the necessary data for customers to view information about checks they are owed or owed.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "state",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "state"
+   },
+   {
+    "wire": "status",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "status"
+   },
+   {
+    "wire": "currency",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "currency"
+   },
+   {
+    "wire": "startDate",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "start_date"
+   },
+   {
+    "wire": "finishDate",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "finish_date"
+   },
+   {
+    "wire": "languageId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "language_id"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "cheque_information_micro"
+ },
+ {
+  "id": "3351",
+  "title": "Dijital Bankacılık İadesi",
+  "category": "Nakit Yönetimi",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-iadesi",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/digitalPaymentRefund",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Önceki gün içerisinde yapılan işlemlerde iade veya kısmi iade yapılır.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "DigitalPaymentRefundTransactionContract"
+  ],
+  "body_params": [
+   {
+    "wire": "TransactionId",
+    "type": "str",
+    "required": true,
+    "description": "İade işleminin tekil işlem numarası",
+    "name": "transaction_id"
+   },
+   {
+    "wire": "OrgTransactionId",
+    "type": "str",
+    "required": true,
+    "description": "ComPay tarafından bankaya iade edilen orijinal işlemin benzersiz işlem numarası",
+    "name": "org_transaction_id"
+   },
+   {
+    "wire": "Amount",
+    "type": "number",
+    "required": true,
+    "description": "İade edilecek bilgi miktarı",
+    "name": "amount"
+   },
+   {
+    "wire": "Currency",
+    "type": "str",
+    "required": true,
+    "description": "İşlem para birimi",
+    "name": "currency"
+   },
+   {
+    "wire": "ComissionAmount",
+    "type": "number",
+    "required": true,
+    "description": "İade işlemi için işyerinden alınacak komisyon tutarı.",
+    "name": "comission_amount"
+   },
+   {
+    "wire": "Description",
+    "type": "str",
+    "required": true,
+    "description": "İşlem açıklaması",
+    "name": "description"
+   }
+  ],
+  "response_fields": [
+   "ReturnCode",
+   "ReturnMessage"
+  ],
+  "language": "tr",
+  "resource": "cash_management",
+  "name": "dijital_bankacilik_iadesi"
+ },
+ {
+  "id": "3350",
+  "title": "Dijital Bankacılık İşlem Durumu",
+  "category": "Nakit Yönetimi",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-islem-durumu",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/digitalPaymentStatus",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Parametrelerde belirtilen işlemin durumunu döndürür.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "DigitalPaymentStatContract"
+  ],
+  "body_params": [
+   {
+    "wire": "TransactionId",
+    "type": "str",
+    "required": true,
+    "description": "İşlemin tekil işlem numarası",
+    "name": "transaction_id"
+   }
+  ],
+  "response_fields": [
+   "ReturnCode",
+   "ReturnMessage",
+   "DiscountedAmount",
+   "ProductType",
+   "CostAmount",
+   "ComissionAmount",
+   "Amount",
+   "TransactionType",
+   "TransactionId",
+   "OrgTransactionId"
+  ],
+  "language": "tr",
+  "resource": "cash_management",
+  "name": "dijital_bankacilik_islem_durumu"
+ },
+ {
+  "id": "3352",
+  "title": "Dijital Bankacılık Ödeme",
+  "category": "Nakit Yönetimi",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/dijital-bankacilik-odeme",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/digitalPayment",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Parametrelerde sağlanan müşteri profilinden ödeme bilgilerini toplar.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "DigitalPaymentTransactionContract"
+  ],
+  "body_params": [
+   {
+    "wire": "TransactionId",
+    "type": "str",
+    "required": true,
+    "description": "Tekil bir sayının işlenmesi.",
+    "name": "transaction_id"
+   },
+   {
+    "wire": "MerchantId",
+    "type": "str",
+    "required": true,
+    "description": "Banka tarafından belirlenen şirket kodu",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "SoftDescriptor",
+    "type": "str",
+    "required": true,
+    "description": "Tüccar işlem belirteci.",
+    "name": "soft_descriptor"
+   },
+   {
+    "wire": "ProductType",
+    "type": "str",
+    "required": true,
+    "description": "Hesaplanan maliyetler ve komisyon ödeme türleri",
+    "name": "product_type"
+   },
+   {
+    "wire": "CostAmount",
+    "type": "number",
+    "required": false,
+    "description": "",
+    "name": "cost_amount"
+   },
+   {
+    "wire": "ComissionAmount",
+    "type": "number",
+    "required": true,
+    "description": "A commission fee will be taken from the workplace.",
+    "name": "comission_amount"
+   },
+   {
+    "wire": "Amount",
+    "type": "number",
+    "required": true,
+    "description": "İşlem tutarı",
+    "name": "amount"
+   },
+   {
+    "wire": "TransactionCurrency",
+    "type": "int",
+    "required": true,
+    "description": "İşlem para birimi",
+    "name": "transaction_currency"
+   },
+   {
+    "wire": "TokenInterval",
+    "type": "int",
+    "required": true,
+    "description": "Dakikalar içinde talep edilen token geçerlilik süresi",
+    "name": "token_interval"
+   },
+   {
+    "wire": "SuccessRedirectUrl",
+    "type": "str",
+    "required": false,
+    "description": "Müşteri, bankacılığın başarısı için adresi yönlendiriyor",
+    "name": "success_redirect_url"
+   },
+   {
+    "wire": "FailRedirectUrl",
+    "type": "str",
+    "required": false,
+    "description": "Müşteri yönlendirme adresi bankacılık tarafından başarısız oldu",
+    "name": "fail_redirect_url"
+   },
+   {
+    "wire": "PaymentMethod",
+    "type": "str",
+    "required": true,
+    "description": "Ödeme yöntemi bilgisi",
+    "name": "payment_method"
+   },
+   {
+    "wire": "OS",
+    "type": "str",
+    "required": false,
+    "description": "Mobil uygulamanın işletim sistemi bilgisi.",
+    "name": "os"
+   },
+   {
+    "wire": "ProductTypeCondition",
+    "type": "str",
+    "required": false,
+    "description": "Farklı ürün tipleri için hesaplanan maliyet ve komisyon bilgileri",
+    "name": "product_type_condition"
+   },
+   {
+    "wire": "Pan",
+    "type": "str",
+    "required": false,
+    "description": "Müşteri bilgilerinin doğruluğunu gösteren işlem",
+    "name": "pan"
+   }
+  ],
+  "response_fields": [
+   "AccessToken",
+   "TokenExpireDate",
+   "ReturnCode",
+   "ReturnMessage",
+   "ApplicationName",
+   "ApplicationParameter"
+  ],
+  "language": "tr",
+  "resource": "cash_management",
+  "name": "dijital_bankacilik_odeme"
+ },
+ {
+  "id": "3674",
+  "title": "School Installment Payment System Active Registration Inquiry API",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/school-installment-payment-system-active-registration-inquiry-api",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/school-installment/registration-inquiry",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Institutions could check through this API using the Turkish National Identity Number (TCKN) to determine if a student currently has an OTS registration. OTS registration is considered \"Yes\" or \"No\" as follows: - Canceled registration = \"No\" - All installments collected without credit = \"No\" - All installments collected, including some with credit = \"Yes\" - If there are installments pending payment = \"Yes\" * As long as any payment (credit or cash) is pending, OTS is considered to exist.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "payment"
+  ],
+  "body_params": [
+   {
+    "wire": "IdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Öğrenci TCKN bilgisi",
+    "name": "identity_number"
+   },
+   {
+    "wire": "ClientId",
+    "type": "str",
+    "required": true,
+    "description": "Kurum token bilgisi",
+    "name": "client_id"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "school_installment_payment_system_active_registration_inquiry_api"
+ },
+ {
+  "id": "3672",
+  "title": "School Installment System Registration and Installment Cancellation API",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/school-installment-system-registration-and-installment-cancellation-api",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/school-installment/cancelation",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Schools/Institutions can perform cancellations based on installments or Turkish National Identity Number (TCKN) via this API. - When only the TCKN is entered, all records and installments associated with that TCKN are not cancelled. - When both the TCKN and Invoice Number are sent, only the relevant installment is cancelled.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "IdentityNumber",
+    "type": "str",
+    "required": false,
+    "description": "Öğrenci TCKN bilgisi",
+    "name": "identity_number"
+   },
+   {
+    "wire": "ClientId",
+    "type": "str",
+    "required": true,
+    "description": "Kurum token bilgisi",
+    "name": "client_id"
+   },
+   {
+    "wire": "InvoiceNumber",
+    "type": "str",
+    "required": false,
+    "description": "Fatura/Taksit Numarası",
+    "name": "invoice_number"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "school_installment_system_registration_and_installment_cancellation_api"
+ },
+ {
+  "id": "3673",
+  "title": "School Installment System School Guaranteed Registration Payment",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/school-installment-system-school-guaranteed-registration-payment",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/school-installment/transaction-information",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "School-Guaranteed schools can use this API to track parent payments based on payment documentation or date range. --PaymentType description: --0 --&gt; account or card, --1 --&gt; not converted to credit but unpaid, --2 --&gt; converted to credit, parent paid, --3 --&gt; converted to credit, school paid",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "payment"
+  ],
+  "body_params": [
+   {
+    "wire": "IdentityNumber",
+    "type": "str",
+    "required": false,
+    "description": "Öğrenci TCKN bilgisi",
+    "name": "identity_number"
+   },
+   {
+    "wire": "ClientId",
+    "type": "str",
+    "required": true,
+    "description": "Kurum token bilgisi",
+    "name": "client_id"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "school_installment_system_school_guaranteed_registration_payment"
+ },
+ {
+  "id": "1897",
+  "title": "Supplier Financing Buyer Order Confirmation",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-buyer-order-confirmation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplierfinance/approvefrompurchaserer",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "It is the API where invoices are uploaded to the system by the receiving company.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "PurchaserTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identify Purchaser Tax Number.",
+    "name": "purchaser_tax_number"
+   },
+   {
+    "wire": "SupplierOrderGuIdId",
+    "type": "str",
+    "required": true,
+    "description": "Order Number (GUID).",
+    "name": "supplier_order_gu_id_id"
+   },
+   {
+    "wire": "contract",
+    "type": "array",
+    "required": false,
+    "description": "",
+    "name": "contract"
+   },
+   {
+    "wire": "SupplierOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Order Number.",
+    "name": "supplier_order_id"
+   },
+   {
+    "wire": "ListApproveFromPurchaserContract",
+    "type": "array",
+    "required": true,
+    "description": "Contains invoice info.",
+    "name": "list_approve_from_purchaser_contract"
+   },
+   {
+    "wire": "UsedInvoiceAmount",
+    "type": "number",
+    "required": false,
+    "description": "How much of the bill will be used.",
+    "name": "used_invoice_amount"
+   },
+   {
+    "wire": "TaxExclusiveAmount",
+    "type": "number",
+    "required": true,
+    "description": "Tax exclusive amount.",
+    "name": "tax_exclusive_amount"
+   }
+  ],
+  "response_fields": [
+   "SupplierOrderGuidId",
+   "Status",
+   "StatusName",
+   "ResultMessage",
+   "executionReferenceId",
+   "SupplierOrderInvoiceList",
+   "InvoiceNumber",
+   "InvoiceStatus",
+   "InvoiceStatusName",
+   "InvoiceAmount",
+   "PaymentAmount"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_buyer_order_confirmation"
+ },
+ {
+  "id": "4906",
+  "title": "Supplier Financing Buyer Order Listing",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-buyer-order-listing",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplierfinance/getorderbypurchaser",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Retrieves supplier financing buyer order records according to the provided purchaser, supplier, order, date range, and transaction date filter criteria. The response includes supplier order, invoice, payment, status, amount, currency, profit rate, commission rate, and description details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "listOrderContract"
+  ],
+  "body_params": [
+   {
+    "wire": "ClientId",
+    "type": "str",
+    "required": true,
+    "description": "Client identifier used for the supplier financing order listing request.",
+    "name": "client_id"
+   },
+   {
+    "wire": "PurchaserTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Tax number of the purchaser used to filter supplier financing orders.",
+    "name": "purchaser_tax_number"
+   },
+   {
+    "wire": "FirstTransactionDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Start date of the transaction date range.",
+    "name": "first_transaction_date"
+   },
+   {
+    "wire": "EndTransactionDate",
+    "type": "datetime",
+    "required": false,
+    "description": "End date of the transaction date range.",
+    "name": "end_transaction_date"
+   },
+   {
+    "wire": "supplierOrderId",
+    "type": "int",
+    "required": false,
+    "description": "Supplier order identifier used to filter a specific order.",
+    "name": "supplier_order_id"
+   },
+   {
+    "wire": "isTransactionDateInvoiceDate",
+    "type": "int",
+    "required": false,
+    "description": "Indicates whether the transaction date filter should be evaluated as invoice date.",
+    "name": "is_transaction_date_invoice_date"
+   },
+   {
+    "wire": "supplierTaxNumber",
+    "type": "str",
+    "required": false,
+    "description": "Tax number of the supplier used to filter supplier financing orders.",
+    "name": "supplier_tax_number"
+   },
+   {
+    "wire": "orderNumber",
+    "type": "str",
+    "required": false,
+    "description": "Order number used to filter supplier financing orders.",
+    "name": "order_number"
+   }
+  ],
+  "response_fields": [
+   "SupplierOrderId",
+   "SupplierOrderGuidId",
+   "OrderNumber",
+   "InvoiceNumber",
+   "Status",
+   "StatusName",
+   "InvoiceStatus",
+   "InvoiceStatusName",
+   "OrderDate",
+   "OrderAmount",
+   "InvoiceAmount",
+   "PaymentAmount",
+   "LoanProfitRate",
+   "LoanCommissionRate",
+   "FecCode",
+   "Description",
+   "SupplierTaxNumber"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_buyer_order_listing"
+ },
+ {
+  "id": "4893",
+  "title": "Supplier Financing Invoice Cancellation",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-invoice-cancellation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplychainfinance/cancelinvoice",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "This API cancels a supply chain finance invoice. The cancellation operation is processed using the client identifier, purchaser invoice upload GUID, API client invoice upload GUID and purchaser tax number. The response includes the invoice cancellation status and result message.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "client_id",
+    "type": "str",
+    "required": true,
+    "description": "Client identifier used for the invoice cancellation request.",
+    "name": "client_id"
+   },
+   {
+    "wire": "PurchaserInvoiceUploadGUID",
+    "type": "str",
+    "required": true,
+    "description": "GUID identifier of the purchaser invoice upload record to be cancelled.",
+    "name": "purchaser_invoice_upload_guid"
+   },
+   {
+    "wire": "APIClientInvoiceUploadGUID",
+    "type": "str",
+    "required": true,
+    "description": "GUID identifier of the invoice upload record on the API client side.",
+    "name": "api_client_invoice_upload_guid"
+   },
+   {
+    "wire": "PurchaserTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Tax number of the purchaser related to the invoice cancellation request.",
+    "name": "purchaser_tax_number"
+   }
+  ],
+  "response_fields": [
+   "PurchaserInvoiceUploadGUID",
+   "APIClientInvoiceUploadGUID",
+   "Status",
+   "StatusName",
+   "ResultMessage"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_invoice_cancellation"
+ },
+ {
+  "id": "1899",
+  "title": "Supplier Financing Order Last Approval by Supplier",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-order-last-approval-by-supplier",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplierfinance/lastapprovefromsupplier",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "This API performs the final approval of a supplier financing order by the supplier. The approval operation is processed using the client identifier, supplier tax number, supplier order identifier and supplier order GUID.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "Contract"
+  ],
+  "body_params": [
+   {
+    "wire": "client_id",
+    "type": "str",
+    "required": true,
+    "description": "Client identifier used for the supplier financing final approval request.",
+    "name": "client_id"
+   },
+   {
+    "wire": "SupplierTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Tax number of the supplier approving the supplier financing order.",
+    "name": "supplier_tax_number"
+   },
+   {
+    "wire": "SupplierOrderId",
+    "type": "int",
+    "required": true,
+    "description": "Unique identifier of the supplier financing order to be approved.",
+    "name": "supplier_order_id"
+   },
+   {
+    "wire": "SupplierOrderGuidId",
+    "type": "str",
+    "required": true,
+    "description": "GUID identifier of the supplier financing order to be approved.",
+    "name": "supplier_order_guid_id"
+   }
+  ],
+  "response_fields": [
+   "SupplierOrderGuidId",
+   "Status",
+   "StatusName",
+   "ResultMessage"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_order_last_approval_by_supplier"
+ },
+ {
+  "id": "4895",
+  "title": "Supplier Financing Vendor Company Invoice Approval",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-vendor-company-invoice-approval",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplychainfinance/supplierapproveinvoice",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "This API approves a supply chain finance invoice by the supplier. The approval operation is processed using the client identifier, purchaser invoice upload GUID, API client invoice upload GUID and supplier tax number. The response includes invoice approval status, result message and invoice list details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "client_id",
+    "type": "str",
+    "required": true,
+    "description": "Client identifier used for the supplier invoice approval request.",
+    "name": "client_id"
+   },
+   {
+    "wire": "PurchaserInvoiceUploadGUID",
+    "type": "str",
+    "required": true,
+    "description": "GUID identifier of the purchaser invoice upload record to be approved by the supplier.",
+    "name": "purchaser_invoice_upload_guid"
+   },
+   {
+    "wire": "APIClientInvoiceUploadGUID",
+    "type": "str",
+    "required": true,
+    "description": "GUID identifier of the invoice upload record on the API client side.",
+    "name": "api_client_invoice_upload_guid"
+   },
+   {
+    "wire": "SupplierTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Tax number of the supplier approving the invoice.",
+    "name": "supplier_tax_number"
+   }
+  ],
+  "response_fields": [
+   "PurchaserInvoiceUploadGUID",
+   "APIClientInvoiceUploadGUID",
+   "Status",
+   "StatusName",
+   "ResultMessage",
+   "InvoiceList",
+   "InvoiceNumber",
+   "InvoiceStatus",
+   "InvoiceStatusName",
+   "InvoiceAmount",
+   "PaymentAmount"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_vendor_company_invoice_approval"
+ },
+ {
+  "id": "4894",
+  "title": "Supplier Financing Vendor Invoice Listing",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-vendor-invoice-listing",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplychainfinance/supplierinvoicelist",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "This API retrieves supply chain finance invoice records for a supplier based on the provided purchaser invoice upload GUID, purchaser tax number, supplier tax number and transaction date criteria. The response includes invoice identifiers, invoice status, invoice amount, payment amount, loan profit rate, currency code and tax number details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "client_id",
+    "type": "str",
+    "required": true,
+    "description": "Client identifier used for the supplier invoice list request.",
+    "name": "client_id"
+   },
+   {
+    "wire": "PurchaserInvoiceUploadGUID",
+    "type": "str",
+    "required": false,
+    "description": "GUID identifier of the purchaser invoice upload record used to filter invoices.",
+    "name": "purchaser_invoice_upload_guid"
+   },
+   {
+    "wire": "PurchaserTaxNumber",
+    "type": "str",
+    "required": false,
+    "description": "Tax number of the purchaser used to filter supplier invoices.",
+    "name": "purchaser_tax_number"
+   },
+   {
+    "wire": "SupplierTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Tax number of the supplier used to filter supplier invoices.",
+    "name": "supplier_tax_number"
+   },
+   {
+    "wire": "FirstTransactionDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Start date of the transaction date range.",
+    "name": "first_transaction_date"
+   }
+  ],
+  "response_fields": [
+   "PurchaserInvoiceUploadGUID",
+   "APIClientInvoiceUploadGUID",
+   "InvoiceList",
+   "InvoiceNumber",
+   "InvoiceStatus",
+   "InvoiceStatusName",
+   "InvoiceAmount",
+   "PaymentAmount",
+   "LoanProfitRate",
+   "InvoiceFecCode",
+   "SupplierTaxNumber",
+   "PurchaserTaxNumber"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_vendor_invoice_listing"
+ },
+ {
+  "id": "1895",
+  "title": "Supplier Financing Vendor Order Cancellation",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-vendor-order-cancellation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplierfinance/cancelFromSupplier",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "It is the API where the order is canceled by the vendor.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "SupplierTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identify Supplier Tax Number.",
+    "name": "supplier_tax_number"
+   },
+   {
+    "wire": "SupplierOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Order Number.",
+    "name": "supplier_order_id"
+   },
+   {
+    "wire": "OrderNumber",
+    "type": "str",
+    "required": true,
+    "description": "Order number.",
+    "name": "order_number"
+   },
+   {
+    "wire": "SupplierOrderGuidId",
+    "type": "str",
+    "required": true,
+    "description": "Order Number (GUID).",
+    "name": "supplier_order_guid_id"
+   }
+  ],
+  "response_fields": [
+   "SupplierOrderGuidId",
+   "OrderNumber",
+   "Status",
+   "StatusName",
+   "ResultMessage",
+   "executionReferenceId"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_vendor_order_cancellation"
+ },
+ {
+  "id": "1898",
+  "title": "Supplier Financing Vendor Order Confirmation",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-vendor-order-confirmation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplierfinance/lastapprovefromsupplierer",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "It is the API through which the order is approved by the vendor.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "SupplierTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identify Supplier Tax Number.",
+    "name": "supplier_tax_number"
+   },
+   {
+    "wire": "SupplierOrderGuIdId",
+    "type": "str",
+    "required": true,
+    "description": "Order Number (GUID).",
+    "name": "supplier_order_gu_id_id"
+   },
+   {
+    "wire": "SupplierOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Order Number.",
+    "name": "supplier_order_id"
+   }
+  ],
+  "response_fields": [
+   "SupplierOrderGuidId",
+   "Status",
+   "StatusName",
+   "ResultMessage",
+   "executionReferenceId"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_vendor_order_confirmation"
+ },
+ {
+  "id": "1896",
+  "title": "Supplier Financing Vendor Order Initiation",
+  "category": "Cash Management",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/cash-management/supplier-financing-vendor-order-initiation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/supplierfinance/saveordersupplier",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "It is the API used to initiate orders.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "SupplierTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identify Supplier Tax Number.",
+    "name": "supplier_tax_number"
+   },
+   {
+    "wire": "PurchaserTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Identify Purchaser Tax Number.",
+    "name": "purchaser_tax_number"
+   },
+   {
+    "wire": "OrderNumber",
+    "type": "str",
+    "required": true,
+    "description": "Supplier specific order number.",
+    "name": "order_number"
+   },
+   {
+    "wire": "Amount",
+    "type": "number",
+    "required": true,
+    "description": "Order Amount.",
+    "name": "amount"
+   },
+   {
+    "wire": "Fec",
+    "type": "int",
+    "required": true,
+    "description": "Order Fec (Always 0).",
+    "name": "fec"
+   },
+   {
+    "wire": "MaturityDayCount",
+    "type": "int",
+    "required": true,
+    "description": "Maturity day count.",
+    "name": "maturity_day_count"
+   },
+   {
+    "wire": "EarlyPaymentDayCount",
+    "type": "int",
+    "required": true,
+    "description": "How soon will the payment be made .",
+    "name": "early_payment_day_count"
+   },
+   {
+    "wire": "Description",
+    "type": "str",
+    "required": false,
+    "description": "description",
+    "name": "description"
+   }
+  ],
+  "response_fields": [
+   "SupplierOrderGuidId",
+   "Status",
+   "StatusName",
+   "ResultMessage",
+   "executionReferenceId"
+  ],
+  "language": "en",
+  "resource": "cash_management",
+  "name": "supplier_financing_vendor_order_initiation"
+ },
+ {
+  "id": "3339",
+  "title": "Tedarikçi Finansman Geri Ödeme Planı Hesaplaması",
+  "category": "Nakit Yönetimi",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/nakit-yonetimi/tedarikci-finansman-geri-odeme-plani-hesaplamasi",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/supplierfinance/getpaybackplan",
+  "version": "1.0",
+  "scope": "loans",
+  "flow": "client_credentials",
+  "description": "Siparişin satıcı tarafından iptal edildiği API'dir.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "SupplierTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Tedarikçi vergi numarasını tanımlayın.",
+    "name": "supplier_tax_number"
+   },
+   {
+    "wire": "SupplierOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Sipariş numarası.",
+    "name": "supplier_order_id"
+   },
+   {
+    "wire": "MaturityDayCount",
+    "type": "int",
+    "required": false,
+    "description": "Vade günü sayımı.",
+    "name": "maturity_day_count"
+   },
+   {
+    "wire": "EarlyPaymentDayCount",
+    "type": "int",
+    "required": false,
+    "description": "Erken ödeme günü sayımı.",
+    "name": "early_payment_day_count"
+   }
+  ],
+  "response_fields": [],
+  "language": "tr",
+  "resource": "cash_management",
+  "name": "tedarikci_finansman_geri_odeme_plani_hesaplamasi"
+ },
+ {
+  "id": "1999",
+  "title": "FX Currency Buy",
+  "category": "Foreign Exchange Transactions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/foreign-exchange-transactions/fx-currency-buy",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/fx/buy",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to perform a foreign exchange buy transaction. The customer account number and language information are retrieved from the authorization context. The request includes source account suffix, target account suffix, corporate web user name, buy rate, foreign currency amount and TL amount. The response returns transaction amount, currency amount, applied FX rate, tax information and execution reference information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "AccountSuffixFrom",
+    "type": "int",
+    "required": true,
+    "description": "Source account suffix from which the TL amount will be withdrawn.",
+    "name": "account_suffix_from"
+   },
+   {
+    "wire": "AccountSuffixTo",
+    "type": "int",
+    "required": true,
+    "description": "Target account suffix where the purchased foreign currency will be deposited.",
+    "name": "account_suffix_to"
+   },
+   {
+    "wire": "CorporateWebUserName",
+    "type": "str",
+    "required": false,
+    "description": "Corporate web user name used to perform the transaction.",
+    "name": "corporate_web_user_name"
+   },
+   {
+    "wire": "BuyRate",
+    "type": "number",
+    "required": true,
+    "description": "Foreign exchange buy rate used for the transaction.",
+    "name": "buy_rate"
+   },
+   {
+    "wire": "ExchangeAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount of foreign currency to be purchased.",
+    "name": "exchange_amount"
+   },
+   {
+    "wire": "TLAmount",
+    "type": "number",
+    "required": false,
+    "description": "TL amount of the transaction.",
+    "name": "tl_amount"
+   }
+  ],
+  "response_fields": [
+   "ExecutionReferenceId",
+   "FromFec",
+   "ToFec",
+   "TransactionAmount",
+   "CurrencyAmount",
+   "FxRate",
+   "TaxFecCode",
+   "TaxAmount"
+  ],
+  "language": "en",
+  "resource": "fx",
+  "name": "fx_currency_buy"
+ },
+ {
+  "id": "1991",
+  "title": "FX Currency List",
+  "category": "Foreign Exchange Transactions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/foreign-exchange-transactions/fx-currency-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/data/fecs",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve currency information. The response returns currency details such as ISO code, international code, FEC name, FEC code, FEC group and FEC ID.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "isoCode",
+   "internationalCode",
+   "name",
+   "code",
+   "group",
+   "id"
+  ],
+  "language": "en",
+  "resource": "fx",
+  "name": "fx_currency_list"
+ },
+ {
+  "id": "2015",
+  "title": "FX Currency Rates",
+  "category": "Foreign Exchange Transactions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/foreign-exchange-transactions/fx-currency-rates",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v2/fx/rates",
+  "version": "2.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve foreign exchange rates for the customer account associated with the client configuration. The response returns currency name, currency code, buy rate, sell rate and spread status information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "name",
+   "fxCode",
+   "buyRate",
+   "sellRate",
+   "isSpreadApplied"
+  ],
+  "language": "en",
+  "resource": "fx",
+  "name": "fx_currency_rates"
+ },
+ {
+  "id": "1795",
+  "title": "FX Currency Sell",
+  "category": "Foreign Exchange Transactions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/foreign-exchange-transactions/fx-currency-sell",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/fx/sell",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to perform a foreign exchange sell transaction. The customer account number and language information are retrieved from the authorization context. The request includes source account suffix, target account suffix, corporate web user name, sell rate, foreign currency amount and TL amount. The response returns transaction amount, currency amount, applied FX rate and execution reference information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "AccountSuffixFrom",
+    "type": "int",
+    "required": true,
+    "description": "Source foreign currency account suffix from which the exchange amount will be withdrawn.",
+    "name": "account_suffix_from"
+   },
+   {
+    "wire": "AccountSuffixTo",
+    "type": "int",
+    "required": true,
+    "description": "Target account suffix where the TL amount will be deposited.",
+    "name": "account_suffix_to"
+   },
+   {
+    "wire": "CorporateWebUserName",
+    "type": "str",
+    "required": false,
+    "description": "Corporate web user name used to perform the transaction.",
+    "name": "corporate_web_user_name"
+   },
+   {
+    "wire": "SellRate",
+    "type": "number",
+    "required": true,
+    "description": "Foreign exchange sell rate used for the transaction.",
+    "name": "sell_rate"
+   },
+   {
+    "wire": "ExchangeAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount of foreign currency to be sold.",
+    "name": "exchange_amount"
+   },
+   {
+    "wire": "TLAmount",
+    "type": "number",
+    "required": false,
+    "description": "TL amount of the transaction.",
+    "name": "tl_amount"
+   }
+  ],
+  "response_fields": [
+   "ExecutionReferenceId",
+   "FromFec",
+   "ToFec",
+   "TransactionAmount",
+   "CurrencyAmount",
+   "FxRate"
+  ],
+  "language": "en",
+  "resource": "fx",
+  "name": "fx_currency_sell"
+ },
+ {
+  "id": "1793",
+  "title": "FX Transaction History",
+  "category": "Foreign Exchange Transactions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/foreign-exchange-transactions/fx-transaction-history",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/fx/fxtransactions",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to initiate an internal money transfer transaction based on the customer account number from the authorization context. The request contains money transfer contract information including sender account suffix, receiver account information, transfer amount, transfer description and transfer type. The response returns the transaction execution reference and the created money transfer transaction ID.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request",
+   "moneyTransferContract"
+  ],
+  "body_params": [
+   {
+    "wire": "senderAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Sender account suffix number from which the money transfer amount will be withdrawn.",
+    "name": "sender_account_suffix"
+   },
+   {
+    "wire": "receiverAccountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Receiver customer account number to which the money transfer will be sent.",
+    "name": "receiver_account_number"
+   },
+   {
+    "wire": "receiverAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Receiver account suffix number to which the money transfer will be sent.",
+    "name": "receiver_account_suffix"
+   },
+   {
+    "wire": "moneyTransferDescription",
+    "type": "str",
+    "required": false,
+    "description": "Description or comment added to the money transfer transaction.",
+    "name": "money_transfer_description"
+   },
+   {
+    "wire": "moneyTransferAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount that will be transferred.",
+    "name": "money_transfer_amount"
+   },
+   {
+    "wire": "transferType",
+    "type": "int",
+    "required": true,
+    "description": "Money transfer type used to identify the transfer scenario.",
+    "name": "transfer_type"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "moneyTransferTransactionId"
+  ],
+  "language": "en",
+  "resource": "fx",
+  "name": "fx_transaction_history"
+ },
+ {
+  "id": "1867",
+  "title": "HGS Balance Information",
+  "category": "HGS Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/hgs-services/hgs-balance-information",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/hgs/balance-info",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API takes plate and HGS barcode numbers as request parameters and returns the HGS balance information in detail. The response includes barcode number, balance, system date, and transaction status information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "plateNo",
+    "type": "str",
+    "required": true,
+    "description": "Represents the plate number of the vehicle.",
+    "name": "plate_no"
+   },
+   {
+    "wire": "barcodeno",
+    "type": "str",
+    "required": true,
+    "description": "Represents the HGS barcode number.",
+    "name": "barcodeno"
+   }
+  ],
+  "response_fields": [
+   "barcodeNo",
+   "Status",
+   "balance",
+   "systemDate"
+  ],
+  "language": "en",
+  "resource": "hgs",
+  "name": "hgs_balance_information"
+ },
+ {
+  "id": "1908",
+  "title": "Account List V2",
+  "category": "Account Management - TPP",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/account-management-tpp/account-list-v2",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v2/accounts",
+  "version": "2.0",
+  "scope": "accounts",
+  "flow": "authorization_code",
+  "description": "This API is used to retrieve the account list of the customer associated with the authorization context. The response includes account details such as account number, account suffix, balance, available balance, currency information, IBAN, account type, branch information, customer name, maturity dates and account status. The account list can be filtered by account suffix and optional account status or balance filters.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "suffix",
+    "type": "int",
+    "required": false,
+    "description": "Account suffix used to retrieve a specific account.",
+    "name": "suffix"
+   },
+   {
+    "wire": "onlyHasAvailableBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only accounts with available balance should be returned.",
+    "name": "only_has_available_balance"
+   },
+   {
+    "wire": "onlyOpen",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only open accounts should be returned.",
+    "name": "only_open"
+   },
+   {
+    "wire": "onlyWithNoBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only accounts with no balance should be returned.",
+    "name": "only_with_no_balance"
+   },
+   {
+    "wire": "onlyCurrent",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether only current accounts should be returned.",
+    "name": "only_current"
+   },
+   {
+    "wire": "sharedWithMultiSignature",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether shared accounts requiring multiple signatures should be included.",
+    "name": "shared_with_multi_signature"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "executionReferenceId",
+   "accountList",
+   "accountNumber",
+   "name",
+   "suffix",
+   "balance",
+   "availableBalance",
+   "fxId",
+   "fxCode",
+   "iban",
+   "type",
+   "openDate",
+   "branchName",
+   "branchId",
+   "withHoldingAmount",
+   "customerName",
+   "maturityBeginDate",
+   "maturityEndDate",
+   "isActive"
+  ],
+  "language": "en",
+  "resource": "tpp_accounts",
+  "name": "account_list_v2"
+ },
+ {
+  "id": "3040",
+  "title": "Ek No ile Hesap Listesi V2",
+  "category": "Hesap Yönetimi - Üçüncü Taraf Yazılım",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/hesap-yonetimi-ucuncu-taraf-yazilim/ek-no-ile-hesap-listesi-v2",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v2/accounts/{suffix}",
+  "version": "2.0",
+  "scope": "accounts",
+  "flow": "authorization_code",
+  "description": "Bu API, authorization context ile ilişkili müşterinin hesap listesini almak için kullanılır. Cevap; account number, account suffix, balance, available balance, currency bilgisi, IBAN, account type, branch bilgisi, customer name, maturity dates ve account status gibi hesap detaylarını içerir. Hesap listesi account suffix ve opsiyonel account status veya balance filtreleri ile filtrelenebilir.",
+  "path_params": [
+   {
+    "wire": "suffix",
+    "type": "int",
+    "required": false,
+    "description": "Belirli bir hesabı almak için kullanılan account suffix değeridir. Bu değer optional route parameter olarak gönderilir.",
+    "name": "suffix"
+   }
+  ],
+  "query_params": [
+   {
+    "wire": "onlyHasAvailableBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Yalnızca available balance değeri bulunan hesapların döndürülüp döndürülmeyeceğini belirtir.",
+    "name": "only_has_available_balance"
+   },
+   {
+    "wire": "onlyOpen",
+    "type": "bool",
+    "required": false,
+    "description": "Yalnızca açık hesapların döndürülüp döndürülmeyeceğini belirtir.",
+    "name": "only_open"
+   },
+   {
+    "wire": "onlyWithNoBalance",
+    "type": "bool",
+    "required": false,
+    "description": "Yalnızca bakiyesi olmayan hesapların döndürülüp döndürülmeyeceğini belirtir.",
+    "name": "only_with_no_balance"
+   },
+   {
+    "wire": "onlyCurrent",
+    "type": "bool",
+    "required": false,
+    "description": "Yalnızca current account türündeki hesapların döndürülüp döndürülmeyeceğini belirtir.",
+    "name": "only_current"
+   },
+   {
+    "wire": "sharedWithMultiSignature",
+    "type": "bool",
+    "required": false,
+    "description": "Birden fazla imza gerektiren shared accounts bilgisinin dahil edilip edilmeyeceğini belirtir.",
+    "name": "shared_with_multi_signature"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "executionReferenceId",
+   "accountList",
+   "accountNumber",
+   "name",
+   "suffix",
+   "balance",
+   "availableBalance",
+   "fxId",
+   "fxCode",
+   "iban",
+   "type",
+   "openDate",
+   "branchName",
+   "branchId",
+   "withHoldingAmount",
+   "customerName",
+   "maturityBeginDate",
+   "maturityEndDate",
+   "isActive"
+  ],
+  "language": "tr",
+  "resource": "tpp_accounts",
+  "name": "account_list_with_suffix_v2"
+ },
+ {
+  "id": "3026",
+  "title": "Account Transactions V2",
+  "category": "Account Management - TPP",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/account-management-tpp/account-transactions-v2",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v2/accounts/{suffix}/transactions",
+  "version": "2.0",
+  "scope": "accounts",
+  "flow": "authorization_code",
+  "description": "This API is used to retrieve account transaction history for the specified account suffix of the customer associated with the authorization context. The transaction list can be filtered by item count, begin date and end date. The response includes transaction details such as transaction date, description, amount, balance, transaction reference, transaction ID, currency code, transaction code, sequence number, sender/receiver identity information and resource code.",
+  "path_params": [
+   {
+    "wire": "suffix",
+    "type": "int",
+    "required": true,
+    "description": "Account suffix for which transaction records will be retrieved. This value is sent as a route parameter.",
+    "name": "suffix"
+   }
+  ],
+  "query_params": [
+   {
+    "wire": "itemCount",
+    "type": "int",
+    "required": false,
+    "description": "Maximum number of account activity records to be returned.",
+    "name": "item_count"
+   },
+   {
+    "wire": "beginDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Start date from which account activity records will be retrieved.",
+    "name": "begin_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": false,
+    "description": "End date until which account activity records will be retrieved.",
+    "name": "end_date"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "executionReferenceId",
+   "accountActivities",
+   "suffix",
+   "date",
+   "description",
+   "amount",
+   "balance",
+   "transactionReference",
+   "transactionId",
+   "fxCode",
+   "transactionCode",
+   "seqNum",
+   "receiverTCKNorVKN",
+   "senderTCKNorVKN",
+   "resourceCode"
+  ],
+  "language": "en",
+  "resource": "tpp_accounts",
+  "name": "account_transactions_v2"
+ },
+ {
+  "id": "3025",
+  "title": "Receipt V2",
+  "category": "Account Management - TPP",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/account-management-tpp/receipt-v2",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v2/accounts/transactions/receipts",
+  "version": "2.0",
+  "scope": "accounts",
+  "flow": "authorization_code",
+  "description": "This API is used to retrieve receipt information for a transaction identified by the transactionReference value. The service returns receipt details such as title, description, amount, currency information and receipt sections including slip list, left header, right header, body and footer.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "transactionReference",
+    "type": "str",
+    "required": true,
+    "description": "Encrypted transaction reference value for which receipt information will be retrieved.",
+    "name": "transaction_reference"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "title",
+   "description",
+   "amount",
+   "fecName",
+   "slipList",
+   "key",
+   "leftHeader",
+   "rightHeader",
+   "body",
+   "footer"
+  ],
+  "language": "en",
+  "resource": "tpp_accounts",
+  "name": "receipt_v2"
+ },
+ {
+  "id": "4685",
+  "title": "Customer Iban Info for Money Transfer",
+  "category": "Money Transfers",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/money-transfers/customer-iban-info-for-money-transfer",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/moneytransfer/{iban}/customeribaninfo",
+  "version": "3.0",
+  "scope": "transfers",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve customer account information associated with a given IBAN. The service returns masked customer name, bank name, bank ID and FEC information for the queried IBAN.",
+  "path_params": [
+   {
+    "wire": "iban",
+    "type": "str",
+    "required": true,
+    "description": "IBAN number for which customer account information will be retrieved. This value is sent as a route parameter.",
+    "name": "iban"
+   }
+  ],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "customerName",
+   "bankName",
+   "bankId",
+   "fec"
+  ],
+  "language": "en",
+  "resource": "transfers",
+  "name": "customer_iban_info_for_money_transfer"
+ },
+ {
+  "id": "4689",
+  "title": "Money Transfer (Veeraman)",
+  "category": "Money Transfers",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/money-transfers/money-transfer-veeraman",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/moneytransfer/interbankmoneytransfer",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "client_credentials",
+  "description": "This API is used to initiate an internal account-to-account money transfer transaction. The sender account number is retrieved from the customer information in the authorization context, and the request includes sender suffix, receiver account information, transfer amount, description and transfer type.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "senderAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Sender account suffix number from which the money transfer amount will be withdrawn.",
+    "name": "sender_account_suffix"
+   },
+   {
+    "wire": "receiverAccountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Receiver customer account number to which the money transfer will be sent.",
+    "name": "receiver_account_number"
+   },
+   {
+    "wire": "receiverAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Receiver account suffix number to which the money transfer will be sent.",
+    "name": "receiver_account_suffix"
+   },
+   {
+    "wire": "moneyTransferDescription",
+    "type": "str",
+    "required": false,
+    "description": "Description or comment added to the money transfer transaction.",
+    "name": "money_transfer_description"
+   },
+   {
+    "wire": "moneyTransferAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount that will be transferred.",
+    "name": "money_transfer_amount"
+   },
+   {
+    "wire": "transferType",
+    "type": "int",
+    "required": true,
+    "description": "Money transfer type used to identify the transfer scenario.",
+    "name": "transfer_type"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "moneyTransferTransactionId"
+  ],
+  "language": "en",
+  "resource": "transfers",
+  "name": "internal_money_transfer"
+ },
+ {
+  "id": "4687",
+  "title": "Money Transfer Payment Type",
+  "category": "Money Transfers",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/money-transfers/money-transfer-payment-type",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/moneytransfer/paymenttype",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "client_credentials",
+  "description": "This API is used to initiate an internal money transfer transaction based on the customer account number from the authorization context. The request includes sender account suffix, receiver account information, transfer amount, transfer description and transfer type. The response returns the transaction execution reference and the created money transfer transaction ID.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "senderAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Sender account suffix number from which the money transfer amount will be withdrawn.",
+    "name": "sender_account_suffix"
+   },
+   {
+    "wire": "receiverAccountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Receiver customer account number to which the money transfer will be sent.",
+    "name": "receiver_account_number"
+   },
+   {
+    "wire": "receiverAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Receiver account suffix number to which the money transfer will be sent.",
+    "name": "receiver_account_suffix"
+   },
+   {
+    "wire": "moneyTransferDescription",
+    "type": "str",
+    "required": false,
+    "description": "Description or comment added to the money transfer transaction.",
+    "name": "money_transfer_description"
+   },
+   {
+    "wire": "moneyTransferAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount that will be transferred.",
+    "name": "money_transfer_amount"
+   },
+   {
+    "wire": "transferType",
+    "type": "int",
+    "required": true,
+    "description": "Money transfer type used to identify the transfer scenario.",
+    "name": "transfer_type"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "moneyTransferTransactionId"
+  ],
+  "language": "en",
+  "resource": "transfers",
+  "name": "money_transfer_payment_type"
+ },
+ {
+  "id": "3687",
+  "title": "Money Transfer State",
+  "category": "Money Transfers",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/money-transfers/money-transfer-state",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/moneytransfer-state",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "client_credentials",
+  "description": "This API is used to check the current state of a money transfer transaction. The transaction can be queried by outGoingId for outgoing transfer types or by virmanKey for VIRMAN transactions. The transferType parameter determines which transaction type will be checked.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "outGoingId",
+    "type": "str",
+    "required": false,
+    "description": "Outgoing money transfer ID used to query the transfer state. Required for transfer types other than VIRMAN.",
+    "name": "out_going_id"
+   },
+   {
+    "wire": "virmanKey",
+    "type": "str",
+    "required": false,
+    "description": "Encrypted business key used to query VIRMAN transaction state. Required when transferType is VIRMAN.",
+    "name": "virman_key"
+   },
+   {
+    "wire": "transferType",
+    "type": "str",
+    "required": true,
+    "description": "Money transfer type to be queried. Possible values include VIRMAN, HAVALE, FAST, POS and PÖS - EFT.",
+    "name": "transfer_type"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "transferType",
+   "state",
+   "stateDescription"
+  ],
+  "language": "en",
+  "resource": "transfers",
+  "name": "money_transfer_state"
+ },
+ {
+  "id": "3290",
+  "title": "Para Transferi (Havale & EFT & FAST & Virman)",
+  "category": "Para Transferleri",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/para-transferleri/para-transferi-havale-eft-fast-virman",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/moneytransfer/outgoingmoneytransfer",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "client_credentials",
+  "description": "Bu API, authorization context ile ilişkili müşteri hesabından money transfer işlemi başlatmak için kullanılır. Servis; sender account bilgilerini, receiver account bilgilerini, transfer amount ve transfer type değerlerini doğrular, ardından ilgili money transfer transaction kaydını oluşturur.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "senderAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Money transfer tutarının çekileceği sender account suffix numarasıdır.",
+    "name": "sender_account_suffix"
+   },
+   {
+    "wire": "receiverAccountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Money transfer gönderilecek receiver customer account number değeridir.",
+    "name": "receiver_account_number"
+   },
+   {
+    "wire": "receiverAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Money transfer gönderilecek receiver account suffix numarasıdır.",
+    "name": "receiver_account_suffix"
+   },
+   {
+    "wire": "moneyTransferDescription",
+    "type": "str",
+    "required": false,
+    "description": "Money transfer transaction için eklenen açıklama veya comment bilgisidir.",
+    "name": "money_transfer_description"
+   },
+   {
+    "wire": "moneyTransferAmount",
+    "type": "number",
+    "required": true,
+    "description": "Transfer edilecek tutardır.",
+    "name": "money_transfer_amount"
+   },
+   {
+    "wire": "transferType",
+    "type": "int",
+    "required": true,
+    "description": "Transfer senaryosunu belirlemek için kullanılan money transfer type değeridir.",
+    "name": "transfer_type"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "moneyTransferTransactionId"
+  ],
+  "language": "tr",
+  "resource": "transfers",
+  "name": "outgoing_money_transfer"
+ },
+ {
+  "id": "3228",
+  "title": "Outgoing Money Transfer V2",
+  "category": "Money Transfers",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/money-transfers/outgoing-money-transfer-v2",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v2/moneytransfer/outgoingmoneytransfer",
+  "version": "2.0",
+  "scope": "transfers",
+  "flow": "authorization_code",
+  "description": "This API is used to retrieve account transaction statement information based on the customer account number from the authorization context. The request can be filtered by account suffix, item count, begin date and end date. The response returns account activity records including transaction date, description, amount, balance, currency code, transaction reference and transaction code information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "suffix",
+    "type": "int",
+    "required": true,
+    "description": "Account suffix for which transaction records will be retrieved.",
+    "name": "suffix"
+   },
+   {
+    "wire": "itemCount",
+    "type": "int",
+    "required": false,
+    "description": "Maximum number of account activity records to be returned.",
+    "name": "item_count"
+   },
+   {
+    "wire": "beginDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Start date from which account activity records will be retrieved.",
+    "name": "begin_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": false,
+    "description": "End date until which account activity records will be retrieved.",
+    "name": "end_date"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "accountActivities",
+   "suffix",
+   "date",
+   "description",
+   "amount",
+   "balance",
+   "transactionReference",
+   "fxCode",
+   "transactionCode",
+   "transactionCodeDescription",
+   "senderIdentityNumber",
+   "transactionId"
+  ],
+  "language": "en",
+  "resource": "transfers",
+  "name": "outgoing_money_transfer_v2"
+ },
+ {
+  "id": "4692",
+  "title": "Transaction Validation List",
+  "category": "Money Transfers",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/money-transfers/transaction-validation-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/transactionvalidation/transactionlist",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve the transaction list used in transaction validation processes. The service returns transaction validation records filtered by transaction GUID and date range. It also returns the total transaction amount and total transaction count for the retrieved transaction list.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "transactionGuid",
+    "type": "str",
+    "required": false,
+    "description": "Unique transaction GUID used to filter transaction validation records.",
+    "name": "transaction_guid"
+   },
+   {
+    "wire": "beginDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Start date from which transaction validation records will be retrieved.",
+    "name": "begin_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": false,
+    "description": "End date until which transaction validation records will be retrieved.",
+    "name": "end_date"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "transactionContract",
+   "totalAmount",
+   "totalTransactionCount",
+   "transactionList",
+   "transactionGuid",
+   "executionReferenceId",
+   "amount",
+   "tranDate",
+   "transactionDescription"
+  ],
+  "language": "en",
+  "resource": "transfers",
+  "name": "transaction_validation_list"
+ },
+ {
+  "id": "4848",
+  "title": "FX and Precious Metal Rates",
+  "category": "Treasury Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/treasury-services/fx-and-precious-metal-rates",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/fx/rates",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API retrieves the current foreign exchange rates, including currency information, buy/sell rates and parity rates. Foreign exchange rates represent the bank's rates at the time the request is sent.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "name",
+   "fxCode",
+   "fxId",
+   "buyRate",
+   "sellRate",
+   "parityBuyRate",
+   "paritySellRate"
+  ],
+  "language": "en",
+  "resource": "treasury",
+  "name": "fx_and_precious_metal_rates"
+ },
+ {
+  "id": "1324",
+  "title": "FX and Precious Metals Transaction History",
+  "category": "Treasury Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/treasury-services/fx-and-precious-metals-transaction-history",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/fx/fxtransactions",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "It carries out precious metal sales transactions.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request",
+   "moneyTransferContract"
+  ],
+  "body_params": [
+   {
+    "wire": "cm:CustomerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "cm_customer_id"
+   },
+   {
+    "wire": "senderAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Sender account suffix for the account from which the amount will be transferred.",
+    "name": "sender_account_suffix"
+   },
+   {
+    "wire": "receiverAccountNumber",
+    "type": "int",
+    "required": true,
+    "description": "Receiver account number to which the amount will be transferred.",
+    "name": "receiver_account_number"
+   },
+   {
+    "wire": "receiverAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Receiver account suffix for the target account.",
+    "name": "receiver_account_suffix"
+   },
+   {
+    "wire": "moneyTransferDescription",
+    "type": "str",
+    "required": true,
+    "description": "Description of the money transfer transaction.",
+    "name": "money_transfer_description"
+   },
+   {
+    "wire": "moneyTransferAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount to be transferred.",
+    "name": "money_transfer_amount"
+   },
+   {
+    "wire": "transferType",
+    "type": "int",
+    "required": true,
+    "description": "Transfer type value that identifies the transaction type.",
+    "name": "transfer_type"
+   }
+  ],
+  "response_fields": [
+   "executionReferenceId",
+   "moneyTransferTransactionId"
+  ],
+  "language": "en",
+  "resource": "treasury",
+  "name": "fx_and_precious_metals_transaction_history"
+ },
+ {
+  "id": "3637",
+  "title": "Precious Metal Buy",
+  "category": "Treasury Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/treasury-services/precious-metal-buy",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/preciousmetal/buy",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Performs precious metal purchasing transactions. The request includes the source account, target precious metal account, corporate web user name, buy rate and precious metal amount. The response returns the transaction amount, currency amount, exchange rate and tax information for the completed transaction.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "cm:CustomerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "cm_customer_id"
+   },
+   {
+    "wire": "cm:LanguageId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "cm_language_id"
+   },
+   {
+    "wire": "AccountSuffixFrom",
+    "type": "int",
+    "required": true,
+    "description": "Additional number of the account from which the precious metal purchase amount will be withdrawn.",
+    "name": "account_suffix_from"
+   },
+   {
+    "wire": "AccountSuffixTo",
+    "type": "int",
+    "required": true,
+    "description": "Additional number of the account to which the purchased precious metal will be deposited.",
+    "name": "account_suffix_to"
+   },
+   {
+    "wire": "CorporateWebUserName",
+    "type": "str",
+    "required": true,
+    "description": "Corporate web user name of the account owner performing the precious metal purchase transaction.",
+    "name": "corporate_web_user_name"
+   },
+   {
+    "wire": "BuyRate",
+    "type": "number",
+    "required": true,
+    "description": "Exchange rate at which the precious metal will be purchased. This value is obtained from the exchange rate API.",
+    "name": "buy_rate"
+   },
+   {
+    "wire": "ExchangeAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount of precious metal to be purchased.",
+    "name": "exchange_amount"
+   }
+  ],
+  "response_fields": [
+   "ExecutionReferenceId",
+   "FromFec",
+   "ToFec",
+   "TransactionAmount",
+   "CurrencyAmount",
+   "FxRate",
+   "TaxFecCode",
+   "TaxAmount"
+  ],
+  "language": "en",
+  "resource": "treasury",
+  "name": "precious_metal_buy"
+ },
+ {
+  "id": "3638",
+  "title": "Precious Metal Rates",
+  "category": "Treasury Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/treasury-services/precious-metal-rates",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/preciousmetal/rates",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "A service for querying many common precious metal rates. Precious metal rates represent the bank's rates at the time the request is sent.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "FxName",
+   "FxCode",
+   "BuyRate",
+   "SellRate"
+  ],
+  "language": "en",
+  "resource": "treasury",
+  "name": "precious_metal_rates"
+ },
+ {
+  "id": "3639",
+  "title": "Precious Metal Sell",
+  "category": "Treasury Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/treasury-services/precious-metal-sell",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/preciousmetal/sell",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Performs precious metal sales transactions. The request includes the source precious metal account, target account, corporate web user name, sell rate and precious metal amount. The response returns the transaction amount, currency amount and exchange rate for the completed transaction.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "cm:CustomerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "cm_customer_id"
+   },
+   {
+    "wire": "cm:LanguageId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "cm_language_id"
+   },
+   {
+    "wire": "AccountSuffixFrom",
+    "type": "int",
+    "required": true,
+    "description": "Additional number of the account from which the precious metal amount will be withdrawn.",
+    "name": "account_suffix_from"
+   },
+   {
+    "wire": "AccountSuffixTo",
+    "type": "int",
+    "required": true,
+    "description": "Additional number of the account to which the sale amount will be deposited.",
+    "name": "account_suffix_to"
+   },
+   {
+    "wire": "CorporateWebUserName",
+    "type": "str",
+    "required": true,
+    "description": "Corporate web user name of the account owner performing the precious metal sale transaction.",
+    "name": "corporate_web_user_name"
+   },
+   {
+    "wire": "SellRate",
+    "type": "number",
+    "required": true,
+    "description": "Exchange rate at which the precious metal will be sold. This value is obtained from the exchange rate API.",
+    "name": "sell_rate"
+   },
+   {
+    "wire": "ExchangeAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount of precious metal to be sold.",
+    "name": "exchange_amount"
+   }
+  ],
+  "response_fields": [
+   "ExecutionReferenceId",
+   "FromFec",
+   "ToFec",
+   "TransactionAmount",
+   "CurrencyAmount",
+   "FxRate"
+  ],
+  "language": "en",
+  "resource": "treasury",
+  "name": "precious_metal_sell"
+ },
+ {
+  "id": "4661",
+  "title": "3D Secure Ödeme",
+  "category": "Sanal POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/3d-secure-odeme",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/threeDPayment",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Virtual POS 3D Secure (threeDPayment), kart sahibi, banka ve satıcı arasındaki veri akışını özel şifreleme anahtarları kullanarak doğrulayarak e-ticaret işlemlerinde güvenliği artıran bir çevrimiçi ödeme işleme altyapısıdır.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "cardExpireDateMonth",
+    "type": "str",
+    "required": false,
+    "description": "Sanal POS mağaza numarası. Başvuru onayıyla birlikte işletmeye e-posta yoluyla gönderilir.",
+    "name": "card_expire_date_month"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": false,
+    "description": "Tutar. Örneğin, İşlem Tutarı: 1 TL için 100, 1.234,50 TL için 123450 gönderilmelidir.",
+    "name": "amount"
+   },
+   {
+    "wire": "cardCVV2",
+    "type": "str",
+    "required": false,
+    "description": "​​Kart CVV değeri",
+    "name": "card_cvv2"
+   },
+   {
+    "wire": "cardHolderName",
+    "type": "str",
+    "required": false,
+    "description": "Kart sahibinin adı",
+    "name": "card_holder_name"
+   },
+   {
+    "wire": "successUrl",
+    "type": "str",
+    "required": false,
+    "description": "Güvenli Ödeme işlemlerinde, kart doğrulama aşamasında kullanıcı SMS yoluyla doğrulama sayfasına yönlendirilir.",
+    "name": "success_url"
+   },
+   {
+    "wire": "failUrl",
+    "type": "str",
+    "required": false,
+    "description": "Kart doğrulama hatası veya parametrelere bağlı olarak oluşabilecek hatalar durumunda sonucun gönderileceği adres.",
+    "name": "fail_url"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "açıklama",
+    "name": "description"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": false,
+    "description": "Bu, müşteri sipariş numarasını temsil eder.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "API kullanıcı adı.",
+    "name": "user_name"
+   },
+   {
+    "wire": "cardExpireDateYear",
+    "type": "str",
+    "required": false,
+    "description": "Kartın son kullanma yılı",
+    "name": "card_expire_date_year"
+   },
+   {
+    "wire": "merchantId",
+    "type": "str",
+    "required": false,
+    "description": "Sanal POS mağaza numarası. Başvuru onaylandıktan sonra işletmeye e-posta yoluyla gönderilecektir.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": false,
+    "description": "İşletmenin oluşturduğu ve işlem bilgileriyle birlikte gönderdiği ve banka tarafından kontrol edilen alan.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "str",
+    "required": false,
+    "description": "Bu, satıcı tarafından güvenli iş ortağı ödeme sayfasına gönderilecek taksit tutarını temsil eder.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "deferringCount",
+    "type": "str",
+    "required": false,
+    "description": "Harcama erteleme bilgileri",
+    "name": "deferring_count"
+   },
+   {
+    "wire": "currency",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "currency"
+   },
+   {
+    "wire": "cardNumber",
+    "type": "str",
+    "required": false,
+    "description": "“Sale” Güvenli İş Ortağı Ödeme sisteminden yapılacak işlemin bir satış işlemi olduğunu gösterir.",
+    "name": "card_number"
+   },
+   {
+    "wire": "currencyCode",
+    "type": "any",
+    "required": false,
+    "description": "Para birimi. TL için “0949” olarak gönderilmelidir.",
+    "name": "currency_code"
+   }
+  ],
+  "response_fields": [
+   "htmlContent",
+   "responseCode",
+   "responseMessage"
+  ],
+  "language": "tr",
+  "resource": "vpos",
+  "name": "_3_d_secure_odeme"
+ },
+ {
+  "id": "4975",
+  "title": "Dijital Ödeme Komisyon Mutabakatı",
+  "category": "Sanal POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/dijital-odeme-komisyon-mutabakati",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/commissionReconciliation",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Gönderilen transaction list bilgilerine göre digital payment transactions için commission reconciliation işlemi yapar. Cevapta her transaction için transaction identifier, status code, status message ve commission type bilgileriyle birlikte reconciliation status bilgisi döner.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "transactionList",
+    "type": "array",
+    "required": true,
+    "description": "Commission reconciliation işlemine dahil edilecek digital payment transaction listesidir.",
+    "name": "transaction_list"
+   }
+  ],
+  "response_fields": [
+   "transactionId",
+   "statusCode",
+   "statusMessage",
+   "commissionType"
+  ],
+  "language": "tr",
+  "resource": "vpos",
+  "name": "dijital_odeme_komisyon_mutabakati"
+ },
+ {
+  "id": "4669",
+  "title": "Düzenli NonThreeD Ödeme",
+  "category": "Sanal POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/duzenli-nonthreed-odeme",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/recurringNonThreeDPayment",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Düzenli / tekrarlı ödeme almak için kullanılan API’dır.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "user_name"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "hash_data"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "amount"
+   },
+   {
+    "wire": "currency",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "currency"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "installment_count"
+   },
+   {
+    "wire": "deferringCount",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "deferring_count"
+   },
+   {
+    "wire": "cardNumber",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_number"
+   },
+   {
+    "wire": "cardExpireDateYear",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_expire_date_year"
+   },
+   {
+    "wire": "cardExpireDateMonth",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_expire_date_month"
+   },
+   {
+    "wire": "cardCvv2",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_cvv2"
+   },
+   {
+    "wire": "cardHolderName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_holder_name"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "description"
+   },
+   {
+    "wire": "customerName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "customer_name"
+   },
+   {
+    "wire": "paymentStartDate",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "payment_start_date"
+   },
+   {
+    "wire": "iterationCounter",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "iteration_counter"
+   },
+   {
+    "wire": "periodNumber",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "period_number"
+   },
+   {
+    "wire": "periodType",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "period_type"
+   },
+   {
+    "wire": "cardHolderCustomerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "card_holder_customer_id"
+   },
+   {
+    "wire": "merchantCustomerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "merchant_customer_id"
+   }
+  ],
+  "response_fields": [],
+  "language": "tr",
+  "resource": "vpos",
+  "name": "duzenli_non_three_d_odeme"
+ },
+ {
+  "id": "4682",
+  "title": "Gelen Ödeme İptali",
+  "category": "Sanal POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/gelen-odeme-iptali",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/paymentOrderReversal",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Henüz kesinleşmemiş / tahsilata dönüşmemiş bir “tahsilat işlemini”nin iptal edilmesi için kullanılır.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "user_name"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "amount",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "amount"
+   },
+   {
+    "wire": "okUrl",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "ok_url"
+   },
+   {
+    "wire": "failUrl",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "fail_url"
+   },
+   {
+    "wire": "entryGateMethod",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "entry_gate_method"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "hash_data"
+   },
+   {
+    "wire": "parentPaymentId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "parent_payment_id"
+   },
+   {
+    "wire": "paymentId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "payment_id"
+   }
+  ],
+  "response_fields": [],
+  "language": "tr",
+  "resource": "vpos",
+  "name": "gelen_odeme_iptali"
+ },
+ {
+  "id": "4673",
+  "title": "İşyeri Onaylı NonThreeD Ödeme",
+  "category": "Sanal POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/isyeri-onayli-nonthreed-odeme",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/nonThreeDPaymentByMerchantSafe",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "İşyeri onaylı olan NonThreeD Ödeme işlemi yapılan API’dır.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "customer_id"
+   },
+   {
+    "wire": "paymentCustomerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "payment_customer_id"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "user_name"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "hash_data"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "amount"
+   },
+   {
+    "wire": "currency",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "currency"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "installment_count"
+   },
+   {
+    "wire": "deferringCount",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "deferring_count"
+   },
+   {
+    "wire": "safeKey",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "safe_key"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "description"
+   }
+  ],
+  "response_fields": [],
+  "language": "tr",
+  "resource": "vpos",
+  "name": "isyeri_onayli_non_three_d_odeme"
+ },
+ {
+  "id": "4677",
+  "title": "Merchant‑Safe için Kart Ekleme",
+  "category": "Sanal POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/merchant-safe-icin-kart-ekleme",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/addCardToMerchantSafe",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Merchant‑safe (işyeri sorumluluğunda) Non‑3D Secure ödeme akışlarında kullanılmak üzere, müşterinin kart bilgisini ödeme sistemine güvenli şekilde kaydetmek için kullanılan API’dir.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "businessKey",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "business_key"
+   },
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "user_name"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "hash_data"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "paymentCustomerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "payment_customer_id"
+   },
+   {
+    "wire": "cardNumber",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_number"
+   },
+   {
+    "wire": "cardExpireDateMonth",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_expire_date_month"
+   },
+   {
+    "wire": "cardExpireDateYear",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_expire_date_year"
+   },
+   {
+    "wire": "cardCvv2",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_cvv2"
+   },
+   {
+    "wire": "cardHolderName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_holder_name"
+   }
+  ],
+  "response_fields": [],
+  "language": "tr",
+  "resource": "vpos",
+  "name": "merchant_safe_icin_kart_ekleme"
+ },
+ {
+  "id": "4678",
+  "title": "Ön Provizyon",
+  "category": "Sanal POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/on-provizyon",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/preAuthorization",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Müşteri kartından tutar tahsil edilmeden, belirtilen tutar için ön provizyon (limit blokajı) almak amacıyla kullanılan sanal POS servisidir.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "user_name"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "amount"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "cardNumber",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_number"
+   },
+   {
+    "wire": "cardExpireDateYear",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_expire_date_year"
+   },
+   {
+    "wire": "cardExpireDateMonth",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_expire_date_month"
+   },
+   {
+    "wire": "cardCVV2",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_cvv2"
+   },
+   {
+    "wire": "cardHolderName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_holder_name"
+   },
+   {
+    "wire": "currency",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "currency"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "hash_data"
+   }
+  ],
+  "response_fields": [],
+  "language": "tr",
+  "resource": "vpos",
+  "name": "on_provizyon"
+ },
+ {
+  "id": "4681",
+  "title": "Satış İşlemi İptal",
+  "category": "Sanal POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/satis-islemi-iptal",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/saleOrderReversal",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Başarılı bir satış işlemini gün sonu öncesinde iptal ederek tahsilatın tamamen geri alınmasını sağlar.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "user_name"
+   },
+   {
+    "wire": "amount",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "amount"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "orderId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "order_id"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "hash_data"
+   },
+   {
+    "wire": "saleReversalType",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "sale_reversal_type"
+   }
+  ],
+  "response_fields": [],
+  "language": "tr",
+  "resource": "vpos",
+  "name": "satis_islemi_iptal"
+ }
+]

@@ -1,0 +1,7 @@
+{
+  "_aciklama": "Doküman hatalarını düzeltmek için elle yazılan düzeltmeler. Anahtar doküman id'sidir (spec/endpoints.json içindeki \"id\"). Değerdeki alanlar katalogdaki alanların üzerine yazılır; \"resource\" ve \"name\" metodun yerini/adını değiştirir, \"skip\": true sayfayı tamamen atlar. Alt çizgiyle başlayan anahtarlar yok sayılır.",
+  "3257": {"name": "receipt_v3"},
+  "3040": {"name": "account_list_with_suffix_v2"},
+  "3290": {"name": "outgoing_money_transfer"},
+  "4689": {"name": "internal_money_transfer"}
+}
