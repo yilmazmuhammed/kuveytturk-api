@@ -149,7 +149,13 @@ alan eklerken sır sızdırmadığını `tests/test_logging.py`'deki gibi test e
 
 ## Yayın
 
-1. `src/kuveytturk_api/_version.py` ve `CHANGELOG.md` güncellenir.
-2. `pytest`, `ruff`, `mypy`, `generate.py --check` temiz olmalı.
-3. `python -m build`, `twine check dist/*`, sdist içeriği gözle kontrol edilir.
-4. `twine upload dist/*` — PyPI token'ı kullanıcıdadır; yüklemeyi kullanıcı yapar ya da açıkça onaylar.
+Paket PyPI'da `kuveytturk-api` adıyla yayınlanır (repo private; kullanıcı kararı). Yükleme, PyPI
+Trusted Publishing ile `.github/workflows/publish.yml` üzerinden yapılır; token yoktur.
+
+1. `src/kuveytturk_api/_version.py` ve `CHANGELOG.md` güncellenir (sürüm + tarih).
+2. `pytest`, `ruff`, `mypy`, `generate.py --check` temiz; `main` dalında CI yeşil olmalı.
+3. `python -m build`, `twine check --strict dist/*`; sdist içinde sır ve `apidocs/` olmadığına bak.
+4. `gh release create vX.Y.Z` -> iş akışı etiketin sürümle eşleştiğini doğrulayıp yükler.
+   **Geri alınamaz** (bir sürüm numarası PyPI'da bir kez kullanılır); release'i oluşturmadan önce
+   kullanıcıdan açık onay al.
+5. Yayından sonra temiz bir ortamda `pip install kuveytturk-api==X.Y.Z` ile doğrula.

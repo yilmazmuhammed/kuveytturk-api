@@ -12,12 +12,21 @@ jobs:
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
-      id-token: write
+      contents: read # private repoda kodu indirebilmek için
+      id-token: write # PyPI Trusted Publishing için
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: python -m pip install build
+      - run: python -m pip install build twine
+      - name: Etiket ile paket sürümü aynı mı
+        run: |
+          version=$(sed -n 's/^__version__ = "\(.*\)"$/\1/p' src/kuveytturk_api/_version.py)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Etiket ($GITHUB_REF_NAME) paket sürümüyle (v$version) uyuşmuyor."
+            exit 1
+          fi
       - run: python -m build
+      - run: twine check --strict dist/*
       - uses: pypa/gh-action-pypi-publish@release/v1
