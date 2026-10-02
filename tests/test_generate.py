@@ -10,6 +10,9 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 
 
+sys.path.insert(0, str(ROOT / "scripts"))
+
+
 def _load(name: str) -> Any:
     spec = importlib.util.spec_from_file_location(name, ROOT / "scripts" / f"{name}.py")
     assert spec and spec.loader

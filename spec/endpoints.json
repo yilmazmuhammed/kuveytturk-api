@@ -1664,6 +1664,1706 @@
   "name": "tedarikci_finansman_geri_odeme_plani_hesaplamasi"
  },
  {
+  "id": "980",
+  "title": "Campaign List for Organization",
+  "category": "Donations",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/donations/campaign-list-for-organization",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/donations/campaignList",
+  "version": "1.0",
+  "scope": "donations",
+  "flow": "authorization_code",
+  "description": "Returns the list of all transactions between the start and end date made to the organization.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "organizationId",
+    "type": "int",
+    "required": true,
+    "description": "Organization Code",
+    "name": "organization_id"
+   },
+   {
+    "wire": "password",
+    "type": "str",
+    "required": true,
+    "description": "Organization Password",
+    "name": "password"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Report Start Date",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Report End Date",
+    "name": "end_date"
+   },
+   {
+    "wire": "campaignAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Customer Account Suffix",
+    "name": "campaign_account_suffix"
+   }
+  ],
+  "response_fields": [
+   "AccountNumber",
+   "AccountSuffix",
+   "Balance",
+   "FECName",
+   "IBAN",
+   "BranchId",
+   "BranchName",
+   "TransactionCount",
+   "TransactionList",
+   "Amount",
+   "TranDate",
+   "ValueDate",
+   "BusinessKey",
+   "CurrentBalance",
+   "Description",
+   "SenderIdentityNumber"
+  ],
+  "language": "en",
+  "resource": "donations",
+  "name": "campaign_list_for_organization"
+ },
+ {
+  "id": "964",
+  "title": "Donation List for Organization",
+  "category": "Donations",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/donations/donation-list-for-organization",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/donations/donationList",
+  "version": "1.0",
+  "scope": "donations",
+  "flow": "client_credentials",
+  "description": "Retrieves the donation payment list for an organization. The request can be filtered by campaign account number, campaign ID, last payment ID, cancellation inclusion flag and date range. The response includes donation summary information and detailed payment records.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "CustomerId",
+    "type": "int",
+    "required": true,
+    "description": "Campaign account number of the organization for which donation payments will be listed.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "campaignId",
+    "type": "int",
+    "required": false,
+    "description": "Campaign identifier used to filter donation payments.",
+    "name": "campaign_id"
+   },
+   {
+    "wire": "lastPaymentId",
+    "type": "int",
+    "required": false,
+    "description": "Last payment identifier used for pagination or retrieving records after a specific payment.",
+    "name": "last_payment_id"
+   },
+   {
+    "wire": "isCanceledIncluded",
+    "type": "int",
+    "required": false,
+    "description": "Indicates whether canceled donation payments should be included in the response.",
+    "name": "is_canceled_included"
+   },
+   {
+    "wire": "startDate",
+    "type": "str",
+    "required": false,
+    "description": "Start date of the donation payment search range.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "str",
+    "required": false,
+    "description": "End date of the donation payment search range.",
+    "name": "end_date"
+   }
+  ],
+  "response_fields": [
+   "DonationDetail",
+   "LastPaymentId",
+   "DonationCount",
+   "PaymentList",
+   "PaymentId",
+   "TranDate",
+   "BankCode",
+   "BankName",
+   "CampaignId",
+   "CampaignCode",
+   "CampaignName",
+   "UnitAmount",
+   "Quantity",
+   "TotalAmount",
+   "FecCode",
+   "CampaignAccountNumber",
+   "CampaignAccountSuffix",
+   "StatusName",
+   "TranTaxNumber",
+   "TranTitle",
+   "TranGsmNumber",
+   "TranPhoneNumber",
+   "TranEMail",
+   "TranCountry",
+   "TranCountryName",
+   "TranCity",
+   "TranCityName",
+   "TranCounty",
+   "TranAddress",
+   "Description",
+   "IsExplicitConsentName",
+   "DetailModelCount",
+   "DetailList",
+   "Title",
+   "PhoneNumber"
+  ],
+  "language": "en",
+  "resource": "donations",
+  "name": "donation_list_for_organization"
+ },
+ {
+  "id": "982",
+  "title": "Donation List for Organization TDV",
+  "category": "Donations",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/donations/donation-list-for-organization-tdv",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/donations/donationListTdv",
+  "version": "1.0",
+  "scope": "donations",
+  "flow": "client_credentials",
+  "description": "Retrieves the donation payment list for TDV within the specified date range. The request can be filtered by organization ID, campaign ID, last payment ID, cancellation inclusion flag and date range. The response includes donation summary information and detailed payment records.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "organizationId",
+    "type": "int",
+    "required": true,
+    "description": "Organization identifier used to retrieve donation payments.",
+    "name": "organization_id"
+   },
+   {
+    "wire": "password",
+    "type": "str",
+    "required": true,
+    "description": "Organization password used for request authorization.",
+    "name": "password"
+   },
+   {
+    "wire": "campaignId",
+    "type": "int",
+    "required": true,
+    "description": "Campaign identifier used to filter donation payments.",
+    "name": "campaign_id"
+   },
+   {
+    "wire": "lastPaymentId",
+    "type": "int",
+    "required": true,
+    "description": "Last payment identifier used for pagination or retrieving records after a specific payment.",
+    "name": "last_payment_id"
+   },
+   {
+    "wire": "isCanceledIncluded",
+    "type": "int",
+    "required": true,
+    "description": "Indicates whether canceled donation payments should be included in the response. Use 0 for false and 1 for true.",
+    "name": "is_canceled_included"
+   },
+   {
+    "wire": "startDate",
+    "type": "str",
+    "required": true,
+    "description": "Start date of the donation payment search range. For example: 2015-06-01.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "str",
+    "required": true,
+    "description": "End date of the donation payment search range. For example: 2015-06-30.",
+    "name": "end_date"
+   }
+  ],
+  "response_fields": [
+   "DonationDetail",
+   "LastPaymentId",
+   "DonationCount",
+   "PaymentList",
+   "PaymentId",
+   "TranDate",
+   "PaymentAccountNo",
+   "BusinessKey",
+   "BankCode",
+   "BankName",
+   "BranchCode",
+   "BranchName",
+   "ChannelName",
+   "CampaignId",
+   "CampaignName",
+   "CampaignCode",
+   "UnitAmount",
+   "Quantity",
+   "TotalAmount",
+   "FecCode",
+   "CampaignAccountNumber",
+   "CampaignAccountSuffix",
+   "StatusName",
+   "TranTaxNumber",
+   "TranTitle",
+   "TranGsmNumber",
+   "TranPhoneNumber",
+   "TranBirthDate",
+   "TranGenderName",
+   "TranEducation",
+   "TranProfession",
+   "TranEMail",
+   "TranCountry",
+   "TranCountryName",
+   "TranCity",
+   "TranCityName",
+   "TranCounty",
+   "TranAddress",
+   "TranZipCode",
+   "Attorneyship",
+   "TranAccountNumber",
+   "TranAccountSuffix",
+   "Privacy",
+   "Description",
+   "DetailModelCount",
+   "DetailList",
+   "Title",
+   "PhoneNumber",
+   "CancelTranDate"
+  ],
+  "language": "en",
+  "resource": "donations",
+  "name": "donation_list_for_organization_tdv"
+ },
+ {
+  "id": "981",
+  "title": "External Payments List",
+  "category": "Donations",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/donations/external-payments-list",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/donations/externalPayments",
+  "version": "1.0",
+  "scope": "donations",
+  "flow": "authorization_code",
+  "description": "Returns all the external payments, such as EFT, money transfers, and cash processing, made to the selected campaign within the specified date range for the authenticated organization.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "organizationId",
+    "type": "int",
+    "required": true,
+    "description": "Organization Code",
+    "name": "organization_id"
+   },
+   {
+    "wire": "password",
+    "type": "str",
+    "required": true,
+    "description": "Organization Password",
+    "name": "password"
+   },
+   {
+    "wire": "startDate",
+    "type": "str",
+    "required": true,
+    "description": "Report Start Date e.g., \"2015-06-01\"",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "str",
+    "required": true,
+    "description": "Report End Date e.g., \"2015-06-01\"",
+    "name": "end_date"
+   },
+   {
+    "wire": "accountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Account Suffix Number",
+    "name": "account_suffix"
+   }
+  ],
+  "response_fields": [
+   "Amount",
+   "ProcessDate",
+   "BusinessKey",
+   "SenderIdentityNumber",
+   "ReceiverIdentityNumber",
+   "SenderName",
+   "ReceiverName",
+   "Description",
+   "BranchId",
+   "ProcessType",
+   "BranchName",
+   "FecName",
+   "SenderIbanNumber",
+   "SenderBankCode",
+   "SenderBranchId"
+  ],
+  "language": "en",
+  "resource": "donations",
+  "name": "external_payments_list"
+ },
+ {
+  "id": "3550",
+  "title": "Ecommerce Application Refund",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-application-refund",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/lendings/{applicationId}/refund",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Allows partial or full refund of funding.",
+  "path_params": [
+   {
+    "wire": "applicationId",
+    "type": "str",
+    "required": true,
+    "description": "",
+    "name": "application_id"
+   }
+  ],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "referenceId",
+    "type": "str",
+    "required": true,
+    "description": "Unique ID number of the request",
+    "name": "reference_id"
+   },
+   {
+    "wire": "refundType",
+    "type": "str",
+    "required": true,
+    "description": "Full or partial refund. Enum: [ FULL, PARTIAL ].",
+    "name": "refund_type"
+   },
+   {
+    "wire": "refundAmount",
+    "type": "number",
+    "required": true,
+    "description": "Refund amount.",
+    "name": "refund_amount"
+   },
+   {
+    "wire": "orderDate",
+    "type": "int",
+    "required": true,
+    "description": "Date of the returned order",
+    "name": "order_date"
+   },
+   {
+    "wire": "orderId",
+    "type": "str",
+    "required": true,
+    "description": "Id of the returned order.",
+    "name": "order_id"
+   },
+   {
+    "wire": "promotionId",
+    "type": "int",
+    "required": false,
+    "description": "Preset id for applied promotion",
+    "name": "promotion_id"
+   }
+  ],
+  "response_fields": [
+   "isSuccess",
+   "responseCode",
+   "responseMessage",
+   "bankReferenceId"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_application_refund_v1"
+ },
+ {
+  "id": "2139",
+  "title": "Ecommerce Application Refund",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-application-refund",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/lendings/{applicationId}/refund",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "This API performs a refund transaction for a lending application. The refund is processed using the specified application id, company information, reference information and refund details.",
+  "path_params": [
+   {
+    "wire": "applicationId",
+    "type": "str",
+    "required": true,
+    "description": "Unique lending application identifier for which the refund will be processed.",
+    "name": "application_id"
+   }
+  ],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "x-company-id",
+    "type": "str",
+    "required": true,
+    "description": "Company identifier used to determine the company initiating the refund request.",
+    "name": "x_company_id"
+   },
+   {
+    "wire": "x-sub-company-id",
+    "type": "int",
+    "required": true,
+    "description": "Sub-company identifier used to determine the related sub-company for the refund request.",
+    "name": "x_sub_company_id"
+   },
+   {
+    "wire": "applicationId",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "application_id_"
+   },
+   {
+    "wire": "referenceId",
+    "type": "str",
+    "required": true,
+    "description": "Reference identifier of the refund transaction.",
+    "name": "reference_id"
+   },
+   {
+    "wire": "refundType",
+    "type": "str",
+    "required": true,
+    "description": "Type of the refund transaction.",
+    "name": "refund_type"
+   },
+   {
+    "wire": "refundAmount",
+    "type": "number",
+    "required": true,
+    "description": "Amount to be refunded.",
+    "name": "refund_amount"
+   },
+   {
+    "wire": "orderDate",
+    "type": "int",
+    "required": true,
+    "description": "Order date related to the refund transaction.",
+    "name": "order_date"
+   },
+   {
+    "wire": "orderId",
+    "type": "str",
+    "required": true,
+    "description": "Order identifier related to the refund transaction.",
+    "name": "order_id"
+   },
+   {
+    "wire": "promotionId",
+    "type": "str",
+    "required": false,
+    "description": "Promotion identifier related to the refund transaction.",
+    "name": "promotion_id"
+   },
+   {
+    "wire": "invoiceNumber",
+    "type": "str",
+    "required": false,
+    "description": "Invoice number related to the refund transaction.",
+    "name": "invoice_number"
+   }
+  ],
+  "response_fields": [
+   "isSuccess",
+   "responseCode",
+   "responseMessage",
+   "bankReferenceId"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_application_refund_v1_2"
+ },
+ {
+  "id": "3551",
+  "title": "Ecommerce Get Lending Information",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-get-lending-information",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/lendings/{applicationId}",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Its purpose is to question the details of the loan applied for.",
+  "path_params": [
+   {
+    "wire": "applicationId",
+    "type": "str",
+    "required": true,
+    "description": "",
+    "name": "application_id"
+   }
+  ],
+  "query_params": [
+   {
+    "wire": "applicactionId",
+    "type": "str",
+    "required": true,
+    "description": "Application Number",
+    "name": "applicaction_id"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "applicationId",
+   "isApproved",
+   "applicationDate",
+   "responseCode",
+   "responseMessage",
+   "type",
+   "allocationInformation",
+   "isSuccess",
+   "allocationDate",
+   "totalRefundAmount",
+   "refundHistory",
+   "referenceId",
+   "bankReferenceId",
+   "refundDate",
+   "refundType",
+   "refundAmount",
+   "paymentPlan",
+   "lendingAmount",
+   "interestRate",
+   "term",
+   "totalPaymentAmount",
+   "annualEffectiveInterestRate",
+   "monthlyPayments",
+   "amount",
+   "dueDate",
+   "isPaid",
+   "paymentDate",
+   "details",
+   "name"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_get_lending_information_v1"
+ },
+ {
+  "id": "1240",
+  "title": "Ecommerce Get Lending Information",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-get-lending-information",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/lendings/{applicationId}",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "This API retrieves the details of a lending application by application id. The response includes application status, invoice information, allocation information, refund history, payment plan and digital onboarding information.",
+  "path_params": [
+   {
+    "wire": "applicationId",
+    "type": "str",
+    "required": true,
+    "description": "Unique lending application identifier to be queried.",
+    "name": "application_id"
+   }
+  ],
+  "query_params": [
+   {
+    "wire": "client_id",
+    "type": "str",
+    "required": true,
+    "description": "Client identifier used to determine the company initiating the request.",
+    "name": "client_id"
+   },
+   {
+    "wire": "x-sub-company-id",
+    "type": "int",
+    "required": true,
+    "description": "Sub-company identifier used to determine the related sub-company for the request.",
+    "name": "x_sub_company_id"
+   },
+   {
+    "wire": "date",
+    "type": "str",
+    "required": true,
+    "description": "Date parameter used to query the lending application details.",
+    "name": "date"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "applicationId",
+   "isApproved",
+   "isInvoiceApproved",
+   "applicationDate",
+   "responseCode",
+   "responseMessage",
+   "type",
+   "isActiveCustomer",
+   "isDigitalChannelCustomer",
+   "allocationInformation",
+   "isSuccess",
+   "allocationDate",
+   "refundInformation",
+   "totalRefundAmount",
+   "refundHistory",
+   "referenceId",
+   "bankReferenceId",
+   "refundDate",
+   "refundType",
+   "refundAmount",
+   "invoiceInformation",
+   "invoiceStatus",
+   "invoiceDescription",
+   "paymentPlan",
+   "lendingAmount",
+   "interestRate",
+   "totalPaymentAmount",
+   "annualEffectiveInterestRate",
+   "monthlyEffectiveInterestRate",
+   "term",
+   "monthlyPayments",
+   "amount",
+   "dueDate",
+   "isPaid",
+   "paymentDate",
+   "details",
+   "name",
+   "digitalOnboardingInformation",
+   "completedDate"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_get_lending_information_v1_2"
+ },
+ {
+  "id": "3552",
+  "title": "Ecommerce Lendings",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-lendings",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/lendings",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Allows you to apply for funding.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "referenceId",
+    "type": "str",
+    "required": true,
+    "description": "Unique ID number of the request",
+    "name": "reference_id"
+   },
+   {
+    "wire": "preApprovedApplicationId",
+    "type": "str",
+    "required": true,
+    "description": "Pre-approved funding application number.",
+    "name": "pre_approved_application_id"
+   },
+   {
+    "wire": "callbackUrl",
+    "type": "str",
+    "required": false,
+    "description": "URL to return after financing disbursement",
+    "name": "callback_url"
+   },
+   {
+    "wire": "nationalIdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "National identification number.",
+    "name": "national_identity_number"
+   },
+   {
+    "wire": "birthdate",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "birthdate"
+   },
+   {
+    "wire": "gsmNumber",
+    "type": "str",
+    "required": true,
+    "description": "Customer's confirmed mobile phone number.",
+    "name": "gsm_number"
+   },
+   {
+    "wire": "totalTerm",
+    "type": "int",
+    "required": true,
+    "description": "Total term.",
+    "name": "total_term"
+   },
+   {
+    "wire": "type",
+    "type": "str",
+    "required": true,
+    "description": "Selected financing type.",
+    "name": "type"
+   },
+   {
+    "wire": "timeToLive",
+    "type": "int",
+    "required": true,
+    "description": "The lifetime of the basket. It should be used and returned within this period.",
+    "name": "time_to_live"
+   },
+   {
+    "wire": "orderId",
+    "type": "str",
+    "required": true,
+    "description": "Order number.",
+    "name": "order_id"
+   },
+   {
+    "wire": "promotionId",
+    "type": "int",
+    "required": false,
+    "description": "Predetermined id for the promotion to be applied",
+    "name": "promotion_id"
+   },
+   {
+    "wire": "cart",
+    "type": "object",
+    "required": true,
+    "description": "Contains price and cart product information.",
+    "name": "cart"
+   }
+  ],
+  "response_fields": [
+   "applicationId",
+   "isApproved",
+   "applicationDate",
+   "responseCode",
+   "responseMessage",
+   "bankRedirectionUrl",
+   "timeToLive",
+   "paymentPlan",
+   "lendingAmount",
+   "interestRate",
+   "term",
+   "totalPaymentAmount",
+   "annualEffectiveInterestRate",
+   "monthlyPayments",
+   "amount",
+   "dueDate",
+   "details",
+   "name"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_lendings_v1"
+ },
+ {
+  "id": "1232",
+  "title": "Ecommerce Lendings",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-lendings",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/lendings",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "This API creates a lending application using the customer's pre-approved application information, selected term, order details, callback URLs and cart content. The response includes the application result, bank redirection URL and payment plan details.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "x-company-id",
+    "type": "str",
+    "required": true,
+    "description": "Company identifier used to determine the company initiating the lending application.",
+    "name": "x_company_id"
+   },
+   {
+    "wire": "x-sub-company-id",
+    "type": "int",
+    "required": true,
+    "description": "Sub-company identifier used to determine the related sub-company for the lending application.",
+    "name": "x_sub_company_id"
+   },
+   {
+    "wire": "referenceId",
+    "type": "str",
+    "required": true,
+    "description": "Unique reference identifier of the lending application request.",
+    "name": "reference_id"
+   },
+   {
+    "wire": "preApprovedApplicationId",
+    "type": "str",
+    "required": true,
+    "description": "Pre-approved application identifier obtained from the pre-approved monthly payments query.",
+    "name": "pre_approved_application_id"
+   },
+   {
+    "wire": "callbackUrl",
+    "type": "str",
+    "required": true,
+    "description": "URL to which the customer will be redirected after a successful lending application flow.",
+    "name": "callback_url"
+   },
+   {
+    "wire": "failcallbackUrl",
+    "type": "str",
+    "required": true,
+    "description": "URL to which the customer will be redirected if the lending application flow fails.",
+    "name": "failcallback_url"
+   },
+   {
+    "wire": "nationalIdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Customer's national identity number.",
+    "name": "national_identity_number"
+   },
+   {
+    "wire": "birthDate",
+    "type": "str",
+    "required": true,
+    "description": "Customer's birth date.",
+    "name": "birth_date"
+   },
+   {
+    "wire": "gsmNumber",
+    "type": "str",
+    "required": true,
+    "description": "Customer's mobile phone number.",
+    "name": "gsm_number"
+   },
+   {
+    "wire": "totalTerm",
+    "type": "int",
+    "required": true,
+    "description": "Total term selected for the lending application.",
+    "name": "total_term"
+   },
+   {
+    "wire": "type",
+    "type": "str",
+    "required": true,
+    "description": "Type of the selected lending/payment option.",
+    "name": "type"
+   },
+   {
+    "wire": "timeToLive",
+    "type": "int",
+    "required": true,
+    "description": "Validity duration of the lending application flow.",
+    "name": "time_to_live"
+   },
+   {
+    "wire": "orderId",
+    "type": "str",
+    "required": true,
+    "description": "Order identifier related to the lending application.",
+    "name": "order_id"
+   },
+   {
+    "wire": "promotionId",
+    "type": "str",
+    "required": false,
+    "description": "Promotion identifier related to the lending application.",
+    "name": "promotion_id"
+   },
+   {
+    "wire": "companyCode",
+    "type": "str",
+    "required": true,
+    "description": "Company code associated with the lending application.",
+    "name": "company_code"
+   },
+   {
+    "wire": "cart",
+    "type": "object",
+    "required": true,
+    "description": "Cart information containing price and item details.",
+    "name": "cart"
+   }
+  ],
+  "response_fields": [
+   "applicationId",
+   "isApproved",
+   "applicationDate",
+   "responseCode",
+   "responseMessage",
+   "bankRedirectionUrl",
+   "timeToLive",
+   "paymentPlan",
+   "lendingAmount",
+   "interestRate",
+   "totalPaymentAmount",
+   "annualEffectiveInterestRate",
+   "monthlyEffectiveInterestRate",
+   "term",
+   "monthlyPayments",
+   "amount",
+   "type",
+   "dueDate",
+   "details",
+   "name"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_lendings_v1_2"
+ },
+ {
+  "id": "3553",
+  "title": "Ecommerce Monthly Payments",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-monthly-payments",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/query/monthly-payments",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Estimated monthly return service based on the customer's cart.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "referenceId",
+    "type": "str",
+    "required": true,
+    "description": "Unique ID number of the request",
+    "name": "reference_id"
+   },
+   {
+    "wire": "maxTerm",
+    "type": "int",
+    "required": true,
+    "description": "The maxterm information sent in the request is optional and additional information.",
+    "name": "max_term"
+   },
+   {
+    "wire": "promotionId",
+    "type": "int",
+    "required": false,
+    "description": "Predetermined ID for the promotion to be applied.",
+    "name": "promotion_id"
+   },
+   {
+    "wire": "cart",
+    "type": "object",
+    "required": false,
+    "description": "Contains price and cart product information.",
+    "name": "cart"
+   }
+  ],
+  "response_fields": [
+   "interestRate",
+   "amount",
+   "totalPaymentAmount",
+   "annualEffectiveInterestRate",
+   "type"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_monthly_payments_v1"
+ },
+ {
+  "id": "1255",
+  "title": "Ecommerce Monthly Payments",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-monthly-payments",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/query/monthly-payments",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "This API queries available monthly payment options based on company information, reference information, maximum term, promotion information and cart content. The response includes available payment terms, interest rates and payment amounts.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "x-company-id",
+    "type": "str",
+    "required": true,
+    "description": "Company identifier used to determine the company initiating the monthly payment query.",
+    "name": "x_company_id"
+   },
+   {
+    "wire": "x-sub-company-id",
+    "type": "int",
+    "required": true,
+    "description": "Sub-company identifier used to determine the related sub-company for the monthly payment query.",
+    "name": "x_sub_company_id"
+   },
+   {
+    "wire": "referenceId",
+    "type": "str",
+    "required": true,
+    "description": "Unique reference identifier of the monthly payment query request.",
+    "name": "reference_id"
+   },
+   {
+    "wire": "maxTerm",
+    "type": "int",
+    "required": true,
+    "description": "Maximum term to be considered for monthly payment options.",
+    "name": "max_term"
+   },
+   {
+    "wire": "promotionId",
+    "type": "str",
+    "required": false,
+    "description": "Promotion identifier related to the monthly payment query.",
+    "name": "promotion_id"
+   },
+   {
+    "wire": "cart",
+    "type": "object",
+    "required": true,
+    "description": "Cart information containing price and item details.",
+    "name": "cart"
+   }
+  ],
+  "response_fields": [
+   "monthlyPayments",
+   "term",
+   "interestRate",
+   "amount",
+   "totalPaymentAmount",
+   "annualEffectiveInterestRate",
+   "monthlyEffectiveInterestRate",
+   "type",
+   "responseCode",
+   "responseMessage",
+   "errors",
+   "message",
+   "code"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_monthly_payments_v1_2"
+ },
+ {
+  "id": "3554",
+  "title": "Ecommerce Pre Approved Monthly Payments",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-pre-approved-monthly-payments",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/query/pre-approved-monthly-payments",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Returns the pre-approved monthly payment table according to the customer's cart and personal information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "referenceId",
+    "type": "str",
+    "required": true,
+    "description": "Unique ID number of the request",
+    "name": "reference_id"
+   },
+   {
+    "wire": "nationalIdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "National identification number.",
+    "name": "national_identity_number"
+   },
+   {
+    "wire": "birthdate",
+    "type": "str",
+    "required": false,
+    "description": "Customer's date of birth",
+    "name": "birthdate"
+   },
+   {
+    "wire": "gsmNumber",
+    "type": "str",
+    "required": true,
+    "description": "Customer's confirmed mobile phone number.",
+    "name": "gsm_number"
+   },
+   {
+    "wire": "maxTerm",
+    "type": "int",
+    "required": true,
+    "description": "The maxterm information sent in the request is optional and additional information.",
+    "name": "max_term"
+   },
+   {
+    "wire": "orderId",
+    "type": "str",
+    "required": true,
+    "description": "Order number",
+    "name": "order_id"
+   },
+   {
+    "wire": "promotionId",
+    "type": "int",
+    "required": false,
+    "description": "Predetermined id for the promotion to be applied",
+    "name": "promotion_id"
+   },
+   {
+    "wire": "cart",
+    "type": "object",
+    "required": true,
+    "description": "Contains price and cart product information",
+    "name": "cart"
+   },
+   {
+    "wire": "IsMixedCart",
+    "type": "bool",
+    "required": false,
+    "description": "Type of products in the basket as a whole",
+    "name": "is_mixed_cart"
+   }
+  ],
+  "response_fields": [
+   "isSuccess",
+   "isActiveCustomer",
+   "isDigitalChannelCustomer",
+   "responseCode",
+   "responseMessage",
+   "preApprovedApplicationId",
+   "monthlyPayments",
+   "term",
+   "interestRate",
+   "amount",
+   "totalPaymentAmount",
+   "annualEffectiveInterestRate",
+   "type"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_pre_approved_monthly_payments_v1"
+ },
+ {
+  "id": "1233",
+  "title": "Ecommerce Pre Approved Monthly Payments",
+  "category": "E-Commerce",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/e-commerce/ecommerce-pre-approved-monthly-payments",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/query/pre-approved-monthly-payments",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "This API queries pre-approved monthly payment options for a customer based on company information, customer identity information, order details and cart content.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "x-company-id",
+    "type": "str",
+    "required": true,
+    "description": "Company identifier used to determine the company initiating the request.",
+    "name": "x_company_id"
+   },
+   {
+    "wire": "x-sub-company-id",
+    "type": "int",
+    "required": true,
+    "description": "Sub-company identifier used to determine the related sub-company for the request.",
+    "name": "x_sub_company_id"
+   },
+   {
+    "wire": "agentCode",
+    "type": "str",
+    "required": true,
+    "description": "Agent code associated with the request.",
+    "name": "agent_code"
+   },
+   {
+    "wire": "referenceId",
+    "type": "str",
+    "required": true,
+    "description": "Unique reference identifier of the request.",
+    "name": "reference_id"
+   },
+   {
+    "wire": "nationalIdentityNumber",
+    "type": "str",
+    "required": true,
+    "description": "Customer's national identity number.",
+    "name": "national_identity_number"
+   },
+   {
+    "wire": "birthDate",
+    "type": "str",
+    "required": true,
+    "description": "Customer's birth date.",
+    "name": "birth_date"
+   },
+   {
+    "wire": "gsmNumber",
+    "type": "str",
+    "required": true,
+    "description": "Customer's mobile phone number.",
+    "name": "gsm_number"
+   },
+   {
+    "wire": "maxTerm",
+    "type": "int",
+    "required": true,
+    "description": "Maximum term to be considered for monthly payment options.",
+    "name": "max_term"
+   },
+   {
+    "wire": "orderId",
+    "type": "str",
+    "required": true,
+    "description": "Order identifier related to the payment query.",
+    "name": "order_id"
+   },
+   {
+    "wire": "promotionId",
+    "type": "str",
+    "required": false,
+    "description": "Promotion identifier related to the payment query.",
+    "name": "promotion_id"
+   },
+   {
+    "wire": "companyCode",
+    "type": "str",
+    "required": true,
+    "description": "Company code associated with the payment query.",
+    "name": "company_code"
+   },
+   {
+    "wire": "cart",
+    "type": "object",
+    "required": true,
+    "description": "Cart information containing price and item details.",
+    "name": "cart"
+   }
+  ],
+  "response_fields": [
+   "isSuccess",
+   "isActiveCustomer",
+   "isDigitalChannelCustomer",
+   "responseCode",
+   "responseMessage",
+   "preApprovedApplicationId",
+   "monthlyPayments",
+   "term",
+   "interestRate",
+   "totalPaymentAmount",
+   "amount",
+   "annualEffectiveInterestRate",
+   "monthlyEffectiveInterestRate",
+   "type",
+   "contributionAmount",
+   "contributionRate",
+   "commissionBsmvAmount",
+   "commissionKkdfAmount",
+   "shopIncome"
+  ],
+  "language": "en",
+  "resource": "ecommerce",
+  "name": "ecommerce_pre_approved_monthly_payments_v1_2"
+ },
+ {
+  "id": "4927",
+  "title": "Corporate Credit Card Application",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/corporate-credit-card-application",
+  "status": "COMING_SOON",
+  "method": "POST",
+  "path": "/v2/corporateCreditCardApplication",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to submit and save a corporate credit card application in BOA. The service receives information such as the selected card product, statement day, card delivery address, installment information, digital slip preference, and related customer details to initiate the corporate credit card application process.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "customerNumber",
+    "type": "int",
+    "required": true,
+    "description": "Main customer number for which the corporate credit card application will be submitted.",
+    "name": "customer_number"
+   },
+   {
+    "wire": "digitalSlipChoice",
+    "type": "str",
+    "required": true,
+    "description": "Digital slip preference.",
+    "name": "digital_slip_choice"
+   },
+   {
+    "wire": "statementDay",
+    "type": "str",
+    "required": true,
+    "description": "Selected statement day.",
+    "name": "statement_day"
+   },
+   {
+    "wire": "productCode",
+    "type": "str",
+    "required": true,
+    "description": "Credit card product code selected for the application.",
+    "name": "product_code"
+   },
+   {
+    "wire": "statementDeliveryType",
+    "type": "str",
+    "required": true,
+    "description": "Statement delivery type.",
+    "name": "statement_delivery_type"
+   },
+   {
+    "wire": "cardSendingAddressId",
+    "type": "int",
+    "required": true,
+    "description": "BOA address ID where the card will be delivered.",
+    "name": "card_sending_address_id"
+   },
+   {
+    "wire": "productNumber",
+    "type": "str",
+    "required": true,
+    "description": "Credit card product number selected for the application.",
+    "name": "product_number"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": true,
+    "description": "Installment count for the corporate card application.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "suffixCustomerId",
+    "type": "int",
+    "required": true,
+    "description": "Related individual/additional customer number associated with the corporate customer.",
+    "name": "suffix_customer_id"
+   },
+   {
+    "wire": "requiredRate",
+    "type": "int",
+    "required": true,
+    "description": "Requested rate information for the corporate application.",
+    "name": "required_rate"
+   }
+  ],
+  "response_fields": [
+   "insertedMainAppRecordId",
+   "insertedSuppAppRecordId",
+   "errors"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "corporate_credit_card_application"
+ },
+ {
+  "id": "4922",
+  "title": "Customer Suited Card List",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/customer-suited-card-list",
+  "status": "COMING_SOON",
+  "method": "GET",
+  "path": "/v2/customerSuitedCardList",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to list eligible individual and/or corporate credit card products that the customer can apply for. The service returns suitable card products, statement options, card delivery types, and the customer’s address and email information that can be used during the application process.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "customerNumber",
+    "type": "int",
+    "required": true,
+    "description": "Customer number for which eligible credit card products will be queried.",
+    "name": "customer_number"
+   },
+   {
+    "wire": "languageId",
+    "type": "int",
+    "required": true,
+    "description": "Language information used to return product and parameter descriptions.",
+    "name": "language_id"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "addressList",
+   "addressText",
+   "addressId",
+   "addressTypeName",
+   "apartmentNumber",
+   "emailAddressList",
+   "emailAddress",
+   "emailId",
+   "eligibleCCApplicationContract",
+   "isIndividualCard",
+   "immediateProductCode",
+   "productName",
+   "productCode",
+   "productNumber",
+   "minimumInstallment",
+   "maximumInstallment",
+   "statementContractList",
+   "statementDay",
+   "statementDayDescription",
+   "digitalSlipChoiceList",
+   "paramCode",
+   "paramDescription",
+   "paramValue",
+   "statementDeliveryTypeList",
+   "statementType",
+   "statementDescription",
+   "ecomChoiceList",
+   "cardSendingTypeList",
+   "errors"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "customer_suited_card_list"
+ },
+ {
+  "id": "4931",
+  "title": "Get Digital Channel Card Application List V2",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/get-digital-channel-card-application-list-v2",
+  "status": "COMING_SOON",
+  "method": "GET",
+  "path": "/v2/cardApplicationList",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to list the customer’s individual or corporate credit card application history. The service retrieves credit card applications submitted through digital channels based on the customer number, language information, and date range, and returns the application tracking details.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "customerNumber",
+    "type": "int",
+    "required": true,
+    "description": "Customer number for which credit card application history will be queried.",
+    "name": "customer_number"
+   },
+   {
+    "wire": "languageId",
+    "type": "int",
+    "required": true,
+    "description": "Language information used to return application details.",
+    "name": "language_id"
+   },
+   {
+    "wire": "searchBeginDate",
+    "type": "str",
+    "required": false,
+    "description": "Application search start date. Format: yyyy-MM-dd.",
+    "name": "search_begin_date"
+   },
+   {
+    "wire": "searchEndDate",
+    "type": "str",
+    "required": false,
+    "description": "Application search end date. Format: yyyy-MM-dd.",
+    "name": "search_end_date"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "embossBranch",
+   "embossCompanytransferDate",
+   "courierGivenDate",
+   "printDate",
+   "virtualCardDemandedFlag",
+   "hasSupplementaryCard",
+   "deliveryInquiryFlag",
+   "shadowCardNumber",
+   "isDebit",
+   "productCode",
+   "isIndividual",
+   "applicationDate",
+   "productName",
+   "statusCode",
+   "statusDescription",
+   "sendingAddress",
+   "preferredLimit",
+   "confirmedLimit",
+   "supplementaryCardFlag",
+   "errors"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "get_digital_channel_card_application_list_v2"
+ },
+ {
+  "id": "4930",
+  "title": "Individual Credit Card Application V2",
+  "category": "Financing Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/financing-solutions/individual-credit-card-application-v2",
+  "status": "COMING_SOON",
+  "method": "POST",
+  "path": "/v2/individualCreditCardApplication",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to submit and save an individual credit card application in BOA. The service receives information such as customer number, selected card product, statement day, card delivery address, email information, digital slip preference, monthly income, and job start year to initiate the individual credit card application process.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "customerNumber",
+    "type": "int",
+    "required": true,
+    "description": "Customer number for which the individual credit card application will be submitted.",
+    "name": "customer_number"
+   },
+   {
+    "wire": "cardSendingAddressId",
+    "type": "int",
+    "required": true,
+    "description": "BOA address ID where the card will be delivered.",
+    "name": "card_sending_address_id"
+   },
+   {
+    "wire": "productCode",
+    "type": "str",
+    "required": true,
+    "description": "Credit card product code selected for the application.",
+    "name": "product_code"
+   },
+   {
+    "wire": "productNumber",
+    "type": "str",
+    "required": true,
+    "description": "Credit card product number selected for the application.",
+    "name": "product_number"
+   },
+   {
+    "wire": "statementDay",
+    "type": "str",
+    "required": true,
+    "description": "Selected statement day.",
+    "name": "statement_day"
+   },
+   {
+    "wire": "monthlyNetIncome",
+    "type": "int",
+    "required": true,
+    "description": "Customer’s monthly net income information.",
+    "name": "monthly_net_income"
+   },
+   {
+    "wire": "statementDeliveryType",
+    "type": "str",
+    "required": true,
+    "description": "Statement delivery type.",
+    "name": "statement_delivery_type"
+   },
+   {
+    "wire": "digitalSlipChoice",
+    "type": "str",
+    "required": true,
+    "description": "Digital slip preference.",
+    "name": "digital_slip_choice"
+   },
+   {
+    "wire": "emailId",
+    "type": "int",
+    "required": true,
+    "description": "BOA email record ID to be used in the application.",
+    "name": "email_id"
+   },
+   {
+    "wire": "email",
+    "type": "str",
+    "required": true,
+    "description": "Email address to be used in the application.",
+    "name": "email"
+   },
+   {
+    "wire": "jobStartingYear",
+    "type": "int",
+    "required": true,
+    "description": "Customer’s job starting year information.",
+    "name": "job_starting_year"
+   }
+  ],
+  "response_fields": [
+   "insertedRecordId",
+   "errors"
+  ],
+  "language": "en",
+  "resource": "financing",
+  "name": "individual_credit_card_application_v2"
+ },
+ {
   "id": "1999",
   "title": "FX Currency Buy",
   "category": "Foreign Exchange Transactions",
@@ -1980,6 +3680,2143 @@
   "name": "hgs_balance_information"
  },
  {
+  "id": "1921",
+  "title": "HGS Product Information",
+  "category": "HGS Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/hgs-services/hgs-product-information",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/hgs/product-info",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API takes plate number and HGS barcode number as request parameters and returns the product details of the related HGS barcode. The response includes barcode number, plate number, balance, product status, cancellation date, sales date, vehicle class, and payment type information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "plateNo",
+    "type": "str",
+    "required": true,
+    "description": "Represents the plate number of the vehicle.",
+    "name": "plate_no"
+   },
+   {
+    "wire": "barcodeno",
+    "type": "str",
+    "required": true,
+    "description": "Represents the HGS barcode number.",
+    "name": "barcodeno"
+   }
+  ],
+  "response_fields": [
+   "barcodeNo",
+   "plateNo",
+   "balance",
+   "productStatusDescription",
+   "cancelDate",
+   "salesDate",
+   "vehicleClass",
+   "paymentType"
+  ],
+  "language": "en",
+  "resource": "hgs",
+  "name": "hgs_product_information"
+ },
+ {
+  "id": "3644",
+  "title": "HGS Usage Transactions",
+  "category": "HGS Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/hgs-services/hgs-usage-transactions",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/hgs/usage-transactions",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API returns HGS usage transaction information for the customer. It takes plate number, HGS barcode number, start date, and end date as request parameters. The response includes order number, entry and exit date/time, entry and exit locations, description, and amount information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "plateNo",
+    "type": "str",
+    "required": true,
+    "description": "Represents the plate number of the vehicle.",
+    "name": "plate_no"
+   },
+   {
+    "wire": "barcodeNo",
+    "type": "str",
+    "required": true,
+    "description": "Represents the HGS barcode number.",
+    "name": "barcode_no"
+   },
+   {
+    "wire": "start",
+    "type": "str",
+    "required": true,
+    "description": "Represents the start date for querying HGS usage transactions.",
+    "name": "start"
+   },
+   {
+    "wire": "end",
+    "type": "str",
+    "required": true,
+    "description": "Represents the end date for querying HGS usage transactions.",
+    "name": "end"
+   }
+  ],
+  "response_fields": [
+   "OrderNo",
+   "entryDateTime",
+   "exitDateTime",
+   "entryLocation",
+   "exitLocation",
+   "description",
+   "amount"
+  ],
+  "language": "en",
+  "resource": "hgs",
+  "name": "hgs_usage_transactions"
+ },
+ {
+  "id": "4892",
+  "title": "Central Notification",
+  "category": "Notification Services",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/notification-services/central-notification",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/notification/sendInfEng",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Sends a notification by using the provided template code, parameter list, request JSON, and request type. The response returns the notification operation identifier and operation result.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "templateCode",
+    "type": "str",
+    "required": true,
+    "description": "Template code used to generate and send the notification.",
+    "name": "template_code"
+   },
+   {
+    "wire": "parameters",
+    "type": "array",
+    "required": false,
+    "description": "List of key-value parameters to be used in the notification template.",
+    "name": "parameters"
+   },
+   {
+    "wire": "requestJson",
+    "type": "str",
+    "required": false,
+    "description": "JSON request content related to the notification operation.",
+    "name": "request_json"
+   },
+   {
+    "wire": "requestType",
+    "type": "str",
+    "required": false,
+    "description": "Request type information used to classify or process the notification request.",
+    "name": "request_type"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "information",
+  "name": "central_notification"
+ },
+ {
+  "id": "4874",
+  "title": "Money Transfer Report For Kuveyt Türk Investment Securities Inc.",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/money-transfer-report-for-kuveyt-turk-investment-securities-inc",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/investment/report-for-account-activities",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "client_credentials",
+  "description": "Retrieves the account activities report for Kuveyt Türk Investment Securities Inc. according to the provided language and transaction date. The response includes money transfer and account activity details such as transaction identifier, transfer type, amount, intermediary account number, currency, comment, and system date.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "contract"
+  ],
+  "body_params": [
+   {
+    "wire": "languageId",
+    "type": "int",
+    "required": true,
+    "description": "Language identifier used for report content and descriptions.",
+    "name": "language_id"
+   },
+   {
+    "wire": "transactionDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Transaction date used to retrieve account activities.",
+    "name": "transaction_date"
+   }
+  ],
+  "response_fields": [
+   "accountActivities",
+   "bankMoneyTransferId",
+   "transactionId",
+   "transferType",
+   "transferAmount",
+   "intermediaryAccountNumber",
+   "currency",
+   "comment",
+   "systemDate"
+  ],
+  "language": "en",
+  "resource": "other",
+  "name": "money_transfer_report_for_kuveyt_turk_investment_securities_inc"
+ },
+ {
+  "id": "4917",
+  "title": "Virtual Card Limit Update",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/virtual-card-limit-update",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/cards/virtualcardlimitupdate",
+  "version": "1.0",
+  "scope": "cards",
+  "flow": "authorization_code",
+  "description": "This API updates the limit of a virtual credit card for the authenticated customer. > This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "CreditCardNumber",
+    "type": "str",
+    "required": true,
+    "description": "Virtual credit card number whose limit will be updated.",
+    "name": "credit_card_number"
+   },
+   {
+    "wire": "Limit",
+    "type": "number",
+    "required": true,
+    "description": "New limit amount to be assigned to the virtual credit card.",
+    "name": "limit"
+   },
+   {
+    "wire": "CustomerId",
+    "type": "int",
+    "required": true,
+    "description": "Unique customer identifier.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "LanguageId",
+    "type": "int",
+    "required": true,
+    "description": "Language identifier used for localized messages and responses.",
+    "name": "language_id"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "other",
+  "name": "virtual_card_limit_update"
+ },
+ {
+  "id": "3681",
+  "title": "Digital Payment Get Token",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/digital-payment-get-token",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/digitalPaymentGetToken",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "It is used to finance e commerce. It can work with various payment methods. (Funding,Money Transfer,etc)",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "ApiTransactionContract"
+  ],
+  "body_params": [
+   {
+    "wire": "transactionId",
+    "type": "str",
+    "required": true,
+    "description": "End-to-end unique ID for the transaction",
+    "name": "transaction_id"
+   },
+   {
+    "wire": "orderNumber",
+    "type": "str",
+    "required": true,
+    "description": "Order number in the merchant",
+    "name": "order_number"
+   },
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant code defined by Kuveyt Türk",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "isSubMerchant",
+    "type": "int",
+    "required": true,
+    "description": "1: Yes, 0: No",
+    "name": "is_sub_merchant"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "Optional description",
+    "name": "description"
+   },
+   {
+    "wire": "softDescriptor",
+    "type": "str",
+    "required": true,
+    "description": "Accounting description for slip",
+    "name": "soft_descriptor"
+   },
+   {
+    "wire": "paymentType",
+    "type": "int",
+    "required": true,
+    "description": "1: Money transfer, 2: Financing",
+    "name": "payment_type"
+   },
+   {
+    "wire": "commissionAmount",
+    "type": "number",
+    "required": false,
+    "description": "Fee taken from the merchant",
+    "name": "commission_amount"
+   },
+   {
+    "wire": "amount",
+    "type": "number",
+    "required": true,
+    "description": "Transaction amount",
+    "name": "amount"
+   },
+   {
+    "wire": "transactionCurrency",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "transaction_currency"
+   },
+   {
+    "wire": "tokenInterval",
+    "type": "int",
+    "required": false,
+    "description": "Validity period in msec. If it is less than ours, this will be considered",
+    "name": "token_interval"
+   },
+   {
+    "wire": "successRedirectUrl",
+    "type": "str",
+    "required": false,
+    "description": "Customer redirect address for success",
+    "name": "success_redirect_url"
+   },
+   {
+    "wire": "failRedirectUrl",
+    "type": "str",
+    "required": false,
+    "description": "Customer redirect address for failure",
+    "name": "fail_redirect_url"
+   },
+   {
+    "wire": "channel",
+    "type": "str",
+    "required": true,
+    "description": "WM, MM, WW",
+    "name": "channel"
+   },
+   {
+    "wire": "orderItemCount",
+    "type": "int",
+    "required": true,
+    "description": "Distinct count of items in the basket",
+    "name": "order_item_count"
+   },
+   {
+    "wire": "currency",
+    "type": "int",
+    "required": true,
+    "description": "Transaction currency",
+    "name": "currency"
+   },
+   {
+    "wire": "basketProductList",
+    "type": "array",
+    "required": true,
+    "description": "Basket Product List",
+    "name": "basket_product_list"
+   },
+   {
+    "wire": "requestDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Date info in order to use for reconciliation, cancel and query",
+    "name": "request_date"
+   }
+  ],
+  "response_fields": [
+   "accessToken",
+   "tokenExpireDate",
+   "returnCode",
+   "returnMessage",
+   "applicationName",
+   "applicationParameter"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "digital_payment_get_token"
+ },
+ {
+  "id": "3680",
+  "title": "Digital Payment Query",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/digital-payment-query",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/digitalPaymentQuery",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Used to query the transaction result",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "QueryContract"
+  ],
+  "body_params": [
+   {
+    "wire": "transactionId",
+    "type": "str",
+    "required": false,
+    "description": "End-to-end unique ID for the transaction.",
+    "name": "transaction_id"
+   },
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant code defined by Kuveyt Turk.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": false,
+    "description": "When there is no transaction ID, start date of the transaction list.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": false,
+    "description": "When there is no Transaction ID, end date of the transaction list.",
+    "name": "end_date"
+   }
+  ],
+  "response_fields": [
+   "returnCode",
+   "returnMessage",
+   "transactionId",
+   "statusCode",
+   "statusMessage",
+   "paymentType",
+   "commissionAmount",
+   "amount",
+   "currency"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "digital_payment_query"
+ },
+ {
+  "id": "3682",
+  "title": "Digital Payment Refund",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/digital-payment-refund",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/digitalPaymentDoRefund",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Used for digital payment's refund transactions.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "RefundContract"
+  ],
+  "body_params": [
+   {
+    "wire": "transactionId",
+    "type": "str",
+    "required": true,
+    "description": "Unique ID for refund transaction",
+    "name": "transaction_id"
+   },
+   {
+    "wire": "orgTransactionId",
+    "type": "str",
+    "required": true,
+    "description": "Transaction ID from sale/funding will be refund",
+    "name": "org_transaction_id"
+   },
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant's ID given by the bank",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "amount",
+    "type": "number",
+    "required": true,
+    "description": "Refund amount",
+    "name": "amount"
+   },
+   {
+    "wire": "currency",
+    "type": "int",
+    "required": true,
+    "description": "Currency code for refund transaction",
+    "name": "currency"
+   },
+   {
+    "wire": "commissionAmount",
+    "type": "number",
+    "required": false,
+    "description": "Commission amount for refund transaction",
+    "name": "commission_amount"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "Description for refund transaction",
+    "name": "description"
+   }
+  ],
+  "response_fields": [
+   "ReturnCode",
+   "ReturnMessage"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "digital_payment_refund"
+ },
+ {
+  "id": "3683",
+  "title": "Digital Payment Send Document",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/digital-payment-send-document",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/sendDocument",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Used to send document after funding/sale transactions.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "SendDocumentContract"
+  ],
+  "body_params": [
+   {
+    "wire": "documentList",
+    "type": "array",
+    "required": false,
+    "description": "",
+    "name": "document_list"
+   }
+  ],
+  "response_fields": [
+   "transactionId",
+   "returnCode",
+   "returnMessage"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "digital_payment_send_document"
+ },
+ {
+  "id": "4876",
+  "title": "Pos Merchant Number List",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/pos-merchant-number-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/pos/merchant-number",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Retrieves POS merchant detail transactions according to the provided customer, corporate user, merchant, count, and date range filters. The response includes POS transaction details such as authorization, batch, merchant, card, branch, currency, installment, commission, amount, terminal, transaction, and request information.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier used to retrieve POS merchant detail transactions.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "corporateUserName",
+    "type": "str",
+    "required": false,
+    "description": "Corporate user name used to filter POS merchant detail transactions.",
+    "name": "corporate_user_name"
+   },
+   {
+    "wire": "merchantBlockNumber",
+    "type": "int",
+    "required": false,
+    "description": "Merchant block number used to filter POS transactions.",
+    "name": "merchant_block_number"
+   },
+   {
+    "wire": "merchantNumber",
+    "type": "str",
+    "required": false,
+    "description": "Merchant number used to filter POS transactions.",
+    "name": "merchant_number"
+   },
+   {
+    "wire": "count",
+    "type": "int",
+    "required": false,
+    "description": "Maximum number of POS transaction records to return.",
+    "name": "count"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Start date of the POS transaction query period.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": true,
+    "description": "End date of the POS transaction query period.",
+    "name": "end_date"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "posDetailTransactions",
+   "authorizationNumber",
+   "batchNumber",
+   "blockDay",
+   "blockPeriod",
+   "blockedAccountSuffix",
+   "branchCode",
+   "branchName",
+   "cardBrand",
+   "cardSourceGroupCode",
+   "cardType",
+   "chainMerchantNumber",
+   "citizenshipNumber",
+   "currencyCode",
+   "currencyCodeDescription",
+   "currentAccountSuffix",
+   "customerNumber",
+   "deferringCount",
+   "deferringDate",
+   "installmentAmount",
+   "installmentCount",
+   "installmentDate",
+   "installmentNumber",
+   "isContactlessFlag",
+   "maskedCardNumber",
+   "mcc",
+   "merchantBlockNumber",
+   "merchantName",
+   "merchantNumber",
+   "merchantValueDate",
+   "netAmountTrn",
+   "offlineFlag",
+   "originalAmount",
+   "poolEodDate",
+   "requestDate",
+   "requestTime",
+   "stan",
+   "taxNumber",
+   "terminalNumber",
+   "totalCommBsmvAmountTrn",
+   "totalCommissionAmountTrn",
+   "totalCommissionRate",
+   "tradeName",
+   "trnCodeDescription",
+   "trnDescription",
+   "trnEffect",
+   "trnOrderId"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "pos_merchant_number_list"
+ },
+ {
+  "id": "3407",
+  "title": "POS Transaction Details For TPP(Third Party Provider) V2",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/pos-transaction-details-for-tpp-third-party-provider-v2",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v2/pos/detail-transactions",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "authorization_code",
+  "description": "With this API, you can behave as a TPP (Third Party Provider) / Fintech and access Kuveyt Turk customers POS transaction details after you get the consent of the customer. If you want to access POS Transaction details only for your own account, you should use the POS Transaction Details V3. &gt; This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "merchantBlockNumber",
+    "type": "str",
+    "required": true,
+    "description": "Represents the blocked number which belongs to customer for POS transactions. This information must be obtained using the POS Transactions Summary V2 service.",
+    "name": "merchant_block_number"
+   },
+   {
+    "wire": "merchantNumber",
+    "type": "str",
+    "required": false,
+    "description": "Represents the merchant number which belongs to customer for POS transactions. If the merchant number is not given, a search will be made for all merchant numbers belongs to the customer.",
+    "name": "merchant_number"
+   },
+   {
+    "wire": "count",
+    "type": "str",
+    "required": true,
+    "description": "Represents the number of detail records to query. Max count value must be a thousand (1000).",
+    "name": "count"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Represents a filter parameter indicating the lower date bound before which the transactions happened.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Represents a filter parameter indicating the upper date bound before which the transactions happened (Enddate is included in the search).",
+    "name": "end_date"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "pos_transaction_details_for_tpp_v2"
+ },
+ {
+  "id": "3409",
+  "title": "POS Transaction Details V3",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/pos-transaction-details-v3",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v3/pos/detail-transactions",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "With this API, you can only access the POS transaction details of your own accounts. If you want to behave as a TPP (Third Party Provider) / Fintech you should use the POS Transaction Details V2. &gt; This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "merchantBlockNumber",
+    "type": "str",
+    "required": true,
+    "description": "Represents the blocked number which belongs to customer for POS transactions. This information must be obtained using the POS Transactions Summary V2 service.",
+    "name": "merchant_block_number"
+   },
+   {
+    "wire": "merchantNumber",
+    "type": "str",
+    "required": false,
+    "description": "Represents the merchant number which belongs to customer for POS transactions. If the merchant number is not given, a search will be made for all merchant numbers belongs to the customer.",
+    "name": "merchant_number"
+   },
+   {
+    "wire": "count",
+    "type": "str",
+    "required": true,
+    "description": "Represents the number of detail records to query. Max count value must be a thousand (1000).",
+    "name": "count"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Represents a filter parameter indicating the lower date bound before which the transactions happened.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Represents a filter parameter indicating the upper date bound before which the transactions happened (Enddate is included in the search).",
+    "name": "end_date"
+   },
+   {
+    "wire": "corporateUserName",
+    "type": "str",
+    "required": true,
+    "description": "Represents the User Name information belonging to an authorized user of the customer for POS transaction details.",
+    "name": "corporate_user_name"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "pos_transaction_details_v3"
+ },
+ {
+  "id": "3408",
+  "title": "POS Transactions Summary V3",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/pos-transactions-summary-v3",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v3/pos/transactions",
+  "version": "2.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "With this API, you can only access the POS transactions of your own accounts. If you want to behave as a TPP (Third Party Provider) / Fintech you should use the POS Transaction V2. &gt; This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "corporateUserName",
+    "type": "str",
+    "required": true,
+    "description": "Represents the User Name information belonging to an authorized user of the customer for POS transactions.",
+    "name": "corporate_user_name"
+   },
+   {
+    "wire": "memberNumber",
+    "type": "str",
+    "required": false,
+    "description": "Represents the merchant number that belongs to the customer for POS transactions. If the merchant number is not given, a search will be made for all merchant numbers belonging to the customer.",
+    "name": "member_number"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Represents a filter parameter indicating the lower date bound before which the transactions happened.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Represents a filter parameter indicating the upper date bound before which the transactions happened (End date is included in the search).",
+    "name": "end_date"
+   },
+   {
+    "wire": "extractType",
+    "type": "str",
+    "required": false,
+    "description": "Represents the POS transaction status. H: All Transactions, B: Blocked Transactions, C: UnBlocked Transactions. If the extractType is not given, a search will be made according to \"H\" value.",
+    "name": "extract_type"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "pos_transactions_summary_v3"
+ },
+ {
+  "id": "4863",
+  "title": "Send Order Distribution Detail V2",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/send-order-distribution-detail-v2",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v3/purchase/orderdistribution",
+  "version": "3.0",
+  "scope": "payments",
+  "flow": "client_credentials",
+  "description": "Submits order distribution and delivery details to the BOA system for the purchase process. The request includes distribution records with delivery, cargo, waybill and rejection information, along with optional document attachment details. The response returns whether the order distribution submission was successful and includes error details if available.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "DistributionList",
+    "type": "array",
+    "required": true,
+    "description": "List of order distribution records to be submitted.",
+    "name": "distribution_list"
+   },
+   {
+    "wire": "ETenderDeliveryId",
+    "type": "int",
+    "required": true,
+    "description": "Identifier of the e-tender delivery record associated with the distribution item or the overall request.",
+    "name": "e_tender_delivery_id"
+   },
+   {
+    "wire": "Attachment",
+    "type": "str",
+    "required": false,
+    "description": "Content of the related document. It is typically sent as base64 encoded document data.",
+    "name": "attachment"
+   },
+   {
+    "wire": "DocumentExtension",
+    "type": "str",
+    "required": false,
+    "description": "File extension of the submitted document. For example: pdf, jpg, png.",
+    "name": "document_extension"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "send_order_distribution_detail_v2"
+ },
+ {
+  "id": "4912",
+  "title": "Virtual POS",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/virtual-pos",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/vpos",
+  "version": "1.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This endpoint is used to initiate a Virtual POS 3D Model payment transaction. The request includes card details, merchant information, transaction amount, redirection URLs, and transaction security information. The response returns the content required for the 3D authentication or payment flow.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "KuveytTurkVPosMessage"
+  ],
+  "body_params": [
+   {
+    "wire": "APIVersion",
+    "type": "str",
+    "required": false,
+    "description": "API version information to be used for the transaction.",
+    "name": "api_version"
+   },
+   {
+    "wire": "OkUrl",
+    "type": "str",
+    "required": true,
+    "description": "URL where the cardholder will be redirected if the transaction is successful.",
+    "name": "ok_url"
+   },
+   {
+    "wire": "FailUrl",
+    "type": "str",
+    "required": true,
+    "description": "URL where the cardholder will be redirected if the transaction fails.",
+    "name": "fail_url"
+   },
+   {
+    "wire": "HashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated for transaction verification.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "MerchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "$CustomerId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "customer_id"
+   },
+   {
+    "wire": "UserName",
+    "type": "str",
+    "required": true,
+    "description": "Virtual POS user name.",
+    "name": "user_name"
+   },
+   {
+    "wire": "$CardNumber",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_number"
+   },
+   {
+    "wire": "$CardExpireDateYear",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "card_expire_date_year"
+   },
+   {
+    "wire": "$CardExpireDateMonth",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "card_expire_date_month"
+   },
+   {
+    "wire": "$CardCVV2",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "card_cvv2"
+   },
+   {
+    "wire": "$CardHolderName",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "card_holder_name"
+   },
+   {
+    "wire": "CardHolderIPAddress",
+    "type": "str",
+    "required": false,
+    "description": "IP address of the cardholder.",
+    "name": "card_holder_ip_address"
+   },
+   {
+    "wire": "CardType",
+    "type": "str",
+    "required": false,
+    "description": "Card type information.",
+    "name": "card_type"
+   },
+   {
+    "wire": "TransactionType",
+    "type": "str",
+    "required": true,
+    "description": "Type of transaction to be performed.",
+    "name": "transaction_type"
+   },
+   {
+    "wire": "InstallmentCount",
+    "type": "int",
+    "required": false,
+    "description": "Number of installments. For single payment transactions, 0 or 1 can be sent.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "$Amount",
+    "type": "number",
+    "required": false,
+    "description": "",
+    "name": "amount"
+   },
+   {
+    "wire": "$DisplayAmount",
+    "type": "number",
+    "required": false,
+    "description": "",
+    "name": "display_amount"
+   },
+   {
+    "wire": "Description",
+    "type": "str",
+    "required": false,
+    "description": "Description of the transaction.",
+    "name": "description"
+   },
+   {
+    "wire": "CurrencyCode",
+    "type": "int",
+    "required": true,
+    "description": "Currency code of the transaction.",
+    "name": "currency_code"
+   },
+   {
+    "wire": "$MerchantOrderId",
+    "type": "int",
+    "required": false,
+    "description": "",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "TransactionSecurity",
+    "type": "int",
+    "required": true,
+    "description": "Indicates the transaction security level.",
+    "name": "transaction_security"
+   },
+   {
+    "wire": "KuveytTurkVPosAdditionalData",
+    "type": "object",
+    "required": false,
+    "description": "Object that contains additional data related to the transaction.",
+    "name": "kuveyt_turk_v_pos_additional_data"
+   },
+   {
+    "wire": "ExpSign",
+    "type": "str",
+    "required": false,
+    "description": "Additional signature information related to the transaction.",
+    "name": "exp_sign"
+   },
+   {
+    "wire": "CustomerIPAddress",
+    "type": "str",
+    "required": false,
+    "description": "Customer IP address.",
+    "name": "customer_ip_address"
+   },
+   {
+    "wire": "ThreeDSecureLevel",
+    "type": "int",
+    "required": false,
+    "description": "Indicates the 3D Secure level.",
+    "name": "three_d_secure_level"
+   },
+   {
+    "wire": "BatchID",
+    "type": "int",
+    "required": false,
+    "description": "Batch identifier associated with the transaction.",
+    "name": "batch_id"
+   },
+   {
+    "wire": "$IdentityTaxNumber",
+    "type": "str",
+    "required": false,
+    "description": "",
+    "name": "identity_tax_number"
+   },
+   {
+    "wire": "QeryId",
+    "type": "int",
+    "required": false,
+    "description": "Query identifier.",
+    "name": "qery_id"
+   },
+   {
+    "wire": "DebtId",
+    "type": "int",
+    "required": false,
+    "description": "Debt identifier.",
+    "name": "debt_id"
+   },
+   {
+    "wire": "DebtorName",
+    "type": "str",
+    "required": false,
+    "description": "Name, surname, or title of the debtor.",
+    "name": "debtor_name"
+   },
+   {
+    "wire": "Period",
+    "type": "str",
+    "required": false,
+    "description": "Debt or payment period information.",
+    "name": "period"
+   },
+   {
+    "wire": "$SurchargeAmount",
+    "type": "number",
+    "required": false,
+    "description": "",
+    "name": "surcharge_amount"
+   },
+   {
+    "wire": "$SGKDebtAmount",
+    "type": "number",
+    "required": false,
+    "description": "",
+    "name": "sgk_debt_amount"
+   },
+   {
+    "wire": "HashPassword",
+    "type": "str",
+    "required": false,
+    "description": "Password used for hash generation.",
+    "name": "hash_password"
+   },
+   {
+    "wire": "InstallmentMaturityCommisionFlag",
+    "type": "int",
+    "required": false,
+    "description": "Indicates whether installment maturity commission will be applied.",
+    "name": "installment_maturity_commision_flag"
+   },
+   {
+    "wire": "Explain",
+    "type": "str",
+    "required": false,
+    "description": "Additional explanation field for the transaction.",
+    "name": "explain"
+   },
+   {
+    "wire": "Explain2",
+    "type": "str",
+    "required": false,
+    "description": "Second additional explanation field for the transaction.",
+    "name": "explain2"
+   },
+   {
+    "wire": "Explain3",
+    "type": "str",
+    "required": false,
+    "description": "Third additional explanation field for the transaction.",
+    "name": "explain3"
+   }
+  ],
+  "response_fields": [
+   "ClientResponse",
+   "ContentType",
+   "BusinessKey",
+   "OrderId",
+   "ReferenceId"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "virtual_pos"
+ },
+ {
+  "id": "4915",
+  "title": "Virtual POS EndDayAll List",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/virtual-pos-enddayall-list",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/vpos/endDayAllList",
+  "version": "1.0",
+  "scope": "cards",
+  "flow": "authorization_code",
+  "description": "This endpoint is used to retrieve the end-of-day transaction list for a Virtual POS merchant within the specified date range. The request includes the date filter and Virtual POS login information required to validate the merchant. >This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "OrderFilterContract",
+    "type": "object",
+    "required": true,
+    "description": "Object that contains the end-of-day list filter criteria.",
+    "name": "order_filter_contract"
+   },
+   {
+    "wire": "VPosLoginContract",
+    "type": "object",
+    "required": true,
+    "description": "Object that contains Virtual POS merchant login information.",
+    "name": "v_pos_login_contract"
+   }
+  ],
+  "response_fields": [
+   "OrderId",
+   "MerchantOrderId",
+   "MerchantId",
+   "CardHolderName",
+   "CardType",
+   "CardNumber",
+   "OrderDate",
+   "OrderStatus",
+   "LastOrderStatus",
+   "OrderType",
+   "TransactionStatus",
+   "FirstAmount",
+   "CancelAmount",
+   "DrawbackAmount",
+   "PartialDrawbackAmount",
+   "ClosedAmount",
+   "FEC",
+   "VPSEntryMode",
+   "InstallmentCount",
+   "DeferringCount",
+   "TransactionSecurity",
+   "ResponseCode",
+   "ResponseExplain",
+   "EndOfDayStatus",
+   "TransactionSide",
+   "CardHolderIPAddress",
+   "MerchantIPAddress",
+   "MerchantUserName",
+   "ProvNumber",
+   "BatchId",
+   "MerchantBatchId",
+   "CardExpireDate",
+   "CVV2",
+   "CVV2Encrypted",
+   "PosTerminalId",
+   "Explain",
+   "Explain2",
+   "Explain3",
+   "RRN",
+   "Stan",
+   "UserName",
+   "Host_Name",
+   "SystemDate",
+   "UpdateUserName",
+   "UpdateHostName",
+   "UpdateSystemDate",
+   "HostIP",
+   "LastOrderStatusDescription",
+   "OrderTypeDescription",
+   "TransactionStatusDescription",
+   "EndOfDayStatusDescription",
+   "FecDescription",
+   "TransactionSecurityDescription",
+   "HashPassword",
+   "OrderIdList",
+   "CustomerId",
+   "TransactionType",
+   "TransactionTypeDescription",
+   "UpperLimit",
+   "LowerLimit",
+   "StartDate",
+   "EndDate",
+   "SaleOrderCount",
+   "DrawbackOrderCount",
+   "SumOfOrderCount",
+   "SaleOrderAmount",
+   "DrawbackOrderAmount",
+   "SumOfOrderAmount",
+   "EndOfDayId",
+   "TransactionStatusDesc"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "virtual_pos_end_day_all_list"
+ },
+ {
+  "id": "4914",
+  "title": "Virtual POS EndOfDay",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/virtual-pos-endofday",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/vpos/endOfDay",
+  "version": "1.0",
+  "scope": "cards",
+  "flow": "authorization_code",
+  "description": "This endpoint is used to perform the end-of-day closing operation for Virtual POS transactions within the specified date range. The request includes the date filter, merchant information, and Virtual POS login information required to validate the merchant and process eligible transactions. >This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "OrderFilterContract",
+    "type": "object",
+    "required": true,
+    "description": "Object that contains the end-of-day closing filter criteria.",
+    "name": "order_filter_contract"
+   },
+   {
+    "wire": "VPosLoginContract",
+    "type": "object",
+    "required": true,
+    "description": "Object that contains Virtual POS merchant login information.",
+    "name": "v_pos_login_contract"
+   }
+  ],
+  "response_fields": [
+   "VPosMessage",
+   "VPosMessageV2",
+   "VposMessageCommon",
+   "LoginResponse",
+   "IsEnrolled",
+   "IsVirtual",
+   "PareqHtmlFormString",
+   "ProvisionNumber",
+   "RRN",
+   "Stan",
+   "ResponseCode",
+   "IsSuccess",
+   "ResponseMessage",
+   "OrderId",
+   "TransactionTime",
+   "MerchantOrderId",
+   "HashData",
+   "MD",
+   "AuthenticationPacket",
+   "ACSURL",
+   "Password",
+   "CurrencyCode",
+   "TransactionType",
+   "SafeKey",
+   "ReferenceId",
+   "MerchantId",
+   "BusinessKey",
+   "PaymentOrderList",
+   "WebFlowResponse",
+   "StartAuthenticationResult",
+   "MDStatus"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "virtual_pos_end_of_day"
+ },
+ {
+  "id": "3405",
+  "title": "Virtual POS General Transaction",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/virtual-pos-general-transaction",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/transaction",
+  "version": "1.0",
+  "scope": "cards",
+  "flow": "authorization_code",
+  "description": "This endpoint is used to perform Virtual POS transaction operations such as refund, partial refund, and sale reversal for an existing order. The request includes the order information, transaction type, optional refund amount, and Virtual POS login information required to validate the merchant. >This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "OrderFilterContract",
+    "type": "object",
+    "required": true,
+    "description": "Object that contains the transaction operation details.",
+    "name": "order_filter_contract"
+   },
+   {
+    "wire": "VPosLoginContract",
+    "type": "object",
+    "required": true,
+    "description": "Object that contains Virtual POS merchant login information.",
+    "name": "v_pos_login_contract"
+   }
+  ],
+  "response_fields": [
+   "VPosMessage",
+   "VPosMessageV2",
+   "VposMessageCommon",
+   "LoginResponse",
+   "IsEnrolled",
+   "IsVirtual",
+   "PareqHtmlFormString",
+   "ProvisionNumber",
+   "RRN",
+   "Stan",
+   "ResponseCode",
+   "IsSuccess",
+   "ResponseMessage",
+   "OrderId",
+   "TransactionTime",
+   "MerchantOrderId",
+   "HashData",
+   "MD",
+   "AuthenticationPacket",
+   "ACSURL",
+   "Password",
+   "CurrencyCode",
+   "TransactionType",
+   "SafeKey",
+   "ReferenceId",
+   "MerchantId",
+   "BusinessKey",
+   "PaymentOrderList",
+   "WebFlowResponse",
+   "StartAuthenticationResult",
+   "MDStatus"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "virtual_pos_general_transaction"
+ },
+ {
+  "id": "4913",
+  "title": "Virtual POS Order Filter",
+  "category": "Payment Solutions",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payment-solutions/virtual-pos-order-filter",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/vpos/orderFilter",
+  "version": "1.0",
+  "scope": "cards",
+  "flow": "authorization_code",
+  "description": "This endpoint is used to retrieve Virtual POS order records based on the specified filter criteria. The request includes date range, cardholder name, amount limits, merchant information, and Virtual POS login information required to validate the merchant. >This API is in beta stage. Request and response models may change over time.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "OrderFilterContract",
+    "type": "object",
+    "required": true,
+    "description": "Object that contains the order filter criteria.",
+    "name": "order_filter_contract"
+   },
+   {
+    "wire": "VPosLoginContract",
+    "type": "object",
+    "required": true,
+    "description": "Object that contains Virtual POS merchant login information.",
+    "name": "v_pos_login_contract"
+   }
+  ],
+  "response_fields": [
+   "OrderId",
+   "MerchantOrderId",
+   "MerchantId",
+   "CardHolderName",
+   "CardType",
+   "CardNumber",
+   "OrderDate",
+   "OrderStatus",
+   "LastOrderStatus",
+   "OrderType",
+   "TransactionStatus",
+   "FirstAmount",
+   "CancelAmount",
+   "DrawbackAmount",
+   "PartialDrawbackAmount",
+   "ClosedAmount",
+   "FEC",
+   "VPSEntryMode",
+   "InstallmentCount",
+   "DeferringCount",
+   "TransactionSecurity",
+   "ResponseCode",
+   "ResponseExplain",
+   "EndOfDayStatus",
+   "TransactionSide",
+   "CardHolderIPAddress",
+   "MerchantIPAddress",
+   "MerchantUserName",
+   "ProvNumber",
+   "BatchId",
+   "MerchantBatchId",
+   "CardExpireDate",
+   "CVV2",
+   "CVV2Encrypted",
+   "PosTerminalId",
+   "Explain",
+   "Explain2",
+   "Explain3",
+   "RRN",
+   "Stan",
+   "UserName",
+   "HostName",
+   "SystemDate",
+   "UpdateUserName",
+   "UpdateHostName",
+   "UpdateSystemDate",
+   "HostIP",
+   "LastOrderStatusDescription",
+   "OrderTypeDescription",
+   "TransactionStatusDescription",
+   "EndOfDayStatusDescription",
+   "FecDescription",
+   "TransactionSecurityDescription",
+   "HashPassword",
+   "OrderIdList",
+   "CustomerId",
+   "TransactionType",
+   "TransactionTypeDescription",
+   "UpperLimit",
+   "LowerLimit",
+   "StartDate",
+   "EndDate",
+   "SaleOrderCount",
+   "DrawbackOrderCount",
+   "SumOfOrderCount",
+   "SaleOrderAmount",
+   "DrawbackOrderAmount",
+   "SumOfOrderAmount",
+   "EndOfDayId",
+   "TransactionStatusDesc"
+  ],
+  "language": "en",
+  "resource": "payment_solutions",
+  "name": "virtual_pos_order_filter"
+ },
+ {
+  "id": "4852",
+  "title": "Account Validation By Account Number For Group Money Transfer",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/account-validation-by-account-number-for-group-money-transfer",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/groupmoneytransfer/accountvalidation",
+  "version": "1.0",
+  "scope": "intrabank_money_transfers",
+  "flow": "client_credentials",
+  "description": "Validates a list of recipient accounts by account number and account suffix for group money transfer operations. The response returns validation results for each submitted account, including the reference number, message code, message detail, and customer name information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "accountListToValidate",
+    "type": "array",
+    "required": true,
+    "description": "List of account records to be validated by account number and account suffix.",
+    "name": "account_list_to_validate"
+   }
+  ],
+  "response_fields": [
+   "ReferenceNumber",
+   "MessageCode",
+   "MessageDetail",
+   "CustomerName"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "account_validation_by_account_number_for_group_money_transfer"
+ },
+ {
+  "id": "4853",
+  "title": "Account Validation By Iban For Group Money Transfer",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/account-validation-by-iban-for-group-money-transfer",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/groupmoneytransfer/account",
+  "version": "1.0",
+  "scope": "intrabank_money_transfers",
+  "flow": "client_credentials",
+  "description": "Validates a list of recipient accounts by IBAN for group money transfer operations. The response returns validation results for each submitted account, including the reference number, message code, message detail, and customer name information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "accountListToValidate",
+    "type": "array",
+    "required": true,
+    "description": "List of account records to be validated by IBAN.",
+    "name": "account_list_to_validate"
+   }
+  ],
+  "response_fields": [
+   "ReferenceNumber",
+   "MessageCode",
+   "MessageDetail",
+   "CustomerName"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "account_validation_by_iban_for_group_money_transfer"
+ },
+ {
+  "id": "4862",
+  "title": "Account Validation By Iban For Group Money Transfer V2",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/account-validation-by-iban-for-group-money-transfer-v2",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v2/groupmoneytransfer/account",
+  "version": "2.0",
+  "scope": "intrabank_money_transfers",
+  "flow": "client_credentials",
+  "description": "This endpoint is used to validate a list of receiver accounts by IBAN for group money transfer operations. The request includes the reference number, receiver name, IBAN, and currency code for each account to be validated. The response returns validation results for each submitted account, including message details and customer name information when available.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "accountListToValidate",
+    "type": "array",
+    "required": true,
+    "description": "List of accounts to be validated by IBAN.",
+    "name": "account_list_to_validate"
+   }
+  ],
+  "response_fields": [
+   "ReferenceNumber",
+   "MessageCode",
+   "MessageDetail",
+   "CustomerName"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "account_validation_by_iban_for_group_money_transfer_v2"
+ },
+ {
+  "id": "4854",
+  "title": "Cancel Money Transfers From KTBank To Kuveyt Turk",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/cancel-money-transfers-from-ktbank-to-kuveyt-turk",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/groupmoneytransfer/incomingtransfer/cancellist",
+  "version": "1.0",
+  "scope": "intrabank_money_transfers",
+  "flow": "client_credentials",
+  "description": "Cancels a list of incoming transfer records for group money transfer operations. The response returns cancellation results for each submitted transfer, including the reference number, message code, and message detail information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "incomingTransferListToCancel",
+    "type": "array",
+    "required": true,
+    "description": "List of incoming transfer records to be cancelled.",
+    "name": "incoming_transfer_list_to_cancel"
+   }
+  ],
+  "response_fields": [
+   "ReferenceNumber",
+   "MessageCode",
+   "MessageDetail"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "cancel_money_transfers_from_kt_bank_to_kuveyt_turk"
+ },
+ {
+  "id": "4855",
+  "title": "Check Money Transfers Status From KTBank to KuveytTurk",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/check-money-transfers-status-from-ktbank-to-kuveytturk",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/groupmoneytransfer/incomingtransfer/checkstatuslist",
+  "version": "1.0",
+  "scope": "intrabank_money_transfers",
+  "flow": "authorization_code",
+  "description": "Checks the status of incoming transfer records for group money transfer operations by using the provided reference number list. The response returns status information for each submitted reference number, including message code, message detail, and transaction status.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "referenceNumberList",
+    "type": "array",
+    "required": true,
+    "description": "List of reference numbers to be checked for incoming transfer status.",
+    "name": "reference_number_list"
+   }
+  ],
+  "response_fields": [
+   "ReferenceNumber",
+   "MessageCode",
+   "MessageDetail",
+   "TransactionStatus"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "check_money_transfers_status_from_kt_bank_to_kuveyt_turk"
+ },
+ {
+  "id": "4856",
+  "title": "Insert Money Transfers From KT Bank To Kuveyt Turk",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/insert-money-transfers-from-kt-bank-to-kuveyt-turk",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/groupmoneytransfer/incomingtransfer/insertlist",
+  "version": "1.0",
+  "scope": "intrabank_money_transfers",
+  "flow": "client_credentials",
+  "description": "Creates a list of incoming transfer records for group money transfer operations. The request includes sender, receiver, account, branch, transaction, amount, currency, reference, and description information. The response returns the processing result for each submitted transfer, including the reference number, message code, and message detail.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "incomingTransferList",
+    "type": "array",
+    "required": true,
+    "description": "List of incoming transfer records to be created.",
+    "name": "incoming_transfer_list"
+   }
+  ],
+  "response_fields": [
+   "ReferenceNumber",
+   "MessageCode",
+   "MessageDetail"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "insert_money_transfers_from_kt_bank_to_kuveyt_turk"
+ },
+ {
+  "id": "1569",
+  "title": "Invoice Company List",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/invoice-company-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/invoices/companies",
+  "version": "1.0",
+  "scope": "payments",
+  "flow": "authorization_code",
+  "description": "&lt;div class=\"alert alert-warning\"&gt; Note: This API is in beta stage. Request and response models may change over time. &lt;/div&gt; Retrieves all companies where bill payment can be made.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "companyList",
+   "description",
+   "name",
+   "companyId",
+   "fullName",
+   "companyDebtDetails",
+   "debtTypeId",
+   "installmentNumberName",
+   "installmentNumberDescription",
+   "installmentNumberLength",
+   "corporationType",
+   "corporationTypeInt"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "invoice_company_list"
+ },
+ {
+  "id": "4857",
+  "title": "KT Bank Error Message List",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/kt-bank-error-message-list",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/groupmoneytransfer/errormessagelist",
+  "version": "1.0",
+  "scope": "intrabank_money_transfers",
+  "flow": "client_credentials",
+  "description": "Retrieves the error message list used in group money transfer operations. The list can be filtered by message code. The response includes message type, message code, and message description information.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "messageCode",
+    "type": "str",
+    "required": false,
+    "description": "Message code used to filter the error message list.",
+    "name": "message_code"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "MessageType",
+   "MessageCode",
+   "MessageDescription"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "kt_bank_error_message_list"
+ },
+ {
+  "id": "4858",
+  "title": "Kuveyt Turk Branch List For Group Money Transfer",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/kuveyt-turk-branch-list-for-group-money-transfer",
+  "status": "ACTIVE",
+  "method": "GET",
+  "path": "/v1/groupmoneytransfer/branchlist",
+  "version": "1.0",
+  "scope": "intrabank_money_transfers",
+  "flow": "client_credentials",
+  "description": "Retrieves the branch list for group money transfer operations according to the provided branch, city, and county filter criteria. The response includes branch identity, location, contact, transaction date, and active status information.",
+  "path_params": [],
+  "query_params": [
+   {
+    "wire": "branchId",
+    "type": "int",
+    "required": false,
+    "description": "Branch identifier used to filter the branch list.",
+    "name": "branch_id"
+   },
+   {
+    "wire": "branchName",
+    "type": "str",
+    "required": false,
+    "description": "Branch name used to filter the branch list.",
+    "name": "branch_name"
+   },
+   {
+    "wire": "cityId",
+    "type": "int",
+    "required": false,
+    "description": "City identifier used to filter branches by city.",
+    "name": "city_id"
+   },
+   {
+    "wire": "cityName",
+    "type": "str",
+    "required": false,
+    "description": "City name used to filter branches by city.",
+    "name": "city_name"
+   },
+   {
+    "wire": "countyId",
+    "type": "int",
+    "required": false,
+    "description": "County identifier used to filter branches by county.",
+    "name": "county_id"
+   },
+   {
+    "wire": "countyName",
+    "type": "str",
+    "required": false,
+    "description": "County name used to filter branches by county.",
+    "name": "county_name"
+   }
+  ],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [
+   "BranchId",
+   "BranchName",
+   "CityId",
+   "CityName",
+   "CountyId",
+   "CountyName",
+   "BranchAddress",
+   "PhoneNumber",
+   "Email",
+   "FirstTransactionDate",
+   "IsActive"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "kuveyt_turk_branch_list_for_group_money_transfer"
+ },
+ {
+  "id": "4859",
+  "title": "Return Money Transfers From KTBank To Kuveyt Turk",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/return-money-transfers-from-ktbank-to-kuveyt-turk",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/groupmoneytransfer/incomingtransfer/returnlist",
+  "version": "1.0",
+  "scope": "intrabank_money_transfers",
+  "flow": "client_credentials",
+  "description": "Returns a list of incoming transfer records for group money transfer operations. The request includes the reference number and return description for each incoming transfer. The response returns the processing result for each submitted transfer, including the reference number, message code, and message detail.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "incomingTransferListToReturn",
+    "type": "array",
+    "required": true,
+    "description": "List of incoming transfer records to be returned.",
+    "name": "incoming_transfer_list_to_return"
+   }
+  ],
+  "response_fields": [
+   "ReferenceNumber",
+   "MessageCode",
+   "MessageDetail"
+  ],
+  "language": "en",
+  "resource": "payments",
+  "name": "return_money_transfers_from_kt_bank_to_kuveyt_turk"
+ },
+ {
+  "id": "4864",
+  "title": "Send Multiple Invoice V2",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/send-multiple-invoice-v2",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v2/purchase/multipleinvoice",
+  "version": "2.0",
+  "scope": "payments",
+  "flow": "client_credentials",
+  "description": "Submits invoice details to the BOA system for multiple delivery records related to the purchase process. The request includes the delivery ID list, invoice serial number, invoice date, document content and document extension. The response returns whether the multiple invoice submission was successful and includes error details if available.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "DeliveryIdList",
+    "type": "array",
+    "required": true,
+    "description": "List of delivery record IDs to be associated with the invoice.",
+    "name": "delivery_id_list"
+   },
+   {
+    "wire": "InvoiceNumberSerial",
+    "type": "str",
+    "required": true,
+    "description": "Invoice serial and number information.",
+    "name": "invoice_number_serial"
+   },
+   {
+    "wire": "InvoiceDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Invoice date.",
+    "name": "invoice_date"
+   },
+   {
+    "wire": "Attachment",
+    "type": "str",
+    "required": true,
+    "description": "Content of the invoice document. It is typically sent as base64 encoded document data.",
+    "name": "attachment"
+   },
+   {
+    "wire": "DocumentExtension",
+    "type": "str",
+    "required": true,
+    "description": "File extension of the submitted invoice document. For example: pdf, jpg, png.",
+    "name": "document_extension"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "payments",
+  "name": "send_multiple_invoice_v2"
+ },
+ {
+  "id": "1880",
+  "title": "Send Offer Vendor Detail",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/send-offer-vendor-detail",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/purchase/offervendor",
+  "version": "1.0",
+  "scope": "payments",
+  "flow": "client_credentials",
+  "description": "This API endpoint is called to send the vendor information, price fields used in the purchase offer system.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "contractList",
+    "type": "object",
+    "required": true,
+    "description": "Offer detail object",
+    "name": "contract_list"
+   },
+   {
+    "wire": "Attachment",
+    "type": "str",
+    "required": false,
+    "description": "Attachment base64 string.",
+    "name": "attachment"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "payments",
+  "name": "send_offer_vendor_detail"
+ },
+ {
+  "id": "858",
+  "title": "Send Order Distribution Detail",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/send-order-distribution-detail",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/purchase/orderdistribution",
+  "version": "1.0",
+  "scope": "payments",
+  "flow": "client_credentials",
+  "description": "This API endpoint is called to send the distribution details used in the purchase order system.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "distributionList",
+    "type": "object",
+    "required": false,
+    "description": "Order a distribution object.",
+    "name": "distribution_list"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "payments",
+  "name": "send_order_distribution_detail"
+ },
+ {
+  "id": "4866",
+  "title": "Send Order Distribution Detail V2",
+  "category": "Payments",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/payments/send-order-distribution-detail-v2",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v3/purchase/orderdistribution",
+  "version": "3.0",
+  "scope": "payments",
+  "flow": "client_credentials",
+  "description": "This API endpoint is called to send the distribution details used in the purchase order system.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "empty",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [],
+  "language": "en",
+  "resource": "payments",
+  "name": "send_order_distribution_detail_v2"
+ },
+ {
   "id": "1908",
   "title": "Account List V2",
   "category": "Account Management - TPP",
@@ -2219,6 +6056,43 @@
   "name": "account_transactions_v2"
  },
  {
+  "id": "4907",
+  "title": "Receipt",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/receipt",
+  "status": "",
+  "method": "GET",
+  "path": "/v1/accounts/{suffix}/transactions/{businessKey}",
+  "version": "1.0",
+  "scope": "accounts",
+  "flow": "authorization_code",
+  "description": "Returns the receipt values of the transaction that is given by the businesskey. The API response is divided into four parts in order to help visualize the receipt: \"leftHeader, rightHeader, body, footer\". The entire data in these properties is also available in the slipList property.",
+  "path_params": [
+   {
+    "wire": "suffix",
+    "type": "str",
+    "required": true,
+    "description": "",
+    "name": "suffix"
+   },
+   {
+    "wire": "businessKey",
+    "type": "str",
+    "required": true,
+    "description": "",
+    "name": "business_key"
+   }
+  ],
+  "query_params": [],
+  "body_kind": "none",
+  "body_wrap": [],
+  "body_params": [],
+  "response_fields": [],
+  "language": "en",
+  "resource": "tpp_accounts",
+  "name": "receipt_v1"
+ },
+ {
   "id": "3025",
   "title": "Receipt V2",
   "category": "Account Management - TPP",
@@ -2374,7 +6248,7 @@
   "version": "1.0",
   "scope": "transfers",
   "flow": "client_credentials",
-  "description": "This API is used to initiate an internal money transfer transaction based on the customer account number from the authorization context. The request includes sender account suffix, receiver account information, transfer amount, transfer description and transfer type. The response returns the transaction execution reference and the created money transfer transaction ID.",
+  "description": "Bir transfer için geçerli ödeme türünü sorgular. Dikkat: resmî dokümandaki açıklama ve parametreler başka bir uç noktadan kopyalanmış; buradaki parametreler sandbox'ın doğrulama hatalarına göre belirlendi.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -2384,49 +6258,25 @@
     "wire": "senderAccountSuffix",
     "type": "int",
     "required": true,
-    "description": "Sender account suffix number from which the money transfer amount will be withdrawn.",
+    "description": "Gönderen hesabın ek numarası.",
     "name": "sender_account_suffix"
    },
    {
-    "wire": "receiverAccountNumber",
-    "type": "int",
-    "required": true,
-    "description": "Receiver customer account number to which the money transfer will be sent.",
-    "name": "receiver_account_number"
-   },
-   {
-    "wire": "receiverAccountSuffix",
-    "type": "int",
-    "required": true,
-    "description": "Receiver account suffix number to which the money transfer will be sent.",
-    "name": "receiver_account_suffix"
-   },
-   {
-    "wire": "moneyTransferDescription",
+    "wire": "receiverIban",
     "type": "str",
-    "required": false,
-    "description": "Description or comment added to the money transfer transaction.",
-    "name": "money_transfer_description"
+    "required": true,
+    "description": "Alıcının IBAN'ı.",
+    "name": "receiver_iban"
    },
    {
-    "wire": "moneyTransferAmount",
+    "wire": "amount",
     "type": "number",
     "required": true,
-    "description": "Amount that will be transferred.",
-    "name": "money_transfer_amount"
-   },
-   {
-    "wire": "transferType",
-    "type": "int",
-    "required": true,
-    "description": "Money transfer type used to identify the transfer scenario.",
-    "name": "transfer_type"
+    "description": "Transfer tutarı.",
+    "name": "amount"
    }
   ],
-  "response_fields": [
-   "executionReferenceId",
-   "moneyTransferTransactionId"
-  ],
+  "response_fields": [],
   "language": "en",
   "resource": "transfers",
   "name": "money_transfer_payment_type"
@@ -2480,6 +6330,64 @@
   "name": "money_transfer_state"
  },
  {
+  "id": "1796",
+  "title": "Money Transfer to GSM",
+  "category": "Other",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/other/money-transfer-to-gsm",
+  "status": "",
+  "method": "POST",
+  "path": "/v1/transfers/toGSM",
+  "version": "1.0",
+  "scope": "transfers",
+  "flow": "authorization_code",
+  "description": "Sends money from an authorized user’s current or deposit account (sent via token) to any phone number. In order to proceed the transfer, Kuveyt Turk sends a one-time-password via SMS to the customer and gives a transaction ID to the developer, the customer enters the code to the third-party app, and the third-party app sends the ID and the SMS code to Kuveyt Turk via “Execute Money Transfer” API. If the ID and the SMS codes match, then Kuveyt Turk authenticates the transaction. The parameters sent include, amount, comment, sender’s branch ID, receiver’s phone number, and sender’s account suffix.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "SenderAccountSuffix",
+    "type": "int",
+    "required": true,
+    "description": "Indicates the sender's account suffix number.",
+    "name": "sender_account_suffix"
+   },
+   {
+    "wire": "ReceiverName",
+    "type": "str",
+    "required": true,
+    "description": "Indicates the receiver's name.",
+    "name": "receiver_name"
+   },
+   {
+    "wire": "ReceiverPhoneNumber",
+    "type": "str",
+    "required": true,
+    "description": "Indicates the receiver's phone number.",
+    "name": "receiver_phone_number"
+   },
+   {
+    "wire": "Amount",
+    "type": "number",
+    "required": true,
+    "description": "Amount that will be sent.",
+    "name": "amount"
+   },
+   {
+    "wire": "Comment",
+    "type": "str",
+    "required": false,
+    "description": "Comment that customer adds to the transaction.",
+    "name": "comment"
+   }
+  ],
+  "response_fields": [],
+  "language": "en",
+  "resource": "transfers",
+  "name": "money_transfer_to_gsm"
+ },
+ {
   "id": "3290",
   "title": "Para Transferi (Havale & EFT & FAST & Virman)",
   "category": "Para Transferleri",
@@ -2490,7 +6398,7 @@
   "version": "1.0",
   "scope": "transfers",
   "flow": "client_credentials",
-  "description": "Bu API, authorization context ile ilişkili müşteri hesabından money transfer işlemi başlatmak için kullanılır. Servis; sender account bilgilerini, receiver account bilgilerini, transfer amount ve transfer type değerlerini doğrular, ardından ilgili money transfer transaction kaydını oluşturur.",
+  "description": "Müşteri hesabından bir IBAN'a para transferi (havale / EFT / FAST) başlatır. Dikkat: resmî dokümandaki parametre listesi eksik; buradaki zorunlu alanlar sandbox'ın doğrulama hatalarına göre belirlendi.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -2500,43 +6408,57 @@
     "wire": "senderAccountSuffix",
     "type": "int",
     "required": true,
-    "description": "Money transfer tutarının çekileceği sender account suffix numarasıdır.",
+    "description": "Tutarın çekileceği gönderen hesabın ek numarası.",
     "name": "sender_account_suffix"
    },
    {
-    "wire": "receiverAccountNumber",
-    "type": "int",
-    "required": true,
-    "description": "Money transfer gönderilecek receiver customer account number değeridir.",
-    "name": "receiver_account_number"
-   },
-   {
-    "wire": "receiverAccountSuffix",
-    "type": "int",
-    "required": true,
-    "description": "Money transfer gönderilecek receiver account suffix numarasıdır.",
-    "name": "receiver_account_suffix"
-   },
-   {
-    "wire": "moneyTransferDescription",
+    "wire": "receiverIban",
     "type": "str",
-    "required": false,
-    "description": "Money transfer transaction için eklenen açıklama veya comment bilgisidir.",
-    "name": "money_transfer_description"
+    "required": true,
+    "description": "Alıcının IBAN'ı. (Dokümanda yer almıyor; sandbox zorunlu tutuyor.)",
+    "name": "receiver_iban"
    },
    {
     "wire": "moneyTransferAmount",
     "type": "number",
     "required": true,
-    "description": "Transfer edilecek tutardır.",
+    "description": "Transfer edilecek tutar.",
     "name": "money_transfer_amount"
+   },
+   {
+    "wire": "corporateWebUserName",
+    "type": "str",
+    "required": true,
+    "description": "İşlemi yapan kurumsal internet şubesi kullanıcı adı. (Dokümanda yer almıyor; sandbox zorunlu tutuyor.)",
+    "name": "corporate_web_user_name"
+   },
+   {
+    "wire": "moneyTransferDescription",
+    "type": "str",
+    "required": false,
+    "description": "Transfer açıklaması.",
+    "name": "money_transfer_description"
    },
    {
     "wire": "transferType",
     "type": "int",
-    "required": true,
-    "description": "Transfer senaryosunu belirlemek için kullanılan money transfer type değeridir.",
+    "required": false,
+    "description": "Transfer senaryosunu belirleyen tür kodu (dokümanda değerleri açıklanmıyor).",
     "name": "transfer_type"
+   },
+   {
+    "wire": "receiverAccountNumber",
+    "type": "int",
+    "required": false,
+    "description": "Alıcı müşteri/hesap numarası (dokümandaki alan).",
+    "name": "receiver_account_number"
+   },
+   {
+    "wire": "receiverAccountSuffix",
+    "type": "int",
+    "required": false,
+    "description": "Alıcı hesabın ek numarası (dokümandaki alan).",
+    "name": "receiver_account_suffix"
    }
   ],
   "response_fields": [
@@ -2558,7 +6480,7 @@
   "version": "2.0",
   "scope": "transfers",
   "flow": "authorization_code",
-  "description": "This API is used to retrieve account transaction statement information based on the customer account number from the authorization context. The request can be filtered by account suffix, item count, begin date and end date. The response returns account activity records including transaction date, description, amount, balance, currency code, transaction reference and transaction code information.",
+  "description": "Müşteri girişiyle (authorization code) para transferi. Dikkat: resmî dokümandaki açıklama ve parametreler hesap hareketleri uç noktasından kopyalanmış görünüyor; gerçek gövde alanları doğrulanamadı. Alanları extra_body ile ya da kt.request() ile gönderin.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -2962,590 +6884,17 @@
   "name": "precious_metal_sell"
  },
  {
-  "id": "4661",
-  "title": "3D Secure Ödeme",
-  "category": "Sanal POS (VPOS)",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/3d-secure-odeme",
-  "status": "ACTIVE",
-  "method": "POST",
-  "path": "/v1/vpos/threeDPayment",
-  "version": "1.0",
-  "scope": "public",
-  "flow": "client_credentials",
-  "description": "Virtual POS 3D Secure (threeDPayment), kart sahibi, banka ve satıcı arasındaki veri akışını özel şifreleme anahtarları kullanarak doğrulayarak e-ticaret işlemlerinde güvenliği artıran bir çevrimiçi ödeme işleme altyapısıdır.",
-  "path_params": [],
-  "query_params": [],
-  "body_kind": "object",
-  "body_wrap": [
-   "request"
-  ],
-  "body_params": [
-   {
-    "wire": "cardExpireDateMonth",
-    "type": "str",
-    "required": false,
-    "description": "Sanal POS mağaza numarası. Başvuru onayıyla birlikte işletmeye e-posta yoluyla gönderilir.",
-    "name": "card_expire_date_month"
-   },
-   {
-    "wire": "amount",
-    "type": "str",
-    "required": false,
-    "description": "Tutar. Örneğin, İşlem Tutarı: 1 TL için 100, 1.234,50 TL için 123450 gönderilmelidir.",
-    "name": "amount"
-   },
-   {
-    "wire": "cardCVV2",
-    "type": "str",
-    "required": false,
-    "description": "​​Kart CVV değeri",
-    "name": "card_cvv2"
-   },
-   {
-    "wire": "cardHolderName",
-    "type": "str",
-    "required": false,
-    "description": "Kart sahibinin adı",
-    "name": "card_holder_name"
-   },
-   {
-    "wire": "successUrl",
-    "type": "str",
-    "required": false,
-    "description": "Güvenli Ödeme işlemlerinde, kart doğrulama aşamasında kullanıcı SMS yoluyla doğrulama sayfasına yönlendirilir.",
-    "name": "success_url"
-   },
-   {
-    "wire": "failUrl",
-    "type": "str",
-    "required": false,
-    "description": "Kart doğrulama hatası veya parametrelere bağlı olarak oluşabilecek hatalar durumunda sonucun gönderileceği adres.",
-    "name": "fail_url"
-   },
-   {
-    "wire": "description",
-    "type": "str",
-    "required": false,
-    "description": "açıklama",
-    "name": "description"
-   },
-   {
-    "wire": "merchantOrderId",
-    "type": "str",
-    "required": false,
-    "description": "Bu, müşteri sipariş numarasını temsil eder.",
-    "name": "merchant_order_id"
-   },
-   {
-    "wire": "userName",
-    "type": "str",
-    "required": false,
-    "description": "API kullanıcı adı.",
-    "name": "user_name"
-   },
-   {
-    "wire": "cardExpireDateYear",
-    "type": "str",
-    "required": false,
-    "description": "Kartın son kullanma yılı",
-    "name": "card_expire_date_year"
-   },
-   {
-    "wire": "merchantId",
-    "type": "str",
-    "required": false,
-    "description": "Sanal POS mağaza numarası. Başvuru onaylandıktan sonra işletmeye e-posta yoluyla gönderilecektir.",
-    "name": "merchant_id"
-   },
-   {
-    "wire": "hashData",
-    "type": "str",
-    "required": false,
-    "description": "İşletmenin oluşturduğu ve işlem bilgileriyle birlikte gönderdiği ve banka tarafından kontrol edilen alan.",
-    "name": "hash_data"
-   },
-   {
-    "wire": "installmentCount",
-    "type": "str",
-    "required": false,
-    "description": "Bu, satıcı tarafından güvenli iş ortağı ödeme sayfasına gönderilecek taksit tutarını temsil eder.",
-    "name": "installment_count"
-   },
-   {
-    "wire": "deferringCount",
-    "type": "str",
-    "required": false,
-    "description": "Harcama erteleme bilgileri",
-    "name": "deferring_count"
-   },
-   {
-    "wire": "currency",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "currency"
-   },
-   {
-    "wire": "cardNumber",
-    "type": "str",
-    "required": false,
-    "description": "“Sale” Güvenli İş Ortağı Ödeme sisteminden yapılacak işlemin bir satış işlemi olduğunu gösterir.",
-    "name": "card_number"
-   },
-   {
-    "wire": "currencyCode",
-    "type": "any",
-    "required": false,
-    "description": "Para birimi. TL için “0949” olarak gönderilmelidir.",
-    "name": "currency_code"
-   }
-  ],
-  "response_fields": [
-   "htmlContent",
-   "responseCode",
-   "responseMessage"
-  ],
-  "language": "tr",
-  "resource": "vpos",
-  "name": "_3_d_secure_odeme"
- },
- {
-  "id": "4975",
-  "title": "Dijital Ödeme Komisyon Mutabakatı",
-  "category": "Sanal POS (VPOS)",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/dijital-odeme-komisyon-mutabakati",
-  "status": "ACTIVE",
-  "method": "POST",
-  "path": "/v1/vpos/commissionReconciliation",
-  "version": "1.0",
-  "scope": "digital_payments",
-  "flow": "client_credentials",
-  "description": "Gönderilen transaction list bilgilerine göre digital payment transactions için commission reconciliation işlemi yapar. Cevapta her transaction için transaction identifier, status code, status message ve commission type bilgileriyle birlikte reconciliation status bilgisi döner.",
-  "path_params": [],
-  "query_params": [],
-  "body_kind": "object",
-  "body_wrap": [],
-  "body_params": [
-   {
-    "wire": "transactionList",
-    "type": "array",
-    "required": true,
-    "description": "Commission reconciliation işlemine dahil edilecek digital payment transaction listesidir.",
-    "name": "transaction_list"
-   }
-  ],
-  "response_fields": [
-   "transactionId",
-   "statusCode",
-   "statusMessage",
-   "commissionType"
-  ],
-  "language": "tr",
-  "resource": "vpos",
-  "name": "dijital_odeme_komisyon_mutabakati"
- },
- {
-  "id": "4669",
-  "title": "Düzenli NonThreeD Ödeme",
-  "category": "Sanal POS (VPOS)",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/duzenli-nonthreed-odeme",
-  "status": "ACTIVE",
-  "method": "POST",
-  "path": "/v1/vpos/recurringNonThreeDPayment",
-  "version": "1.0",
-  "scope": "public",
-  "flow": "client_credentials",
-  "description": "Düzenli / tekrarlı ödeme almak için kullanılan API’dır.",
-  "path_params": [],
-  "query_params": [],
-  "body_kind": "object",
-  "body_wrap": [
-   "request"
-  ],
-  "body_params": [
-   {
-    "wire": "merchantOrderId",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "merchant_order_id"
-   },
-   {
-    "wire": "merchantId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "merchant_id"
-   },
-   {
-    "wire": "customerId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "customer_id"
-   },
-   {
-    "wire": "userName",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "user_name"
-   },
-   {
-    "wire": "hashData",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "hash_data"
-   },
-   {
-    "wire": "amount",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "amount"
-   },
-   {
-    "wire": "currency",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "currency"
-   },
-   {
-    "wire": "installmentCount",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "installment_count"
-   },
-   {
-    "wire": "deferringCount",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "deferring_count"
-   },
-   {
-    "wire": "cardNumber",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_number"
-   },
-   {
-    "wire": "cardExpireDateYear",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_expire_date_year"
-   },
-   {
-    "wire": "cardExpireDateMonth",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_expire_date_month"
-   },
-   {
-    "wire": "cardCvv2",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_cvv2"
-   },
-   {
-    "wire": "cardHolderName",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_holder_name"
-   },
-   {
-    "wire": "description",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "description"
-   },
-   {
-    "wire": "customerName",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "customer_name"
-   },
-   {
-    "wire": "paymentStartDate",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "payment_start_date"
-   },
-   {
-    "wire": "iterationCounter",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "iteration_counter"
-   },
-   {
-    "wire": "periodNumber",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "period_number"
-   },
-   {
-    "wire": "periodType",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "period_type"
-   },
-   {
-    "wire": "cardHolderCustomerId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "card_holder_customer_id"
-   },
-   {
-    "wire": "merchantCustomerId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "merchant_customer_id"
-   }
-  ],
-  "response_fields": [],
-  "language": "tr",
-  "resource": "vpos",
-  "name": "duzenli_non_three_d_odeme"
- },
- {
-  "id": "4682",
-  "title": "Gelen Ödeme İptali",
-  "category": "Sanal POS (VPOS)",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/gelen-odeme-iptali",
-  "status": "ACTIVE",
-  "method": "POST",
-  "path": "/v1/vpos/paymentOrderReversal",
-  "version": "1.0",
-  "scope": "public",
-  "flow": "client_credentials",
-  "description": "Henüz kesinleşmemiş / tahsilata dönüşmemiş bir “tahsilat işlemini”nin iptal edilmesi için kullanılır.",
-  "path_params": [],
-  "query_params": [],
-  "body_kind": "object",
-  "body_wrap": [
-   "request"
-  ],
-  "body_params": [
-   {
-    "wire": "merchantId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "merchant_id"
-   },
-   {
-    "wire": "customerId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "customer_id"
-   },
-   {
-    "wire": "userName",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "user_name"
-   },
-   {
-    "wire": "merchantOrderId",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "merchant_order_id"
-   },
-   {
-    "wire": "amount",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "amount"
-   },
-   {
-    "wire": "okUrl",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "ok_url"
-   },
-   {
-    "wire": "failUrl",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "fail_url"
-   },
-   {
-    "wire": "entryGateMethod",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "entry_gate_method"
-   },
-   {
-    "wire": "hashData",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "hash_data"
-   },
-   {
-    "wire": "parentPaymentId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "parent_payment_id"
-   },
-   {
-    "wire": "paymentId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "payment_id"
-   }
-  ],
-  "response_fields": [],
-  "language": "tr",
-  "resource": "vpos",
-  "name": "gelen_odeme_iptali"
- },
- {
-  "id": "4673",
-  "title": "İşyeri Onaylı NonThreeD Ödeme",
-  "category": "Sanal POS (VPOS)",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/isyeri-onayli-nonthreed-odeme",
-  "status": "ACTIVE",
-  "method": "POST",
-  "path": "/v1/vpos/nonThreeDPaymentByMerchantSafe",
-  "version": "1.0",
-  "scope": "public",
-  "flow": "client_credentials",
-  "description": "İşyeri onaylı olan NonThreeD Ödeme işlemi yapılan API’dır.",
-  "path_params": [],
-  "query_params": [],
-  "body_kind": "object",
-  "body_wrap": [
-   "request"
-  ],
-  "body_params": [
-   {
-    "wire": "merchantId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "merchant_id"
-   },
-   {
-    "wire": "customerId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "customer_id"
-   },
-   {
-    "wire": "paymentCustomerId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "payment_customer_id"
-   },
-   {
-    "wire": "merchantOrderId",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "merchant_order_id"
-   },
-   {
-    "wire": "userName",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "user_name"
-   },
-   {
-    "wire": "hashData",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "hash_data"
-   },
-   {
-    "wire": "amount",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "amount"
-   },
-   {
-    "wire": "currency",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "currency"
-   },
-   {
-    "wire": "installmentCount",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "installment_count"
-   },
-   {
-    "wire": "deferringCount",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "deferring_count"
-   },
-   {
-    "wire": "safeKey",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "safe_key"
-   },
-   {
-    "wire": "description",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "description"
-   }
-  ],
-  "response_fields": [],
-  "language": "tr",
-  "resource": "vpos",
-  "name": "isyeri_onayli_non_three_d_odeme"
- },
- {
-  "id": "4677",
-  "title": "Merchant‑Safe için Kart Ekleme",
-  "category": "Sanal POS (VPOS)",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/merchant-safe-icin-kart-ekleme",
+  "id": "4676",
+  "title": "addCardToMerchantSafe",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/addcardtomerchantsafe",
   "status": "ACTIVE",
   "method": "POST",
   "path": "/v1/vpos/addCardToMerchantSafe",
   "version": "1.0",
   "scope": "public",
   "flow": "client_credentials",
-  "description": "Merchant‑safe (işyeri sorumluluğunda) Non‑3D Secure ödeme akışlarında kullanılmak üzere, müşterinin kart bilgisini ödeme sistemine güvenli şekilde kaydetmek için kullanılan API’dir.",
+  "description": "This API is used to securely store a customer’s card information in the payment system for use in merchant-safe Non-3D Secure payment flows.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -3555,106 +6904,1069 @@
   "body_params": [
    {
     "wire": "businessKey",
-    "type": "int",
+    "type": "number",
     "required": false,
-    "description": "",
+    "description": "Business key value associated with the merchant-safe card registration process.",
     "name": "business_key"
    },
    {
     "wire": "merchantId",
     "type": "int",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
     "name": "merchant_id"
    },
    {
     "wire": "customerId",
     "type": "int",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
     "name": "customer_id"
    },
    {
     "wire": "userName",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "User name associated with the merchant integration.",
     "name": "user_name"
    },
    {
     "wire": "hashData",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Hash value generated for transaction security and request validation.",
     "name": "hash_data"
    },
    {
     "wire": "merchantOrderId",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
     "name": "merchant_order_id"
    },
    {
     "wire": "paymentCustomerId",
     "type": "int",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Payment customer identifier to which the card will be linked.",
     "name": "payment_customer_id"
+   },
+   {
+    "wire": "paymentDefinitionId",
+    "type": "int",
+    "required": false,
+    "description": "Payment definition identifier associated with the customer payment setup.",
+    "name": "payment_definition_id"
+   },
+   {
+    "wire": "customerDefinitionId",
+    "type": "int",
+    "required": false,
+    "description": "Customer definition identifier associated with the merchant customer record.",
+    "name": "customer_definition_id"
+   },
+   {
+    "wire": "customerName",
+    "type": "str",
+    "required": false,
+    "description": "Name of the customer whose card information will be stored.",
+    "name": "customer_name"
+   },
+   {
+    "wire": "adressText",
+    "type": "str",
+    "required": false,
+    "description": "Address text of the customer.",
+    "name": "adress_text"
+   },
+   {
+    "wire": "phoneNumber",
+    "type": "str",
+    "required": false,
+    "description": "Phone number of the customer.",
+    "name": "phone_number"
+   },
+   {
+    "wire": "emailAdress",
+    "type": "str",
+    "required": false,
+    "description": "Email address of the customer.",
+    "name": "email_adress"
+   },
+   {
+    "wire": "district",
+    "type": "str",
+    "required": false,
+    "description": "District information of the customer address.",
+    "name": "district"
+   },
+   {
+    "wire": "city",
+    "type": "str",
+    "required": false,
+    "description": "City information of the customer address.",
+    "name": "city"
+   },
+   {
+    "wire": "country",
+    "type": "str",
+    "required": false,
+    "description": "Country information of the customer address.",
+    "name": "country"
+   },
+   {
+    "wire": "postalCode",
+    "type": "str",
+    "required": false,
+    "description": "Postal code of the customer address.",
+    "name": "postal_code"
+   },
+   {
+    "wire": "faxNumber",
+    "type": "str",
+    "required": false,
+    "description": "Fax number of the customer.",
+    "name": "fax_number"
+   },
+   {
+    "wire": "extraField1",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field1"
+   },
+   {
+    "wire": "extraField2",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field2"
+   },
+   {
+    "wire": "extraField3",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field3"
+   },
+   {
+    "wire": "extraField4",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field4"
+   },
+   {
+    "wire": "extraField5",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field5"
+   },
+   {
+    "wire": "merchantCustomerId",
+    "type": "int",
+    "required": false,
+    "description": "Merchant-side customer identifier.",
+    "name": "merchant_customer_id"
    },
    {
     "wire": "cardNumber",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Card number to be stored in the merchant-safe payment system.",
     "name": "card_number"
    },
    {
     "wire": "cardExpireDateMonth",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Expiration month of the card.",
     "name": "card_expire_date_month"
    },
    {
     "wire": "cardExpireDateYear",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Expiration year of the card.",
     "name": "card_expire_date_year"
    },
    {
     "wire": "cardCvv2",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "CVV2 security code of the card.",
     "name": "card_cvv2"
    },
    {
     "wire": "cardHolderName",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Name of the cardholder.",
     "name": "card_holder_name"
+   },
+   {
+    "wire": "safeKey",
+    "type": "str",
+    "required": false,
+    "description": "Existing or generated safe key value associated with the stored card.",
+    "name": "safe_key"
+   },
+   {
+    "wire": "sortNumber",
+    "type": "int",
+    "required": false,
+    "description": "Sort order value for the stored card record.",
+    "name": "sort_number"
+   },
+   {
+    "wire": "isActive",
+    "type": "bool",
+    "required": false,
+    "description": "Indicates whether the stored card record is active.",
+    "name": "is_active"
    }
   ],
-  "response_fields": [],
-  "language": "tr",
+  "response_fields": [
+   "CardId",
+   "PaymentCustomerId",
+   "SafeKey",
+   "ResponseCode",
+   "ResponseMessage"
+  ],
+  "language": "en",
   "resource": "vpos",
-  "name": "merchant_safe_icin_kart_ekleme"
+  "name": "add_card_to_merchant_safe"
  },
  {
-  "id": "4678",
-  "title": "Ön Provizyon",
-  "category": "Sanal POS (VPOS)",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/on-provizyon",
+  "id": "4860",
+  "title": "Digital Payment Commission Reconciliation",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/digital-payment-commission-reconciliation",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/commissionReconciliation",
+  "version": "1.0",
+  "scope": "digital_payments",
+  "flow": "client_credentials",
+  "description": "Performs commission reconciliation for digital payment transactions by using the provided transaction list. The response returns reconciliation status information for each transaction, including transaction identifier, status code, status message, and commission type.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [],
+  "body_params": [
+   {
+    "wire": "transactionList",
+    "type": "array",
+    "required": true,
+    "description": "List of digital payment transactions to be included in commission reconciliation.",
+    "name": "transaction_list"
+   }
+  ],
+  "response_fields": [
+   "transactionId",
+   "statusCode",
+   "statusMessage",
+   "commissionType"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "digital_payment_commission_reconciliation"
+ },
+ {
+  "id": "4675",
+  "title": "getCustomerBySafeKey",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/getcustomerbysafekey",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/getCustomerBySafeKey",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to retrieve payment customer card information defined in the payment system by using a given safeKey.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "paymentCustomerId",
+    "type": "int",
+    "required": true,
+    "description": "Payment customer identifier associated with the stored card.",
+    "name": "payment_customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "User name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated for transaction security and request validation.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "safeKey",
+    "type": "str",
+    "required": true,
+    "description": "Safe key used to find the payment customer card information.",
+    "name": "safe_key"
+   },
+   {
+    "wire": "hostIp",
+    "type": "str",
+    "required": false,
+    "description": "Host IP address from which the request is initiated.",
+    "name": "host_ip"
+   },
+   {
+    "wire": "cardHolderIpAddress",
+    "type": "str",
+    "required": false,
+    "description": "IP address of the cardholder.",
+    "name": "card_holder_ip_address"
+   }
+  ],
+  "response_fields": [
+   "CardId",
+   "PaymentCustomerId",
+   "CardNumber",
+   "ExpiryDate",
+   "SortNumber",
+   "IsActive",
+   "CVV2",
+   "CVV2Encrypted",
+   "CardHolderName",
+   "SafeKey",
+   "MerchantId"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "get_customer_by_safe_key"
+ },
+ {
+  "id": "4662",
+  "title": "Get Seller Order Details",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/get-seller-order-details",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/getMerchantOrderDetail",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "The Get Merchant Order Detail API allows merchants to query payment and transaction details for their Virtual POS orders. It returns order status, transaction status, amount details, card information, terminal information, and additional transaction metadata for the requested criteria.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "API user name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "orderId",
+    "type": "str",
+    "required": false,
+    "description": "Order identifier used to query a specific order.",
+    "name": "order_id"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": false,
+    "description": "Unique order identifier generated by the merchant.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated with transaction information and validated by the bank.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Start date for querying merchant order details. Format: dd.MM.yyyy.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": true,
+    "description": "End date for querying merchant order details. Format: dd.MM.yyyy.",
+    "name": "end_date"
+   }
+  ],
+  "response_fields": [
+   "OrderId",
+   "MerchantOrderId",
+   "MerchantId",
+   "CardHolderName",
+   "CardType",
+   "CardNumber",
+   "OrderDate",
+   "OrderStatus",
+   "LastOrderStatus",
+   "OrderType",
+   "TransactionStatus",
+   "FirstAmount",
+   "CancelAmount",
+   "DrawbackAmount",
+   "ClosedAmount",
+   "FEC",
+   "VPSEntryMode",
+   "InstallmentCount",
+   "TransactionSecurity",
+   "ResponseCode",
+   "ResponseExplain",
+   "EndOfDayStatus",
+   "TransactionSide",
+   "CardHolderIPAddress",
+   "MerchantIPAddress",
+   "MerchantUserName",
+   "ProvNumber",
+   "BatchId",
+   "CardExpireDate",
+   "CVV2",
+   "PosTerminalId",
+   "Explain",
+   "Explain2",
+   "Explain3",
+   "RRN",
+   "Stan",
+   "UserName",
+   "Host_Name",
+   "SystemDate",
+   "UpdateUserName",
+   "UpdateHostName",
+   "UpdateSystemDate",
+   "EndOfDayDate",
+   "HostIP",
+   "LastOrderStatusDescription",
+   "OrderTypeDescription",
+   "TransactionStatusDescription",
+   "EndOfDayStatusDescription",
+   "FecDescription",
+   "TransactionSecurityDescription",
+   "FECAmount",
+   "IdentityTaxNumber",
+   "QueryId",
+   "DebtId",
+   "DebtorName",
+   "Period",
+   "SurchargeAmount",
+   "SGKDebtAmount",
+   "DeferringCount"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "get_seller_order_details"
+ },
+ {
+  "id": "4665",
+  "title": "NON 3D Payment",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/non-3d-payment",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/non3DPayment",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to process Non-3D Secure Virtual POS payments. In Non-3D payment transactions, the payment is completed using the customer’s card information without performing 3D Secure verification. The card and merchant must be authorized for Non-3D Secure payment processing.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "API user name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": true,
+    "description": "Transaction amount. For example, 100 should be sent for 1.00 TL and 123450 should be sent for 1,234.50 TL.",
+    "name": "amount"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "currency",
+    "type": "str",
+    "required": true,
+    "description": "Currency code of the transaction amount. For TL, it should be sent as 0949.",
+    "name": "currency"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated with transaction information and validated by the bank.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": true,
+    "description": "Number of installments for the payment transaction.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "deferringCount",
+    "type": "int",
+    "required": true,
+    "description": "Number of deferment periods for the payment transaction.",
+    "name": "deferring_count"
+   },
+   {
+    "wire": "cardNumber",
+    "type": "str",
+    "required": true,
+    "description": "Card number to be used for the Non-3D payment transaction.",
+    "name": "card_number"
+   },
+   {
+    "wire": "cardExpireDateYear",
+    "type": "str",
+    "required": true,
+    "description": "Expiration year of the card.",
+    "name": "card_expire_date_year"
+   },
+   {
+    "wire": "cardExpireDateMonth",
+    "type": "str",
+    "required": true,
+    "description": "Expiration month of the card.",
+    "name": "card_expire_date_month"
+   },
+   {
+    "wire": "cardCvv2",
+    "type": "str",
+    "required": true,
+    "description": "CVV2 security code of the card.",
+    "name": "card_cvv2"
+   },
+   {
+    "wire": "cardHolderName",
+    "type": "str",
+    "required": true,
+    "description": "Name of the cardholder.",
+    "name": "card_holder_name"
+   },
+   {
+    "wire": "vposSubMerchantId",
+    "type": "int",
+    "required": false,
+    "description": "Sub-merchant identifier for the Virtual POS transaction.",
+    "name": "vpos_sub_merchant_id"
+   },
+   {
+    "wire": "bkmId",
+    "type": "str",
+    "required": false,
+    "description": "BKM identifier related to the payment transaction.",
+    "name": "bkm_id"
+   },
+   {
+    "wire": "pfSubMerchantTerminalId",
+    "type": "str",
+    "required": false,
+    "description": "Payment facilitator sub-merchant terminal identifier.",
+    "name": "pf_sub_merchant_terminal_id"
+   }
+  ],
+  "response_fields": [
+   "OrderId",
+   "MerchantOrderId",
+   "ProvisionNumber",
+   "RRN",
+   "Stan",
+   "ResponseCode",
+   "ResponseMessage"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "non_3_d_payment"
+ },
+ {
+  "id": "4672",
+  "title": "nonThreeDPaymentByMerchantSafe",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/nonthreedpaymentbymerchantsafe",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/nonThreeDPaymentByMerchantSafe",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used for merchant-approved Non-3D payment processing by using a card stored with a merchant-safe key.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "paymentCustomerId",
+    "type": "int",
+    "required": true,
+    "description": "Payment customer identifier associated with the stored card.",
+    "name": "payment_customer_id"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "User name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated for transaction security and request validation.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": true,
+    "description": "Transaction amount to be collected.",
+    "name": "amount"
+   },
+   {
+    "wire": "currency",
+    "type": "str",
+    "required": true,
+    "description": "Currency code of the transaction amount.",
+    "name": "currency"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": false,
+    "description": "Number of installments for the payment transaction.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "deferringCount",
+    "type": "int",
+    "required": false,
+    "description": "Number of deferment periods for the payment transaction.",
+    "name": "deferring_count"
+   },
+   {
+    "wire": "safeKey",
+    "type": "str",
+    "required": true,
+    "description": "Merchant-safe key of the stored card to be used for the Non-3D payment.",
+    "name": "safe_key"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "Description of the Non-3D payment transaction.",
+    "name": "description"
+   }
+  ],
+  "response_fields": [
+   "OrderId",
+   "ProvisionNumber",
+   "RRN",
+   "Stan",
+   "ResponseCode",
+   "ResponseMessage"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "non_three_d_payment_by_merchant_safe"
+ },
+ {
+  "id": "4666",
+  "title": "Order Detail With Payment Id",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/order-detail-with-payment-id",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/orderDetailWithPaymentId",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to query the details of collections created under a payment instruction. It returns payment, order, amount, status, terminal, authorization, and additional transaction details by using paymentId and related query parameters.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier registered in the Kuveyt Türk Virtual POS service.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "API user name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "orderId",
+    "type": "int",
+    "required": false,
+    "description": "Order identifier used to query a specific order.",
+    "name": "order_id"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": false,
+    "description": "Merchant-side transaction or order number. This field may be sent empty for this API.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "startDate",
+    "type": "datetime",
+    "required": false,
+    "description": "Start date for querying order details. Format: dd.MM.yyyy.",
+    "name": "start_date"
+   },
+   {
+    "wire": "endDate",
+    "type": "datetime",
+    "required": false,
+    "description": "End date for querying order details. Format: dd.MM.yyyy.",
+    "name": "end_date"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated with payment transaction information and validated by the bank.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "amount",
+    "type": "number",
+    "required": true,
+    "description": "Transaction amount. This field should be sent as 0 for this method.",
+    "name": "amount"
+   },
+   {
+    "wire": "okUrl",
+    "type": "str",
+    "required": false,
+    "description": "URL to which the user is redirected after successful card verification in secure payment transactions.",
+    "name": "ok_url"
+   },
+   {
+    "wire": "failUrl",
+    "type": "str",
+    "required": false,
+    "description": "URL to which the result is sent if card verification fails or an error occurs.",
+    "name": "fail_url"
+   },
+   {
+    "wire": "paymentId",
+    "type": "int",
+    "required": true,
+    "description": "Payment identifier used to query collection details.",
+    "name": "payment_id"
+   },
+   {
+    "wire": "parentPaymentId",
+    "type": "int",
+    "required": true,
+    "description": "Parent payment identifier related to the payment instruction.",
+    "name": "parent_payment_id"
+   }
+  ],
+  "response_fields": [
+   "OrderId",
+   "ProvNumber",
+   "PaymentId",
+   "ParentPaymentId",
+   "MerchantId",
+   "MerchantOrderId",
+   "Amount",
+   "Currency",
+   "PaymentDate",
+   "PaymentStartDate",
+   "PaymentStatus",
+   "ResponseCode",
+   "ResponseDetail",
+   "ReverseAmount",
+   "DrawbackAmount",
+   "ClosedAmount",
+   "TerminalId",
+   "RRN",
+   "OrderStatus",
+   "AuthNumber",
+   "PeriodType",
+   "PeriodNumber",
+   "IterationCounter",
+   "IsActive",
+   "TotalIteration",
+   "RejectedRetryCount",
+   "RejectedPeriodNumber",
+   "RejectedPeriodType",
+   "LastTriedTime",
+   "LastTryCount",
+   "PaymentCustomerId",
+   "PaymentCardId",
+   "AdditionalData1",
+   "AdditionalData2",
+   "AdditionalData3"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "order_detail_with_payment_id"
+ },
+ {
+  "id": "4683",
+  "title": "paymentOrderReversal",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/paymentorderreversal",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/paymentOrderReversal",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "It is used to cancel a coming payment that has not yet been finalized or converted into a collected payment.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated for transaction security and request validation.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "transactionType",
+    "type": "str",
+    "required": false,
+    "description": "Type of the transaction to be performed.",
+    "name": "transaction_type"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": false,
+    "description": "Number of installments for the payment transaction.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "amount",
+    "type": "int",
+    "required": false,
+    "description": "Transaction amount.",
+    "name": "amount"
+   },
+   {
+    "wire": "displayAmount",
+    "type": "str",
+    "required": false,
+    "description": "Display amount value of the transaction.",
+    "name": "display_amount"
+   },
+   {
+    "wire": "cancelAmount",
+    "type": "number",
+    "required": false,
+    "description": "Amount to be cancelled for the payment order reversal.",
+    "name": "cancel_amount"
+   },
+   {
+    "wire": "currencyCode",
+    "type": "str",
+    "required": false,
+    "description": "Currency code of the transaction amount.",
+    "name": "currency_code"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "transactionSecurity",
+    "type": "str",
+    "required": false,
+    "description": "Transaction security type or security level information.",
+    "name": "transaction_security"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "User name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "parentPaymentId",
+    "type": "int",
+    "required": true,
+    "description": "Parent payment identifier of the related payment transaction.",
+    "name": "parent_payment_id"
+   },
+   {
+    "wire": "paymentId",
+    "type": "int",
+    "required": true,
+    "description": "Payment identifier of the coming payment to be reversed.",
+    "name": "payment_id"
+   }
+  ],
+  "response_fields": [
+   "ParentPaymentId",
+   "PaymentId",
+   "ResponseCode",
+   "ResponseMessage"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "payment_order_reversal"
+ },
+ {
+  "id": "4679",
+  "title": "preAuthorization",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/preauthorization",
   "status": "ACTIVE",
   "method": "POST",
   "path": "/v1/vpos/preAuthorization",
   "version": "1.0",
   "scope": "public",
   "flow": "client_credentials",
-  "description": "Müşteri kartından tutar tahsil edilmeden, belirtilen tutar için ön provizyon (limit blokajı) almak amacıyla kullanılan sanal POS servisidir.",
+  "description": "This virtual POS service is used to obtain a preauthorization, which places a limit hold for a specified amount without charging the customer’s card.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -3664,106 +7976,457 @@
   "body_params": [
    {
     "wire": "merchantId",
-    "type": "str",
-    "required": false,
-    "description": "",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
     "name": "merchant_id"
    },
    {
     "wire": "customerId",
-    "type": "str",
-    "required": false,
-    "description": "",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
     "name": "customer_id"
    },
    {
     "wire": "userName",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "User name associated with the merchant integration.",
     "name": "user_name"
    },
    {
     "wire": "amount",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Transaction amount for which preauthorization will be obtained.",
     "name": "amount"
    },
    {
     "wire": "merchantOrderId",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
     "name": "merchant_order_id"
-   },
-   {
-    "wire": "cardNumber",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_number"
-   },
-   {
-    "wire": "cardExpireDateYear",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_expire_date_year"
-   },
-   {
-    "wire": "cardExpireDateMonth",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_expire_date_month"
-   },
-   {
-    "wire": "cardCVV2",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_cvv2"
-   },
-   {
-    "wire": "cardHolderName",
-    "type": "str",
-    "required": false,
-    "description": "",
-    "name": "card_holder_name"
    },
    {
     "wire": "currency",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Currency code of the transaction amount.",
     "name": "currency"
    },
    {
     "wire": "hashData",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Hash value generated for transaction security and request validation.",
     "name": "hash_data"
+   },
+   {
+    "wire": "cardNumber",
+    "type": "str",
+    "required": true,
+    "description": "Card number to be used for the preauthorization transaction.",
+    "name": "card_number"
+   },
+   {
+    "wire": "cardExpireDateYear",
+    "type": "str",
+    "required": true,
+    "description": "Expiration year of the card.",
+    "name": "card_expire_date_year"
+   },
+   {
+    "wire": "cardExpireDateMonth",
+    "type": "str",
+    "required": true,
+    "description": "Expiration month of the card.",
+    "name": "card_expire_date_month"
+   },
+   {
+    "wire": "cardCvv2",
+    "type": "str",
+    "required": true,
+    "description": "CVV2 security code of the card.",
+    "name": "card_cvv2"
+   },
+   {
+    "wire": "cardHolderName",
+    "type": "str",
+    "required": true,
+    "description": "Name of the cardholder.",
+    "name": "card_holder_name"
+   },
+   {
+    "wire": "vposSubMerchantId",
+    "type": "int",
+    "required": false,
+    "description": "Sub-merchant identifier for the Virtual POS transaction.",
+    "name": "vpos_sub_merchant_id"
+   },
+   {
+    "wire": "bkmId",
+    "type": "str",
+    "required": false,
+    "description": "BKM identifier related to the payment transaction.",
+    "name": "bkm_id"
+   },
+   {
+    "wire": "pfSubMerchantTerminalId",
+    "type": "str",
+    "required": false,
+    "description": "Payment facilitator sub-merchant terminal identifier.",
+    "name": "pf_sub_merchant_terminal_id"
    }
   ],
-  "response_fields": [],
-  "language": "tr",
+  "response_fields": [
+   "MerchantOrderId",
+   "ProvisionNumber",
+   "RRN",
+   "Stan",
+   "ResponseCode",
+   "ResponseMessage"
+  ],
+  "language": "en",
   "resource": "vpos",
-  "name": "on_provizyon"
+  "name": "pre_authorization"
  },
  {
-  "id": "4681",
-  "title": "Satış İşlemi İptal",
-  "category": "Sanal POS (VPOS)",
-  "doc_url": "https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/satis-islemi-iptal",
+  "id": "4668",
+  "title": "recurringNonThreeDPayment",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/recurringnonthreedpayment",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/recurringNonThreeDPayment",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to create recurring Non-3D payment instructions for regular payment collection. It receives card, merchant, customer, payment schedule, and transaction details as request parameters.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "User name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated for transaction security and request validation.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": true,
+    "description": "Recurring payment amount to be collected.",
+    "name": "amount"
+   },
+   {
+    "wire": "currency",
+    "type": "str",
+    "required": true,
+    "description": "Currency code of the recurring payment amount.",
+    "name": "currency"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": false,
+    "description": "Number of installments for the payment transaction.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "deferringCount",
+    "type": "int",
+    "required": false,
+    "description": "Number of deferment periods for the payment transaction.",
+    "name": "deferring_count"
+   },
+   {
+    "wire": "cardNumber",
+    "type": "str",
+    "required": true,
+    "description": "Card number to be used for the recurring Non-3D payment.",
+    "name": "card_number"
+   },
+   {
+    "wire": "cardExpireDateYear",
+    "type": "str",
+    "required": true,
+    "description": "Expiration year of the card.",
+    "name": "card_expire_date_year"
+   },
+   {
+    "wire": "cardExpireDateMonth",
+    "type": "str",
+    "required": true,
+    "description": "Expiration month of the card.",
+    "name": "card_expire_date_month"
+   },
+   {
+    "wire": "cardCvv2",
+    "type": "str",
+    "required": true,
+    "description": "CVV2 security code of the card.",
+    "name": "card_cvv2"
+   },
+   {
+    "wire": "cardHolderName",
+    "type": "str",
+    "required": true,
+    "description": "Name of the cardholder.",
+    "name": "card_holder_name"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "Description of the recurring payment instruction.",
+    "name": "description"
+   },
+   {
+    "wire": "bkmId",
+    "type": "str",
+    "required": false,
+    "description": "BKM identifier related to the payment transaction.",
+    "name": "bkm_id"
+   },
+   {
+    "wire": "customerName",
+    "type": "str",
+    "required": true,
+    "description": "Name of the customer associated with the recurring payment.",
+    "name": "customer_name"
+   },
+   {
+    "wire": "paymentStartDate",
+    "type": "datetime",
+    "required": true,
+    "description": "Start date of the recurring payment instruction.",
+    "name": "payment_start_date"
+   },
+   {
+    "wire": "iterationCounter",
+    "type": "int",
+    "required": true,
+    "description": "Number of payment iterations to be executed.",
+    "name": "iteration_counter"
+   },
+   {
+    "wire": "periodNumber",
+    "type": "int",
+    "required": true,
+    "description": "Period interval number for the recurring payment schedule.",
+    "name": "period_number"
+   },
+   {
+    "wire": "periodType",
+    "type": "int",
+    "required": true,
+    "description": "Period type of the recurring payment schedule.",
+    "name": "period_type"
+   },
+   {
+    "wire": "cardHolderCustomerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier of the cardholder.",
+    "name": "card_holder_customer_id"
+   },
+   {
+    "wire": "paymentDefinitionId",
+    "type": "int",
+    "required": false,
+    "description": "Payment definition identifier associated with the recurring payment setup.",
+    "name": "payment_definition_id"
+   },
+   {
+    "wire": "adressText",
+    "type": "str",
+    "required": false,
+    "description": "Address text of the customer.",
+    "name": "adress_text"
+   },
+   {
+    "wire": "city",
+    "type": "str",
+    "required": false,
+    "description": "City information of the customer address.",
+    "name": "city"
+   },
+   {
+    "wire": "country",
+    "type": "str",
+    "required": false,
+    "description": "Country information of the customer address.",
+    "name": "country"
+   },
+   {
+    "wire": "district",
+    "type": "str",
+    "required": false,
+    "description": "District information of the customer address.",
+    "name": "district"
+   },
+   {
+    "wire": "emailAdress",
+    "type": "str",
+    "required": false,
+    "description": "Email address of the customer.",
+    "name": "email_adress"
+   },
+   {
+    "wire": "extraField1",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field1"
+   },
+   {
+    "wire": "extraField2",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field2"
+   },
+   {
+    "wire": "extraField3",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field3"
+   },
+   {
+    "wire": "extraField4",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field4"
+   },
+   {
+    "wire": "extraField5",
+    "type": "str",
+    "required": false,
+    "description": "Additional field reserved for merchant-specific information.",
+    "name": "extra_field5"
+   },
+   {
+    "wire": "faxNumber",
+    "type": "str",
+    "required": false,
+    "description": "Fax number of the customer.",
+    "name": "fax_number"
+   },
+   {
+    "wire": "merchantCustomerId",
+    "type": "int",
+    "required": false,
+    "description": "Merchant-side customer identifier.",
+    "name": "merchant_customer_id"
+   },
+   {
+    "wire": "phoneNumber",
+    "type": "str",
+    "required": false,
+    "description": "Phone number of the customer.",
+    "name": "phone_number"
+   },
+   {
+    "wire": "postalCode",
+    "type": "str",
+    "required": false,
+    "description": "Postal code of the customer address.",
+    "name": "postal_code"
+   },
+   {
+    "wire": "customerDefinitionId",
+    "type": "int",
+    "required": false,
+    "description": "Customer definition identifier associated with the merchant customer record.",
+    "name": "customer_definition_id"
+   },
+   {
+    "wire": "vposSubMerchantId",
+    "type": "int",
+    "required": false,
+    "description": "Sub-merchant identifier for the Virtual POS transaction.",
+    "name": "vpos_sub_merchant_id"
+   },
+   {
+    "wire": "pfSubMerchantTerminalId",
+    "type": "str",
+    "required": false,
+    "description": "Payment facilitator sub-merchant terminal identifier.",
+    "name": "pf_sub_merchant_terminal_id"
+   }
+  ],
+  "response_fields": [
+   "OrderId",
+   "PaymentId",
+   "PaymentCustomerId",
+   "MerchantOrderId",
+   "Amount",
+   "CurrencyCode",
+   "PaymentStartDate",
+   "IterationCounter",
+   "PeriodNumber",
+   "PeriodType",
+   "IsActive",
+   "PaymentStatus",
+   "ProvisionNumber",
+   "RRN",
+   "Stan",
+   "ResponseCode",
+   "ResponseMessage"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "recurring_non_three_d_payment"
+ },
+ {
+  "id": "4680",
+  "title": "saleOrderReversal",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/saleorderreversal",
   "status": "ACTIVE",
   "method": "POST",
   "path": "/v1/vpos/saleOrderReversal",
   "version": "1.0",
   "scope": "public",
   "flow": "client_credentials",
-  "description": "Başarılı bir satış işlemini gün sonu öncesinde iptal ederek tahsilatın tamamen geri alınmasını sağlar.",
+  "description": "It enables the complete reversal of a successful sale transaction by cancelling it before end-of-day settlement.",
   "path_params": [],
   "query_params": [],
   "body_kind": "object",
@@ -3773,64 +8436,643 @@
   "body_params": [
    {
     "wire": "merchantId",
-    "type": "str",
-    "required": false,
-    "description": "",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
     "name": "merchant_id"
    },
    {
     "wire": "customerId",
-    "type": "str",
-    "required": false,
-    "description": "",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
     "name": "customer_id"
    },
    {
     "wire": "userName",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "User name associated with the merchant integration.",
     "name": "user_name"
    },
    {
     "wire": "amount",
-    "type": "int",
-    "required": false,
-    "description": "",
+    "type": "str",
+    "required": true,
+    "description": "Transaction amount to be reversed.",
     "name": "amount"
    },
    {
     "wire": "merchantOrderId",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
     "name": "merchant_order_id"
-   },
-   {
-    "wire": "orderId",
-    "type": "int",
-    "required": false,
-    "description": "",
-    "name": "order_id"
    },
    {
     "wire": "hashData",
     "type": "str",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Hash value generated for transaction security and request validation.",
     "name": "hash_data"
+   },
+   {
+    "wire": "language",
+    "type": "int",
+    "required": false,
+    "description": "Language option used for the transaction response messages.",
+    "name": "language"
    },
    {
     "wire": "saleReversalType",
     "type": "int",
-    "required": false,
-    "description": "",
+    "required": true,
+    "description": "Sale reversal type that identifies the reversal operation.",
     "name": "sale_reversal_type"
    }
   ],
-  "response_fields": [],
-  "language": "tr",
+  "response_fields": [
+   "OrderId",
+   "MerchantOrderId",
+   "ProvisionNumber",
+   "RRN",
+   "Stan",
+   "ResponseCode",
+   "ResponseMessage"
+  ],
+  "language": "en",
   "resource": "vpos",
-  "name": "satis_islemi_iptal"
+  "name": "sale_order_reversal"
+ },
+ {
+  "id": "4659",
+  "title": "Secure Partner Payment",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/secure-partner-payment",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/secureCommonPaymentToken",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "This API is used to generate a Secure Common Payment token for Virtual POS transactions. It allows merchants to redirect customers to Kuveyt Türk’s Secure Common Payment page, where the customer can complete the payment through supported 3D Secure or GO payment flows.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "API user name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": true,
+    "description": "Transaction amount. For example, 100 should be sent for 1.00 TL and 123450 should be sent for 1,234.50 TL.",
+    "name": "amount"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "currencyCode",
+    "type": "str",
+    "required": true,
+    "description": "Currency code of the transaction amount. For TL, it should be sent as 0949.",
+    "name": "currency_code"
+   },
+   {
+    "wire": "transactionType",
+    "type": "str",
+    "required": true,
+    "description": "Transaction type to be performed through the Secure Common Payment flow.",
+    "name": "transaction_type"
+   },
+   {
+    "wire": "TokenType",
+    "type": "str",
+    "required": true,
+    "description": "Token type that specifies the payment flow to be initiated.",
+    "name": "token_type"
+   },
+   {
+    "wire": "successUrl",
+    "type": "str",
+    "required": true,
+    "description": "URL to which the customer is redirected after successful payment or verification.",
+    "name": "success_url"
+   },
+   {
+    "wire": "failUrl",
+    "type": "str",
+    "required": true,
+    "description": "URL to which the customer is redirected if payment or verification fails, or if an error occurs.",
+    "name": "fail_url"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated with transaction information and validated by the bank.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": true,
+    "description": "Number of installments for the payment transaction.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "orderDescription",
+    "type": "str",
+    "required": false,
+    "description": "Description of the order.",
+    "name": "order_description"
+   },
+   {
+    "wire": "clientIp",
+    "type": "str",
+    "required": true,
+    "description": "IP address of the client initiating the request.",
+    "name": "client_ip"
+   },
+   {
+    "wire": "cardHolderIp",
+    "type": "str",
+    "required": true,
+    "description": "IP address of the cardholder/customer who will open the Secure Common Payment page.",
+    "name": "card_holder_ip"
+   },
+   {
+    "wire": "email",
+    "type": "str",
+    "required": false,
+    "description": "Email address of the cardholder/customer.",
+    "name": "email"
+   },
+   {
+    "wire": "cc",
+    "type": "str",
+    "required": false,
+    "description": "Country or phone area code of the cardholder/customer.",
+    "name": "cc"
+   },
+   {
+    "wire": "subscriber",
+    "type": "str",
+    "required": false,
+    "description": "Phone number of the cardholder/customer.",
+    "name": "subscriber"
+   }
+  ],
+  "response_fields": [
+   "Url",
+   "ResponseCode",
+   "ResponseMessage"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "secure_partner_payment"
+ },
+ {
+  "id": "4660",
+  "title": "ThreeeD Payment",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/threeed-payment",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/threeDPayment",
+  "version": "1.0",
+  "scope": "public",
+  "flow": "client_credentials",
+  "description": "Virtual POS 3D Secure payment API is used to initiate an online card payment with 3D Secure verification. It returns HTML content that redirects the cardholder to the 3D Secure authentication flow, together with response code and response message information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "request"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "Merchant identifier for the Virtual POS transaction.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": true,
+    "description": "Customer identifier associated with the merchant.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "API user name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "amount",
+    "type": "str",
+    "required": true,
+    "description": "Transaction amount. For example, 100 should be sent for 1.00 TL and 123450 should be sent for 1,234.50 TL.",
+    "name": "amount"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "currency",
+    "type": "str",
+    "required": true,
+    "description": "Currency code of the transaction amount. For TL, it should be sent as 0949.",
+    "name": "currency"
+   },
+   {
+    "wire": "successUrl",
+    "type": "str",
+    "required": true,
+    "description": "URL to which the cardholder is redirected after successful 3D Secure verification.",
+    "name": "success_url"
+   },
+   {
+    "wire": "failUrl",
+    "type": "str",
+    "required": true,
+    "description": "URL to which the cardholder is redirected if 3D Secure verification fails or an error occurs.",
+    "name": "fail_url"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value generated with transaction information and validated by the bank.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": true,
+    "description": "Number of installments for the payment transaction.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "deferringCount",
+    "type": "int",
+    "required": true,
+    "description": "Number of deferment periods for the payment transaction.",
+    "name": "deferring_count"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "Description of the payment transaction.",
+    "name": "description"
+   },
+   {
+    "wire": "cardNumber",
+    "type": "str",
+    "required": true,
+    "description": "Card number to be used for the 3D Secure payment transaction.",
+    "name": "card_number"
+   },
+   {
+    "wire": "cardExpireDateYear",
+    "type": "str",
+    "required": true,
+    "description": "Expiration year of the card.",
+    "name": "card_expire_date_year"
+   },
+   {
+    "wire": "cardExpireDateMonth",
+    "type": "str",
+    "required": true,
+    "description": "Expiration month of the card.",
+    "name": "card_expire_date_month"
+   },
+   {
+    "wire": "cardCvv2",
+    "type": "str",
+    "required": true,
+    "description": "CVV2 security code of the card.",
+    "name": "card_cvv2"
+   },
+   {
+    "wire": "cardHolderName",
+    "type": "str",
+    "required": true,
+    "description": "Name of the cardholder.",
+    "name": "card_holder_name"
+   },
+   {
+    "wire": "vposSubMerchantId",
+    "type": "int",
+    "required": false,
+    "description": "Sub-merchant identifier for the Virtual POS transaction.",
+    "name": "vpos_sub_merchant_id"
+   },
+   {
+    "wire": "bkmId",
+    "type": "str",
+    "required": false,
+    "description": "BKM identifier related to the payment transaction.",
+    "name": "bkm_id"
+   },
+   {
+    "wire": "pfSubMerchantTerminalId",
+    "type": "str",
+    "required": false,
+    "description": "Payment facilitator sub-merchant terminal identifier.",
+    "name": "pf_sub_merchant_terminal_id"
+   }
+  ],
+  "response_fields": [
+   "HtmlContent",
+   "ResponseCode",
+   "ResponseMessage"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "threee_d_payment"
+ },
+ {
+  "id": "3404",
+  "title": "Virtual POS NonThreeD Payment (Masked Card)",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/virtual-pos-nonthreed-payment-masked-card",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/nonThreeDPayment",
+  "version": "1.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to perform Non-3D payment transactions through Virtual POS by using identity-tax number and payment information. It returns the payment transaction result and, if the transaction is successful, provision information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "APIPaymentTransactionContract"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "The merchant's registered merchant ID at the bank.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": false,
+    "description": "The merchant's customer account number.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "API user name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "amount",
+    "type": "number",
+    "required": true,
+    "description": "Payment amount of the transaction.",
+    "name": "amount"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "cardNumber",
+    "type": "str",
+    "required": true,
+    "description": "Card number used for the payment transaction.",
+    "name": "card_number"
+   },
+   {
+    "wire": "currencyCode",
+    "type": "str",
+    "required": true,
+    "description": "Currency code of the transaction. For TL, it should be sent as 0949.",
+    "name": "currency_code"
+   },
+   {
+    "wire": "transactionType",
+    "type": "str",
+    "required": true,
+    "description": "Transaction type. Sale: 1, Reversal: 6.",
+    "name": "transaction_type"
+   },
+   {
+    "wire": "identityTaxNumber",
+    "type": "str",
+    "required": true,
+    "description": "Customer identity number or tax number.",
+    "name": "identity_tax_number"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value calculated for the transaction and validated by the bank.",
+    "name": "hash_data"
+   },
+   {
+    "wire": "installmentCount",
+    "type": "int",
+    "required": true,
+    "description": "Number of installments for the payment transaction.",
+    "name": "installment_count"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "Description of the payment transaction.",
+    "name": "description"
+   },
+   {
+    "wire": "insuranceDeferringCount",
+    "type": "int",
+    "required": false,
+    "description": "Insurance deferring count for the payment transaction.",
+    "name": "insurance_deferring_count"
+   }
+  ],
+  "response_fields": [
+   "OrderId",
+   "ProvisionNumber",
+   "MerchantOrderId",
+   "ResponseCode",
+   "ResponseMessage",
+   "RRN",
+   "Stan",
+   "ExecutionReferenceId",
+   "IsEnrolled",
+   "TransactionTime",
+   "Password"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "virtual_pos_non_three_d_payment"
+ },
+ {
+  "id": "3403",
+  "title": "Virtual POS Sale Reversal (Masked)",
+  "category": "Virtual POS (VPOS)",
+  "doc_url": "https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/virtual-pos-sale-reversal-masked",
+  "status": "ACTIVE",
+  "method": "POST",
+  "path": "/v1/vpos/saleReversal",
+  "version": "1.0",
+  "scope": "cards",
+  "flow": "client_credentials",
+  "description": "This API is used to reverse a sales transaction performed through Virtual POS. A sales transaction can be cancelled on the same day before settlement. It returns the reversal transaction result and related authorization information.",
+  "path_params": [],
+  "query_params": [],
+  "body_kind": "object",
+  "body_wrap": [
+   "APIPaymentTransactionContract"
+  ],
+  "body_params": [
+   {
+    "wire": "merchantId",
+    "type": "int",
+    "required": true,
+    "description": "The merchant's registered merchant ID at the bank.",
+    "name": "merchant_id"
+   },
+   {
+    "wire": "customerId",
+    "type": "int",
+    "required": false,
+    "description": "The merchant's customer account number.",
+    "name": "customer_id"
+   },
+   {
+    "wire": "userName",
+    "type": "str",
+    "required": true,
+    "description": "API user name associated with the merchant integration.",
+    "name": "user_name"
+   },
+   {
+    "wire": "amount",
+    "type": "number",
+    "required": true,
+    "description": "Reversal amount of the transaction.",
+    "name": "amount"
+   },
+   {
+    "wire": "merchantOrderId",
+    "type": "str",
+    "required": true,
+    "description": "Unique order identifier generated by the merchant.",
+    "name": "merchant_order_id"
+   },
+   {
+    "wire": "currencyCode",
+    "type": "str",
+    "required": true,
+    "description": "Currency code of the transaction. For TL, it should be sent as 0949.",
+    "name": "currency_code"
+   },
+   {
+    "wire": "transactionType",
+    "type": "int",
+    "required": true,
+    "description": "Transaction type. Sale: 1, Reversal: 6.",
+    "name": "transaction_type"
+   },
+   {
+    "wire": "orderId",
+    "type": "int",
+    "required": true,
+    "description": "Unique order number of the transaction to be reversed.",
+    "name": "order_id"
+   },
+   {
+    "wire": "provisionNumber",
+    "type": "str",
+    "required": true,
+    "description": "Provision number of the transaction to be reversed.",
+    "name": "provision_number"
+   },
+   {
+    "wire": "rRN",
+    "type": "str",
+    "required": true,
+    "description": "RRN number of the transaction to be reversed.",
+    "name": "r_rn"
+   },
+   {
+    "wire": "stan",
+    "type": "str",
+    "required": true,
+    "description": "STAN number of the transaction to be reversed.",
+    "name": "stan"
+   },
+   {
+    "wire": "description",
+    "type": "str",
+    "required": false,
+    "description": "Description of the reversal transaction.",
+    "name": "description"
+   },
+   {
+    "wire": "hashData",
+    "type": "str",
+    "required": true,
+    "description": "Hash value calculated for the transaction and validated by the bank.",
+    "name": "hash_data"
+   }
+  ],
+  "response_fields": [
+   "OrderId",
+   "ProvisionNumber",
+   "MerchantOrderId",
+   "ResponseCode",
+   "ResponseMessage",
+   "RRN",
+   "Stan",
+   "ExecutionReferenceId",
+   "TransactionTime"
+  ],
+  "language": "en",
+  "resource": "vpos",
+  "name": "virtual_pos_sale_reversal"
  }
 ]

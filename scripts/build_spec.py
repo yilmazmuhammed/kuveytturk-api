@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""İndirilen dokümanlardan (.cache/kt-docs) uç nokta kataloğunu (spec/endpoints.json) üretir.
+"""İndirilen dokümanlardan (apidocs/) uç nokta kataloğunu (spec/endpoints.json) üretir.
 
     python scripts/fetch_docs.py   # dokümanları indir
     python scripts/build_spec.py   # kataloğu üret
@@ -22,8 +22,9 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl, urlsplit
 
+import docstore
+
 ROOT = Path(__file__).resolve().parent.parent
-CACHE = ROOT / ".cache" / "kt-docs"
 SPEC = ROOT / "spec" / "endpoints.json"
 OVERRIDES = ROOT / "spec" / "overrides.json"
 DOC_SITE = "https://developer.kuveytturk.com.tr/documentation"
@@ -98,6 +99,8 @@ HEADER_KEYS = {
     "authorization flow": "flow",
     "authorization": "flow",
     "yetkilendirme akisi": "flow",
+    "active": "active",
+    "aktif": "active",
 }
 
 PATH_SECTIONS = (
@@ -452,9 +455,13 @@ def _dedupe(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return unique
 
 
-def parse_endpoint(doc: dict[str, Any], category: str) -> tuple[dict[str, Any] | None, list[str]]:
+def parse_endpoint(page: dict[str, Any], category: str) -> tuple[dict[str, Any] | None, list[str]]:
+    """Bir doküman sayfasını (``docstore.load_page`` çıktısı) uç nokta kaydına çevirir.
+
+    Sayfa bir uç nokta anlatmıyorsa ``None`` döner.
+    """
     warnings: list[str] = []
-    markdown = doc.get("documentData") or ""
+    markdown = page.get("body") or ""
     preamble, sections = split_sections(markdown)
     header = parse_header(preamble)
     if "url" not in header or "method" not in header:
@@ -553,22 +560,18 @@ def parse_endpoint(doc: dict[str, Any], category: str) -> tuple[dict[str, Any] |
         if row["wire"].lower() not in ENVELOPE_FIELDS
     ]
 
-    status = ""
-    tags = doc.get("tags")
-    if isinstance(tags, str):
-        tags = load_json_lenient(tags)
-    for tag in tags or []:
-        if isinstance(tag, dict) and tag.get("group") == "Status":
-            status = str(tag.get("key") or "")
-
+    # Başlık tablosunda "Active | false" yazan sayfalar sunucudan kaldırılmış eski uç noktalardır
+    # (çağrıldıklarında 404 "Path not found" döner).
+    active = fold(header.get("active", "true")) not in ("false", "hayir", "no", "0", "pasif")
     description = clean(first_section(sections, DESCRIPTION_SECTIONS).split("```")[0])
-    title = clean(doc.get("title") or "")
+    title = clean(page.get("title") or "")
     endpoint = {
-        "id": str(doc.get("id") or ""),
+        "id": str(page.get("id") or ""),
         "title": title,
         "category": category,
         "doc_url": f"{DOC_SITE}/{slugify(category)}/{slugify(title)}",
-        "status": status,
+        "status": str(page.get("status") or ""),
+        "active": active,
         "method": method,
         "path": path,
         "version": header.get("version", ""),
@@ -641,44 +644,45 @@ def main() -> int:
     parser.add_argument("--quiet", action="store_true", help="uyarıları yazdırma")
     args = parser.parse_args()
 
-    menu_path = CACHE / "menu.json"
-    if not menu_path.exists():
+    if not docstore.MENU.exists():
         print("Önce scripts/fetch_docs.py çalıştırın.", file=sys.stderr)
         return 1
-    menu = json.loads(menu_path.read_text(encoding="utf-8"))["data"]
+    menu = docstore.load_menu()
+    pages = docstore.index()
     overrides = json.loads(OVERRIDES.read_text(encoding="utf-8")) if OVERRIDES.exists() else {}
     overrides = {k: v for k, v in overrides.items() if not k.startswith("_")}
 
     endpoints: list[dict[str, Any]] = []
-    missing = skipped = translated = 0
+    missing = skipped = translated = inactive = 0
     report: list[str] = []
     seen: set[tuple[str, str]] = set()
     # Menüde aynı uç noktanın İngilizce ve Türkçe sayfaları ayrı kayıtlardır. İngilizce esas
-    # alınır (bazı İngilizce kategorilerin dil alanı boştur); yalnızca Türkçe sayfası olan
-    # uç noktalar sonradan eklenir.
+    # alınır; yalnızca Türkçe sayfası olan uç noktalar sonradan eklenir.
     for language in ("en", "tr"):
         known = set(seen)
         for category in menu:
-            if (category.get("languageId") or "en") != language:
+            if category["language"] != language:
                 continue
-            category_name = category["categoryName"].strip()
-            for sub in category.get("subMenus") or []:
-                path = CACHE / "documents" / f"{sub['id']}.json"
-                if not path.exists():
+            for entry in category["pages"]:
+                doc_id = entry["id"]
+                if doc_id not in pages:
                     missing += 1
                     continue
-                doc = json.loads(path.read_text(encoding="utf-8")).get("data") or {}
-                doc["id"] = str(sub["id"])
-                if overrides.get(str(sub["id"]), {}).get("skip"):
+                if overrides.get(doc_id, {}).get("skip"):
                     skipped += 1
                     continue
-                endpoint, warnings = parse_endpoint(doc, category_name)
+                page = docstore.load_page(pages[doc_id])
+                page["id"] = doc_id
+                endpoint, warnings = parse_endpoint(page, category["name"])
                 if endpoint is None:
                     skipped += 1
                     if warnings:
                         report.append(
-                            f"[{sub['id']}] {sub['title']}: ATLANDI - {'; '.join(warnings)}"
+                            f"[{doc_id}] {entry['title']}: ATLANDI - {'; '.join(warnings)}"
                         )
+                    continue
+                if not endpoint.pop("active"):
+                    inactive += 1
                     continue
                 key = (endpoint["method"], endpoint["path"].lower())
                 if language == "tr" and key in known:
@@ -687,7 +691,7 @@ def main() -> int:
                 seen.add(key)
                 endpoint["language"] = language
                 endpoints.append(endpoint)
-                report.extend(f"[{sub['id']}] {endpoint['title']}: {w}" for w in warnings)
+                report.extend(f"[{doc_id}] {endpoint['title']}: {w}" for w in warnings)
 
     assign_names(endpoints, overrides)
     endpoints.sort(key=lambda e: (e["resource"], e["name"]))
@@ -706,8 +710,8 @@ def main() -> int:
     resources = Counter(e["resource"] for e in endpoints)
     print(
         f"{len(endpoints)} uç nokta, {len(resources)} kaynak -> {SPEC.relative_to(ROOT)} "
-        f"(uç nokta olmayan {skipped} sayfa ve İngilizcesi bulunan {translated} Türkçe sayfa "
-        f"atlandı, {missing} sayfa önbellekte yok, "
+        f"(atlananlar: uç nokta olmayan {skipped}, pasif {inactive}, İngilizcesi bulunan "
+        f"{translated} Türkçe sayfa; {missing} sayfa henüz indirilmedi; "
         f"{len(report)} uyarı)"
     )
     return 0

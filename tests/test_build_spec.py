@@ -12,6 +12,9 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 
 
+sys.path.insert(0, str(ROOT / "scripts"))
+
+
 def _load(name: str) -> Any:
     spec = importlib.util.spec_from_file_location(name, ROOT / "scripts" / f"{name}.py")
     assert spec and spec.loader
@@ -40,10 +43,11 @@ def parse(markdown: str, **header: str) -> tuple[dict[str, Any], list[str]]:
     doc = {
         "id": "1",
         "title": "Thing List (Beta)",
-        "documentData": HEADER.format(**values) + markdown,
+        "body": HEADER.format(**values) + markdown,
     }
     endpoint, warnings = build_spec.parse_endpoint(doc, "Some Category")
     assert endpoint is not None
+    assert endpoint.pop("active") is True
     build_spec.assign_names([endpoint], {})
     return endpoint, warnings
 
@@ -75,8 +79,21 @@ def test_flow_detection_and_url_normalisation():
 
 
 def test_pages_without_endpoint_header_are_skipped():
-    doc = {"id": "1", "title": "Guide", "documentData": "## Introduction\nJust prose."}
+    doc = {"id": "1", "title": "Guide", "body": "## Introduction\nJust prose."}
     assert build_spec.parse_endpoint(doc, "Introduction") == (None, [])
+
+
+def test_retired_pages_are_flagged_inactive():
+    header = (
+        "| URL | /v1/transfers/ToIBAN |\n| - | - |\n| Method | POST |\n"
+        "| Scope | transfers |\n| Authorization Flow | authorization code |\n"
+    )
+    current, _ = build_spec.parse_endpoint({"id": "1", "title": "T", "body": header}, "Other")
+    retired, _ = build_spec.parse_endpoint(
+        {"id": "1", "title": "T", "body": header + "| Active | false |\n"}, "Other"
+    )
+    assert current["active"] is True
+    assert retired["active"] is False
 
 
 def test_query_table_with_route_parameter_and_placeholder_row():

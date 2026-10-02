@@ -182,7 +182,7 @@ kt.post("/v1/ornek", scope="public", body={"alan": "değer"})
 | [`account_transactions.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/account_transactions.py) | Bir hesabın hareketleri ve dekontu |
 | [`exchange_rates.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/exchange_rates.py) | Döviz ve kıymetli maden kurları |
 | [`iban_lookup.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/iban_lookup.py) | IBAN sahibini ve bankasını sorgulama |
-| [`money_transfer.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/money_transfer.py) | Hesaptan hesaba para transferi, durum sorgulama |
+| [`money_transfer.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/money_transfer.py) | Bir IBAN'a para transferi (önce alıcı doğrulama), durum sorgulama |
 | [`async_usage.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/async_usage.py) | Asenkron istemci |
 | [`web_app_flow.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/web_app_flow.py) | Web uygulamasında müşteri girişi iskeleti |
 

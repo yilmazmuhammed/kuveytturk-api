@@ -21,8 +21,8 @@ async def main() -> None:
             kt.fx.fx_currency_rates(),
             kt.treasury.precious_metal_rates(),
         )
-    columns = [("fxCode", "Kod"), ("name", "Ad"), ("buyRate", "Alış"), ("sellRate", "Satış")]
-    print_table(as_list(currencies.value, "rates") + as_list(metals.value, "rates"), columns)
+    columns = [("fxCode", "Kod"), ("fxName|name", "Ad"), ("buyRate", "Alış"), ("sellRate", "Satış")]
+    print_table(as_list(currencies.value, "rateList") + as_list(metals.value, "rateList"), columns)
 
 
 if __name__ == "__main__":

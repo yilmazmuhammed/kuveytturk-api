@@ -208,6 +208,42 @@ class TppAccounts(Resource):
             options=request_options,
         )
 
+    def receipt_v1(
+        self,
+        *,
+        suffix: str,
+        business_key: str,
+        extra_query: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Receipt.
+
+        ``GET /v1/accounts/{suffix}/transactions/{businessKey}``
+
+        Kapsam: ``accounts`` · Akış: authorization code (müşteri girişi gerekir)
+
+        Returns the receipt values of the transaction that is given by the businesskey. The API
+        response is divided into four parts in order to help visualize the receipt: "leftHeader,
+        rightHeader, body, footer". The entire data in these properties is also available in the
+        slipList property.
+
+        Args:
+            suffix: (yol, zorunlu)
+            business_key: (``businessKey``, yol, zorunlu)
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/receipt
+        """
+        _query = merge({}, extra_query)
+        return self._client.request(
+            "GET",
+            "/v1/accounts/{suffix}/transactions/{businessKey}",
+            scope="accounts",
+            flow="authorization_code",
+            path_params={"suffix": suffix, "businessKey": business_key},
+            query=_query,
+            options=request_options,
+        )
+
     def receipt_v2(
         self,
         *,
@@ -443,6 +479,42 @@ class AsyncTppAccounts(AsyncResource):
             scope="accounts",
             flow="authorization_code",
             path_params={"suffix": suffix},
+            query=_query,
+            options=request_options,
+        )
+
+    async def receipt_v1(
+        self,
+        *,
+        suffix: str,
+        business_key: str,
+        extra_query: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Receipt.
+
+        ``GET /v1/accounts/{suffix}/transactions/{businessKey}``
+
+        Kapsam: ``accounts`` · Akış: authorization code (müşteri girişi gerekir)
+
+        Returns the receipt values of the transaction that is given by the businesskey. The API
+        response is divided into four parts in order to help visualize the receipt: "leftHeader,
+        rightHeader, body, footer". The entire data in these properties is also available in the
+        slipList property.
+
+        Args:
+            suffix: (yol, zorunlu)
+            business_key: (``businessKey``, yol, zorunlu)
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/receipt
+        """
+        _query = merge({}, extra_query)
+        return await self._client.request(
+            "GET",
+            "/v1/accounts/{suffix}/transactions/{businessKey}",
+            scope="accounts",
+            flow="authorization_code",
+            path_params={"suffix": suffix, "businessKey": business_key},
             query=_query,
             options=request_options,
         )

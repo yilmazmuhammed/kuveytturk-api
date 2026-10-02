@@ -530,6 +530,9 @@ def _error_detail(data: Any) -> str:
     if results:
         return "; ".join(str(r) for r in results if str(r)) or "bilinmeyen hata"
     if isinstance(data, Mapping):
+        errors = data.get("errors")
+        if isinstance(errors, list) and errors:
+            return json.dumps(errors, ensure_ascii=False)[:300]
         for key in ("message", "Message", "error_description", "error", "title", "detail"):
             if data.get(key):
                 return str(data[key])

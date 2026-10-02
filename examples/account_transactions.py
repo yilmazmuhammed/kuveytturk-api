@@ -63,8 +63,14 @@ def main(argv: Sequence[str] | None = None) -> None:
                 receipt = kt.tpp_accounts.receipt_v2(transaction_reference=reference)
             else:
                 receipt = kt.accounts.receipt_v3(transaction_reference=reference)
-            print(f"\nDekont: {receipt.get('title')} - {receipt.get('description')}")
-            print_table(as_list(receipt.value, "slipList"), [("key", "Alan"), ("value", "Değer")])
+            print(
+                f"\nDekont: {receipt.get('title') or '(başlıksız)'} {receipt.get('description') or ''}"
+            )
+            slips = as_list(receipt.value, "slipList")
+            if slips:
+                print_table(slips, [("key", "Alan"), ("value", "Değer")])
+            else:
+                print("(bu hareket için dekont ayrıntısı dönmedi)")
 
 
 if __name__ == "__main__":

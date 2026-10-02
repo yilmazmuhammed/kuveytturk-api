@@ -10,7 +10,7 @@ from typing import Any
 
 from .._base import RequestOptions
 from ..response import APIResponse
-from ._resource import AsyncResource, Resource, merge
+from ._resource import AsyncResource, DateLike, Number, Resource, merge
 
 __all__ = ["AsyncVpos", "Vpos"]
 
@@ -18,102 +18,156 @@ __all__ = ["AsyncVpos", "Vpos"]
 class Vpos(Resource):
     """Sanal POS - ``kt.vpos``."""
 
-    def _3_d_secure_odeme(
+    def add_card_to_merchant_safe(
         self,
         *,
-        card_expire_date_month: str | None = None,
-        amount: str | None = None,
-        card_cvv2: str | None = None,
-        card_holder_name: str | None = None,
-        success_url: str | None = None,
-        fail_url: str | None = None,
-        description: str | None = None,
-        merchant_order_id: str | None = None,
-        user_name: str | None = None,
-        card_expire_date_year: str | None = None,
-        merchant_id: str | None = None,
-        hash_data: str | None = None,
-        installment_count: str | None = None,
-        deferring_count: str | None = None,
-        currency: str | None = None,
-        card_number: str | None = None,
-        currency_code: Any | None = None,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        hash_data: str,
+        merchant_order_id: str,
+        payment_customer_id: int,
+        card_number: str,
+        card_expire_date_month: str,
+        card_expire_date_year: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        business_key: Number | None = None,
+        payment_definition_id: int | None = None,
+        customer_definition_id: int | None = None,
+        customer_name: str | None = None,
+        adress_text: str | None = None,
+        phone_number: str | None = None,
+        email_adress: str | None = None,
+        district: str | None = None,
+        city: str | None = None,
+        country: str | None = None,
+        postal_code: str | None = None,
+        fax_number: str | None = None,
+        extra_field1: str | None = None,
+        extra_field2: str | None = None,
+        extra_field3: str | None = None,
+        extra_field4: str | None = None,
+        extra_field5: str | None = None,
+        merchant_customer_id: int | None = None,
+        safe_key: str | None = None,
+        sort_number: int | None = None,
+        is_active: bool | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """3D Secure Ödeme.
+        """addCardToMerchantSafe.
 
-        ``POST /v1/vpos/threeDPayment``
+        ``POST /v1/vpos/addCardToMerchantSafe``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Virtual POS 3D Secure (threeDPayment), kart sahibi, banka ve satıcı arasındaki veri
-        akışını özel şifreleme anahtarları kullanarak doğrulayarak e-ticaret işlemlerinde
-        güvenliği artıran bir çevrimiçi ödeme işleme altyapısıdır.
+        This API is used to securely store a customer’s card information in the payment system
+        for use in merchant-safe Non-3D Secure payment flows.
 
         Args:
-            card_expire_date_month: (``cardExpireDateMonth``, gövde) Sanal POS mağaza numarası.
-                Başvuru onayıyla birlikte işletmeye e-posta yoluyla gönderilir.
-            amount: (gövde) Tutar. Örneğin, İşlem Tutarı: 1 TL için 100, 1.234,50 TL için 123450
-                gönderilmelidir.
-            card_cvv2: (``cardCVV2``, gövde) ​​Kart CVV değeri
-            card_holder_name: (``cardHolderName``, gövde) Kart sahibinin adı
-            success_url: (``successUrl``, gövde) Güvenli Ödeme işlemlerinde, kart doğrulama
-                aşamasında kullanıcı SMS yoluyla doğrulama sayfasına yönlendirilir.
-            fail_url: (``failUrl``, gövde) Kart doğrulama hatası veya parametrelere bağlı olarak
-                oluşabilecek hatalar durumunda sonucun gönderileceği adres.
-            description: (gövde) açıklama
-            merchant_order_id: (``merchantOrderId``, gövde) Bu, müşteri sipariş numarasını
-                temsil eder.
-            user_name: (``userName``, gövde) API kullanıcı adı.
-            card_expire_date_year: (``cardExpireDateYear``, gövde) Kartın son kullanma yılı
-            merchant_id: (``merchantId``, gövde) Sanal POS mağaza numarası. Başvuru
-                onaylandıktan sonra işletmeye e-posta yoluyla gönderilecektir.
-            hash_data: (``hashData``, gövde) İşletmenin oluşturduğu ve işlem bilgileriyle
-                birlikte gönderdiği ve banka tarafından kontrol edilen alan.
-            installment_count: (``installmentCount``, gövde) Bu, satıcı tarafından güvenli iş
-                ortağı ödeme sayfasına gönderilecek taksit tutarını temsil eder.
-            deferring_count: (``deferringCount``, gövde) Harcama erteleme bilgileri
-            currency: (gövde)
-            card_number: (``cardNumber``, gövde) “Sale” Güvenli İş Ortağı Ödeme sisteminden
-                yapılacak işlemin bir satış işlemi olduğunu gösterir.
-            currency_code: (``currencyCode``, gövde) Para birimi. TL için “0949” olarak
-                gönderilmelidir.
+            business_key: (``businessKey``, gövde) Business key value associated with the
+                merchant-safe card registration process.
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            payment_customer_id: (``paymentCustomerId``, gövde, zorunlu) Payment customer
+                identifier to which the card will be linked.
+            payment_definition_id: (``paymentDefinitionId``, gövde) Payment definition
+                identifier associated with the customer payment setup.
+            customer_definition_id: (``customerDefinitionId``, gövde) Customer definition
+                identifier associated with the merchant customer record.
+            customer_name: (``customerName``, gövde) Name of the customer whose card information
+                will be stored.
+            adress_text: (``adressText``, gövde) Address text of the customer.
+            phone_number: (``phoneNumber``, gövde) Phone number of the customer.
+            email_adress: (``emailAdress``, gövde) Email address of the customer.
+            district: (gövde) District information of the customer address.
+            city: (gövde) City information of the customer address.
+            country: (gövde) Country information of the customer address.
+            postal_code: (``postalCode``, gövde) Postal code of the customer address.
+            fax_number: (``faxNumber``, gövde) Fax number of the customer.
+            extra_field1: (``extraField1``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field2: (``extraField2``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field3: (``extraField3``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field4: (``extraField4``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field5: (``extraField5``, gövde) Additional field reserved for
+                merchant-specific information.
+            merchant_customer_id: (``merchantCustomerId``, gövde) Merchant-side customer
+                identifier.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be stored in the
+                merchant-safe payment system.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            safe_key: (``safeKey``, gövde) Existing or generated safe key value associated with
+                the stored card.
+            sort_number: (``sortNumber``, gövde) Sort order value for the stored card record.
+            is_active: (``isActive``, gövde) Indicates whether the stored card record is active.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Yanıt alanları: htmlContent, responseCode, responseMessage
+        Yanıt alanları: CardId, PaymentCustomerId, SafeKey, ResponseCode, ResponseMessage
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/3d-secure-odeme
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/addcardtomerchantsafe
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
             {
-                "cardExpireDateMonth": card_expire_date_month,
-                "amount": amount,
-                "cardCVV2": card_cvv2,
-                "cardHolderName": card_holder_name,
-                "successUrl": success_url,
-                "failUrl": fail_url,
-                "description": description,
-                "merchantOrderId": merchant_order_id,
-                "userName": user_name,
-                "cardExpireDateYear": card_expire_date_year,
+                "businessKey": business_key,
                 "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
                 "hashData": hash_data,
-                "installmentCount": installment_count,
-                "deferringCount": deferring_count,
-                "currency": currency,
+                "merchantOrderId": merchant_order_id,
+                "paymentCustomerId": payment_customer_id,
+                "paymentDefinitionId": payment_definition_id,
+                "customerDefinitionId": customer_definition_id,
+                "customerName": customer_name,
+                "adressText": adress_text,
+                "phoneNumber": phone_number,
+                "emailAdress": email_adress,
+                "district": district,
+                "city": city,
+                "country": country,
+                "postalCode": postal_code,
+                "faxNumber": fax_number,
+                "extraField1": extra_field1,
+                "extraField2": extra_field2,
+                "extraField3": extra_field3,
+                "extraField4": extra_field4,
+                "extraField5": extra_field5,
+                "merchantCustomerId": merchant_customer_id,
                 "cardNumber": card_number,
-                "currencyCode": currency_code,
+                "cardExpireDateMonth": card_expire_date_month,
+                "cardExpireDateYear": card_expire_date_year,
+                "cardCvv2": card_cvv2,
+                "cardHolderName": card_holder_name,
+                "safeKey": safe_key,
+                "sortNumber": sort_number,
+                "isActive": is_active,
             },
             extra_body,
         )
         _body = {"request": _body}
         return self._client.request(
             "POST",
-            "/v1/vpos/threeDPayment",
+            "/v1/vpos/addCardToMerchantSafe",
             scope="public",
             flow="client_credentials",
             query=_query,
@@ -121,7 +175,7 @@ class Vpos(Resource):
             options=request_options,
         )
 
-    def dijital_odeme_komisyon_mutabakati(
+    def digital_payment_commission_reconciliation(
         self,
         *,
         transaction_list: Sequence[Any],
@@ -129,24 +183,24 @@ class Vpos(Resource):
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Dijital Ödeme Komisyon Mutabakatı.
+        """Digital Payment Commission Reconciliation.
 
         ``POST /v1/vpos/commissionReconciliation``
 
         Kapsam: ``digital_payments`` · Akış: client credentials
 
-        Gönderilen transaction list bilgilerine göre digital payment transactions için
-        commission reconciliation işlemi yapar. Cevapta her transaction için transaction
-        identifier, status code, status message ve commission type bilgileriyle birlikte
-        reconciliation status bilgisi döner.
+        Performs commission reconciliation for digital payment transactions by using the
+        provided transaction list. The response returns reconciliation status information for
+        each transaction, including transaction identifier, status code, status message, and
+        commission type.
 
         Args:
-            transaction_list: (``transactionList``, gövde, zorunlu) Commission reconciliation
-                işlemine dahil edilecek digital payment transaction listesidir.
+            transaction_list: (``transactionList``, gövde, zorunlu) List of digital payment
+                transactions to be included in commission reconciliation.
 
         Yanıt alanları: transactionId, statusCode, statusMessage, commissionType
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/dijital-odeme-komisyon-mutabakati
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/digital-payment-commission-reconciliation
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -165,81 +219,243 @@ class Vpos(Resource):
             options=request_options,
         )
 
-    def duzenli_non_three_d_odeme(
+    def get_customer_by_safe_key(
         self,
         *,
-        merchant_order_id: str | None = None,
-        merchant_id: int | None = None,
-        customer_id: int | None = None,
-        user_name: str | None = None,
-        hash_data: str | None = None,
-        amount: str | None = None,
-        currency: str | None = None,
-        installment_count: int | None = None,
-        deferring_count: int | None = None,
-        card_number: str | None = None,
-        card_expire_date_year: str | None = None,
-        card_expire_date_month: str | None = None,
-        card_cvv2: str | None = None,
-        card_holder_name: str | None = None,
-        description: str | None = None,
-        customer_name: str | None = None,
-        payment_start_date: str | None = None,
-        iteration_counter: int | None = None,
-        period_number: int | None = None,
-        period_type: int | None = None,
-        card_holder_customer_id: int | None = None,
-        merchant_customer_id: int | None = None,
+        merchant_id: int,
+        customer_id: int,
+        payment_customer_id: int,
+        user_name: str,
+        hash_data: str,
+        safe_key: str,
+        host_ip: str | None = None,
+        card_holder_ip_address: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Düzenli NonThreeD Ödeme.
+        """getCustomerBySafeKey.
 
-        ``POST /v1/vpos/recurringNonThreeDPayment``
+        ``POST /v1/vpos/getCustomerBySafeKey``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Düzenli / tekrarlı ödeme almak için kullanılan API’dır.
+        This API is used to retrieve payment customer card information defined in the payment
+        system by using a given safeKey.
 
         Args:
-            merchant_order_id: (``merchantOrderId``, gövde)
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            hash_data: (``hashData``, gövde)
-            amount: (gövde)
-            currency: (gövde)
-            installment_count: (``installmentCount``, gövde)
-            deferring_count: (``deferringCount``, gövde)
-            card_number: (``cardNumber``, gövde)
-            card_expire_date_year: (``cardExpireDateYear``, gövde)
-            card_expire_date_month: (``cardExpireDateMonth``, gövde)
-            card_cvv2: (``cardCvv2``, gövde)
-            card_holder_name: (``cardHolderName``, gövde)
-            description: (gövde)
-            customer_name: (``customerName``, gövde)
-            payment_start_date: (``paymentStartDate``, gövde)
-            iteration_counter: (``iterationCounter``, gövde)
-            period_number: (``periodNumber``, gövde)
-            period_type: (``periodType``, gövde)
-            card_holder_customer_id: (``cardHolderCustomerId``, gövde)
-            merchant_customer_id: (``merchantCustomerId``, gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            payment_customer_id: (``paymentCustomerId``, gövde, zorunlu) Payment customer
+                identifier associated with the stored card.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            safe_key: (``safeKey``, gövde, zorunlu) Safe key used to find the payment customer
+                card information.
+            host_ip: (``hostIp``, gövde) Host IP address from which the request is initiated.
+            card_holder_ip_address: (``cardHolderIpAddress``, gövde) IP address of the
+                cardholder.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/duzenli-nonthreed-odeme
+        Yanıt alanları: CardId, PaymentCustomerId, CardNumber, ExpiryDate, SortNumber, IsActive,
+        CVV2, CVV2Encrypted, CardHolderName, SafeKey, MerchantId
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/getcustomerbysafekey
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
             {
-                "merchantOrderId": merchant_order_id,
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "paymentCustomerId": payment_customer_id,
+                "userName": user_name,
+                "hashData": hash_data,
+                "safeKey": safe_key,
+                "hostIp": host_ip,
+                "cardHolderIpAddress": card_holder_ip_address,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/getCustomerBySafeKey",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def get_seller_order_details(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        hash_data: str,
+        start_date: DateLike,
+        end_date: DateLike,
+        order_id: str | None = None,
+        merchant_order_id: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Get Seller Order Details.
+
+        ``POST /v1/vpos/getMerchantOrderDetail``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        The Get Merchant Order Detail API allows merchants to query payment and transaction
+        details for their Virtual POS orders. It returns order status, transaction status,
+        amount details, card information, terminal information, and additional transaction
+        metadata for the requested criteria.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            order_id: (``orderId``, gövde) Order identifier used to query a specific order.
+            merchant_order_id: (``merchantOrderId``, gövde) Unique order identifier generated by
+                the merchant.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with transaction
+                information and validated by the bank.
+            start_date: (``startDate``, gövde, zorunlu) Start date for querying merchant order
+                details. Format: dd.MM.yyyy.
+            end_date: (``endDate``, gövde, zorunlu) End date for querying merchant order
+                details. Format: dd.MM.yyyy.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, MerchantOrderId, MerchantId, CardHolderName, CardType,
+        CardNumber, OrderDate, OrderStatus, LastOrderStatus, OrderType, TransactionStatus,
+        FirstAmount, CancelAmount, DrawbackAmount, ClosedAmount, FEC, VPSEntryMode,
+        InstallmentCount, TransactionSecurity, ResponseCode, ResponseExplain, EndOfDayStatus,
+        TransactionSide, CardHolderIPAddress, MerchantIPAddress, MerchantUserName, ProvNumber,
+        BatchId, CardExpireDate, CVV2, ...
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/get-seller-order-details
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
                 "merchantId": merchant_id,
                 "customerId": customer_id,
                 "userName": user_name,
+                "orderId": order_id,
+                "merchantOrderId": merchant_order_id,
                 "hashData": hash_data,
+                "startDate": start_date,
+                "endDate": end_date,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/getMerchantOrderDetail",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def non_3_d_payment(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        currency: str,
+        hash_data: str,
+        installment_count: int,
+        deferring_count: int,
+        card_number: str,
+        card_expire_date_year: str,
+        card_expire_date_month: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        vpos_sub_merchant_id: int | None = None,
+        bkm_id: str | None = None,
+        pf_sub_merchant_terminal_id: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """NON 3D Payment.
+
+        ``POST /v1/vpos/non3DPayment``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        This API is used to process Non-3D Secure Virtual POS payments. In Non-3D payment
+        transactions, the payment is completed using the customer’s card information without
+        performing 3D Secure verification. The card and merchant must be authorized for Non-3D
+        Secure payment processing.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount. For example, 100 should be sent for
+                1.00 TL and 123450 should be sent for 1,234.50 TL.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency: (gövde, zorunlu) Currency code of the transaction amount. For TL, it
+                should be sent as 0949.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with transaction
+                information and validated by the bank.
+            installment_count: (``installmentCount``, gövde, zorunlu) Number of installments for
+                the payment transaction.
+            deferring_count: (``deferringCount``, gövde, zorunlu) Number of deferment periods
+                for the payment transaction.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be used for the Non-3D
+                payment transaction.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            vpos_sub_merchant_id: (``vposSubMerchantId``, gövde) Sub-merchant identifier for the
+                Virtual POS transaction.
+            bkm_id: (``bkmId``, gövde) BKM identifier related to the payment transaction.
+            pf_sub_merchant_terminal_id: (``pfSubMerchantTerminalId``, gövde) Payment
+                facilitator sub-merchant terminal identifier.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, MerchantOrderId, ProvisionNumber, RRN, Stan, ResponseCode,
+        ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/non-3d-payment
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
                 "amount": amount,
+                "merchantOrderId": merchant_order_id,
                 "currency": currency,
+                "hashData": hash_data,
                 "installmentCount": installment_count,
                 "deferringCount": deferring_count,
                 "cardNumber": card_number,
@@ -247,21 +463,16 @@ class Vpos(Resource):
                 "cardExpireDateMonth": card_expire_date_month,
                 "cardCvv2": card_cvv2,
                 "cardHolderName": card_holder_name,
-                "description": description,
-                "customerName": customer_name,
-                "paymentStartDate": payment_start_date,
-                "iterationCounter": iteration_counter,
-                "periodNumber": period_number,
-                "periodType": period_type,
-                "cardHolderCustomerId": card_holder_customer_id,
-                "merchantCustomerId": merchant_customer_id,
+                "vposSubMerchantId": vpos_sub_merchant_id,
+                "bkmId": bkm_id,
+                "pfSubMerchantTerminalId": pf_sub_merchant_terminal_id,
             },
             extra_body,
         )
         _body = {"request": _body}
         return self._client.request(
             "POST",
-            "/v1/vpos/recurringNonThreeDPayment",
+            "/v1/vpos/non3DPayment",
             scope="public",
             flow="client_credentials",
             query=_query,
@@ -269,122 +480,62 @@ class Vpos(Resource):
             options=request_options,
         )
 
-    def gelen_odeme_iptali(
+    def non_three_d_payment_by_merchant_safe(
         self,
         *,
-        merchant_id: int | None = None,
-        customer_id: int | None = None,
-        user_name: str | None = None,
-        merchant_order_id: str | None = None,
-        amount: int | None = None,
-        ok_url: str | None = None,
-        fail_url: str | None = None,
-        entry_gate_method: str | None = None,
-        hash_data: str | None = None,
-        parent_payment_id: int | None = None,
-        payment_id: int | None = None,
-        extra_query: Mapping[str, Any] | None = None,
-        extra_body: Mapping[str, Any] | None = None,
-        request_options: RequestOptions | None = None,
-    ) -> APIResponse:
-        """Gelen Ödeme İptali.
-
-        ``POST /v1/vpos/paymentOrderReversal``
-
-        Kapsam: ``public`` · Akış: client credentials
-
-        Henüz kesinleşmemiş / tahsilata dönüşmemiş bir “tahsilat işlemini”nin iptal edilmesi
-        için kullanılır.
-
-        Args:
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            amount: (gövde)
-            ok_url: (``okUrl``, gövde)
-            fail_url: (``failUrl``, gövde)
-            entry_gate_method: (``entryGateMethod``, gövde)
-            hash_data: (``hashData``, gövde)
-            parent_payment_id: (``parentPaymentId``, gövde)
-            payment_id: (``paymentId``, gövde)
-
-        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
-
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/gelen-odeme-iptali
-        """
-        _query = merge({}, extra_query)
-        _body: Any = merge(
-            {
-                "merchantId": merchant_id,
-                "customerId": customer_id,
-                "userName": user_name,
-                "merchantOrderId": merchant_order_id,
-                "amount": amount,
-                "okUrl": ok_url,
-                "failUrl": fail_url,
-                "entryGateMethod": entry_gate_method,
-                "hashData": hash_data,
-                "parentPaymentId": parent_payment_id,
-                "paymentId": payment_id,
-            },
-            extra_body,
-        )
-        _body = {"request": _body}
-        return self._client.request(
-            "POST",
-            "/v1/vpos/paymentOrderReversal",
-            scope="public",
-            flow="client_credentials",
-            query=_query,
-            body=_body,
-            options=request_options,
-        )
-
-    def isyeri_onayli_non_three_d_odeme(
-        self,
-        *,
-        merchant_id: int | None = None,
-        customer_id: int | None = None,
-        payment_customer_id: int | None = None,
-        merchant_order_id: str | None = None,
-        user_name: str | None = None,
-        hash_data: str | None = None,
-        amount: str | None = None,
-        currency: str | None = None,
+        merchant_id: int,
+        customer_id: int,
+        payment_customer_id: int,
+        merchant_order_id: str,
+        user_name: str,
+        hash_data: str,
+        amount: str,
+        currency: str,
+        safe_key: str,
         installment_count: int | None = None,
         deferring_count: int | None = None,
-        safe_key: str | None = None,
         description: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """İşyeri Onaylı NonThreeD Ödeme.
+        """nonThreeDPaymentByMerchantSafe.
 
         ``POST /v1/vpos/nonThreeDPaymentByMerchantSafe``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        İşyeri onaylı olan NonThreeD Ödeme işlemi yapılan API’dır.
+        This API is used for merchant-approved Non-3D payment processing by using a card stored
+        with a merchant-safe key.
 
         Args:
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            payment_customer_id: (``paymentCustomerId``, gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            user_name: (``userName``, gövde)
-            hash_data: (``hashData``, gövde)
-            amount: (gövde)
-            currency: (gövde)
-            installment_count: (``installmentCount``, gövde)
-            deferring_count: (``deferringCount``, gövde)
-            safe_key: (``safeKey``, gövde)
-            description: (gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            payment_customer_id: (``paymentCustomerId``, gövde, zorunlu) Payment customer
+                identifier associated with the stored card.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            amount: (gövde, zorunlu) Transaction amount to be collected.
+            currency: (gövde, zorunlu) Currency code of the transaction amount.
+            installment_count: (``installmentCount``, gövde) Number of installments for the
+                payment transaction.
+            deferring_count: (``deferringCount``, gövde) Number of deferment periods for the
+                payment transaction.
+            safe_key: (``safeKey``, gövde, zorunlu) Merchant-safe key of the stored card to be
+                used for the Non-3D payment.
+            description: (gövde) Description of the Non-3D payment transaction.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/isyeri-onayli-nonthreed-odeme
+        Yanıt alanları: OrderId, ProvisionNumber, RRN, Stan, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/nonthreedpaymentbymerchantsafe
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -415,75 +566,97 @@ class Vpos(Resource):
             options=request_options,
         )
 
-    def merchant_safe_icin_kart_ekleme(
+    def order_detail_with_payment_id(
         self,
         *,
-        business_key: int | None = None,
-        merchant_id: int | None = None,
-        customer_id: int | None = None,
-        user_name: str | None = None,
-        hash_data: str | None = None,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        hash_data: str,
+        amount: Number,
+        payment_id: int,
+        parent_payment_id: int,
+        order_id: int | None = None,
         merchant_order_id: str | None = None,
-        payment_customer_id: int | None = None,
-        card_number: str | None = None,
-        card_expire_date_month: str | None = None,
-        card_expire_date_year: str | None = None,
-        card_cvv2: str | None = None,
-        card_holder_name: str | None = None,
+        start_date: DateLike | None = None,
+        end_date: DateLike | None = None,
+        ok_url: str | None = None,
+        fail_url: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Merchant‑Safe için Kart Ekleme.
+        """Order Detail With Payment Id.
 
-        ``POST /v1/vpos/addCardToMerchantSafe``
+        ``POST /v1/vpos/orderDetailWithPaymentId``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Merchant‑safe (işyeri sorumluluğunda) Non‑3D Secure ödeme akışlarında kullanılmak üzere,
-        müşterinin kart bilgisini ödeme sistemine güvenli şekilde kaydetmek için kullanılan
-        API’dir.
+        This API is used to query the details of collections created under a payment
+        instruction. It returns payment, order, amount, status, terminal, authorization, and
+        additional transaction details by using paymentId and related query parameters.
 
         Args:
-            business_key: (``businessKey``, gövde)
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            hash_data: (``hashData``, gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            payment_customer_id: (``paymentCustomerId``, gövde)
-            card_number: (``cardNumber``, gövde)
-            card_expire_date_month: (``cardExpireDateMonth``, gövde)
-            card_expire_date_year: (``cardExpireDateYear``, gövde)
-            card_cvv2: (``cardCvv2``, gövde)
-            card_holder_name: (``cardHolderName``, gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier registered in the
+                Kuveyt Türk Virtual POS service.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            order_id: (``orderId``, gövde) Order identifier used to query a specific order.
+            merchant_order_id: (``merchantOrderId``, gövde) Merchant-side transaction or order
+                number. This field may be sent empty for this API.
+            start_date: (``startDate``, gövde) Start date for querying order details. Format:
+                dd.MM.yyyy.
+            end_date: (``endDate``, gövde) End date for querying order details. Format:
+                dd.MM.yyyy.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with payment
+                transaction information and validated by the bank.
+            amount: (gövde, zorunlu) Transaction amount. This field should be sent as 0 for this
+                method.
+            ok_url: (``okUrl``, gövde) URL to which the user is redirected after successful card
+                verification in secure payment transactions.
+            fail_url: (``failUrl``, gövde) URL to which the result is sent if card verification
+                fails or an error occurs.
+            payment_id: (``paymentId``, gövde, zorunlu) Payment identifier used to query
+                collection details.
+            parent_payment_id: (``parentPaymentId``, gövde, zorunlu) Parent payment identifier
+                related to the payment instruction.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/merchant-safe-icin-kart-ekleme
+        Yanıt alanları: OrderId, ProvNumber, PaymentId, ParentPaymentId, MerchantId,
+        MerchantOrderId, Amount, Currency, PaymentDate, PaymentStartDate, PaymentStatus,
+        ResponseCode, ResponseDetail, ReverseAmount, DrawbackAmount, ClosedAmount, TerminalId,
+        RRN, OrderStatus, AuthNumber, PeriodType, PeriodNumber, IterationCounter, IsActive,
+        TotalIteration, RejectedRetryCount, RejectedPeriodNumber, RejectedPeriodType,
+        LastTriedTime, LastTryCount, ...
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/order-detail-with-payment-id
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
             {
-                "businessKey": business_key,
                 "merchantId": merchant_id,
                 "customerId": customer_id,
                 "userName": user_name,
-                "hashData": hash_data,
+                "orderId": order_id,
                 "merchantOrderId": merchant_order_id,
-                "paymentCustomerId": payment_customer_id,
-                "cardNumber": card_number,
-                "cardExpireDateMonth": card_expire_date_month,
-                "cardExpireDateYear": card_expire_date_year,
-                "cardCvv2": card_cvv2,
-                "cardHolderName": card_holder_name,
+                "startDate": start_date,
+                "endDate": end_date,
+                "hashData": hash_data,
+                "amount": amount,
+                "okUrl": ok_url,
+                "failUrl": fail_url,
+                "paymentId": payment_id,
+                "parentPaymentId": parent_payment_id,
             },
             extra_body,
         )
         _body = {"request": _body}
         return self._client.request(
             "POST",
-            "/v1/vpos/addCardToMerchantSafe",
+            "/v1/vpos/orderDetailWithPaymentId",
             scope="public",
             flow="client_credentials",
             query=_query,
@@ -491,51 +664,165 @@ class Vpos(Resource):
             options=request_options,
         )
 
-    def on_provizyon(
+    def payment_order_reversal(
         self,
         *,
-        merchant_id: str | None = None,
-        customer_id: str | None = None,
-        user_name: str | None = None,
-        amount: str | None = None,
-        merchant_order_id: str | None = None,
-        card_number: str | None = None,
-        card_expire_date_year: str | None = None,
-        card_expire_date_month: str | None = None,
-        card_cvv2: str | None = None,
-        card_holder_name: str | None = None,
-        currency: str | None = None,
-        hash_data: str | None = None,
+        customer_id: int,
+        merchant_id: int,
+        hash_data: str,
+        merchant_order_id: str,
+        user_name: str,
+        parent_payment_id: int,
+        payment_id: int,
+        transaction_type: str | None = None,
+        installment_count: int | None = None,
+        amount: int | None = None,
+        display_amount: str | None = None,
+        cancel_amount: Number | None = None,
+        currency_code: str | None = None,
+        transaction_security: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Ön Provizyon.
+        """paymentOrderReversal.
+
+        ``POST /v1/vpos/paymentOrderReversal``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        It is used to cancel a coming payment that has not yet been finalized or converted into
+        a collected payment.
+
+        Args:
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            transaction_type: (``transactionType``, gövde) Type of the transaction to be
+                performed.
+            installment_count: (``installmentCount``, gövde) Number of installments for the
+                payment transaction.
+            amount: (gövde) Transaction amount.
+            display_amount: (``displayAmount``, gövde) Display amount value of the transaction.
+            cancel_amount: (``cancelAmount``, gövde) Amount to be cancelled for the payment
+                order reversal.
+            currency_code: (``currencyCode``, gövde) Currency code of the transaction amount.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            transaction_security: (``transactionSecurity``, gövde) Transaction security type or
+                security level information.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            parent_payment_id: (``parentPaymentId``, gövde, zorunlu) Parent payment identifier
+                of the related payment transaction.
+            payment_id: (``paymentId``, gövde, zorunlu) Payment identifier of the coming payment
+                to be reversed.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: ParentPaymentId, PaymentId, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/paymentorderreversal
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "customerId": customer_id,
+                "merchantId": merchant_id,
+                "hashData": hash_data,
+                "transactionType": transaction_type,
+                "installmentCount": installment_count,
+                "amount": amount,
+                "displayAmount": display_amount,
+                "cancelAmount": cancel_amount,
+                "currencyCode": currency_code,
+                "merchantOrderId": merchant_order_id,
+                "transactionSecurity": transaction_security,
+                "userName": user_name,
+                "parentPaymentId": parent_payment_id,
+                "paymentId": payment_id,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/paymentOrderReversal",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def pre_authorization(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        currency: str,
+        hash_data: str,
+        card_number: str,
+        card_expire_date_year: str,
+        card_expire_date_month: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        vpos_sub_merchant_id: int | None = None,
+        bkm_id: str | None = None,
+        pf_sub_merchant_terminal_id: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """preAuthorization.
 
         ``POST /v1/vpos/preAuthorization``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Müşteri kartından tutar tahsil edilmeden, belirtilen tutar için ön provizyon (limit
-        blokajı) almak amacıyla kullanılan sanal POS servisidir.
+        This virtual POS service is used to obtain a preauthorization, which places a limit hold
+        for a specified amount without charging the customer’s card.
 
         Args:
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            amount: (gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            card_number: (``cardNumber``, gövde)
-            card_expire_date_year: (``cardExpireDateYear``, gövde)
-            card_expire_date_month: (``cardExpireDateMonth``, gövde)
-            card_cvv2: (``cardCVV2``, gövde)
-            card_holder_name: (``cardHolderName``, gövde)
-            currency: (gövde)
-            hash_data: (``hashData``, gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount for which preauthorization will be
+                obtained.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency: (gövde, zorunlu) Currency code of the transaction amount.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be used for the
+                preauthorization transaction.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            vpos_sub_merchant_id: (``vposSubMerchantId``, gövde) Sub-merchant identifier for the
+                Virtual POS transaction.
+            bkm_id: (``bkmId``, gövde) BKM identifier related to the payment transaction.
+            pf_sub_merchant_terminal_id: (``pfSubMerchantTerminalId``, gövde) Payment
+                facilitator sub-merchant terminal identifier.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/on-provizyon
+        Yanıt alanları: MerchantOrderId, ProvisionNumber, RRN, Stan, ResponseCode,
+        ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/preauthorization
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -545,13 +832,16 @@ class Vpos(Resource):
                 "userName": user_name,
                 "amount": amount,
                 "merchantOrderId": merchant_order_id,
+                "currency": currency,
+                "hashData": hash_data,
                 "cardNumber": card_number,
                 "cardExpireDateYear": card_expire_date_year,
                 "cardExpireDateMonth": card_expire_date_month,
-                "cardCVV2": card_cvv2,
+                "cardCvv2": card_cvv2,
                 "cardHolderName": card_holder_name,
-                "currency": currency,
-                "hashData": hash_data,
+                "vposSubMerchantId": vpos_sub_merchant_id,
+                "bkmId": bkm_id,
+                "pfSubMerchantTerminalId": pf_sub_merchant_terminal_id,
             },
             extra_body,
         )
@@ -566,43 +856,242 @@ class Vpos(Resource):
             options=request_options,
         )
 
-    def satis_islemi_iptal(
+    def recurring_non_three_d_payment(
         self,
         *,
-        merchant_id: str | None = None,
-        customer_id: str | None = None,
-        user_name: str | None = None,
-        amount: int | None = None,
-        merchant_order_id: str | None = None,
-        order_id: int | None = None,
-        hash_data: str | None = None,
-        sale_reversal_type: int | None = None,
+        merchant_order_id: str,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        hash_data: str,
+        amount: str,
+        currency: str,
+        card_number: str,
+        card_expire_date_year: str,
+        card_expire_date_month: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        customer_name: str,
+        payment_start_date: DateLike,
+        iteration_counter: int,
+        period_number: int,
+        period_type: int,
+        card_holder_customer_id: int,
+        installment_count: int | None = None,
+        deferring_count: int | None = None,
+        description: str | None = None,
+        bkm_id: str | None = None,
+        payment_definition_id: int | None = None,
+        adress_text: str | None = None,
+        city: str | None = None,
+        country: str | None = None,
+        district: str | None = None,
+        email_adress: str | None = None,
+        extra_field1: str | None = None,
+        extra_field2: str | None = None,
+        extra_field3: str | None = None,
+        extra_field4: str | None = None,
+        extra_field5: str | None = None,
+        fax_number: str | None = None,
+        merchant_customer_id: int | None = None,
+        phone_number: str | None = None,
+        postal_code: str | None = None,
+        customer_definition_id: int | None = None,
+        vpos_sub_merchant_id: int | None = None,
+        pf_sub_merchant_terminal_id: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Satış İşlemi İptal.
+        """recurringNonThreeDPayment.
+
+        ``POST /v1/vpos/recurringNonThreeDPayment``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        This API is used to create recurring Non-3D payment instructions for regular payment
+        collection. It receives card, merchant, customer, payment schedule, and transaction
+        details as request parameters.
+
+        Args:
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            amount: (gövde, zorunlu) Recurring payment amount to be collected.
+            currency: (gövde, zorunlu) Currency code of the recurring payment amount.
+            installment_count: (``installmentCount``, gövde) Number of installments for the
+                payment transaction.
+            deferring_count: (``deferringCount``, gövde) Number of deferment periods for the
+                payment transaction.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be used for the
+                recurring Non-3D payment.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            description: (gövde) Description of the recurring payment instruction.
+            bkm_id: (``bkmId``, gövde) BKM identifier related to the payment transaction.
+            customer_name: (``customerName``, gövde, zorunlu) Name of the customer associated
+                with the recurring payment.
+            payment_start_date: (``paymentStartDate``, gövde, zorunlu) Start date of the
+                recurring payment instruction.
+            iteration_counter: (``iterationCounter``, gövde, zorunlu) Number of payment
+                iterations to be executed.
+            period_number: (``periodNumber``, gövde, zorunlu) Period interval number for the
+                recurring payment schedule.
+            period_type: (``periodType``, gövde, zorunlu) Period type of the recurring payment
+                schedule.
+            card_holder_customer_id: (``cardHolderCustomerId``, gövde, zorunlu) Customer
+                identifier of the cardholder.
+            payment_definition_id: (``paymentDefinitionId``, gövde) Payment definition
+                identifier associated with the recurring payment setup.
+            adress_text: (``adressText``, gövde) Address text of the customer.
+            city: (gövde) City information of the customer address.
+            country: (gövde) Country information of the customer address.
+            district: (gövde) District information of the customer address.
+            email_adress: (``emailAdress``, gövde) Email address of the customer.
+            extra_field1: (``extraField1``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field2: (``extraField2``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field3: (``extraField3``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field4: (``extraField4``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field5: (``extraField5``, gövde) Additional field reserved for
+                merchant-specific information.
+            fax_number: (``faxNumber``, gövde) Fax number of the customer.
+            merchant_customer_id: (``merchantCustomerId``, gövde) Merchant-side customer
+                identifier.
+            phone_number: (``phoneNumber``, gövde) Phone number of the customer.
+            postal_code: (``postalCode``, gövde) Postal code of the customer address.
+            customer_definition_id: (``customerDefinitionId``, gövde) Customer definition
+                identifier associated with the merchant customer record.
+            vpos_sub_merchant_id: (``vposSubMerchantId``, gövde) Sub-merchant identifier for the
+                Virtual POS transaction.
+            pf_sub_merchant_terminal_id: (``pfSubMerchantTerminalId``, gövde) Payment
+                facilitator sub-merchant terminal identifier.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, PaymentId, PaymentCustomerId, MerchantOrderId, Amount,
+        CurrencyCode, PaymentStartDate, IterationCounter, PeriodNumber, PeriodType, IsActive,
+        PaymentStatus, ProvisionNumber, RRN, Stan, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/recurringnonthreedpayment
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantOrderId": merchant_order_id,
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
+                "hashData": hash_data,
+                "amount": amount,
+                "currency": currency,
+                "installmentCount": installment_count,
+                "deferringCount": deferring_count,
+                "cardNumber": card_number,
+                "cardExpireDateYear": card_expire_date_year,
+                "cardExpireDateMonth": card_expire_date_month,
+                "cardCvv2": card_cvv2,
+                "cardHolderName": card_holder_name,
+                "description": description,
+                "bkmId": bkm_id,
+                "customerName": customer_name,
+                "paymentStartDate": payment_start_date,
+                "iterationCounter": iteration_counter,
+                "periodNumber": period_number,
+                "periodType": period_type,
+                "cardHolderCustomerId": card_holder_customer_id,
+                "paymentDefinitionId": payment_definition_id,
+                "adressText": adress_text,
+                "city": city,
+                "country": country,
+                "district": district,
+                "emailAdress": email_adress,
+                "extraField1": extra_field1,
+                "extraField2": extra_field2,
+                "extraField3": extra_field3,
+                "extraField4": extra_field4,
+                "extraField5": extra_field5,
+                "faxNumber": fax_number,
+                "merchantCustomerId": merchant_customer_id,
+                "phoneNumber": phone_number,
+                "postalCode": postal_code,
+                "customerDefinitionId": customer_definition_id,
+                "vposSubMerchantId": vpos_sub_merchant_id,
+                "pfSubMerchantTerminalId": pf_sub_merchant_terminal_id,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/recurringNonThreeDPayment",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def sale_order_reversal(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        hash_data: str,
+        sale_reversal_type: int,
+        language: int | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """saleOrderReversal.
 
         ``POST /v1/vpos/saleOrderReversal``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Başarılı bir satış işlemini gün sonu öncesinde iptal ederek tahsilatın tamamen geri
-        alınmasını sağlar.
+        It enables the complete reversal of a successful sale transaction by cancelling it
+        before end-of-day settlement.
 
         Args:
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            amount: (gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            order_id: (``orderId``, gövde)
-            hash_data: (``hashData``, gövde)
-            sale_reversal_type: (``saleReversalType``, gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount to be reversed.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            language: (gövde) Language option used for the transaction response messages.
+            sale_reversal_type: (``saleReversalType``, gövde, zorunlu) Sale reversal type that
+                identifies the reversal operation.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/satis-islemi-iptal
+        Yanıt alanları: OrderId, MerchantOrderId, ProvisionNumber, RRN, Stan, ResponseCode,
+        ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/saleorderreversal
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -612,8 +1101,8 @@ class Vpos(Resource):
                 "userName": user_name,
                 "amount": amount,
                 "merchantOrderId": merchant_order_id,
-                "orderId": order_id,
                 "hashData": hash_data,
+                "language": language,
                 "saleReversalType": sale_reversal_type,
             },
             extra_body,
@@ -623,6 +1112,414 @@ class Vpos(Resource):
             "POST",
             "/v1/vpos/saleOrderReversal",
             scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def secure_partner_payment(
+        self,
+        *,
+        merchant_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        currency_code: str,
+        transaction_type: str,
+        token_type: str,
+        success_url: str,
+        fail_url: str,
+        hash_data: str,
+        installment_count: int,
+        client_ip: str,
+        card_holder_ip: str,
+        order_description: str | None = None,
+        email: str | None = None,
+        cc: str | None = None,
+        subscriber: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Secure Partner Payment.
+
+        ``POST /v1/vpos/secureCommonPaymentToken``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        This API is used to generate a Secure Common Payment token for Virtual POS transactions.
+        It allows merchants to redirect customers to Kuveyt Türk’s Secure Common Payment page,
+        where the customer can complete the payment through supported 3D Secure or GO payment
+        flows.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount. For example, 100 should be sent for
+                1.00 TL and 123450 should be sent for 1,234.50 TL.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency_code: (``currencyCode``, gövde, zorunlu) Currency code of the transaction
+                amount. For TL, it should be sent as 0949.
+            transaction_type: (``transactionType``, gövde, zorunlu) Transaction type to be
+                performed through the Secure Common Payment flow.
+            token_type: (``TokenType``, gövde, zorunlu) Token type that specifies the payment
+                flow to be initiated.
+            success_url: (``successUrl``, gövde, zorunlu) URL to which the customer is
+                redirected after successful payment or verification.
+            fail_url: (``failUrl``, gövde, zorunlu) URL to which the customer is redirected if
+                payment or verification fails, or if an error occurs.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with transaction
+                information and validated by the bank.
+            installment_count: (``installmentCount``, gövde, zorunlu) Number of installments for
+                the payment transaction.
+            order_description: (``orderDescription``, gövde) Description of the order.
+            client_ip: (``clientIp``, gövde, zorunlu) IP address of the client initiating the
+                request.
+            card_holder_ip: (``cardHolderIp``, gövde, zorunlu) IP address of the
+                cardholder/customer who will open the Secure Common Payment page.
+            email: (gövde) Email address of the cardholder/customer.
+            cc: (gövde) Country or phone area code of the cardholder/customer.
+            subscriber: (gövde) Phone number of the cardholder/customer.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: Url, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/secure-partner-payment
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "userName": user_name,
+                "amount": amount,
+                "merchantOrderId": merchant_order_id,
+                "currencyCode": currency_code,
+                "transactionType": transaction_type,
+                "TokenType": token_type,
+                "successUrl": success_url,
+                "failUrl": fail_url,
+                "hashData": hash_data,
+                "installmentCount": installment_count,
+                "orderDescription": order_description,
+                "clientIp": client_ip,
+                "cardHolderIp": card_holder_ip,
+                "email": email,
+                "cc": cc,
+                "subscriber": subscriber,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/secureCommonPaymentToken",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def threee_d_payment(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        currency: str,
+        success_url: str,
+        fail_url: str,
+        hash_data: str,
+        installment_count: int,
+        deferring_count: int,
+        card_number: str,
+        card_expire_date_year: str,
+        card_expire_date_month: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        description: str | None = None,
+        vpos_sub_merchant_id: int | None = None,
+        bkm_id: str | None = None,
+        pf_sub_merchant_terminal_id: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """ThreeeD Payment.
+
+        ``POST /v1/vpos/threeDPayment``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        Virtual POS 3D Secure payment API is used to initiate an online card payment with 3D
+        Secure verification. It returns HTML content that redirects the cardholder to the 3D
+        Secure authentication flow, together with response code and response message
+        information.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount. For example, 100 should be sent for
+                1.00 TL and 123450 should be sent for 1,234.50 TL.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency: (gövde, zorunlu) Currency code of the transaction amount. For TL, it
+                should be sent as 0949.
+            success_url: (``successUrl``, gövde, zorunlu) URL to which the cardholder is
+                redirected after successful 3D Secure verification.
+            fail_url: (``failUrl``, gövde, zorunlu) URL to which the cardholder is redirected if
+                3D Secure verification fails or an error occurs.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with transaction
+                information and validated by the bank.
+            installment_count: (``installmentCount``, gövde, zorunlu) Number of installments for
+                the payment transaction.
+            deferring_count: (``deferringCount``, gövde, zorunlu) Number of deferment periods
+                for the payment transaction.
+            description: (gövde) Description of the payment transaction.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be used for the 3D
+                Secure payment transaction.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            vpos_sub_merchant_id: (``vposSubMerchantId``, gövde) Sub-merchant identifier for the
+                Virtual POS transaction.
+            bkm_id: (``bkmId``, gövde) BKM identifier related to the payment transaction.
+            pf_sub_merchant_terminal_id: (``pfSubMerchantTerminalId``, gövde) Payment
+                facilitator sub-merchant terminal identifier.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: HtmlContent, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/threeed-payment
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
+                "amount": amount,
+                "merchantOrderId": merchant_order_id,
+                "currency": currency,
+                "successUrl": success_url,
+                "failUrl": fail_url,
+                "hashData": hash_data,
+                "installmentCount": installment_count,
+                "deferringCount": deferring_count,
+                "description": description,
+                "cardNumber": card_number,
+                "cardExpireDateYear": card_expire_date_year,
+                "cardExpireDateMonth": card_expire_date_month,
+                "cardCvv2": card_cvv2,
+                "cardHolderName": card_holder_name,
+                "vposSubMerchantId": vpos_sub_merchant_id,
+                "bkmId": bkm_id,
+                "pfSubMerchantTerminalId": pf_sub_merchant_terminal_id,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/threeDPayment",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def virtual_pos_non_three_d_payment(
+        self,
+        *,
+        merchant_id: int,
+        user_name: str,
+        amount: Number,
+        merchant_order_id: str,
+        card_number: str,
+        currency_code: str,
+        transaction_type: str,
+        identity_tax_number: str,
+        hash_data: str,
+        installment_count: int,
+        customer_id: int | None = None,
+        description: str | None = None,
+        insurance_deferring_count: int | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Virtual POS NonThreeD Payment (Masked Card).
+
+        ``POST /v1/vpos/nonThreeDPayment``
+
+        Kapsam: ``cards`` · Akış: client credentials
+
+        This API is used to perform Non-3D payment transactions through Virtual POS by using
+        identity-tax number and payment information. It returns the payment transaction result
+        and, if the transaction is successful, provision information.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) The merchant's registered merchant ID
+                at the bank.
+            customer_id: (``customerId``, gövde) The merchant's customer account number.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Payment amount of the transaction.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number used for the payment
+                transaction.
+            currency_code: (``currencyCode``, gövde, zorunlu) Currency code of the transaction.
+                For TL, it should be sent as 0949.
+            transaction_type: (``transactionType``, gövde, zorunlu) Transaction type. Sale: 1,
+                Reversal: 6.
+            identity_tax_number: (``identityTaxNumber``, gövde, zorunlu) Customer identity
+                number or tax number.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value calculated for the transaction
+                and validated by the bank.
+            installment_count: (``installmentCount``, gövde, zorunlu) Number of installments for
+                the payment transaction.
+            description: (gövde) Description of the payment transaction.
+            insurance_deferring_count: (``insuranceDeferringCount``, gövde) Insurance deferring
+                count for the payment transaction.
+
+        Gövde alanları istekte ``APIPaymentTransactionContract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, ProvisionNumber, MerchantOrderId, ResponseCode,
+        ResponseMessage, RRN, Stan, ExecutionReferenceId, IsEnrolled, TransactionTime, Password
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/virtual-pos-nonthreed-payment-masked-card
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
+                "amount": amount,
+                "merchantOrderId": merchant_order_id,
+                "cardNumber": card_number,
+                "currencyCode": currency_code,
+                "transactionType": transaction_type,
+                "identityTaxNumber": identity_tax_number,
+                "hashData": hash_data,
+                "installmentCount": installment_count,
+                "description": description,
+                "insuranceDeferringCount": insurance_deferring_count,
+            },
+            extra_body,
+        )
+        _body = {"APIPaymentTransactionContract": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/nonThreeDPayment",
+            scope="cards",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    def virtual_pos_sale_reversal(
+        self,
+        *,
+        merchant_id: int,
+        user_name: str,
+        amount: Number,
+        merchant_order_id: str,
+        currency_code: str,
+        transaction_type: int,
+        order_id: int,
+        provision_number: str,
+        r_rn: str,
+        stan: str,
+        hash_data: str,
+        customer_id: int | None = None,
+        description: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Virtual POS Sale Reversal (Masked).
+
+        ``POST /v1/vpos/saleReversal``
+
+        Kapsam: ``cards`` · Akış: client credentials
+
+        This API is used to reverse a sales transaction performed through Virtual POS. A sales
+        transaction can be cancelled on the same day before settlement. It returns the reversal
+        transaction result and related authorization information.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) The merchant's registered merchant ID
+                at the bank.
+            customer_id: (``customerId``, gövde) The merchant's customer account number.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Reversal amount of the transaction.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency_code: (``currencyCode``, gövde, zorunlu) Currency code of the transaction.
+                For TL, it should be sent as 0949.
+            transaction_type: (``transactionType``, gövde, zorunlu) Transaction type. Sale: 1,
+                Reversal: 6.
+            order_id: (``orderId``, gövde, zorunlu) Unique order number of the transaction to be
+                reversed.
+            provision_number: (``provisionNumber``, gövde, zorunlu) Provision number of the
+                transaction to be reversed.
+            r_rn: (``rRN``, gövde, zorunlu) RRN number of the transaction to be reversed.
+            stan: (gövde, zorunlu) STAN number of the transaction to be reversed.
+            description: (gövde) Description of the reversal transaction.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value calculated for the transaction
+                and validated by the bank.
+
+        Gövde alanları istekte ``APIPaymentTransactionContract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, ProvisionNumber, MerchantOrderId, ResponseCode,
+        ResponseMessage, RRN, Stan, ExecutionReferenceId, TransactionTime
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/virtual-pos-sale-reversal-masked
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
+                "amount": amount,
+                "merchantOrderId": merchant_order_id,
+                "currencyCode": currency_code,
+                "transactionType": transaction_type,
+                "orderId": order_id,
+                "provisionNumber": provision_number,
+                "rRN": r_rn,
+                "stan": stan,
+                "description": description,
+                "hashData": hash_data,
+            },
+            extra_body,
+        )
+        _body = {"APIPaymentTransactionContract": _body}
+        return self._client.request(
+            "POST",
+            "/v1/vpos/saleReversal",
+            scope="cards",
             flow="client_credentials",
             query=_query,
             body=_body,
@@ -633,102 +1530,156 @@ class Vpos(Resource):
 class AsyncVpos(AsyncResource):
     """Sanal POS (asenkron) - ``kt.vpos``."""
 
-    async def _3_d_secure_odeme(
+    async def add_card_to_merchant_safe(
         self,
         *,
-        card_expire_date_month: str | None = None,
-        amount: str | None = None,
-        card_cvv2: str | None = None,
-        card_holder_name: str | None = None,
-        success_url: str | None = None,
-        fail_url: str | None = None,
-        description: str | None = None,
-        merchant_order_id: str | None = None,
-        user_name: str | None = None,
-        card_expire_date_year: str | None = None,
-        merchant_id: str | None = None,
-        hash_data: str | None = None,
-        installment_count: str | None = None,
-        deferring_count: str | None = None,
-        currency: str | None = None,
-        card_number: str | None = None,
-        currency_code: Any | None = None,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        hash_data: str,
+        merchant_order_id: str,
+        payment_customer_id: int,
+        card_number: str,
+        card_expire_date_month: str,
+        card_expire_date_year: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        business_key: Number | None = None,
+        payment_definition_id: int | None = None,
+        customer_definition_id: int | None = None,
+        customer_name: str | None = None,
+        adress_text: str | None = None,
+        phone_number: str | None = None,
+        email_adress: str | None = None,
+        district: str | None = None,
+        city: str | None = None,
+        country: str | None = None,
+        postal_code: str | None = None,
+        fax_number: str | None = None,
+        extra_field1: str | None = None,
+        extra_field2: str | None = None,
+        extra_field3: str | None = None,
+        extra_field4: str | None = None,
+        extra_field5: str | None = None,
+        merchant_customer_id: int | None = None,
+        safe_key: str | None = None,
+        sort_number: int | None = None,
+        is_active: bool | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """3D Secure Ödeme.
+        """addCardToMerchantSafe.
 
-        ``POST /v1/vpos/threeDPayment``
+        ``POST /v1/vpos/addCardToMerchantSafe``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Virtual POS 3D Secure (threeDPayment), kart sahibi, banka ve satıcı arasındaki veri
-        akışını özel şifreleme anahtarları kullanarak doğrulayarak e-ticaret işlemlerinde
-        güvenliği artıran bir çevrimiçi ödeme işleme altyapısıdır.
+        This API is used to securely store a customer’s card information in the payment system
+        for use in merchant-safe Non-3D Secure payment flows.
 
         Args:
-            card_expire_date_month: (``cardExpireDateMonth``, gövde) Sanal POS mağaza numarası.
-                Başvuru onayıyla birlikte işletmeye e-posta yoluyla gönderilir.
-            amount: (gövde) Tutar. Örneğin, İşlem Tutarı: 1 TL için 100, 1.234,50 TL için 123450
-                gönderilmelidir.
-            card_cvv2: (``cardCVV2``, gövde) ​​Kart CVV değeri
-            card_holder_name: (``cardHolderName``, gövde) Kart sahibinin adı
-            success_url: (``successUrl``, gövde) Güvenli Ödeme işlemlerinde, kart doğrulama
-                aşamasında kullanıcı SMS yoluyla doğrulama sayfasına yönlendirilir.
-            fail_url: (``failUrl``, gövde) Kart doğrulama hatası veya parametrelere bağlı olarak
-                oluşabilecek hatalar durumunda sonucun gönderileceği adres.
-            description: (gövde) açıklama
-            merchant_order_id: (``merchantOrderId``, gövde) Bu, müşteri sipariş numarasını
-                temsil eder.
-            user_name: (``userName``, gövde) API kullanıcı adı.
-            card_expire_date_year: (``cardExpireDateYear``, gövde) Kartın son kullanma yılı
-            merchant_id: (``merchantId``, gövde) Sanal POS mağaza numarası. Başvuru
-                onaylandıktan sonra işletmeye e-posta yoluyla gönderilecektir.
-            hash_data: (``hashData``, gövde) İşletmenin oluşturduğu ve işlem bilgileriyle
-                birlikte gönderdiği ve banka tarafından kontrol edilen alan.
-            installment_count: (``installmentCount``, gövde) Bu, satıcı tarafından güvenli iş
-                ortağı ödeme sayfasına gönderilecek taksit tutarını temsil eder.
-            deferring_count: (``deferringCount``, gövde) Harcama erteleme bilgileri
-            currency: (gövde)
-            card_number: (``cardNumber``, gövde) “Sale” Güvenli İş Ortağı Ödeme sisteminden
-                yapılacak işlemin bir satış işlemi olduğunu gösterir.
-            currency_code: (``currencyCode``, gövde) Para birimi. TL için “0949” olarak
-                gönderilmelidir.
+            business_key: (``businessKey``, gövde) Business key value associated with the
+                merchant-safe card registration process.
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            payment_customer_id: (``paymentCustomerId``, gövde, zorunlu) Payment customer
+                identifier to which the card will be linked.
+            payment_definition_id: (``paymentDefinitionId``, gövde) Payment definition
+                identifier associated with the customer payment setup.
+            customer_definition_id: (``customerDefinitionId``, gövde) Customer definition
+                identifier associated with the merchant customer record.
+            customer_name: (``customerName``, gövde) Name of the customer whose card information
+                will be stored.
+            adress_text: (``adressText``, gövde) Address text of the customer.
+            phone_number: (``phoneNumber``, gövde) Phone number of the customer.
+            email_adress: (``emailAdress``, gövde) Email address of the customer.
+            district: (gövde) District information of the customer address.
+            city: (gövde) City information of the customer address.
+            country: (gövde) Country information of the customer address.
+            postal_code: (``postalCode``, gövde) Postal code of the customer address.
+            fax_number: (``faxNumber``, gövde) Fax number of the customer.
+            extra_field1: (``extraField1``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field2: (``extraField2``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field3: (``extraField3``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field4: (``extraField4``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field5: (``extraField5``, gövde) Additional field reserved for
+                merchant-specific information.
+            merchant_customer_id: (``merchantCustomerId``, gövde) Merchant-side customer
+                identifier.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be stored in the
+                merchant-safe payment system.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            safe_key: (``safeKey``, gövde) Existing or generated safe key value associated with
+                the stored card.
+            sort_number: (``sortNumber``, gövde) Sort order value for the stored card record.
+            is_active: (``isActive``, gövde) Indicates whether the stored card record is active.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Yanıt alanları: htmlContent, responseCode, responseMessage
+        Yanıt alanları: CardId, PaymentCustomerId, SafeKey, ResponseCode, ResponseMessage
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/3d-secure-odeme
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/addcardtomerchantsafe
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
             {
-                "cardExpireDateMonth": card_expire_date_month,
-                "amount": amount,
-                "cardCVV2": card_cvv2,
-                "cardHolderName": card_holder_name,
-                "successUrl": success_url,
-                "failUrl": fail_url,
-                "description": description,
-                "merchantOrderId": merchant_order_id,
-                "userName": user_name,
-                "cardExpireDateYear": card_expire_date_year,
+                "businessKey": business_key,
                 "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
                 "hashData": hash_data,
-                "installmentCount": installment_count,
-                "deferringCount": deferring_count,
-                "currency": currency,
+                "merchantOrderId": merchant_order_id,
+                "paymentCustomerId": payment_customer_id,
+                "paymentDefinitionId": payment_definition_id,
+                "customerDefinitionId": customer_definition_id,
+                "customerName": customer_name,
+                "adressText": adress_text,
+                "phoneNumber": phone_number,
+                "emailAdress": email_adress,
+                "district": district,
+                "city": city,
+                "country": country,
+                "postalCode": postal_code,
+                "faxNumber": fax_number,
+                "extraField1": extra_field1,
+                "extraField2": extra_field2,
+                "extraField3": extra_field3,
+                "extraField4": extra_field4,
+                "extraField5": extra_field5,
+                "merchantCustomerId": merchant_customer_id,
                 "cardNumber": card_number,
-                "currencyCode": currency_code,
+                "cardExpireDateMonth": card_expire_date_month,
+                "cardExpireDateYear": card_expire_date_year,
+                "cardCvv2": card_cvv2,
+                "cardHolderName": card_holder_name,
+                "safeKey": safe_key,
+                "sortNumber": sort_number,
+                "isActive": is_active,
             },
             extra_body,
         )
         _body = {"request": _body}
         return await self._client.request(
             "POST",
-            "/v1/vpos/threeDPayment",
+            "/v1/vpos/addCardToMerchantSafe",
             scope="public",
             flow="client_credentials",
             query=_query,
@@ -736,7 +1687,7 @@ class AsyncVpos(AsyncResource):
             options=request_options,
         )
 
-    async def dijital_odeme_komisyon_mutabakati(
+    async def digital_payment_commission_reconciliation(
         self,
         *,
         transaction_list: Sequence[Any],
@@ -744,24 +1695,24 @@ class AsyncVpos(AsyncResource):
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Dijital Ödeme Komisyon Mutabakatı.
+        """Digital Payment Commission Reconciliation.
 
         ``POST /v1/vpos/commissionReconciliation``
 
         Kapsam: ``digital_payments`` · Akış: client credentials
 
-        Gönderilen transaction list bilgilerine göre digital payment transactions için
-        commission reconciliation işlemi yapar. Cevapta her transaction için transaction
-        identifier, status code, status message ve commission type bilgileriyle birlikte
-        reconciliation status bilgisi döner.
+        Performs commission reconciliation for digital payment transactions by using the
+        provided transaction list. The response returns reconciliation status information for
+        each transaction, including transaction identifier, status code, status message, and
+        commission type.
 
         Args:
-            transaction_list: (``transactionList``, gövde, zorunlu) Commission reconciliation
-                işlemine dahil edilecek digital payment transaction listesidir.
+            transaction_list: (``transactionList``, gövde, zorunlu) List of digital payment
+                transactions to be included in commission reconciliation.
 
         Yanıt alanları: transactionId, statusCode, statusMessage, commissionType
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/dijital-odeme-komisyon-mutabakati
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/digital-payment-commission-reconciliation
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -780,81 +1731,243 @@ class AsyncVpos(AsyncResource):
             options=request_options,
         )
 
-    async def duzenli_non_three_d_odeme(
+    async def get_customer_by_safe_key(
         self,
         *,
-        merchant_order_id: str | None = None,
-        merchant_id: int | None = None,
-        customer_id: int | None = None,
-        user_name: str | None = None,
-        hash_data: str | None = None,
-        amount: str | None = None,
-        currency: str | None = None,
-        installment_count: int | None = None,
-        deferring_count: int | None = None,
-        card_number: str | None = None,
-        card_expire_date_year: str | None = None,
-        card_expire_date_month: str | None = None,
-        card_cvv2: str | None = None,
-        card_holder_name: str | None = None,
-        description: str | None = None,
-        customer_name: str | None = None,
-        payment_start_date: str | None = None,
-        iteration_counter: int | None = None,
-        period_number: int | None = None,
-        period_type: int | None = None,
-        card_holder_customer_id: int | None = None,
-        merchant_customer_id: int | None = None,
+        merchant_id: int,
+        customer_id: int,
+        payment_customer_id: int,
+        user_name: str,
+        hash_data: str,
+        safe_key: str,
+        host_ip: str | None = None,
+        card_holder_ip_address: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Düzenli NonThreeD Ödeme.
+        """getCustomerBySafeKey.
 
-        ``POST /v1/vpos/recurringNonThreeDPayment``
+        ``POST /v1/vpos/getCustomerBySafeKey``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Düzenli / tekrarlı ödeme almak için kullanılan API’dır.
+        This API is used to retrieve payment customer card information defined in the payment
+        system by using a given safeKey.
 
         Args:
-            merchant_order_id: (``merchantOrderId``, gövde)
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            hash_data: (``hashData``, gövde)
-            amount: (gövde)
-            currency: (gövde)
-            installment_count: (``installmentCount``, gövde)
-            deferring_count: (``deferringCount``, gövde)
-            card_number: (``cardNumber``, gövde)
-            card_expire_date_year: (``cardExpireDateYear``, gövde)
-            card_expire_date_month: (``cardExpireDateMonth``, gövde)
-            card_cvv2: (``cardCvv2``, gövde)
-            card_holder_name: (``cardHolderName``, gövde)
-            description: (gövde)
-            customer_name: (``customerName``, gövde)
-            payment_start_date: (``paymentStartDate``, gövde)
-            iteration_counter: (``iterationCounter``, gövde)
-            period_number: (``periodNumber``, gövde)
-            period_type: (``periodType``, gövde)
-            card_holder_customer_id: (``cardHolderCustomerId``, gövde)
-            merchant_customer_id: (``merchantCustomerId``, gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            payment_customer_id: (``paymentCustomerId``, gövde, zorunlu) Payment customer
+                identifier associated with the stored card.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            safe_key: (``safeKey``, gövde, zorunlu) Safe key used to find the payment customer
+                card information.
+            host_ip: (``hostIp``, gövde) Host IP address from which the request is initiated.
+            card_holder_ip_address: (``cardHolderIpAddress``, gövde) IP address of the
+                cardholder.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/duzenli-nonthreed-odeme
+        Yanıt alanları: CardId, PaymentCustomerId, CardNumber, ExpiryDate, SortNumber, IsActive,
+        CVV2, CVV2Encrypted, CardHolderName, SafeKey, MerchantId
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/getcustomerbysafekey
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
             {
-                "merchantOrderId": merchant_order_id,
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "paymentCustomerId": payment_customer_id,
+                "userName": user_name,
+                "hashData": hash_data,
+                "safeKey": safe_key,
+                "hostIp": host_ip,
+                "cardHolderIpAddress": card_holder_ip_address,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/getCustomerBySafeKey",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def get_seller_order_details(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        hash_data: str,
+        start_date: DateLike,
+        end_date: DateLike,
+        order_id: str | None = None,
+        merchant_order_id: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Get Seller Order Details.
+
+        ``POST /v1/vpos/getMerchantOrderDetail``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        The Get Merchant Order Detail API allows merchants to query payment and transaction
+        details for their Virtual POS orders. It returns order status, transaction status,
+        amount details, card information, terminal information, and additional transaction
+        metadata for the requested criteria.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            order_id: (``orderId``, gövde) Order identifier used to query a specific order.
+            merchant_order_id: (``merchantOrderId``, gövde) Unique order identifier generated by
+                the merchant.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with transaction
+                information and validated by the bank.
+            start_date: (``startDate``, gövde, zorunlu) Start date for querying merchant order
+                details. Format: dd.MM.yyyy.
+            end_date: (``endDate``, gövde, zorunlu) End date for querying merchant order
+                details. Format: dd.MM.yyyy.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, MerchantOrderId, MerchantId, CardHolderName, CardType,
+        CardNumber, OrderDate, OrderStatus, LastOrderStatus, OrderType, TransactionStatus,
+        FirstAmount, CancelAmount, DrawbackAmount, ClosedAmount, FEC, VPSEntryMode,
+        InstallmentCount, TransactionSecurity, ResponseCode, ResponseExplain, EndOfDayStatus,
+        TransactionSide, CardHolderIPAddress, MerchantIPAddress, MerchantUserName, ProvNumber,
+        BatchId, CardExpireDate, CVV2, ...
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/get-seller-order-details
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
                 "merchantId": merchant_id,
                 "customerId": customer_id,
                 "userName": user_name,
+                "orderId": order_id,
+                "merchantOrderId": merchant_order_id,
                 "hashData": hash_data,
+                "startDate": start_date,
+                "endDate": end_date,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/getMerchantOrderDetail",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def non_3_d_payment(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        currency: str,
+        hash_data: str,
+        installment_count: int,
+        deferring_count: int,
+        card_number: str,
+        card_expire_date_year: str,
+        card_expire_date_month: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        vpos_sub_merchant_id: int | None = None,
+        bkm_id: str | None = None,
+        pf_sub_merchant_terminal_id: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """NON 3D Payment.
+
+        ``POST /v1/vpos/non3DPayment``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        This API is used to process Non-3D Secure Virtual POS payments. In Non-3D payment
+        transactions, the payment is completed using the customer’s card information without
+        performing 3D Secure verification. The card and merchant must be authorized for Non-3D
+        Secure payment processing.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount. For example, 100 should be sent for
+                1.00 TL and 123450 should be sent for 1,234.50 TL.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency: (gövde, zorunlu) Currency code of the transaction amount. For TL, it
+                should be sent as 0949.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with transaction
+                information and validated by the bank.
+            installment_count: (``installmentCount``, gövde, zorunlu) Number of installments for
+                the payment transaction.
+            deferring_count: (``deferringCount``, gövde, zorunlu) Number of deferment periods
+                for the payment transaction.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be used for the Non-3D
+                payment transaction.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            vpos_sub_merchant_id: (``vposSubMerchantId``, gövde) Sub-merchant identifier for the
+                Virtual POS transaction.
+            bkm_id: (``bkmId``, gövde) BKM identifier related to the payment transaction.
+            pf_sub_merchant_terminal_id: (``pfSubMerchantTerminalId``, gövde) Payment
+                facilitator sub-merchant terminal identifier.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, MerchantOrderId, ProvisionNumber, RRN, Stan, ResponseCode,
+        ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/non-3d-payment
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
                 "amount": amount,
+                "merchantOrderId": merchant_order_id,
                 "currency": currency,
+                "hashData": hash_data,
                 "installmentCount": installment_count,
                 "deferringCount": deferring_count,
                 "cardNumber": card_number,
@@ -862,21 +1975,16 @@ class AsyncVpos(AsyncResource):
                 "cardExpireDateMonth": card_expire_date_month,
                 "cardCvv2": card_cvv2,
                 "cardHolderName": card_holder_name,
-                "description": description,
-                "customerName": customer_name,
-                "paymentStartDate": payment_start_date,
-                "iterationCounter": iteration_counter,
-                "periodNumber": period_number,
-                "periodType": period_type,
-                "cardHolderCustomerId": card_holder_customer_id,
-                "merchantCustomerId": merchant_customer_id,
+                "vposSubMerchantId": vpos_sub_merchant_id,
+                "bkmId": bkm_id,
+                "pfSubMerchantTerminalId": pf_sub_merchant_terminal_id,
             },
             extra_body,
         )
         _body = {"request": _body}
         return await self._client.request(
             "POST",
-            "/v1/vpos/recurringNonThreeDPayment",
+            "/v1/vpos/non3DPayment",
             scope="public",
             flow="client_credentials",
             query=_query,
@@ -884,122 +1992,62 @@ class AsyncVpos(AsyncResource):
             options=request_options,
         )
 
-    async def gelen_odeme_iptali(
+    async def non_three_d_payment_by_merchant_safe(
         self,
         *,
-        merchant_id: int | None = None,
-        customer_id: int | None = None,
-        user_name: str | None = None,
-        merchant_order_id: str | None = None,
-        amount: int | None = None,
-        ok_url: str | None = None,
-        fail_url: str | None = None,
-        entry_gate_method: str | None = None,
-        hash_data: str | None = None,
-        parent_payment_id: int | None = None,
-        payment_id: int | None = None,
-        extra_query: Mapping[str, Any] | None = None,
-        extra_body: Mapping[str, Any] | None = None,
-        request_options: RequestOptions | None = None,
-    ) -> APIResponse:
-        """Gelen Ödeme İptali.
-
-        ``POST /v1/vpos/paymentOrderReversal``
-
-        Kapsam: ``public`` · Akış: client credentials
-
-        Henüz kesinleşmemiş / tahsilata dönüşmemiş bir “tahsilat işlemini”nin iptal edilmesi
-        için kullanılır.
-
-        Args:
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            amount: (gövde)
-            ok_url: (``okUrl``, gövde)
-            fail_url: (``failUrl``, gövde)
-            entry_gate_method: (``entryGateMethod``, gövde)
-            hash_data: (``hashData``, gövde)
-            parent_payment_id: (``parentPaymentId``, gövde)
-            payment_id: (``paymentId``, gövde)
-
-        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
-
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/gelen-odeme-iptali
-        """
-        _query = merge({}, extra_query)
-        _body: Any = merge(
-            {
-                "merchantId": merchant_id,
-                "customerId": customer_id,
-                "userName": user_name,
-                "merchantOrderId": merchant_order_id,
-                "amount": amount,
-                "okUrl": ok_url,
-                "failUrl": fail_url,
-                "entryGateMethod": entry_gate_method,
-                "hashData": hash_data,
-                "parentPaymentId": parent_payment_id,
-                "paymentId": payment_id,
-            },
-            extra_body,
-        )
-        _body = {"request": _body}
-        return await self._client.request(
-            "POST",
-            "/v1/vpos/paymentOrderReversal",
-            scope="public",
-            flow="client_credentials",
-            query=_query,
-            body=_body,
-            options=request_options,
-        )
-
-    async def isyeri_onayli_non_three_d_odeme(
-        self,
-        *,
-        merchant_id: int | None = None,
-        customer_id: int | None = None,
-        payment_customer_id: int | None = None,
-        merchant_order_id: str | None = None,
-        user_name: str | None = None,
-        hash_data: str | None = None,
-        amount: str | None = None,
-        currency: str | None = None,
+        merchant_id: int,
+        customer_id: int,
+        payment_customer_id: int,
+        merchant_order_id: str,
+        user_name: str,
+        hash_data: str,
+        amount: str,
+        currency: str,
+        safe_key: str,
         installment_count: int | None = None,
         deferring_count: int | None = None,
-        safe_key: str | None = None,
         description: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """İşyeri Onaylı NonThreeD Ödeme.
+        """nonThreeDPaymentByMerchantSafe.
 
         ``POST /v1/vpos/nonThreeDPaymentByMerchantSafe``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        İşyeri onaylı olan NonThreeD Ödeme işlemi yapılan API’dır.
+        This API is used for merchant-approved Non-3D payment processing by using a card stored
+        with a merchant-safe key.
 
         Args:
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            payment_customer_id: (``paymentCustomerId``, gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            user_name: (``userName``, gövde)
-            hash_data: (``hashData``, gövde)
-            amount: (gövde)
-            currency: (gövde)
-            installment_count: (``installmentCount``, gövde)
-            deferring_count: (``deferringCount``, gövde)
-            safe_key: (``safeKey``, gövde)
-            description: (gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            payment_customer_id: (``paymentCustomerId``, gövde, zorunlu) Payment customer
+                identifier associated with the stored card.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            amount: (gövde, zorunlu) Transaction amount to be collected.
+            currency: (gövde, zorunlu) Currency code of the transaction amount.
+            installment_count: (``installmentCount``, gövde) Number of installments for the
+                payment transaction.
+            deferring_count: (``deferringCount``, gövde) Number of deferment periods for the
+                payment transaction.
+            safe_key: (``safeKey``, gövde, zorunlu) Merchant-safe key of the stored card to be
+                used for the Non-3D payment.
+            description: (gövde) Description of the Non-3D payment transaction.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/isyeri-onayli-nonthreed-odeme
+        Yanıt alanları: OrderId, ProvisionNumber, RRN, Stan, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/nonthreedpaymentbymerchantsafe
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -1030,75 +2078,97 @@ class AsyncVpos(AsyncResource):
             options=request_options,
         )
 
-    async def merchant_safe_icin_kart_ekleme(
+    async def order_detail_with_payment_id(
         self,
         *,
-        business_key: int | None = None,
-        merchant_id: int | None = None,
-        customer_id: int | None = None,
-        user_name: str | None = None,
-        hash_data: str | None = None,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        hash_data: str,
+        amount: Number,
+        payment_id: int,
+        parent_payment_id: int,
+        order_id: int | None = None,
         merchant_order_id: str | None = None,
-        payment_customer_id: int | None = None,
-        card_number: str | None = None,
-        card_expire_date_month: str | None = None,
-        card_expire_date_year: str | None = None,
-        card_cvv2: str | None = None,
-        card_holder_name: str | None = None,
+        start_date: DateLike | None = None,
+        end_date: DateLike | None = None,
+        ok_url: str | None = None,
+        fail_url: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Merchant‑Safe için Kart Ekleme.
+        """Order Detail With Payment Id.
 
-        ``POST /v1/vpos/addCardToMerchantSafe``
+        ``POST /v1/vpos/orderDetailWithPaymentId``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Merchant‑safe (işyeri sorumluluğunda) Non‑3D Secure ödeme akışlarında kullanılmak üzere,
-        müşterinin kart bilgisini ödeme sistemine güvenli şekilde kaydetmek için kullanılan
-        API’dir.
+        This API is used to query the details of collections created under a payment
+        instruction. It returns payment, order, amount, status, terminal, authorization, and
+        additional transaction details by using paymentId and related query parameters.
 
         Args:
-            business_key: (``businessKey``, gövde)
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            hash_data: (``hashData``, gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            payment_customer_id: (``paymentCustomerId``, gövde)
-            card_number: (``cardNumber``, gövde)
-            card_expire_date_month: (``cardExpireDateMonth``, gövde)
-            card_expire_date_year: (``cardExpireDateYear``, gövde)
-            card_cvv2: (``cardCvv2``, gövde)
-            card_holder_name: (``cardHolderName``, gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier registered in the
+                Kuveyt Türk Virtual POS service.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            order_id: (``orderId``, gövde) Order identifier used to query a specific order.
+            merchant_order_id: (``merchantOrderId``, gövde) Merchant-side transaction or order
+                number. This field may be sent empty for this API.
+            start_date: (``startDate``, gövde) Start date for querying order details. Format:
+                dd.MM.yyyy.
+            end_date: (``endDate``, gövde) End date for querying order details. Format:
+                dd.MM.yyyy.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with payment
+                transaction information and validated by the bank.
+            amount: (gövde, zorunlu) Transaction amount. This field should be sent as 0 for this
+                method.
+            ok_url: (``okUrl``, gövde) URL to which the user is redirected after successful card
+                verification in secure payment transactions.
+            fail_url: (``failUrl``, gövde) URL to which the result is sent if card verification
+                fails or an error occurs.
+            payment_id: (``paymentId``, gövde, zorunlu) Payment identifier used to query
+                collection details.
+            parent_payment_id: (``parentPaymentId``, gövde, zorunlu) Parent payment identifier
+                related to the payment instruction.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/merchant-safe-icin-kart-ekleme
+        Yanıt alanları: OrderId, ProvNumber, PaymentId, ParentPaymentId, MerchantId,
+        MerchantOrderId, Amount, Currency, PaymentDate, PaymentStartDate, PaymentStatus,
+        ResponseCode, ResponseDetail, ReverseAmount, DrawbackAmount, ClosedAmount, TerminalId,
+        RRN, OrderStatus, AuthNumber, PeriodType, PeriodNumber, IterationCounter, IsActive,
+        TotalIteration, RejectedRetryCount, RejectedPeriodNumber, RejectedPeriodType,
+        LastTriedTime, LastTryCount, ...
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/order-detail-with-payment-id
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
             {
-                "businessKey": business_key,
                 "merchantId": merchant_id,
                 "customerId": customer_id,
                 "userName": user_name,
-                "hashData": hash_data,
+                "orderId": order_id,
                 "merchantOrderId": merchant_order_id,
-                "paymentCustomerId": payment_customer_id,
-                "cardNumber": card_number,
-                "cardExpireDateMonth": card_expire_date_month,
-                "cardExpireDateYear": card_expire_date_year,
-                "cardCvv2": card_cvv2,
-                "cardHolderName": card_holder_name,
+                "startDate": start_date,
+                "endDate": end_date,
+                "hashData": hash_data,
+                "amount": amount,
+                "okUrl": ok_url,
+                "failUrl": fail_url,
+                "paymentId": payment_id,
+                "parentPaymentId": parent_payment_id,
             },
             extra_body,
         )
         _body = {"request": _body}
         return await self._client.request(
             "POST",
-            "/v1/vpos/addCardToMerchantSafe",
+            "/v1/vpos/orderDetailWithPaymentId",
             scope="public",
             flow="client_credentials",
             query=_query,
@@ -1106,51 +2176,165 @@ class AsyncVpos(AsyncResource):
             options=request_options,
         )
 
-    async def on_provizyon(
+    async def payment_order_reversal(
         self,
         *,
-        merchant_id: str | None = None,
-        customer_id: str | None = None,
-        user_name: str | None = None,
-        amount: str | None = None,
-        merchant_order_id: str | None = None,
-        card_number: str | None = None,
-        card_expire_date_year: str | None = None,
-        card_expire_date_month: str | None = None,
-        card_cvv2: str | None = None,
-        card_holder_name: str | None = None,
-        currency: str | None = None,
-        hash_data: str | None = None,
+        customer_id: int,
+        merchant_id: int,
+        hash_data: str,
+        merchant_order_id: str,
+        user_name: str,
+        parent_payment_id: int,
+        payment_id: int,
+        transaction_type: str | None = None,
+        installment_count: int | None = None,
+        amount: int | None = None,
+        display_amount: str | None = None,
+        cancel_amount: Number | None = None,
+        currency_code: str | None = None,
+        transaction_security: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Ön Provizyon.
+        """paymentOrderReversal.
+
+        ``POST /v1/vpos/paymentOrderReversal``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        It is used to cancel a coming payment that has not yet been finalized or converted into
+        a collected payment.
+
+        Args:
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            transaction_type: (``transactionType``, gövde) Type of the transaction to be
+                performed.
+            installment_count: (``installmentCount``, gövde) Number of installments for the
+                payment transaction.
+            amount: (gövde) Transaction amount.
+            display_amount: (``displayAmount``, gövde) Display amount value of the transaction.
+            cancel_amount: (``cancelAmount``, gövde) Amount to be cancelled for the payment
+                order reversal.
+            currency_code: (``currencyCode``, gövde) Currency code of the transaction amount.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            transaction_security: (``transactionSecurity``, gövde) Transaction security type or
+                security level information.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            parent_payment_id: (``parentPaymentId``, gövde, zorunlu) Parent payment identifier
+                of the related payment transaction.
+            payment_id: (``paymentId``, gövde, zorunlu) Payment identifier of the coming payment
+                to be reversed.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: ParentPaymentId, PaymentId, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/paymentorderreversal
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "customerId": customer_id,
+                "merchantId": merchant_id,
+                "hashData": hash_data,
+                "transactionType": transaction_type,
+                "installmentCount": installment_count,
+                "amount": amount,
+                "displayAmount": display_amount,
+                "cancelAmount": cancel_amount,
+                "currencyCode": currency_code,
+                "merchantOrderId": merchant_order_id,
+                "transactionSecurity": transaction_security,
+                "userName": user_name,
+                "parentPaymentId": parent_payment_id,
+                "paymentId": payment_id,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/paymentOrderReversal",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def pre_authorization(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        currency: str,
+        hash_data: str,
+        card_number: str,
+        card_expire_date_year: str,
+        card_expire_date_month: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        vpos_sub_merchant_id: int | None = None,
+        bkm_id: str | None = None,
+        pf_sub_merchant_terminal_id: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """preAuthorization.
 
         ``POST /v1/vpos/preAuthorization``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Müşteri kartından tutar tahsil edilmeden, belirtilen tutar için ön provizyon (limit
-        blokajı) almak amacıyla kullanılan sanal POS servisidir.
+        This virtual POS service is used to obtain a preauthorization, which places a limit hold
+        for a specified amount without charging the customer’s card.
 
         Args:
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            amount: (gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            card_number: (``cardNumber``, gövde)
-            card_expire_date_year: (``cardExpireDateYear``, gövde)
-            card_expire_date_month: (``cardExpireDateMonth``, gövde)
-            card_cvv2: (``cardCVV2``, gövde)
-            card_holder_name: (``cardHolderName``, gövde)
-            currency: (gövde)
-            hash_data: (``hashData``, gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount for which preauthorization will be
+                obtained.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency: (gövde, zorunlu) Currency code of the transaction amount.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be used for the
+                preauthorization transaction.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            vpos_sub_merchant_id: (``vposSubMerchantId``, gövde) Sub-merchant identifier for the
+                Virtual POS transaction.
+            bkm_id: (``bkmId``, gövde) BKM identifier related to the payment transaction.
+            pf_sub_merchant_terminal_id: (``pfSubMerchantTerminalId``, gövde) Payment
+                facilitator sub-merchant terminal identifier.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/on-provizyon
+        Yanıt alanları: MerchantOrderId, ProvisionNumber, RRN, Stan, ResponseCode,
+        ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/preauthorization
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -1160,13 +2344,16 @@ class AsyncVpos(AsyncResource):
                 "userName": user_name,
                 "amount": amount,
                 "merchantOrderId": merchant_order_id,
+                "currency": currency,
+                "hashData": hash_data,
                 "cardNumber": card_number,
                 "cardExpireDateYear": card_expire_date_year,
                 "cardExpireDateMonth": card_expire_date_month,
-                "cardCVV2": card_cvv2,
+                "cardCvv2": card_cvv2,
                 "cardHolderName": card_holder_name,
-                "currency": currency,
-                "hashData": hash_data,
+                "vposSubMerchantId": vpos_sub_merchant_id,
+                "bkmId": bkm_id,
+                "pfSubMerchantTerminalId": pf_sub_merchant_terminal_id,
             },
             extra_body,
         )
@@ -1181,43 +2368,242 @@ class AsyncVpos(AsyncResource):
             options=request_options,
         )
 
-    async def satis_islemi_iptal(
+    async def recurring_non_three_d_payment(
         self,
         *,
-        merchant_id: str | None = None,
-        customer_id: str | None = None,
-        user_name: str | None = None,
-        amount: int | None = None,
-        merchant_order_id: str | None = None,
-        order_id: int | None = None,
-        hash_data: str | None = None,
-        sale_reversal_type: int | None = None,
+        merchant_order_id: str,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        hash_data: str,
+        amount: str,
+        currency: str,
+        card_number: str,
+        card_expire_date_year: str,
+        card_expire_date_month: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        customer_name: str,
+        payment_start_date: DateLike,
+        iteration_counter: int,
+        period_number: int,
+        period_type: int,
+        card_holder_customer_id: int,
+        installment_count: int | None = None,
+        deferring_count: int | None = None,
+        description: str | None = None,
+        bkm_id: str | None = None,
+        payment_definition_id: int | None = None,
+        adress_text: str | None = None,
+        city: str | None = None,
+        country: str | None = None,
+        district: str | None = None,
+        email_adress: str | None = None,
+        extra_field1: str | None = None,
+        extra_field2: str | None = None,
+        extra_field3: str | None = None,
+        extra_field4: str | None = None,
+        extra_field5: str | None = None,
+        fax_number: str | None = None,
+        merchant_customer_id: int | None = None,
+        phone_number: str | None = None,
+        postal_code: str | None = None,
+        customer_definition_id: int | None = None,
+        vpos_sub_merchant_id: int | None = None,
+        pf_sub_merchant_terminal_id: str | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
     ) -> APIResponse:
-        """Satış İşlemi İptal.
+        """recurringNonThreeDPayment.
+
+        ``POST /v1/vpos/recurringNonThreeDPayment``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        This API is used to create recurring Non-3D payment instructions for regular payment
+        collection. It receives card, merchant, customer, payment schedule, and transaction
+        details as request parameters.
+
+        Args:
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            amount: (gövde, zorunlu) Recurring payment amount to be collected.
+            currency: (gövde, zorunlu) Currency code of the recurring payment amount.
+            installment_count: (``installmentCount``, gövde) Number of installments for the
+                payment transaction.
+            deferring_count: (``deferringCount``, gövde) Number of deferment periods for the
+                payment transaction.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be used for the
+                recurring Non-3D payment.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            description: (gövde) Description of the recurring payment instruction.
+            bkm_id: (``bkmId``, gövde) BKM identifier related to the payment transaction.
+            customer_name: (``customerName``, gövde, zorunlu) Name of the customer associated
+                with the recurring payment.
+            payment_start_date: (``paymentStartDate``, gövde, zorunlu) Start date of the
+                recurring payment instruction.
+            iteration_counter: (``iterationCounter``, gövde, zorunlu) Number of payment
+                iterations to be executed.
+            period_number: (``periodNumber``, gövde, zorunlu) Period interval number for the
+                recurring payment schedule.
+            period_type: (``periodType``, gövde, zorunlu) Period type of the recurring payment
+                schedule.
+            card_holder_customer_id: (``cardHolderCustomerId``, gövde, zorunlu) Customer
+                identifier of the cardholder.
+            payment_definition_id: (``paymentDefinitionId``, gövde) Payment definition
+                identifier associated with the recurring payment setup.
+            adress_text: (``adressText``, gövde) Address text of the customer.
+            city: (gövde) City information of the customer address.
+            country: (gövde) Country information of the customer address.
+            district: (gövde) District information of the customer address.
+            email_adress: (``emailAdress``, gövde) Email address of the customer.
+            extra_field1: (``extraField1``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field2: (``extraField2``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field3: (``extraField3``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field4: (``extraField4``, gövde) Additional field reserved for
+                merchant-specific information.
+            extra_field5: (``extraField5``, gövde) Additional field reserved for
+                merchant-specific information.
+            fax_number: (``faxNumber``, gövde) Fax number of the customer.
+            merchant_customer_id: (``merchantCustomerId``, gövde) Merchant-side customer
+                identifier.
+            phone_number: (``phoneNumber``, gövde) Phone number of the customer.
+            postal_code: (``postalCode``, gövde) Postal code of the customer address.
+            customer_definition_id: (``customerDefinitionId``, gövde) Customer definition
+                identifier associated with the merchant customer record.
+            vpos_sub_merchant_id: (``vposSubMerchantId``, gövde) Sub-merchant identifier for the
+                Virtual POS transaction.
+            pf_sub_merchant_terminal_id: (``pfSubMerchantTerminalId``, gövde) Payment
+                facilitator sub-merchant terminal identifier.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, PaymentId, PaymentCustomerId, MerchantOrderId, Amount,
+        CurrencyCode, PaymentStartDate, IterationCounter, PeriodNumber, PeriodType, IsActive,
+        PaymentStatus, ProvisionNumber, RRN, Stan, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/recurringnonthreedpayment
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantOrderId": merchant_order_id,
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
+                "hashData": hash_data,
+                "amount": amount,
+                "currency": currency,
+                "installmentCount": installment_count,
+                "deferringCount": deferring_count,
+                "cardNumber": card_number,
+                "cardExpireDateYear": card_expire_date_year,
+                "cardExpireDateMonth": card_expire_date_month,
+                "cardCvv2": card_cvv2,
+                "cardHolderName": card_holder_name,
+                "description": description,
+                "bkmId": bkm_id,
+                "customerName": customer_name,
+                "paymentStartDate": payment_start_date,
+                "iterationCounter": iteration_counter,
+                "periodNumber": period_number,
+                "periodType": period_type,
+                "cardHolderCustomerId": card_holder_customer_id,
+                "paymentDefinitionId": payment_definition_id,
+                "adressText": adress_text,
+                "city": city,
+                "country": country,
+                "district": district,
+                "emailAdress": email_adress,
+                "extraField1": extra_field1,
+                "extraField2": extra_field2,
+                "extraField3": extra_field3,
+                "extraField4": extra_field4,
+                "extraField5": extra_field5,
+                "faxNumber": fax_number,
+                "merchantCustomerId": merchant_customer_id,
+                "phoneNumber": phone_number,
+                "postalCode": postal_code,
+                "customerDefinitionId": customer_definition_id,
+                "vposSubMerchantId": vpos_sub_merchant_id,
+                "pfSubMerchantTerminalId": pf_sub_merchant_terminal_id,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/recurringNonThreeDPayment",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def sale_order_reversal(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        hash_data: str,
+        sale_reversal_type: int,
+        language: int | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """saleOrderReversal.
 
         ``POST /v1/vpos/saleOrderReversal``
 
         Kapsam: ``public`` · Akış: client credentials
 
-        Başarılı bir satış işlemini gün sonu öncesinde iptal ederek tahsilatın tamamen geri
-        alınmasını sağlar.
+        It enables the complete reversal of a successful sale transaction by cancelling it
+        before end-of-day settlement.
 
         Args:
-            merchant_id: (``merchantId``, gövde)
-            customer_id: (``customerId``, gövde)
-            user_name: (``userName``, gövde)
-            amount: (gövde)
-            merchant_order_id: (``merchantOrderId``, gövde)
-            order_id: (``orderId``, gövde)
-            hash_data: (``hashData``, gövde)
-            sale_reversal_type: (``saleReversalType``, gövde)
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) User name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount to be reversed.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated for transaction
+                security and request validation.
+            language: (gövde) Language option used for the transaction response messages.
+            sale_reversal_type: (``saleReversalType``, gövde, zorunlu) Sale reversal type that
+                identifies the reversal operation.
 
         Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
 
-        Doküman: https://developer.kuveytturk.com.tr/documentation/sanal-pos-vpos/satis-islemi-iptal
+        Yanıt alanları: OrderId, MerchantOrderId, ProvisionNumber, RRN, Stan, ResponseCode,
+        ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/saleorderreversal
         """
         _query = merge({}, extra_query)
         _body: Any = merge(
@@ -1227,8 +2613,8 @@ class AsyncVpos(AsyncResource):
                 "userName": user_name,
                 "amount": amount,
                 "merchantOrderId": merchant_order_id,
-                "orderId": order_id,
                 "hashData": hash_data,
+                "language": language,
                 "saleReversalType": sale_reversal_type,
             },
             extra_body,
@@ -1238,6 +2624,414 @@ class AsyncVpos(AsyncResource):
             "POST",
             "/v1/vpos/saleOrderReversal",
             scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def secure_partner_payment(
+        self,
+        *,
+        merchant_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        currency_code: str,
+        transaction_type: str,
+        token_type: str,
+        success_url: str,
+        fail_url: str,
+        hash_data: str,
+        installment_count: int,
+        client_ip: str,
+        card_holder_ip: str,
+        order_description: str | None = None,
+        email: str | None = None,
+        cc: str | None = None,
+        subscriber: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Secure Partner Payment.
+
+        ``POST /v1/vpos/secureCommonPaymentToken``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        This API is used to generate a Secure Common Payment token for Virtual POS transactions.
+        It allows merchants to redirect customers to Kuveyt Türk’s Secure Common Payment page,
+        where the customer can complete the payment through supported 3D Secure or GO payment
+        flows.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount. For example, 100 should be sent for
+                1.00 TL and 123450 should be sent for 1,234.50 TL.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency_code: (``currencyCode``, gövde, zorunlu) Currency code of the transaction
+                amount. For TL, it should be sent as 0949.
+            transaction_type: (``transactionType``, gövde, zorunlu) Transaction type to be
+                performed through the Secure Common Payment flow.
+            token_type: (``TokenType``, gövde, zorunlu) Token type that specifies the payment
+                flow to be initiated.
+            success_url: (``successUrl``, gövde, zorunlu) URL to which the customer is
+                redirected after successful payment or verification.
+            fail_url: (``failUrl``, gövde, zorunlu) URL to which the customer is redirected if
+                payment or verification fails, or if an error occurs.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with transaction
+                information and validated by the bank.
+            installment_count: (``installmentCount``, gövde, zorunlu) Number of installments for
+                the payment transaction.
+            order_description: (``orderDescription``, gövde) Description of the order.
+            client_ip: (``clientIp``, gövde, zorunlu) IP address of the client initiating the
+                request.
+            card_holder_ip: (``cardHolderIp``, gövde, zorunlu) IP address of the
+                cardholder/customer who will open the Secure Common Payment page.
+            email: (gövde) Email address of the cardholder/customer.
+            cc: (gövde) Country or phone area code of the cardholder/customer.
+            subscriber: (gövde) Phone number of the cardholder/customer.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: Url, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/secure-partner-payment
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "userName": user_name,
+                "amount": amount,
+                "merchantOrderId": merchant_order_id,
+                "currencyCode": currency_code,
+                "transactionType": transaction_type,
+                "TokenType": token_type,
+                "successUrl": success_url,
+                "failUrl": fail_url,
+                "hashData": hash_data,
+                "installmentCount": installment_count,
+                "orderDescription": order_description,
+                "clientIp": client_ip,
+                "cardHolderIp": card_holder_ip,
+                "email": email,
+                "cc": cc,
+                "subscriber": subscriber,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/secureCommonPaymentToken",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def threee_d_payment(
+        self,
+        *,
+        merchant_id: int,
+        customer_id: int,
+        user_name: str,
+        amount: str,
+        merchant_order_id: str,
+        currency: str,
+        success_url: str,
+        fail_url: str,
+        hash_data: str,
+        installment_count: int,
+        deferring_count: int,
+        card_number: str,
+        card_expire_date_year: str,
+        card_expire_date_month: str,
+        card_cvv2: str,
+        card_holder_name: str,
+        description: str | None = None,
+        vpos_sub_merchant_id: int | None = None,
+        bkm_id: str | None = None,
+        pf_sub_merchant_terminal_id: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """ThreeeD Payment.
+
+        ``POST /v1/vpos/threeDPayment``
+
+        Kapsam: ``public`` · Akış: client credentials
+
+        Virtual POS 3D Secure payment API is used to initiate an online card payment with 3D
+        Secure verification. It returns HTML content that redirects the cardholder to the 3D
+        Secure authentication flow, together with response code and response message
+        information.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) Merchant identifier for the Virtual
+                POS transaction.
+            customer_id: (``customerId``, gövde, zorunlu) Customer identifier associated with
+                the merchant.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Transaction amount. For example, 100 should be sent for
+                1.00 TL and 123450 should be sent for 1,234.50 TL.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency: (gövde, zorunlu) Currency code of the transaction amount. For TL, it
+                should be sent as 0949.
+            success_url: (``successUrl``, gövde, zorunlu) URL to which the cardholder is
+                redirected after successful 3D Secure verification.
+            fail_url: (``failUrl``, gövde, zorunlu) URL to which the cardholder is redirected if
+                3D Secure verification fails or an error occurs.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value generated with transaction
+                information and validated by the bank.
+            installment_count: (``installmentCount``, gövde, zorunlu) Number of installments for
+                the payment transaction.
+            deferring_count: (``deferringCount``, gövde, zorunlu) Number of deferment periods
+                for the payment transaction.
+            description: (gövde) Description of the payment transaction.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number to be used for the 3D
+                Secure payment transaction.
+            card_expire_date_year: (``cardExpireDateYear``, gövde, zorunlu) Expiration year of
+                the card.
+            card_expire_date_month: (``cardExpireDateMonth``, gövde, zorunlu) Expiration month
+                of the card.
+            card_cvv2: (``cardCvv2``, gövde, zorunlu) CVV2 security code of the card.
+            card_holder_name: (``cardHolderName``, gövde, zorunlu) Name of the cardholder.
+            vpos_sub_merchant_id: (``vposSubMerchantId``, gövde) Sub-merchant identifier for the
+                Virtual POS transaction.
+            bkm_id: (``bkmId``, gövde) BKM identifier related to the payment transaction.
+            pf_sub_merchant_terminal_id: (``pfSubMerchantTerminalId``, gövde) Payment
+                facilitator sub-merchant terminal identifier.
+
+        Gövde alanları istekte ``request`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: HtmlContent, ResponseCode, ResponseMessage
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/threeed-payment
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
+                "amount": amount,
+                "merchantOrderId": merchant_order_id,
+                "currency": currency,
+                "successUrl": success_url,
+                "failUrl": fail_url,
+                "hashData": hash_data,
+                "installmentCount": installment_count,
+                "deferringCount": deferring_count,
+                "description": description,
+                "cardNumber": card_number,
+                "cardExpireDateYear": card_expire_date_year,
+                "cardExpireDateMonth": card_expire_date_month,
+                "cardCvv2": card_cvv2,
+                "cardHolderName": card_holder_name,
+                "vposSubMerchantId": vpos_sub_merchant_id,
+                "bkmId": bkm_id,
+                "pfSubMerchantTerminalId": pf_sub_merchant_terminal_id,
+            },
+            extra_body,
+        )
+        _body = {"request": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/threeDPayment",
+            scope="public",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def virtual_pos_non_three_d_payment(
+        self,
+        *,
+        merchant_id: int,
+        user_name: str,
+        amount: Number,
+        merchant_order_id: str,
+        card_number: str,
+        currency_code: str,
+        transaction_type: str,
+        identity_tax_number: str,
+        hash_data: str,
+        installment_count: int,
+        customer_id: int | None = None,
+        description: str | None = None,
+        insurance_deferring_count: int | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Virtual POS NonThreeD Payment (Masked Card).
+
+        ``POST /v1/vpos/nonThreeDPayment``
+
+        Kapsam: ``cards`` · Akış: client credentials
+
+        This API is used to perform Non-3D payment transactions through Virtual POS by using
+        identity-tax number and payment information. It returns the payment transaction result
+        and, if the transaction is successful, provision information.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) The merchant's registered merchant ID
+                at the bank.
+            customer_id: (``customerId``, gövde) The merchant's customer account number.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Payment amount of the transaction.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            card_number: (``cardNumber``, gövde, zorunlu) Card number used for the payment
+                transaction.
+            currency_code: (``currencyCode``, gövde, zorunlu) Currency code of the transaction.
+                For TL, it should be sent as 0949.
+            transaction_type: (``transactionType``, gövde, zorunlu) Transaction type. Sale: 1,
+                Reversal: 6.
+            identity_tax_number: (``identityTaxNumber``, gövde, zorunlu) Customer identity
+                number or tax number.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value calculated for the transaction
+                and validated by the bank.
+            installment_count: (``installmentCount``, gövde, zorunlu) Number of installments for
+                the payment transaction.
+            description: (gövde) Description of the payment transaction.
+            insurance_deferring_count: (``insuranceDeferringCount``, gövde) Insurance deferring
+                count for the payment transaction.
+
+        Gövde alanları istekte ``APIPaymentTransactionContract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, ProvisionNumber, MerchantOrderId, ResponseCode,
+        ResponseMessage, RRN, Stan, ExecutionReferenceId, IsEnrolled, TransactionTime, Password
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/virtual-pos-nonthreed-payment-masked-card
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
+                "amount": amount,
+                "merchantOrderId": merchant_order_id,
+                "cardNumber": card_number,
+                "currencyCode": currency_code,
+                "transactionType": transaction_type,
+                "identityTaxNumber": identity_tax_number,
+                "hashData": hash_data,
+                "installmentCount": installment_count,
+                "description": description,
+                "insuranceDeferringCount": insurance_deferring_count,
+            },
+            extra_body,
+        )
+        _body = {"APIPaymentTransactionContract": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/nonThreeDPayment",
+            scope="cards",
+            flow="client_credentials",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
+    async def virtual_pos_sale_reversal(
+        self,
+        *,
+        merchant_id: int,
+        user_name: str,
+        amount: Number,
+        merchant_order_id: str,
+        currency_code: str,
+        transaction_type: int,
+        order_id: int,
+        provision_number: str,
+        r_rn: str,
+        stan: str,
+        hash_data: str,
+        customer_id: int | None = None,
+        description: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Virtual POS Sale Reversal (Masked).
+
+        ``POST /v1/vpos/saleReversal``
+
+        Kapsam: ``cards`` · Akış: client credentials
+
+        This API is used to reverse a sales transaction performed through Virtual POS. A sales
+        transaction can be cancelled on the same day before settlement. It returns the reversal
+        transaction result and related authorization information.
+
+        Args:
+            merchant_id: (``merchantId``, gövde, zorunlu) The merchant's registered merchant ID
+                at the bank.
+            customer_id: (``customerId``, gövde) The merchant's customer account number.
+            user_name: (``userName``, gövde, zorunlu) API user name associated with the merchant
+                integration.
+            amount: (gövde, zorunlu) Reversal amount of the transaction.
+            merchant_order_id: (``merchantOrderId``, gövde, zorunlu) Unique order identifier
+                generated by the merchant.
+            currency_code: (``currencyCode``, gövde, zorunlu) Currency code of the transaction.
+                For TL, it should be sent as 0949.
+            transaction_type: (``transactionType``, gövde, zorunlu) Transaction type. Sale: 1,
+                Reversal: 6.
+            order_id: (``orderId``, gövde, zorunlu) Unique order number of the transaction to be
+                reversed.
+            provision_number: (``provisionNumber``, gövde, zorunlu) Provision number of the
+                transaction to be reversed.
+            r_rn: (``rRN``, gövde, zorunlu) RRN number of the transaction to be reversed.
+            stan: (gövde, zorunlu) STAN number of the transaction to be reversed.
+            description: (gövde) Description of the reversal transaction.
+            hash_data: (``hashData``, gövde, zorunlu) Hash value calculated for the transaction
+                and validated by the bank.
+
+        Gövde alanları istekte ``APIPaymentTransactionContract`` nesnesinin içine yerleştirilir.
+
+        Yanıt alanları: OrderId, ProvisionNumber, MerchantOrderId, ResponseCode,
+        ResponseMessage, RRN, Stan, ExecutionReferenceId, TransactionTime
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/virtual-pos-vpos/virtual-pos-sale-reversal-masked
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "merchantId": merchant_id,
+                "customerId": customer_id,
+                "userName": user_name,
+                "amount": amount,
+                "merchantOrderId": merchant_order_id,
+                "currencyCode": currency_code,
+                "transactionType": transaction_type,
+                "orderId": order_id,
+                "provisionNumber": provision_number,
+                "rRN": r_rn,
+                "stan": stan,
+                "description": description,
+                "hashData": hash_data,
+            },
+            extra_body,
+        )
+        _body = {"APIPaymentTransactionContract": _body}
+        return await self._client.request(
+            "POST",
+            "/v1/vpos/saleReversal",
+            scope="cards",
             flow="client_credentials",
             query=_query,
             body=_body,

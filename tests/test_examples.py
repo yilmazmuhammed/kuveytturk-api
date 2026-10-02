@@ -12,27 +12,31 @@ import httpx
 import pytest
 
 from conftest import Recorder, envelope
+from conftest import token_response as conftest_token
 from kuveytturk_api import FileTokenStore, KuveytTurk, Token
 
 EXAMPLES = Path(__file__).resolve().parent.parent / "examples"
 
+# Sandbox'ın 2026-10-02'de döndürdüğü gerçek yanıt biçimleri (değerler uydurma).
 ACCOUNTS_V3 = {
     "accountList": [
         {
-            "name": "Cari",
+            "name": "",
             "suffix": 1,
             "balance": 9955.0,
-            "avaibleBalance": 9900.1,
+            "availableBalance": 9900.1,
+            "fxId": 0,
             "iban": "TR12",
-            "type": "Cari Hesap",
+            "productType": "Cari Hesap",
         },
         {
             "name": "Altın",
             "suffix": 101,
             "balance": 5.0,
-            "avaibleBalance": 5.0,
+            "availableBalance": 5.0,
+            "fxId": 24,
             "iban": "TR34",
-            "type": "Altın",
+            "productType": "Kıymetli Maden",
         },
     ]
 }
@@ -46,6 +50,7 @@ ACCOUNTS_V2 = {
             "availableBalance": 7.5,
             "fxCode": "TL",
             "iban": "TR56",
+            "type": "Current Account",
         }
     ]
 }
@@ -53,21 +58,20 @@ ACTIVITIES = {
     "accountActivities": [
         {
             "suffix": 1,
-            "date": "2020-03-19T00:00:00",
+            "date": "2026-09-23T23:17:05.327",
             "description": "Para Transferi",
-            "amount": 22.54,
-            "balance": 100,
-            "transactionReference": "ref-1",
+            "amount": -22.54,
             "fxCode": "TL",
+            "transactionReference": "ref-1",
         },
         {
             "suffix": 1,
-            "date": "2020-03-17T00:00:00",
+            "date": "2026-09-13T01:32:29.64",
             "description": "Nakit Yatırma",
-            "amount": 10,
+            "amount": 10.0,
             "balance": 77.46,
-            "transactionReference": "ref-2",
             "fxCode": "TL",
+            "transactionReference": "ref-2",
         },
     ]
 }
@@ -76,16 +80,35 @@ RECEIPT = {
     "description": "Açıklama",
     "slipList": [{"key": "Hesap No", "value": "TR12"}],
 }
-RATES = [
-    {"name": "Amerikan Doları", "fxCode": "USD", "buyRate": 3.52537, "sellRate": 3.51042},
-    {"name": "Euro", "fxCode": "EUR", "buyRate": 3.71738, "sellRate": 3.70032},
-]
-METALS = [{"name": "Altın", "fxCode": "ALT", "buyRate": 2571.43, "sellRate": 2377.05}]
+EMPTY_RECEIPT = {"executionReferenceId": "x", "title": "", "description": "", "amount": 0.0}
+RATES = {
+    "rateList": [
+        {
+            "fxName": "Amerikan Doları",
+            "fxCode": "USD",
+            "fxId": 1,
+            "buyRate": 45.73486,
+            "sellRate": 44.71732,
+        },
+        {"fxName": "Euro", "fxCode": "EUR", "fxId": 19, "buyRate": 51.5129, "sellRate": 50.36568},
+    ]
+}
+METALS = {
+    "rateList": [
+        {
+            "fxName": "Altın",
+            "fxCode": "ALT (gr)",
+            "fxId": 24,
+            "buyRate": 6082.12347,
+            "sellRate": 6067.5,
+        }
+    ]
+}
 IBAN_INFO = {
     "customerName": "Fu**** Gö****",
     "bankName": "Kuveyt Türk Katılım Bankası A.Ş.",
     "bankId": 205,
-    "fec": 1,
+    "fec": 0,
 }
 VALID_IBAN = "TR330006100519786457841326"
 
@@ -95,7 +118,7 @@ ROUTES: dict[tuple[str, str], Any] = {
     ("GET", "/v3/accounts/1/transactions"): ACTIVITIES,
     ("GET", "/v2/accounts/1/transactions"): ACTIVITIES,
     ("POST", "/v3/accounts/transactions/receipts"): RECEIPT,
-    ("POST", "/v2/accounts/transactions/receipts"): RECEIPT,
+    ("POST", "/v2/accounts/transactions/receipts"): EMPTY_RECEIPT,
     ("GET", "/v2/fx/rates"): RATES,
     ("GET", "/v1/preciousmetal/rates"): METALS,
     ("GET", f"/v1/moneytransfer/{VALID_IBAN}/customeribaninfo"): IBAN_INFO,
@@ -158,18 +181,10 @@ def test_account_list(example, recorder, capsys):
     example("account_list").main(["--only-open"])
     out = capsys.readouterr().out
     assert recorder.last.url.raw_path == b"/v3/accounts?onlyOpen=true"
-    assert "Cari Hesap" in out and "9,900.10" in out and "TR34" in out
+    assert "Kıymetli Maden" in out and "9,900.10" in out and "TR34" in out
     assert out.splitlines()[0].split() == [
-        "Ek",
-        "No",
-        "Hesap",
-        "Adı",
-        "Tür",
-        "Döviz",
-        "Bakiye",
-        "Kullanılabilir",
-        "IBAN",
-    ]
+        "Ek", "No", "Hesap", "Adı", "Tür", "Döviz", "Bakiye", "Kullanılabilir", "IBAN",
+    ]  # fmt: skip
 
 
 def test_account_list_as_customer_uses_stored_login(example, recorder, capsys):
@@ -180,7 +195,7 @@ def test_account_list_as_customer_uses_stored_login(example, recorder, capsys):
     out = capsys.readouterr().out
     assert recorder.last.url.raw_path == b"/v2/accounts?suffix=2"
     assert recorder.last.headers["Authorization"] == "Bearer musteri-tok"
-    assert "Müşteri Cari" in out and "7.50" in out
+    assert "Müşteri Cari" in out and "7.50" in out and "Current Account" in out
 
 
 def test_customer_flag_triggers_login_when_no_token(example, monkeypatch, capsys):
@@ -208,24 +223,26 @@ def test_account_transactions_with_receipt(example, recorder, capsys):
     assert listing.url.params["itemCount"] == "20"
     assert {"beginDate", "endDate", "itemCount"} == set(listing.url.params.keys())
     assert json.loads(receipt.content) == {"transactionReference": "ref-1"}
-    assert "2 hareket" in out and "Nakit Yatırma" in out and "22.54" in out
+    assert "2 hareket" in out and "Nakit Yatırma" in out and "-22.54" in out
     assert "Dekont: Nakit Yatan" in out and "Hesap No" in out
 
 
-def test_account_transactions_as_customer(example, recorder, capsys):
+def test_account_transactions_as_customer_with_empty_receipt(example, recorder, capsys):
     example.store.set("user:default", Token(access_token="musteri-tok", scope="accounts"))
     example("account_transactions").main(["--suffix", "1", "--customer", "--receipt"])
     assert [r.url.path for r in recorder.api_requests] == [
         "/v2/accounts/1/transactions",
         "/v2/accounts/transactions/receipts",
     ]
-    assert "Para Transferi" in capsys.readouterr().out
+    out = capsys.readouterr().out
+    assert "Para Transferi" in out and "dekont ayrıntısı dönmedi" in out
 
 
 def test_exchange_rates_filter(example, capsys):
     example("exchange_rates").main(["--code", "usd", "--code", "ALT"])
     out = capsys.readouterr().out
-    assert "Amerikan Doları" in out and "Altın" in out
+    assert "Amerikan Doları" in out and "45.73486" in out
+    assert "Altın" in out and "6,067.50" in out  # "ALT (gr)" kodu ALT ile eşleşir
     assert "Euro" not in out
 
 
@@ -250,48 +267,68 @@ def test_is_valid_iban(example):
     assert not is_valid_iban("")
 
 
+def test_print_table_hides_empty_columns_and_formats_numbers(example, capsys):
+    example.common.print_table(
+        [{"a": 1.5, "b": "", "x": 45.73486}, {"a": 1234.0, "c": "son"}],
+        [("a", "A"), ("b", "B"), ("c|x", "C")],
+    )
+    lines = capsys.readouterr().out.splitlines()
+    assert lines[0].split() == ["A", "C"]  # B hiçbir satırda dolu değil
+    assert lines[2].split() == ["1.50", "45.73486"]
+    assert lines[3].split() == ["1,234.00", "son"]
+
+
 SEND = [
-    "send",
-    "--from-suffix",
-    "1",
-    "--to-account",
-    "123456",
-    "--to-suffix",
-    "2",
-    "--amount",
-    "10.50",
-    "--transfer-type",
-    "2",
-]
+    "send", "--from-suffix", "1", "--iban", VALID_IBAN, "--amount", "10.50",
+    "--corporate-user", "kurumsal",
+]  # fmt: skip
+
+
+def transfer_requests(recorder: Recorder) -> list[httpx.Request]:
+    return [r for r in recorder.api_requests if r.url.path.endswith("/outgoingmoneytransfer")]
 
 
 def test_money_transfer_is_a_dry_run_by_default(example, recorder, capsys):
     example("money_transfer").main([*SEND, "--description", "Kira"])
     out = capsys.readouterr().out
-    assert recorder.api_requests == [] and recorder.token_requests == []
+    assert transfer_requests(recorder) == []
     assert "Deneme modu" in out and '"money_transfer_amount": "10.50"' in out
+    assert "Fu**** Gö****" in out  # alıcı gönderilmeden önce sorgulandı
 
 
 def test_money_transfer_execute_needs_typed_confirmation(example, recorder, monkeypatch, capsys):
     module = example("money_transfer")
     monkeypatch.setattr("builtins.input", lambda prompt: "evet")  # tam olarak EVET değil
     module.main([*SEND, "--execute"])
-    assert recorder.api_requests == []
+    assert transfer_requests(recorder) == []
     assert "Vazgeçildi" in capsys.readouterr().out
 
     monkeypatch.setattr("builtins.input", lambda prompt: "EVET")
     module.main([*SEND, "--execute", "--description", "Kira"])
-    assert json.loads(recorder.last.content) == {
+    (request,) = transfer_requests(recorder)
+    assert request.url.path == "/v1/moneytransfer/outgoingmoneytransfer"
+    assert json.loads(request.content) == {
         "senderAccountSuffix": 1,
-        "receiverAccountNumber": 123456,
-        "receiverAccountSuffix": 2,
-        "moneyTransferDescription": "Kira",
+        "receiverIban": VALID_IBAN,
         "moneyTransferAmount": 10.5,
-        "transferType": 2,
+        "corporateWebUserName": "kurumsal",
+        "moneyTransferDescription": "Kira",
     }
     out = capsys.readouterr().out
     assert "39284624" in out and "exec-1" in out
-    assert len(recorder.api_requests) == 1
+
+
+def test_money_transfer_validates_inputs_before_any_request(example, recorder, monkeypatch, capsys):
+    module = example("money_transfer")
+    monkeypatch.delenv("KUVEYTTURK_CORPORATE_USER", raising=False)
+    bad_iban = [a if a != VALID_IBAN else "TR330006100519786457841327" for a in SEND]
+    no_user = SEND[:-2]
+    for arguments in (bad_iban, no_user):
+        with pytest.raises(SystemExit) as info:
+            module.main([*arguments, "--execute", "--yes"])
+        assert info.value.code == 2
+    assert recorder.api_requests == []
+    capsys.readouterr()
 
 
 def test_money_transfer_refuses_production_without_flag(example, recorder, monkeypatch, capsys):
@@ -299,23 +336,38 @@ def test_money_transfer_refuses_production_without_flag(example, recorder, monke
     monkeypatch.setattr(
         module, "create_client", lambda: example.create_client(environment="production")
     )
+    recorder.api = lambda r: route(r) if "gateway" in r.url.host else conftest_token()
     with pytest.raises(SystemExit) as info:
         module.main([*SEND, "--execute", "--yes"])
     assert info.value.code == 2
-    assert recorder.api_requests == []
+    assert transfer_requests(recorder) == []
     assert "--allow-production" in capsys.readouterr().err
 
 
 def test_money_transfer_timeout_is_reported_not_retried(example, recorder, capsys):
-    def timeout(request: httpx.Request) -> httpx.Response:
-        raise httpx.ReadTimeout("zaman aşımı")
+    def flaky(request: httpx.Request) -> httpx.Response:
+        if request.method == "POST":
+            raise httpx.ReadTimeout("zaman aşımı")
+        return route(request)
 
-    recorder.api = timeout
+    recorder.api = flaky
     with pytest.raises(SystemExit) as info:
         example("money_transfer").main([*SEND, "--execute", "--yes"])
     assert info.value.code == 3
-    assert len(recorder.api_requests) == 1
+    assert len(transfer_requests(recorder)) == 1
     assert "Yeniden GÖNDERMEYİN" in capsys.readouterr().err
+
+
+def test_money_transfer_continues_when_iban_lookup_fails(example, recorder, capsys):
+    def lookup_forbidden(request: httpx.Request) -> httpx.Response:
+        if "customeribaninfo" in request.url.path:
+            return httpx.Response(403, json={"code": 403, "message": "Invalid Scope"})
+        return route(request)
+
+    recorder.api = lookup_forbidden
+    example("money_transfer").main(SEND)
+    out = capsys.readouterr().out
+    assert "sorgulanamadı" in out and "Deneme modu" in out
 
 
 @pytest.mark.parametrize("amount", ["0", "-5", "1.005", "abc"])
@@ -335,14 +387,13 @@ def test_money_transfer_state(example, recorder, capsys):
 
 
 def test_run_reports_api_errors(example, recorder, capsys):
-    recorder.api = lambda r: httpx.Response(
-        403, json={"results": [{"errorCode": "Forbidden", "errorMessage": "Yetkiniz yok"}]}
-    )
+    recorder.api = lambda r: httpx.Response(403, json={"code": 403, "message": "Invalid Scope"})
     module = example("account_list")
     with pytest.raises(SystemExit) as info:
         example.common.run(lambda: module.main([]))
     assert info.value.code == 1
-    assert "HTTP 403" in capsys.readouterr().err
+    err = capsys.readouterr().err
+    assert "HTTP 403" in err and "Invalid Scope" in err
 
 
 async def test_async_usage(private_pem, monkeypatch, capsys):

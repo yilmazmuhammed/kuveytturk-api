@@ -33,19 +33,15 @@ def main(argv: Sequence[str] | None = None) -> None:
         else:
             response = kt.accounts.account_list_v3(**filters)
 
-    accounts = as_list(response.value, "accountList")
-    for account in accounts:
-        # v3 yanıtında alan adı "avaibleBalance" (dokümandaki yazımıyla), v2'de "availableBalance".
-        account.setdefault("availableBalance", account.get("avaibleBalance"))
     print_table(
-        accounts,
+        as_list(response.value, "accountList"),
         [
             ("suffix", "Ek No"),
             ("name", "Hesap Adı"),
-            ("type", "Tür"),
-            ("fxCode", "Döviz"),
+            ("productType|type", "Tür"),
+            ("fxCode|fxId", "Döviz"),
             ("balance", "Bakiye"),
-            ("availableBalance", "Kullanılabilir"),
+            ("availableBalance|avaibleBalance", "Kullanılabilir"),
             ("iban", "IBAN"),
         ],
     )

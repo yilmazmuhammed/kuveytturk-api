@@ -28,10 +28,10 @@ def main(argv: Sequence[str] | None = None) -> None:
     with create_client() as kt:
         info = kt.transfers.customer_iban_info_for_money_transfer(iban=iban)
 
-    print(f"IBAN       : {iban}")
-    print(f"Hesap sahibi: {info.get('customerName')}")
-    print(f"Banka      : {info.get('bankName')} ({info.get('bankId')})")
-    print(f"Döviz kodu : {info.get('fec')}")
+    print(f"IBAN         : {iban}")
+    print(f"Hesap sahibi : {info.get('customerName')}")
+    print(f"Banka        : {info.get('bankName')} ({info.get('bankId')})")
+    print(f"Döviz kodu   : {info.get('fec')}")
 
 
 if __name__ == "__main__":

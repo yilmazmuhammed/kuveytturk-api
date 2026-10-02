@@ -122,11 +122,8 @@ class Transfers(Resource):
         self,
         *,
         sender_account_suffix: int,
-        receiver_account_number: int,
-        receiver_account_suffix: int,
-        money_transfer_amount: Number,
-        transfer_type: int,
-        money_transfer_description: str | None = None,
+        receiver_iban: str,
+        amount: Number,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
@@ -137,27 +134,15 @@ class Transfers(Resource):
 
         Kapsam: ``transfers`` · Akış: client credentials
 
-        This API is used to initiate an internal money transfer transaction based on the
-        customer account number from the authorization context. The request includes sender
-        account suffix, receiver account information, transfer amount, transfer description and
-        transfer type. The response returns the transaction execution reference and the created
-        money transfer transaction ID.
+        Bir transfer için geçerli ödeme türünü sorgular. Dikkat: resmî dokümandaki açıklama ve
+        parametreler başka bir uç noktadan kopyalanmış; buradaki parametreler sandbox'ın
+        doğrulama hatalarına göre belirlendi.
 
         Args:
-            sender_account_suffix: (``senderAccountSuffix``, gövde, zorunlu) Sender account
-                suffix number from which the money transfer amount will be withdrawn.
-            receiver_account_number: (``receiverAccountNumber``, gövde, zorunlu) Receiver
-                customer account number to which the money transfer will be sent.
-            receiver_account_suffix: (``receiverAccountSuffix``, gövde, zorunlu) Receiver
-                account suffix number to which the money transfer will be sent.
-            money_transfer_description: (``moneyTransferDescription``, gövde) Description or
-                comment added to the money transfer transaction.
-            money_transfer_amount: (``moneyTransferAmount``, gövde, zorunlu) Amount that will be
-                transferred.
-            transfer_type: (``transferType``, gövde, zorunlu) Money transfer type used to
-                identify the transfer scenario.
-
-        Yanıt alanları: executionReferenceId, moneyTransferTransactionId
+            sender_account_suffix: (``senderAccountSuffix``, gövde, zorunlu) Gönderen hesabın ek
+                numarası.
+            receiver_iban: (``receiverIban``, gövde, zorunlu) Alıcının IBAN'ı.
+            amount: (gövde, zorunlu) Transfer tutarı.
 
         Doküman: https://developer.kuveytturk.com.tr/documentation/money-transfers/money-transfer-payment-type
         """
@@ -165,11 +150,8 @@ class Transfers(Resource):
         _body: Any = merge(
             {
                 "senderAccountSuffix": sender_account_suffix,
-                "receiverAccountNumber": receiver_account_number,
-                "receiverAccountSuffix": receiver_account_suffix,
-                "moneyTransferDescription": money_transfer_description,
-                "moneyTransferAmount": money_transfer_amount,
-                "transferType": transfer_type,
+                "receiverIban": receiver_iban,
+                "amount": amount,
             },
             extra_body,
         )
@@ -232,15 +214,75 @@ class Transfers(Resource):
             options=request_options,
         )
 
+    def money_transfer_to_gsm(
+        self,
+        *,
+        sender_account_suffix: int,
+        receiver_name: str,
+        receiver_phone_number: str,
+        amount: Number,
+        comment: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Money Transfer to GSM.
+
+        ``POST /v1/transfers/toGSM``
+
+        Kapsam: ``transfers`` · Akış: authorization code (müşteri girişi gerekir)
+
+        Sends money from an authorized user’s current or deposit account (sent via token) to any
+        phone number. In order to proceed the transfer, Kuveyt Turk sends a one-time-password
+        via SMS to the customer and gives a transaction ID to the developer, the customer enters
+        the code to the third-party app, and the third-party app sends the ID and the SMS code
+        to Kuveyt Turk via “Execute Money Transfer” API. If the ID and the SMS codes match, then
+        Kuveyt Turk authenticates the transaction. The parameters sent include, amount, comment,
+        sender’s branch ID, receiver’s phone number, and sender’s account suffix.
+
+        Args:
+            sender_account_suffix: (``SenderAccountSuffix``, gövde, zorunlu) Indicates the
+                sender's account suffix number.
+            receiver_name: (``ReceiverName``, gövde, zorunlu) Indicates the receiver's name.
+            receiver_phone_number: (``ReceiverPhoneNumber``, gövde, zorunlu) Indicates the
+                receiver's phone number.
+            amount: (``Amount``, gövde, zorunlu) Amount that will be sent.
+            comment: (``Comment``, gövde) Comment that customer adds to the transaction.
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/money-transfer-to-gsm
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "SenderAccountSuffix": sender_account_suffix,
+                "ReceiverName": receiver_name,
+                "ReceiverPhoneNumber": receiver_phone_number,
+                "Amount": amount,
+                "Comment": comment,
+            },
+            extra_body,
+        )
+        return self._client.request(
+            "POST",
+            "/v1/transfers/toGSM",
+            scope="transfers",
+            flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     def outgoing_money_transfer(
         self,
         *,
         sender_account_suffix: int,
-        receiver_account_number: int,
-        receiver_account_suffix: int,
+        receiver_iban: str,
         money_transfer_amount: Number,
-        transfer_type: int,
+        corporate_web_user_name: str,
         money_transfer_description: str | None = None,
+        transfer_type: int | None = None,
+        receiver_account_number: int | None = None,
+        receiver_account_suffix: int | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
@@ -251,24 +293,28 @@ class Transfers(Resource):
 
         Kapsam: ``transfers`` · Akış: client credentials
 
-        Bu API, authorization context ile ilişkili müşteri hesabından money transfer işlemi
-        başlatmak için kullanılır. Servis; sender account bilgilerini, receiver account
-        bilgilerini, transfer amount ve transfer type değerlerini doğrular, ardından ilgili
-        money transfer transaction kaydını oluşturur.
+        Müşteri hesabından bir IBAN'a para transferi (havale / EFT / FAST) başlatır. Dikkat:
+        resmî dokümandaki parametre listesi eksik; buradaki zorunlu alanlar sandbox'ın doğrulama
+        hatalarına göre belirlendi.
 
         Args:
-            sender_account_suffix: (``senderAccountSuffix``, gövde, zorunlu) Money transfer
-                tutarının çekileceği sender account suffix numarasıdır.
-            receiver_account_number: (``receiverAccountNumber``, gövde, zorunlu) Money transfer
-                gönderilecek receiver customer account number değeridir.
-            receiver_account_suffix: (``receiverAccountSuffix``, gövde, zorunlu) Money transfer
-                gönderilecek receiver account suffix numarasıdır.
-            money_transfer_description: (``moneyTransferDescription``, gövde) Money transfer
-                transaction için eklenen açıklama veya comment bilgisidir.
+            sender_account_suffix: (``senderAccountSuffix``, gövde, zorunlu) Tutarın çekileceği
+                gönderen hesabın ek numarası.
+            receiver_iban: (``receiverIban``, gövde, zorunlu) Alıcının IBAN'ı. (Dokümanda yer
+                almıyor; sandbox zorunlu tutuyor.)
             money_transfer_amount: (``moneyTransferAmount``, gövde, zorunlu) Transfer edilecek
-                tutardır.
-            transfer_type: (``transferType``, gövde, zorunlu) Transfer senaryosunu belirlemek
-                için kullanılan money transfer type değeridir.
+                tutar.
+            corporate_web_user_name: (``corporateWebUserName``, gövde, zorunlu) İşlemi yapan
+                kurumsal internet şubesi kullanıcı adı. (Dokümanda yer almıyor; sandbox zorunlu
+                tutuyor.)
+            money_transfer_description: (``moneyTransferDescription``, gövde) Transfer
+                açıklaması.
+            transfer_type: (``transferType``, gövde) Transfer senaryosunu belirleyen tür kodu
+                (dokümanda değerleri açıklanmıyor).
+            receiver_account_number: (``receiverAccountNumber``, gövde) Alıcı müşteri/hesap
+                numarası (dokümandaki alan).
+            receiver_account_suffix: (``receiverAccountSuffix``, gövde) Alıcı hesabın ek
+                numarası (dokümandaki alan).
 
         Yanıt alanları: executionReferenceId, moneyTransferTransactionId
 
@@ -278,11 +324,13 @@ class Transfers(Resource):
         _body: Any = merge(
             {
                 "senderAccountSuffix": sender_account_suffix,
+                "receiverIban": receiver_iban,
+                "moneyTransferAmount": money_transfer_amount,
+                "corporateWebUserName": corporate_web_user_name,
+                "moneyTransferDescription": money_transfer_description,
+                "transferType": transfer_type,
                 "receiverAccountNumber": receiver_account_number,
                 "receiverAccountSuffix": receiver_account_suffix,
-                "moneyTransferDescription": money_transfer_description,
-                "moneyTransferAmount": money_transfer_amount,
-                "transferType": transfer_type,
             },
             extra_body,
         )
@@ -313,11 +361,9 @@ class Transfers(Resource):
 
         Kapsam: ``transfers`` · Akış: authorization code (müşteri girişi gerekir)
 
-        This API is used to retrieve account transaction statement information based on the
-        customer account number from the authorization context. The request can be filtered by
-        account suffix, item count, begin date and end date. The response returns account
-        activity records including transaction date, description, amount, balance, currency
-        code, transaction reference and transaction code information.
+        Müşteri girişiyle (authorization code) para transferi. Dikkat: resmî dokümandaki
+        açıklama ve parametreler hesap hareketleri uç noktasından kopyalanmış görünüyor; gerçek
+        gövde alanları doğrulanamadı. Alanları extra_body ile ya da kt.request() ile gönderin.
 
         Args:
             suffix: (gövde, zorunlu) Account suffix for which transaction records will be
@@ -514,11 +560,8 @@ class AsyncTransfers(AsyncResource):
         self,
         *,
         sender_account_suffix: int,
-        receiver_account_number: int,
-        receiver_account_suffix: int,
-        money_transfer_amount: Number,
-        transfer_type: int,
-        money_transfer_description: str | None = None,
+        receiver_iban: str,
+        amount: Number,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
@@ -529,27 +572,15 @@ class AsyncTransfers(AsyncResource):
 
         Kapsam: ``transfers`` · Akış: client credentials
 
-        This API is used to initiate an internal money transfer transaction based on the
-        customer account number from the authorization context. The request includes sender
-        account suffix, receiver account information, transfer amount, transfer description and
-        transfer type. The response returns the transaction execution reference and the created
-        money transfer transaction ID.
+        Bir transfer için geçerli ödeme türünü sorgular. Dikkat: resmî dokümandaki açıklama ve
+        parametreler başka bir uç noktadan kopyalanmış; buradaki parametreler sandbox'ın
+        doğrulama hatalarına göre belirlendi.
 
         Args:
-            sender_account_suffix: (``senderAccountSuffix``, gövde, zorunlu) Sender account
-                suffix number from which the money transfer amount will be withdrawn.
-            receiver_account_number: (``receiverAccountNumber``, gövde, zorunlu) Receiver
-                customer account number to which the money transfer will be sent.
-            receiver_account_suffix: (``receiverAccountSuffix``, gövde, zorunlu) Receiver
-                account suffix number to which the money transfer will be sent.
-            money_transfer_description: (``moneyTransferDescription``, gövde) Description or
-                comment added to the money transfer transaction.
-            money_transfer_amount: (``moneyTransferAmount``, gövde, zorunlu) Amount that will be
-                transferred.
-            transfer_type: (``transferType``, gövde, zorunlu) Money transfer type used to
-                identify the transfer scenario.
-
-        Yanıt alanları: executionReferenceId, moneyTransferTransactionId
+            sender_account_suffix: (``senderAccountSuffix``, gövde, zorunlu) Gönderen hesabın ek
+                numarası.
+            receiver_iban: (``receiverIban``, gövde, zorunlu) Alıcının IBAN'ı.
+            amount: (gövde, zorunlu) Transfer tutarı.
 
         Doküman: https://developer.kuveytturk.com.tr/documentation/money-transfers/money-transfer-payment-type
         """
@@ -557,11 +588,8 @@ class AsyncTransfers(AsyncResource):
         _body: Any = merge(
             {
                 "senderAccountSuffix": sender_account_suffix,
-                "receiverAccountNumber": receiver_account_number,
-                "receiverAccountSuffix": receiver_account_suffix,
-                "moneyTransferDescription": money_transfer_description,
-                "moneyTransferAmount": money_transfer_amount,
-                "transferType": transfer_type,
+                "receiverIban": receiver_iban,
+                "amount": amount,
             },
             extra_body,
         )
@@ -624,15 +652,75 @@ class AsyncTransfers(AsyncResource):
             options=request_options,
         )
 
+    async def money_transfer_to_gsm(
+        self,
+        *,
+        sender_account_suffix: int,
+        receiver_name: str,
+        receiver_phone_number: str,
+        amount: Number,
+        comment: str | None = None,
+        extra_query: Mapping[str, Any] | None = None,
+        extra_body: Mapping[str, Any] | None = None,
+        request_options: RequestOptions | None = None,
+    ) -> APIResponse:
+        """Money Transfer to GSM.
+
+        ``POST /v1/transfers/toGSM``
+
+        Kapsam: ``transfers`` · Akış: authorization code (müşteri girişi gerekir)
+
+        Sends money from an authorized user’s current or deposit account (sent via token) to any
+        phone number. In order to proceed the transfer, Kuveyt Turk sends a one-time-password
+        via SMS to the customer and gives a transaction ID to the developer, the customer enters
+        the code to the third-party app, and the third-party app sends the ID and the SMS code
+        to Kuveyt Turk via “Execute Money Transfer” API. If the ID and the SMS codes match, then
+        Kuveyt Turk authenticates the transaction. The parameters sent include, amount, comment,
+        sender’s branch ID, receiver’s phone number, and sender’s account suffix.
+
+        Args:
+            sender_account_suffix: (``SenderAccountSuffix``, gövde, zorunlu) Indicates the
+                sender's account suffix number.
+            receiver_name: (``ReceiverName``, gövde, zorunlu) Indicates the receiver's name.
+            receiver_phone_number: (``ReceiverPhoneNumber``, gövde, zorunlu) Indicates the
+                receiver's phone number.
+            amount: (``Amount``, gövde, zorunlu) Amount that will be sent.
+            comment: (``Comment``, gövde) Comment that customer adds to the transaction.
+
+        Doküman: https://developer.kuveytturk.com.tr/documentation/other/money-transfer-to-gsm
+        """
+        _query = merge({}, extra_query)
+        _body: Any = merge(
+            {
+                "SenderAccountSuffix": sender_account_suffix,
+                "ReceiverName": receiver_name,
+                "ReceiverPhoneNumber": receiver_phone_number,
+                "Amount": amount,
+                "Comment": comment,
+            },
+            extra_body,
+        )
+        return await self._client.request(
+            "POST",
+            "/v1/transfers/toGSM",
+            scope="transfers",
+            flow="authorization_code",
+            query=_query,
+            body=_body,
+            options=request_options,
+        )
+
     async def outgoing_money_transfer(
         self,
         *,
         sender_account_suffix: int,
-        receiver_account_number: int,
-        receiver_account_suffix: int,
+        receiver_iban: str,
         money_transfer_amount: Number,
-        transfer_type: int,
+        corporate_web_user_name: str,
         money_transfer_description: str | None = None,
+        transfer_type: int | None = None,
+        receiver_account_number: int | None = None,
+        receiver_account_suffix: int | None = None,
         extra_query: Mapping[str, Any] | None = None,
         extra_body: Mapping[str, Any] | None = None,
         request_options: RequestOptions | None = None,
@@ -643,24 +731,28 @@ class AsyncTransfers(AsyncResource):
 
         Kapsam: ``transfers`` · Akış: client credentials
 
-        Bu API, authorization context ile ilişkili müşteri hesabından money transfer işlemi
-        başlatmak için kullanılır. Servis; sender account bilgilerini, receiver account
-        bilgilerini, transfer amount ve transfer type değerlerini doğrular, ardından ilgili
-        money transfer transaction kaydını oluşturur.
+        Müşteri hesabından bir IBAN'a para transferi (havale / EFT / FAST) başlatır. Dikkat:
+        resmî dokümandaki parametre listesi eksik; buradaki zorunlu alanlar sandbox'ın doğrulama
+        hatalarına göre belirlendi.
 
         Args:
-            sender_account_suffix: (``senderAccountSuffix``, gövde, zorunlu) Money transfer
-                tutarının çekileceği sender account suffix numarasıdır.
-            receiver_account_number: (``receiverAccountNumber``, gövde, zorunlu) Money transfer
-                gönderilecek receiver customer account number değeridir.
-            receiver_account_suffix: (``receiverAccountSuffix``, gövde, zorunlu) Money transfer
-                gönderilecek receiver account suffix numarasıdır.
-            money_transfer_description: (``moneyTransferDescription``, gövde) Money transfer
-                transaction için eklenen açıklama veya comment bilgisidir.
+            sender_account_suffix: (``senderAccountSuffix``, gövde, zorunlu) Tutarın çekileceği
+                gönderen hesabın ek numarası.
+            receiver_iban: (``receiverIban``, gövde, zorunlu) Alıcının IBAN'ı. (Dokümanda yer
+                almıyor; sandbox zorunlu tutuyor.)
             money_transfer_amount: (``moneyTransferAmount``, gövde, zorunlu) Transfer edilecek
-                tutardır.
-            transfer_type: (``transferType``, gövde, zorunlu) Transfer senaryosunu belirlemek
-                için kullanılan money transfer type değeridir.
+                tutar.
+            corporate_web_user_name: (``corporateWebUserName``, gövde, zorunlu) İşlemi yapan
+                kurumsal internet şubesi kullanıcı adı. (Dokümanda yer almıyor; sandbox zorunlu
+                tutuyor.)
+            money_transfer_description: (``moneyTransferDescription``, gövde) Transfer
+                açıklaması.
+            transfer_type: (``transferType``, gövde) Transfer senaryosunu belirleyen tür kodu
+                (dokümanda değerleri açıklanmıyor).
+            receiver_account_number: (``receiverAccountNumber``, gövde) Alıcı müşteri/hesap
+                numarası (dokümandaki alan).
+            receiver_account_suffix: (``receiverAccountSuffix``, gövde) Alıcı hesabın ek
+                numarası (dokümandaki alan).
 
         Yanıt alanları: executionReferenceId, moneyTransferTransactionId
 
@@ -670,11 +762,13 @@ class AsyncTransfers(AsyncResource):
         _body: Any = merge(
             {
                 "senderAccountSuffix": sender_account_suffix,
+                "receiverIban": receiver_iban,
+                "moneyTransferAmount": money_transfer_amount,
+                "corporateWebUserName": corporate_web_user_name,
+                "moneyTransferDescription": money_transfer_description,
+                "transferType": transfer_type,
                 "receiverAccountNumber": receiver_account_number,
                 "receiverAccountSuffix": receiver_account_suffix,
-                "moneyTransferDescription": money_transfer_description,
-                "moneyTransferAmount": money_transfer_amount,
-                "transferType": transfer_type,
             },
             extra_body,
         )
@@ -705,11 +799,9 @@ class AsyncTransfers(AsyncResource):
 
         Kapsam: ``transfers`` · Akış: authorization code (müşteri girişi gerekir)
 
-        This API is used to retrieve account transaction statement information based on the
-        customer account number from the authorization context. The request can be filtered by
-        account suffix, item count, begin date and end date. The response returns account
-        activity records including transaction date, description, amount, balance, currency
-        code, transaction reference and transaction code information.
+        Müşteri girişiyle (authorization code) para transferi. Dikkat: resmî dokümandaki
+        açıklama ve parametreler hesap hareketleri uç noktasından kopyalanmış görünüyor; gerçek
+        gövde alanları doğrulanamadı. Alanları extra_body ile ya da kt.request() ile gönderin.
 
         Args:
             suffix: (gövde, zorunlu) Account suffix for which transaction records will be

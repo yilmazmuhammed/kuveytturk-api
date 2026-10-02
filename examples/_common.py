@@ -42,26 +42,41 @@ def ensure_login(kt: KuveytTurk, scopes: Iterable[str]) -> None:
 
 
 def print_table(rows: Sequence[Mapping[str, Any]], columns: Sequence[tuple[str, str]]) -> None:
-    """Sözlük listesini hizalı bir tablo olarak yazdırır. ``columns``: (anahtar, başlık) çiftleri."""
+    """Sözlük listesini hizalı bir tablo olarak yazdırır.
+
+    ``columns``: (anahtar, başlık) çiftleri. API sürümleri aynı bilgiyi farklı adlarla
+    döndürebildiği için anahtar ``"productType|type"`` gibi seçenekli yazılabilir; ilk dolu
+    olan kullanılır. Hiçbir satırda değeri olmayan sütunlar gösterilmez.
+    """
     if not rows:
         print("(kayıt yok)")
         return
-    cells = [[format_cell(row.get(key)) for key, _ in columns] for row in rows]
-    widths = [
-        max(len(title), *(len(line[index]) for line in cells))
-        for index, (_, title) in enumerate(columns)
-    ]
-    print("  ".join(title.ljust(width) for (_, title), width in zip(columns, widths)))
+    table = [[format_cell(value_of(row, key)) for key, _ in columns] for row in rows]
+    shown = [i for i in range(len(columns)) if any(line[i] for line in table)]
+    titles = [columns[i][1] for i in shown]
+    table = [[line[i] for i in shown] for line in table]
+    widths = [max(len(title), *(len(line[i]) for line in table)) for i, title in enumerate(titles)]
+    print("  ".join(title.ljust(width) for title, width in zip(titles, widths)))
     print("  ".join("-" * width for width in widths))
-    for line in cells:
+    for line in table:
         print("  ".join(cell.ljust(width) for cell, width in zip(line, widths)))
+
+
+def value_of(row: Mapping[str, Any], key: str) -> Any:
+    """``"a|b"`` biçimindeki anahtardaki seçeneklerden satırda dolu olan ilkinin değeri."""
+    for option in key.split("|"):
+        if row.get(option) not in (None, ""):
+            return row[option]
+    return None
 
 
 def format_cell(value: Any) -> str:
     if value is None:
         return ""
     if isinstance(value, float):
-        return f"{value:,.2f}"
+        # Tutarlar 2 basamakla, kurlar gerektiği kadar (en çok 5) basamakla gösterilir.
+        whole, _, fraction = f"{value:,.5f}".partition(".")
+        return f"{whole}.{fraction.rstrip('0').ljust(2, '0')}"
     return str(value)
 
 

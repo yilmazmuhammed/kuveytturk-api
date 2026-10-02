@@ -23,8 +23,8 @@ venv/bin/python -m build && venv/bin/twine check dist/*
 Uç noktaları dokümandan yeniden üretmek (üç adım, sırayla):
 
 ```bash
-venv/bin/python scripts/fetch_docs.py    # dokümanları .cache/kt-docs'a indirir (yavaş, kasıtlı)
-venv/bin/python scripts/build_spec.py    # .cache -> spec/endpoints.json (+ uyarılar)
+venv/bin/python scripts/fetch_docs.py    # dokümanları apidocs/'a indirir (yavaş, kasıtlı; eksikleri tamamlar)
+venv/bin/python scripts/build_spec.py    # apidocs/ -> spec/endpoints.json (+ uyarılar)
 venv/bin/python scripts/generate.py      # spec -> src/kuveytturk_api/resources/*.py + ENDPOINTS.md
 ```
 
@@ -47,7 +47,9 @@ src/kuveytturk_api/
     _resource.py    Elle yazılan taban (Resource, AsyncResource, merge, tür takma adları)
 spec/endpoints.json Uç nokta kataloğu (build_spec.py çıktısı; commit edilir)
 spec/overrides.json Doküman hatalarını düzeltmek için elle yazılan düzeltmeler (doküman id -> alanlar)
-scripts/            fetch_docs.py, build_spec.py, generate.py
+apidocs/            İndirilen API Market dokümanları (Markdown; menu.json + <dil>/<kategori>/<başlık>-<id>.md).
+                    Kaynak budur: doküman hakkında bir şey ararken önce burada grep yap.
+scripts/            fetch_docs.py, build_spec.py, generate.py, docstore.py (apidocs okuma/yazma)
 ENDPOINTS.md        Üretilen uç nokta listesi
 examples/           Çalıştırılabilir örnek uygulamalar (ortak yardımcılar: _common.py)
 ```
@@ -67,8 +69,16 @@ istemci yalnızca G/Ç'yi yapar. Birine eklenen davranış diğerine de eklenir 
   refresh token 24 saat geçerli.
 - **Yeniden deneme**: yalnızca GET, ağ hatası ve 5xx'te. POST'lar (para transferi vb.) asla
   otomatik tekrarlanmaz — bunu değiştirme. 401'de token bir kez yenilenip istek tekrarlanır.
+- **Gateway'in hata yanıtları** (sandbox'ta doğrulandı): imza hatası **400**
+  `{"code":400,"message":"Client signature validation error"}`; yanlış akış 401
+  `"Invalid grant type. Authorization Code is required."`; yanlış kapsam 403 `"Invalid Scope"`;
+  olmayan yol 404 `"Path not found"`. İş kuralı hataları `results[]` içinde gelir.
 - **Yanıt zarfı**: `{"value": ..., "success": bool, "results": [{errorCode, errorMessage}]}`.
   `success: false` -> `BusinessError`. Bazı uç noktalar zarf kullanmaz; `APIResponse.data` ham gövdedir.
+  Gerçek yanıtlarda ayrıca üst düzeyde `errors: []` ve `executionReferenceId` bulunur.
+- **Gerçek yanıtlar dokümandaki örneklerden farklı olabilir** (ör. kurlar `value.rateList[].fxName`
+  ile gelir, doküman `value[].name` der; hesaplarda `productType`/`availableBalance`). Yanıt alanına
+  dayanan bir şey yazarken sandbox'ta gerçek yanıta bak; dokümana güvenme.
 - **Ortamlar**: sandbox `prep-identity` / `prep-gateway.kuveytturk.com.tr`; production
   `identity` / `gateway.kuveytturk.com.tr`.
 
@@ -78,8 +88,20 @@ istemci yalnızca G/Ç'yi yapar. Birine eklenen davranış diğerine de eklenir 
   altındaki JSON API'sinden Markdown olarak gelir (`get-document-menu`, `document/{id}`).
   `scripts/fetch_docs.py` bunu kullanır. Tarayıcıyla HTML kazımaya gerek yok.
 - **Sunucu hızlı/paralel istekleri IP bazında engelliyor** ve engel sandbox dahil tüm
-  `*.kuveytturk.com.tr` adreslerini kapsıyor (TLS'te "connection reset"). 4 paralel istek bunu
-  tetikledi. İstekleri tek tek ve birkaç saniye arayla at; engellenince ısrar etme, bekle.
+  `*.kuveytturk.com.tr` adreslerini kapsıyor. 4 paralel istekle ~130 sayfa çekmek bunu tetikledi ve
+  engel yaklaşık iki saat sürdü. Belirtisi bir hata mesajı değil: sunucu TLS el sıkışmasında
+  bağlantıyı sıfırlıyor (`curl: (35) Recv failure: Connection reset by peer`, HTTP yanıtı yok).
+  İstekleri tek tek ve 4 sn arayla at (bu tempo sorunsuz çalıştı); engellenince ısrar etme, seyrek
+  yokla. IP değiştirerek engeli aşmaya çalışma.
+- `fetch_docs.py` önem sırasıyla indirir (yetkilendirme -> hesaplar/transferler -> diğer müşteri
+  işlemleri -> ... -> şube/ATM gibi bilgi servisleri ve kurum içi servisler en son). Kullanıcı bu
+  sırayı özellikle istedi; `PRIORITY` / `LAST` listelerini değiştirirken koru.
+- Başlık tablosunda `Active | false` yazan sayfalar sunucudan kaldırılmış eski uç noktalardır
+  (ör. `/v1/transfers/ToIBAN` -> 404 "Path not found"); kataloğa alınmaz.
+- Doküman yanlışsa gerçeği sandbox'tan öğrenmenin güvenli yolu: uç noktaya **boş gövde** (`{}`)
+  göndermek; API zorunlu alanları doğrulama hatası olarak listeler (para transferinin gerçek
+  alanları — `receiverIban`, `corporateWebUserName` — böyle bulundu). Dolu/geçerli gövdeyle para
+  hareketi yapan bir uç noktayı deneme amaçlı çağırma; onu kullanıcı çalıştırır.
 - Dokümanlar elle yazılmış ve hatalı olabilir (yanlış akış/kapsam, eksik parametre, başka uç
   noktadan kopyalanmış gövde). Düzeltmeler koda değil `spec/overrides.json`'a yazılır. Her üretilen
   metot bu yüzden `extra_query` / `extra_body` / `request_options` kabul eder; hiçbir karşılığı
@@ -110,6 +132,8 @@ istemci yalnızca G/Ç'yi yapar. Birine eklenen davranış diğerine de eklenir 
   istek atmaz); bu davranışı koru. Dokümanda olmayan gövde alanlarını tahminle ekleme.
 - Canlı testler (`-m live`) yalnızca `KUVEYTTURK_LIVE=1` iken çalışır ve `.env` ister. Yalnızca
   okuma yapan uç noktaları çağırır; para hareketi yapan uç noktalar canlı testlere eklenmez.
+  Sandbox'ta `.env`'deki uygulama client credentials ile `accounts`, `public`, `transfers`
+  kapsamlarında çalışıyor (hareketi olan test hesabı: ek no 5).
 
 ## Yayın
 

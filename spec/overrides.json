@@ -1,7 +1,41 @@
 {
   "_aciklama": "Doküman hatalarını düzeltmek için elle yazılan düzeltmeler. Anahtar doküman id'sidir (spec/endpoints.json içindeki \"id\"). Değerdeki alanlar katalogdaki alanların üzerine yazılır; \"resource\" ve \"name\" metodun yerini/adını değiştirir, \"skip\": true sayfayı tamamen atlar. Alt çizgiyle başlayan anahtarlar yok sayılır.",
+
   "3257": {"name": "receipt_v3"},
   "3040": {"name": "account_list_with_suffix_v2"},
-  "3290": {"name": "outgoing_money_transfer"},
-  "4689": {"name": "internal_money_transfer"}
+  "4907": {"resource": "tpp_accounts", "name": "receipt_v1"},
+  "1796": {"resource": "transfers"},
+  "4689": {"name": "internal_money_transfer"},
+
+  "_3290": "Dokümandaki gövde alıcıyı hesap no + ek no ile tanımlıyor ve IBAN alanı içermiyor. Sandbox (2026-10-02) boş gövdeye şu doğrulama hatalarını döndü: receiverIban, moneyTransferAmount, senderAccountSuffix ve corporateWebUserName zorunlu. Zorunluluklar buna göre düzeltildi; dokümandaki diğer alanlar isteğe bağlı bırakıldı.",
+  "3290": {
+    "name": "outgoing_money_transfer",
+    "description": "Müşteri hesabından bir IBAN'a para transferi (havale / EFT / FAST) başlatır. Dikkat: resmî dokümandaki parametre listesi eksik; buradaki zorunlu alanlar sandbox'ın doğrulama hatalarına göre belirlendi.",
+    "body_params": [
+      {"wire": "senderAccountSuffix", "type": "int", "required": true, "description": "Tutarın çekileceği gönderen hesabın ek numarası."},
+      {"wire": "receiverIban", "type": "str", "required": true, "description": "Alıcının IBAN'ı. (Dokümanda yer almıyor; sandbox zorunlu tutuyor.)"},
+      {"wire": "moneyTransferAmount", "type": "number", "required": true, "description": "Transfer edilecek tutar."},
+      {"wire": "corporateWebUserName", "type": "str", "required": true, "description": "İşlemi yapan kurumsal internet şubesi kullanıcı adı. (Dokümanda yer almıyor; sandbox zorunlu tutuyor.)"},
+      {"wire": "moneyTransferDescription", "type": "str", "required": false, "description": "Transfer açıklaması."},
+      {"wire": "transferType", "type": "int", "required": false, "description": "Transfer senaryosunu belirleyen tür kodu (dokümanda değerleri açıklanmıyor)."},
+      {"wire": "receiverAccountNumber", "type": "int", "required": false, "description": "Alıcı müşteri/hesap numarası (dokümandaki alan)."},
+      {"wire": "receiverAccountSuffix", "type": "int", "required": false, "description": "Alıcı hesabın ek numarası (dokümandaki alan)."}
+    ]
+  },
+
+  "_4687": "Dokümandaki açıklama ve gövde başka bir uç noktadan kopyalanmış. Sandbox (2026-10-02) boş gövdeye amount, receiverIban ve senderAccountSuffix zorunlu hatası döndü.",
+  "4687": {
+    "description": "Bir transfer için geçerli ödeme türünü sorgular. Dikkat: resmî dokümandaki açıklama ve parametreler başka bir uç noktadan kopyalanmış; buradaki parametreler sandbox'ın doğrulama hatalarına göre belirlendi.",
+    "body_params": [
+      {"wire": "senderAccountSuffix", "type": "int", "required": true, "description": "Gönderen hesabın ek numarası."},
+      {"wire": "receiverIban", "type": "str", "required": true, "description": "Alıcının IBAN'ı."},
+      {"wire": "amount", "type": "number", "required": true, "description": "Transfer tutarı."}
+    ],
+    "response_fields": []
+  },
+
+  "_3228": "Dokümandaki açıklama ve gövde hesap hareketleri uç noktasından kopyalanmış. Uç nokta authorization code istediği için gerçek alanlar henüz doğrulanamadı.",
+  "3228": {
+    "description": "Müşteri girişiyle (authorization code) para transferi. Dikkat: resmî dokümandaki açıklama ve parametreler hesap hareketleri uç noktasından kopyalanmış görünüyor; gerçek gövde alanları doğrulanamadı. Alanları extra_body ile ya da kt.request() ile gönderin."
+  }
 }

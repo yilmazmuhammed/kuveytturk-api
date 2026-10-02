@@ -48,10 +48,32 @@ def test_signed_get_without_query(kt: KuveytTurk):
 
 
 def test_signed_get_with_query_string(kt: KuveytTurk):
-    """Sorgu dizgisi imzaya dahil edilmezse gateway isteği 401 ile reddeder."""
+    """Sorgu dizgisi imzaya katılmazsa gateway "Client signature validation error" (400) döner."""
     try:
         response = kt.accounts.account_list_v3(only_open=True)
     except APIError as exc:
-        assert exc.status_code != 401, f"imza reddedildi: {exc}"
+        assert "signature" not in str(exc).lower(), f"imza reddedildi: {exc}"
         pytest.skip(f"uygulamanın bu uç noktaya yetkisi yok: {exc}")
     assert response.status_code == 200
+    assert isinstance(response["accountList"], list)
+
+
+def test_gateway_rejects_a_wrong_signature(kt: KuveytTurk):
+    """İmzanın gerçekten doğrulandığını gösterir: bozuk imza kabul edilmemeli."""
+    from kuveytturk_api import _base
+
+    config = kt._shared.config
+    token = kt.auth.client_token("public").access_token
+    # /v1 kullanılıyor: /v2/fx/rates bozuk imzada 400 yerine ilgisiz bir 404 dönüyor (gateway hatası).
+    prepared = _base.prepare_request(config, "GET", "/v1/fx/rates", access_token=token)
+    headers = dict(prepared.headers, Signature=config.signer.sign("baska-bir-veri"))
+    response = kt._shared.http.get(prepared.url, headers=headers)
+    assert response.status_code == 400
+    assert "signature" in response.text.lower()
+
+
+def test_read_only_endpoints_used_by_examples(kt: KuveytTurk):
+    rates = kt.fx.fx_currency_rates()
+    assert rates["rateList"] and {"fxCode", "buyRate", "sellRate"} <= set(rates["rateList"][0])
+    metals = kt.treasury.precious_metal_rates()
+    assert metals["rateList"]

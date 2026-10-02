@@ -9,7 +9,7 @@ Hiyerarşi::
     ├── AuthenticationError         token uç noktası hata döndü
     ├── AuthorizationRequiredError  kullanıcı girişi (authorization code) gerekiyor
     └── APIError                    API hata yanıtı döndü
-        ├── BadRequestError         400
+        ├── BadRequestError         400 (imza hataları da 400 döner)
         ├── UnauthorizedError       401
         ├── ForbiddenError          403
         ├── NotFoundError           404
@@ -130,19 +130,28 @@ class APIError(KuveytTurkError):
 
 
 class BadRequestError(APIError):
-    """HTTP 400 — istek parametreleri hatalı."""
+    """HTTP 400 — istek parametreleri hatalı ya da imza doğrulanamadı.
+
+    Gateway imza hatalarını da 400 ile bildirir (``"Client signature validation error"``);
+    bu durumda private key'in karşılığı olan public key'in portaldaki uygulamada kayıtlı
+    olduğunu kontrol edin.
+    """
 
 
 class UnauthorizedError(APIError):
-    """HTTP 401 — token geçersiz/süresi dolmuş ya da imza doğrulanamadı."""
+    """HTTP 401 — token geçersiz/süresi dolmuş ya da uç nokta başka bir akış istiyor.
+
+    Müşteri girişi isteyen bir uç nokta client credentials token'ıyla çağrılırsa gateway
+    ``"Invalid grant type. Authorization Code is required."`` mesajıyla 401 döner.
+    """
 
 
 class ForbiddenError(APIError):
-    """HTTP 403 — token'ın kapsamı (scope) ya da uygulamanın yetkisi yetersiz."""
+    """HTTP 403 — token'ın kapsamı uç noktaya uymuyor (``"Invalid Scope"``) ya da yetki yok."""
 
 
 class NotFoundError(APIError):
-    """HTTP 404 — uç nokta ya da kaynak bulunamadı."""
+    """HTTP 404 — uç nokta (``"Path not found"``) ya da kaynak bulunamadı."""
 
 
 class RateLimitError(APIError):

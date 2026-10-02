@@ -9,11 +9,17 @@ Kullanım::
 from __future__ import annotations
 
 import argparse
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
+from typing import Any
 
 from _common import as_list, create_client, print_table, run
 
-COLUMNS = [("fxCode", "Kod"), ("name", "Ad"), ("buyRate", "Alış"), ("sellRate", "Satış")]
+COLUMNS = [("fxCode", "Kod"), ("fxName|name", "Ad"), ("buyRate", "Alış"), ("sellRate", "Satış")]
+
+
+def code_of(rate: Mapping[str, Any]) -> str:
+    parts = str(rate.get("fxCode") or "").upper().split()
+    return parts[0] if parts else ""
 
 
 def main(argv: Sequence[str] | None = None) -> None:
@@ -25,13 +31,12 @@ def main(argv: Sequence[str] | None = None) -> None:
     wanted = {code.upper() for code in args.code or []}
 
     with create_client() as kt:
-        currencies = as_list(kt.fx.fx_currency_rates().value, "rates")
-        metals = as_list(kt.treasury.precious_metal_rates().value, "rates")
+        currencies = as_list(kt.fx.fx_currency_rates().value, "rateList")
+        metals = as_list(kt.treasury.precious_metal_rates().value, "rateList")
 
     for title, rates in (("Döviz kurları", currencies), ("Kıymetli madenler", metals)):
-        rows = [
-            rate for rate in rates if not wanted or str(rate.get("fxCode", "")).upper() in wanted
-        ]
+        # Maden kodları "ALT (gr)" biçiminde gelir; karşılaştırmada yalnızca ilk sözcüğe bakılır.
+        rows = [rate for rate in rates if not wanted or code_of(rate) in wanted]
         print(f"{title}:")
         print_table(rows, COLUMNS)
         print()
