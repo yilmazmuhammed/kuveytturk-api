@@ -119,7 +119,11 @@ alan eklerken sır sızdırmadığını `tests/test_logging.py`'deki gibi test e
   çıkarılır ve `{"request": {"contract": {...}}}` gibi tek anahtarlı sarmalayıcılar açılır
   (`body_wrap`). Ayrıntı: `scripts/build_spec.py::build_body`.
 
-## Sırlar
+## Sırlar ve kişisel bilgiler
+
+- Kullanıcı e-posta adresinin hiçbir yerde görünmesini istemiyor: `pyproject.toml` yazar
+  bilgisine, README'ye, örneklere ya da commit'lere e-posta yazma. Bu repoda commit'ler GitHub
+  noreply adresiyle atılır (repo-yerel `git config user.email`).
 
 - Sandbox uygulama bilgileri `.env`'de, imza anahtarı `.secrets/private_key.pem`'de, test müşteri
   bilgileri `.secrets/test_customers.txt`'de. Hepsi `.gitignore`'da; **asla commit etme, koda ya

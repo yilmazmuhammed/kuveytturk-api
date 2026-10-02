@@ -1,5 +1,9 @@
 # Değişiklikler
 
+## 0.1.1 (2026-10-03)
+
+- Paket meta verisinden yazarın e-posta adresi kaldırıldı. Kodda değişiklik yok.
+
 ## 0.1.0 (2026-10-02)
 
 İlk sürüm.
