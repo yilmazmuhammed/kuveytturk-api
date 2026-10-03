@@ -87,6 +87,16 @@ def as_list(value: Any, key: str) -> list[Any]:
     return list(value) if isinstance(value, list) else []
 
 
+def within_dates(activities: Iterable[Mapping[str, Any]], begin: Any, end: Any) -> list[Any]:
+    """Hareketleri tarihlerine göre [begin, end] aralığına süzer.
+
+    Sandbox ``beginDate`` / ``endDate`` filtrelerini tutarlı uygulamıyor (aralık dışındaki
+    kayıtlar da dönebiliyor); bu yüzden aralık istemci tarafında da uygulanır.
+    """
+    first, last = begin.isoformat(), end.isoformat()
+    return [a for a in activities if first <= str(a.get("date") or "")[:10] <= last]
+
+
 def is_valid_iban(iban: str) -> bool:
     """IBAN'ın biçimini ve kontrol basamaklarını (mod 97) doğrular; ağa çıkmaz."""
     compact = iban.replace(" ", "").upper()

@@ -10,6 +10,8 @@ edit_uri: edit/main/docs/
 copyright: Bu kütüphane gayriresmîdir; Kuveyt Türk tarafından geliştirilmemekte ve desteklenmemektedir.
 docs_dir: docs
 strict: true
+validation:
+  anchors: warn # kırık sayfa içi bağlantılar da derlemeyi durdursun
 
 theme:
   name: material

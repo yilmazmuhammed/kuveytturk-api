@@ -131,14 +131,21 @@ def create_app(kt: KuveytTurk | None = None) -> Flask:
     def transactions(suffix: int) -> str:
         days = max(1, min(request.args.get("days", default=30, type=int), 365))
         end = dt.date.today()
+        begin = end - dt.timedelta(days=days)
         response = client.as_user(visitor()).tpp_accounts.account_transactions_v2(
-            suffix=suffix, begin_date=end - dt.timedelta(days=days), end_date=end, item_count=50
+            suffix=suffix, begin_date=begin, end_date=end, item_count=50
         )
+        # Banka tarih filtresini her zaman uygulamadığı için aralık burada da uygulanır.
+        activities = [
+            activity
+            for activity in response.get("accountActivities") or []
+            if begin.isoformat() <= str(activity.get("date") or "")[:10] <= end.isoformat()
+        ]
         return render_template(
             "transactions.html",
             suffix=suffix,
             days=days,
-            activities=response.get("accountActivities") or [],
+            activities=activities,
         )
 
     # ------------------------------------------------------------------ giriş gerektirmeyen sayfa

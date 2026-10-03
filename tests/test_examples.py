@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import importlib
 import json
 import sys
@@ -18,6 +19,13 @@ from kuveytturk_api import FileTokenStore, KuveytTurk, Token
 EXAMPLES = Path(__file__).resolve().parent.parent / "examples"
 
 # Sandbox'ın 2026-10-02'de döndürdüğü gerçek yanıt biçimleri (değerler uydurma).
+TODAY = dt.date.today()
+
+
+def days_ago(days: int, clock: str = "10:00:00") -> str:
+    return f"{TODAY - dt.timedelta(days=days)}T{clock}"
+
+
 ACCOUNTS_V3 = {
     "accountList": [
         {
@@ -58,7 +66,7 @@ ACTIVITIES = {
     "accountActivities": [
         {
             "suffix": 1,
-            "date": "2026-09-23T23:17:05.327",
+            "date": days_ago(1, "23:17:05.327"),
             "description": "Para Transferi",
             "amount": -22.54,
             "fxCode": "TL",
@@ -66,12 +74,20 @@ ACTIVITIES = {
         },
         {
             "suffix": 1,
-            "date": "2026-09-13T01:32:29.64",
+            "date": days_ago(3, "01:32:29.64"),
             "description": "Nakit Yatırma",
             "amount": 10.0,
             "balance": 77.46,
             "fxCode": "TL",
             "transactionReference": "ref-2",
+        },
+        {
+            "suffix": 1,
+            "date": days_ago(400),
+            "description": "Aralık dışı eski kayıt",
+            "amount": 99.0,
+            "fxCode": "TL",
+            "transactionReference": "ref-eski",
         },
     ]
 }
@@ -224,6 +240,7 @@ def test_account_transactions_with_receipt(example, recorder, capsys):
     assert {"beginDate", "endDate", "itemCount"} == set(listing.url.params.keys())
     assert json.loads(receipt.content) == {"transactionReference": "ref-1"}
     assert "2 hareket" in out and "Nakit Yatırma" in out and "-22.54" in out
+    assert "Aralık dışı eski kayıt" not in out  # banka döndürse de aralık dışı gösterilmez
     assert "Dekont: Nakit Yatan" in out and "Hesap No" in out
 
 

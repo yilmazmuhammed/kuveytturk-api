@@ -14,7 +14,7 @@ import argparse
 import datetime as dt
 from collections.abc import Sequence
 
-from _common import as_list, create_client, ensure_login, print_table, run
+from _common import as_list, create_client, ensure_login, print_table, run, within_dates
 
 
 def main(argv: Sequence[str] | None = None) -> None:
@@ -41,7 +41,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         else:
             response = kt.accounts.account_transactions_v3(**query)
 
-        activities = as_list(response.value, "accountActivities")
+        # Banka tarih filtresini her zaman uygulamadığı için aralık burada da uygulanır.
+        activities = within_dates(as_list(response.value, "accountActivities"), begin, end)
         print(f"{begin} - {end} arası {len(activities)} hareket (ek no {args.suffix}):\n")
         print_table(
             activities,

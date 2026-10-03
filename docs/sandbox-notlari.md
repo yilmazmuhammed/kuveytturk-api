@@ -30,6 +30,9 @@ göre düzeltildi; kendi kodunuzu yazarken de bunları göz önünde bulundurun.
 - **Yanıt zarfı:** gerçek yanıtlarda `value`, `success`, `results` yanında üst düzeyde `errors`
   ve `executionReferenceId` de bulunur. `account_transactions_v4_detail` veriyi `value` yerine
   `accountTransactionListValueModel` anahtarında döndürür.
+- **Hesap hareketlerinde tarih filtresi:** `beginDate` uygulanmıyor, `endDate` yalnızca tek
+  başına verildiğinde uygulanıyor; ikisi birlikte verilince aralık dışındaki kayıtlar da
+  dönebiliyor. `itemCount` uygulanıyor. Ayrıntı: [Hesaplar ve hareketler](kilavuzlar/hesaplar.md).
 - **Refresh token rotasyonu:** her yenilemede yeni bir refresh token verilir.
 - **Kaldırılmış uç noktalar:** dokümanda "Active: false" işaretli sayfalar sunucuda yoktur
   (404 "Path not found"); kütüphaneye alınmadı. Pasif işaretli olmadığı hâlde sandbox'ta 404
@@ -45,7 +48,7 @@ göre düzeltildi; kendi kodunuzu yazarken de bunları göz önünde bulundurun.
 
 Bu alanların canlı ortamda nasıl dolduğu sandbox'tan anlaşılamaz.
 
-## Hız sınırı
+## Hız sınırı { #hiz-siniri }
 
 Geliştirici portalının sunucuları kısa sürede çok istek gelince IP adresini yaklaşık iki saat
 engelliyor; engel sandbox dahil tüm `*.kuveytturk.com.tr` adreslerini kapsıyor. Belirtisi bir

@@ -52,6 +52,21 @@ for hareket in yanit["accountActivities"]:
 
 Sandbox'ta ölçülen davranış:
 
+- **Tarih filtresi güvenilir değil.** `begin_date` uygulanmıyor; `end_date` yalnızca tek başına
+  verildiğinde uygulanıyor; ikisi birlikte verildiğinde aralık dışındaki kayıtlar da dönebiliyor.
+  `item_count` ise uygulanıyor. Aralığı istemci tarafında da süzün:
+
+    ```python
+    hareketler = [
+        h for h in yanit["accountActivities"]
+        if baslangic.isoformat() <= h["date"][:10] <= bitis.isoformat()
+    ]
+    ```
+
+    Kayıtları eksiksiz toplamak için aralığı küçük parçalara bölen bir döngü yazıyorsanız dikkat:
+    banka tarihleri yok saydığında her parça aynı kayıtları yeniden döndürür ve döngü çok sayıda
+    istek atar ([hız sınırı](../sandbox-notlari.md#hiz-siniri)). Bölmeyi yalnızca dönen kayıtlar
+    gerçekten istenen aralıkta kalıyorsa yapın. Canlı ortamda da böyle olup olmadığı bilinmiyor.
 - Kayıtlar **yeniden eskiye** sıralıdır; `item_count` en yeni N kaydı verir. Sayfalama yoktur.
 - `amount` işaretlidir: giden tutarlar eksi gelir.
 - `date` milisaniyeli ISO biçimindedir; kesir basamağı sayısı değişkendir.

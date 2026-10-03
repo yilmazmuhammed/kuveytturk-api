@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import importlib.util
 import sys
 import time
@@ -33,14 +34,22 @@ ACCOUNTS = {
         }
     ]
 }
+YESTERDAY = dt.date.today() - dt.timedelta(days=1)
 ACTIVITIES = {
     "accountActivities": [
         {
-            "date": "2026-09-23T23:17:05.327",
+            "date": f"{YESTERDAY}T23:17:05.327",
             "description": "<b>Market</b>",
             "amount": -42.5,
             "fxCode": "TL",
-        }
+        },
+        # Banka tarih filtresini uygulamadığında aralık dışı kayıtlar da döner; sayfa süzmeli.
+        {
+            "date": "2020-01-01T10:00:00",
+            "description": "Aralık dışı eski kayıt",
+            "amount": 1.0,
+            "fxCode": "TL",
+        },
     ]
 }
 RATES = {
@@ -133,7 +142,8 @@ def test_full_login_flow_then_accounts_and_transactions(app, recorder):
     assert recorder.last.headers["Authorization"] == "Bearer musteri-kod-1"
 
     listing = browser.get("/accounts/1/transactions?days=7").get_data(as_text=True)
-    assert "son 7 gün" in listing and "-42.50" in listing and "2026-09-23 23:17" in listing
+    assert "son 7 gün" in listing and "-42.50" in listing and f"{YESTERDAY} 23:17" in listing
+    assert "Aralık dışı eski kayıt" not in listing
     assert "&lt;b&gt;Market&lt;/b&gt;" in listing and "<b>Market</b>" not in listing  # kaçışlanır
     assert recorder.last.url.params["itemCount"] == "50"
 
