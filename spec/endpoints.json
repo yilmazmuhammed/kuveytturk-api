@@ -261,10 +261,15 @@
    "amount",
    "balance",
    "transactionReference",
+   "businessKey",
+   "seqNum",
    "fxCode",
+   "transactionCode",
    "resourceCode",
    "iban",
-   "reqNum"
+   "senderIdentityNumber",
+   "senderTCKNorVKN",
+   "receiverTCKNorVKN"
   ],
   "language": "en",
   "resource": "accounts",

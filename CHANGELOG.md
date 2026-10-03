@@ -1,5 +1,11 @@
 # Değişiklikler
 
+## Yayınlanmadı
+
+- `accounts.account_transactions_v3` belgesindeki yanıt alanı listesi sandbox'ın gerçek yanıtına
+  göre düzeltildi: dokümandaki `reqNum` gelmiyor; `businessKey`, `seqNum`, `transactionCode` ve
+  kimlik alanları geliyor. Kodda davranış değişikliği yok.
+
 ## 0.1.1 (2026-10-03)
 
 - Paket meta verisinden yazarın e-posta adresi kaldırıldı. Kodda değişiklik yok.

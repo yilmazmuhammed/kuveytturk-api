@@ -50,5 +50,14 @@
   "_3228": "Dokümandaki açıklama ve gövde hesap hareketleri uç noktasından kopyalanmış. Uç nokta authorization code istediği için gerçek alanlar henüz doğrulanamadı.",
   "3228": {
     "description": "Müşteri girişiyle (authorization code) para transferi. Dikkat: resmî dokümandaki açıklama ve parametreler hesap hareketleri uç noktasından kopyalanmış görünüyor; gerçek gövde alanları doğrulanamadı. Alanları extra_body ile ya da kt.request() ile gönderin."
-  }
+  },
+
+  "_752": "Sandbox (2026-10-03, 23 kayıt): gerçek yanıt dokümandaki alan listesinden farklı. reqNum hiç gelmiyor; businessKey, seqNum, transactionCode ve üç kimlik alanı geliyor. iban gönderenin değil, hareketin ait olduğu hesabın kendi IBAN'ı. balance kayıtların yarısından azında var.",
+  "752": {
+    "response_fields": ["executionReferenceId", "accountActivities", "suffix", "date", "description", "amount", "balance", "transactionReference", "businessKey", "seqNum", "fxCode", "transactionCode", "resourceCode", "iban", "senderIdentityNumber", "senderTCKNorVKN", "receiverTCKNorVKN"]
+  },
+
+  "_3026": "Sandbox (2026-10-03, 22 kayıt): alan listesi dokümanla aynı, düzeltme gerekmedi. transactionReference iki çağrıda aynı kaldı ama tekil değil (20/22): tek işlemin üç bacağı aynı referansı ve transactionId'yi paylaşıyor; (transactionId, seqNum) tekil (22/22). Karşı tarafın IBAN'ı için alan yok; senderTCKNorVKN / receiverTCKNorVKN hep boş, description hep \"Açıklama\".",
+
+  "_4907": "Sandbox (2026-10-03): GET /v1/accounts/{suffix}/transactions/{businessKey} müşteri token'ıyla 404 \"Path not found\" döndü (üç farklı hareketle denendi). Sayfa dokümanda pasif işaretli olmadığı için katalogda bırakıldı."
 }

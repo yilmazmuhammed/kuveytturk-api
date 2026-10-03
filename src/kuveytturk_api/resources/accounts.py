@@ -226,7 +226,8 @@ class Accounts(Resource):
                 retrieved.
 
         Yanıt alanları: executionReferenceId, accountActivities, suffix, date, description,
-        amount, balance, transactionReference, fxCode, resourceCode, iban, reqNum
+        amount, balance, transactionReference, businessKey, seqNum, fxCode, transactionCode,
+        resourceCode, iban, senderIdentityNumber, senderTCKNorVKN, receiverTCKNorVKN
 
         Doküman: https://developer.kuveytturk.com.tr/documentation/account-management-own/account-transactions-v3
         """
@@ -688,7 +689,8 @@ class AsyncAccounts(AsyncResource):
                 retrieved.
 
         Yanıt alanları: executionReferenceId, accountActivities, suffix, date, description,
-        amount, balance, transactionReference, fxCode, resourceCode, iban, reqNum
+        amount, balance, transactionReference, businessKey, seqNum, fxCode, transactionCode,
+        resourceCode, iban, senderIdentityNumber, senderTCKNorVKN, receiverTCKNorVKN
 
         Doküman: https://developer.kuveytturk.com.tr/documentation/account-management-own/account-transactions-v3
         """

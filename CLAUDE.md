@@ -87,6 +87,40 @@ istemci yalnızca G/Ç'yi yapar. Birine eklenen davranış diğerine de eklenir 
 - **Ortamlar**: sandbox `prep-identity` / `prep-gateway.kuveytturk.com.tr`; production
   `identity` / `gateway.kuveytturk.com.tr`.
 
+### Hesap hareketleri: sandbox'ta ölçülenler (2026-10-03)
+
+Müşteri girişli `tpp_accounts.account_transactions_v2` (22 kayıt) ve client credentials
+`accounts.account_transactions_v3` (23 kayıt) üzerinde:
+
+- Kayıtlar **yeniden eskiye** sıralıdır; `itemCount` en yeni N kaydı verir. Sayfalama yoktur.
+  `amount` işaretlidir (giden eksi); `date` milisaniyelidir, kesir basamağı değişkendir.
+- **`transactionReference` tekil değildir**: tek işlemin birden çok bacağı (v2'de üç bacaklı bir
+  altın işlemi) aynı referansı ve `transactionId`yi paylaşır. Çağrılar arasında kararlıdır.
+  Kaydı tekil yapan `(transactionId, seqNum)` çiftidir; v3'te aynı değer `businessKey` adıyla
+  gelir. Mükerrer eleme bu çiftle yapılmalıdır.
+- **Karşı tarafın IBAN'ı için alan yoktur.** v3'teki `iban` hesabın kendi IBAN'ıdır; v2'de alan
+  hiç yoktur.
+- **Sandbox veriyi maskeler**: `description` her kayıtta kelimesi kelimesine `Açıklama`'dır;
+  `senderTCKNorVKN` / `receiverTCKNorVKN` (ve v3'te `senderIdentityNumber`) hep boştur. Bu
+  alanların canlıda dolu gelip gelmediği **sandbox'tan anlaşılamaz**.
+- v3'ün gerçek alanları dokümandakinden farklıdır (`reqNum` yok; `businessKey`, `seqNum`,
+  `transactionCode`, kimlik alanları var; `balance` kayıtların yarısından azında). Düzeltme
+  `spec/overrides.json`'da.
+- `tpp_accounts.receipt_v2` denenen iki harekette de boş döndü (`slipList` yok, `amount` `"0.0"`).
+  `tpp_accounts.receipt_v1` ise üç farklı hareketle 404 "Path not found" verdi.
+- Müşteri girişli uç noktalar arasında karşı tarafı tanıtan başka bir kaynak yok: yanıtında
+  IBAN / kimlik geçen diğer uç (`donations.account_transactions_for_the_organization`) yalnızca
+  bağış kuruluşları içindir (kuruluş kodu + şifre ister) ve oradaki IBAN yine kuruluşun kendi
+  hesabıdır.
+- Test müşterisinin 58 hesabından yalnızca ek no 1'de hareket vardı (diğer on hesap boş döndü).
+- `tpp_accounts.account_list_v2` dokümandaki alanlarla döner. Para birimi `fxId` / `fxCode` ile
+  gelir: TL `0`, USD `1`, EUR `19`, altın `24` / `ALT (gr)`, gümüş `26` / `GMS (gr)`,
+  platin `27` / `PLT (gr)`.
+- **Refresh token her yenilemede değişir** (rotasyon); kütüphane yenisini depoya yazar. Depoya
+  yazılamadan kaybolan bir yenileme, müşterinin yeniden giriş yapmasını gerektirir. 24 saatlik
+  sürenin yenilemeyle uzayıp uzamadığı ölçülmedi.
+- Sandbox uygulaması `account_activities` kapsamına yetkili değil (`invalid_scope`).
+
 Bir isteğin sandbox'ta neden başarısız olduğunu anlamak için önce
 `KUVEYTTURK_LOG=debug venv/bin/python examples/...` ile isteği ve yanıtı gör. Loglara yeni bir
 alan eklerken sır sızdırmadığını `tests/test_logging.py`'deki gibi test et.
