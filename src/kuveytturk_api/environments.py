@@ -14,10 +14,12 @@ class Environment:
     """Bir ortamın identity (OAuth2) ve gateway (API) adresleri.
 
     Hazır ortamlar yetmezse kendi adreslerinizle bir ``Environment`` oluşturup
-    istemciye verebilirsiniz::
+    istemciye verebilirsiniz:
 
-        env = Environment("ozel", identity_url="https://...", gateway_url="https://...")
-        kt = KuveytTurk(..., environment=env)
+    ```python
+    env = Environment("ozel", identity_url="https://...", gateway_url="https://...")
+    kt = KuveytTurk(..., environment=env)
+    ```
     """
 
     name: str

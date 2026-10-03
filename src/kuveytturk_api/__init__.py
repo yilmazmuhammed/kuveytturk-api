@@ -1,19 +1,21 @@
 """Kuveyt Türk API Market için gayriresmî Python istemcisi.
 
-Hızlı başlangıç::
+Hızlı başlangıç:
 
-    from kuveytturk_api import KuveytTurk
+```python
+from kuveytturk_api import KuveytTurk
 
-    kt = KuveytTurk(
-        client_id="...",
-        client_secret="...",
-        private_key="private_key.pem",
-        environment="sandbox",
-    )
-    print(kt.request("GET", "/v1/fx/rates", scope="public").value)
+kt = KuveytTurk(
+    client_id="...",
+    client_secret="...",
+    private_key="private_key.pem",
+    environment="sandbox",
+)
+print(kt.request("GET", "/v1/fx/rates", scope="public").value)
+```
 
-Asenkron kullanım için :class:`AsyncKuveytTurk`. İstek ve yanıtları görmek için
-:func:`enable_logging` ya da ``KUVEYTTURK_LOG=debug`` ortam değişkeni.
+Asenkron kullanım için ``AsyncKuveytTurk``. İstek ve yanıtları görmek için
+``enable_logging`` ya da ``KUVEYTTURK_LOG=debug`` ortam değişkeni.
 """
 
 from ._base import DEFAULT_USER, Flow, RequestOptions

@@ -9,7 +9,7 @@ Kütüphane standart ``logging`` modülüyle ``"kuveytturk_api"`` adlı logger'a
   gövdeler olduğu gibi yazılır ve müşteri verisi (IBAN, bakiye, ad...) içerir. Yalnızca
   geliştirme sırasında açın.
 
-Açmanın en kısa yolu :func:`enable_logging` ya da ``KUVEYTTURK_LOG=debug`` ortam değişkenidir.
+Açmanın en kısa yolu ``enable_logging`` ya da ``KUVEYTTURK_LOG=debug`` ortam değişkenidir.
 """
 
 from __future__ import annotations

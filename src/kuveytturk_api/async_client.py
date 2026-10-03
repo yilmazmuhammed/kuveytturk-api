@@ -1,6 +1,6 @@
-"""Asenkron istemci: :class:`AsyncKuveytTurk`.
+"""Asenkron istemci: ``AsyncKuveytTurk``.
 
-Davranış :class:`kuveytturk_api.KuveytTurk` ile aynıdır; ağa çıkan metotlar ``await`` edilir.
+Davranış ``KuveytTurk`` ile aynıdır; ağa çıkan metotlar ``await`` edilir.
 """
 
 from __future__ import annotations
@@ -58,7 +58,7 @@ class _AsyncShared:
 
 
 class AsyncAuth:
-    """OAuth2 işlemlerinin asenkron hali (``kt.auth``). Ayrıntılar için :class:`~kuveytturk_api.Auth`."""
+    """OAuth2 işlemlerinin asenkron hali (``kt.auth``). Ayrıntılar için ``Auth``."""
 
     def __init__(self, client: AsyncKuveytTurk) -> None:
         self._shared = client._shared
@@ -229,11 +229,13 @@ class AsyncAuth:
 class AsyncKuveytTurk(AsyncResourcesMixin):
     """Kuveyt Türk API Market istemcisi (asenkron).
 
-    Argümanlar :class:`~kuveytturk_api.KuveytTurk` ile aynıdır; ``http_client`` olarak
-    ``httpx.AsyncClient`` alır::
+    Argümanlar ``KuveytTurk`` ile aynıdır; ``http_client`` olarak
+    ``httpx.AsyncClient`` alır:
 
-        async with AsyncKuveytTurk.from_env(".env") as kt:
-            rates = (await kt.request("GET", "/v1/fx/rates", scope="public")).value
+    ```python
+    async with AsyncKuveytTurk.from_env(".env") as kt:
+        rates = (await kt.request("GET", "/v1/fx/rates", scope="public")).value
+    ```
     """
 
     def __init__(
@@ -294,7 +296,7 @@ class AsyncKuveytTurk(AsyncResourcesMixin):
 
     @property
     def auth(self) -> AsyncAuth:
-        """OAuth2 işlemleri (bkz. :class:`AsyncAuth`)."""
+        """OAuth2 işlemleri (bkz. ``AsyncAuth``)."""
         return AsyncAuth(self)
 
     def as_user(self, user: str) -> AsyncKuveytTurk:

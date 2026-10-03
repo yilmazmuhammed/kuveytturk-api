@@ -1,8 +1,8 @@
 """Senkron ve asenkron istemcilerin paylaştığı, ağ erişimi içermeyen mantık.
 
 Burada yalnızca "istek nasıl kurulur" ve "yanıt nasıl yorumlanır" soruları yanıtlanır;
-HTTP çağrısını yapan kod :mod:`kuveytturk_api.client` ve
-:mod:`kuveytturk_api.async_client` içindedir. Böylece iki istemci aynı davranışı paylaşır.
+HTTP çağrısını yapan kod ``client`` ve
+``async_client`` içindedir. Böylece iki istemci aynı davranışı paylaşır.
 """
 
 from __future__ import annotations

@@ -21,7 +21,22 @@ ROOT = Path(__file__).resolve().parent.parent
 SPEC = ROOT / "spec" / "endpoints.json"
 OUT = ROOT / "src" / "kuveytturk_api" / "resources"
 ENDPOINTS_MD = ROOT / "ENDPOINTS.md"
+DOCS_OUT = ROOT / "docs" / "uc-noktalar"
+MKDOCS_YML = ROOT / "mkdocs.yml"
 KEEP = {"_resource.py"}
+NAV_BEGIN = "      # >>> uç nokta sayfaları: scripts/generate.py üretir, elle düzenlemeyin"
+NAV_END = "      # <<< uç nokta sayfaları"
+
+DOC_TYPES = {
+    "str": "metin",
+    "int": "tam sayı",
+    "number": "sayı",
+    "bool": "bool",
+    "datetime": "tarih",
+    "object": "nesne",
+    "array": "liste",
+    "any": "herhangi",
+}
 
 BANNER = '"""{doc}\n\nBu dosya scripts/generate.py tarafından üretildi; elle düzenlemeyin.\n"""'
 
@@ -326,6 +341,127 @@ def render_endpoints_md(resources: dict[str, list[dict[str, Any]]]) -> str:
     return "\n".join(lines) + "\n"
 
 
+# --------------------------------------------------------------------------- doküman sitesi
+
+
+def md_cell(text: str) -> str:
+    """Tablo hücresine güvenle konacak metin (``|`` ve HTML kaçışlanır)."""
+    return " ".join(text.replace("|", "\\|").replace("<", "&lt;").replace(">", "&gt;").split())
+
+
+def call_example(resource: str, endpoint: dict[str, Any]) -> str:
+    required = [p for _, p in all_params(endpoint) if p["required"]]
+    args = ", ".join(f"{p['name']}=..." for p in required)
+    return f"yanit = kt.{resource}.{endpoint['name']}({args})"
+
+
+def render_docs_endpoint(resource: str, endpoint: dict[str, Any]) -> list[str]:
+    flow = (
+        "client credentials"
+        if endpoint["flow"] == "client_credentials"
+        else ("authorization code (müşteri girişi gerekir)")
+    )
+    lines = [
+        f"## `{endpoint['name']}` {{ #{endpoint['name']} }}",
+        "",
+        f"**{md_cell(endpoint['title'])}** · `{endpoint['method']} {endpoint['path']}` · "
+        f"kapsam `{endpoint['scope'] or '-'}` · {flow}",
+        "",
+    ]
+    if endpoint.get("status") and endpoint["status"].upper() != "ACTIVE":
+        lines += [f'!!! note "Dokümandaki durum: {endpoint["status"]}"', ""]
+    if endpoint["description"]:
+        lines += [md_cell(endpoint["description"]), ""]
+    lines += ["```python", call_example(resource, endpoint), "```", ""]
+    params = all_params(endpoint)
+    if params:
+        lines += [
+            "| Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |",
+            "| - | - | - | - | - | - |",
+        ]
+        for kind, param in params:
+            where = {"path": "yol", "query": "sorgu", "body": "gövde"}[kind]
+            lines.append(
+                f"| `{param['name']}` | `{param['wire']}` | {where} | {DOC_TYPES[param['type']]} | "
+                f"{'evet' if param['required'] else ''} | {md_cell(param['description'])} |"
+            )
+        lines.append("")
+    if endpoint["body_wrap"]:
+        path = " → ".join(f"`{key}`" for key in endpoint["body_wrap"])
+        lines += [f"Gövde alanları istekte {path} nesnesinin içine yerleştirilir.", ""]
+    if endpoint["response_fields"]:
+        fields = ", ".join(f"`{name}`" for name in endpoint["response_fields"])
+        lines += [f"Yanıt alanları (dokümana göre): {fields}", ""]
+    lines += [f"[Resmî doküman]({endpoint['doc_url']})", ""]
+    return lines
+
+
+def render_docs_resource(resource: str, endpoints: list[dict[str, Any]]) -> str:
+    title = RESOURCE_TITLES.get(resource, resource)
+    lines = [
+        "<!-- Bu sayfa scripts/generate.py tarafından üretildi; elle düzenlemeyin. -->",
+        "",
+        f"# kt.{resource}",
+        "",
+        f"{title} · {len(endpoints)} uç nokta",
+        "",
+        "Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca "
+        "`extra_query`, `extra_body` ve `request_options` kabul eder "
+        "([ayrıntı](../kilavuzlar/dogrudan-istek.md)).",
+        "",
+        "| Metot | İstek | Akış |",
+        "| - | - | - |",
+    ]
+    for endpoint in endpoints:
+        flow = "CC" if endpoint["flow"] == "client_credentials" else "AC"
+        lines.append(
+            f"| [`{endpoint['name']}`](#{endpoint['name']}) | "
+            f"`{endpoint['method']} {endpoint['path']}` | {flow} |"
+        )
+    lines.append("")
+    for endpoint in endpoints:
+        lines += render_docs_endpoint(resource, endpoint)
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_docs_index(resources: dict[str, list[dict[str, Any]]]) -> str:
+    total = sum(len(items) for items in resources.values())
+    lines = [
+        "<!-- Bu sayfa scripts/generate.py tarafından üretildi; elle düzenlemeyin. -->",
+        "",
+        "# Uç noktalar",
+        "",
+        f"Kütüphanede {len(resources)} kaynak altında {total} hazır metot var. Metotlar API Market "
+        "dokümanından üretilir; her birinin sayfasında istek yolu, kapsamı, akışı, parametreleri ve "
+        "resmî dokümanın bağlantısı bulunur.",
+        "",
+        "- Parametreler anahtar sözcükle ve Python adlarıyla verilir (`item_count`); istekte "
+        "dokümandaki adlarıyla (`itemCount`) gönderilir. Verilmeyen isteğe bağlı parametreler "
+        "gönderilmez.",
+        "- Metot adlarındaki `_v2`, `_v3` gibi ekler API sürümünü gösterir.",
+        "- **CC**: client credentials, token otomatik alınır. **AC**: authorization code, müşteri "
+        "girişi gerekir ([Yetkilendirme](../yetkilendirme.md)).",
+        "- Bir uç noktayı çağırabilmek için portaldaki uygulamanızda ilgili kapsamın etkin olması "
+        "gerekir. Dokümandaki bazı uç noktalar sandbox'ta bulunmayabilir "
+        "([Sandbox notları](../sandbox-notlari.md)).",
+        "",
+        "| Kaynak | Açıklama | Uç nokta |",
+        "| - | - | - |",
+    ]
+    for name in sorted(resources):
+        lines.append(
+            f"| [`kt.{name}`]({name}.md) | {RESOURCE_TITLES.get(name, name)} | {len(resources[name])} |"
+        )
+    return "\n".join(lines) + "\n"
+
+
+def render_mkdocs_nav(current: str, resources: dict[str, list[dict[str, Any]]]) -> str:
+    """mkdocs.yml'deki uç nokta sayfaları listesini (işaretler arasını) yeniden yazar."""
+    start, end = current.index(NAV_BEGIN), current.index(NAV_END)
+    entries = [f"      - kt.{name}: uc-noktalar/{name}.md" for name in sorted(resources)]
+    return current[: start + len(NAV_BEGIN)] + "\n" + "\n".join(entries) + "\n" + current[end:]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--check", action="store_true", help="yazma; yalnızca güncelliği denetle")
@@ -339,7 +475,12 @@ def main() -> int:
     files = {OUT / f"{name}.py": render_module(name, items) for name, items in resources.items()}
     files[OUT / "__init__.py"] = render_init(resources)
     files[ENDPOINTS_MD] = render_endpoints_md(resources)
+    files[DOCS_OUT / "index.md"] = render_docs_index(resources)
+    for name, items in resources.items():
+        files[DOCS_OUT / f"{name}.md"] = render_docs_resource(name, items)
+    files[MKDOCS_YML] = render_mkdocs_nav(MKDOCS_YML.read_text(encoding="utf-8"), resources)
     stale = [p for p in OUT.glob("*.py") if p.name not in KEEP and p not in files]
+    stale += [p for p in DOCS_OUT.glob("*.md") if p not in files]
 
     if args.check:
         outdated = [
@@ -352,6 +493,7 @@ def main() -> int:
     for path in stale:
         path.unlink()
     for path, text in files.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
     print(f"{len(endpoints)} uç nokta, {len(resources)} kaynak modülü üretildi.")
     return 0

@@ -1,21 +1,23 @@
 """Kütüphanenin fırlattığı tüm istisnalar.
 
-Hiyerarşi::
+Hiyerarşi:
 
-    KuveytTurkError
-    ├── ConfigurationError          eksik/hatalı yapılandırma
-    ├── SignatureError              private key okunamadı / imza üretilemedi
-    ├── TransportError              ağ hatası, zaman aşımı
-    ├── AuthenticationError         token uç noktası hata döndü
-    ├── AuthorizationRequiredError  kullanıcı girişi (authorization code) gerekiyor
-    └── APIError                    API hata yanıtı döndü
-        ├── BadRequestError         400 (imza hataları da 400 döner)
-        ├── UnauthorizedError       401
-        ├── ForbiddenError          403
-        ├── NotFoundError           404
-        ├── RateLimitError          429
-        ├── ServerError             5xx
-        └── BusinessError           HTTP 2xx ama ``success: false``
+```text
+KuveytTurkError
+├── ConfigurationError          eksik/hatalı yapılandırma
+├── SignatureError              private key okunamadı / imza üretilemedi
+├── TransportError              ağ hatası, zaman aşımı
+├── AuthenticationError         token uç noktası hata döndü
+├── AuthorizationRequiredError  kullanıcı girişi (authorization code) gerekiyor
+└── APIError                    API hata yanıtı döndü
+    ├── BadRequestError         400 (imza hataları da 400 döner)
+    ├── UnauthorizedError       401
+    ├── ForbiddenError          403
+    ├── NotFoundError           404
+    ├── RateLimitError          429
+    ├── ServerError             5xx
+    └── BusinessError           HTTP 2xx ama ``success: false``
+```
 """
 
 from __future__ import annotations

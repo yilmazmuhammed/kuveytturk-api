@@ -4,8 +4,21 @@
     {
       "name": "web-app-example",
       "runtimeExecutable": "venv/bin/python",
-      "runtimeArgs": ["examples/web_app/app.py"],
+      "runtimeArgs": [
+        "examples/web_app/app.py"
+      ],
       "port": 8000
+    },
+    {
+      "name": "docs",
+      "runtimeExecutable": ".venv-docs/bin/mkdocs",
+      "runtimeArgs": [
+        "serve",
+        "-a",
+        "127.0.0.1:8001",
+        "--no-livereload"
+      ],
+      "port": 8001
     }
   ]
 }

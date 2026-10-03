@@ -2,6 +2,9 @@
 
 ## Yayınlanmadı
 
+- Doküman sitesi (MkDocs Material): kurulum, yetkilendirme, kılavuzlar, sandbox notları,
+  192 uç noktanın katalogdan üretilen referansı ve sınıf referansı.
+- Docstring'ler Markdown'a çevrildi (doküman sitesinde ve IDE'lerde düzgün görünmesi için).
 - `accounts.account_transactions_v3` belgesindeki yanıt alanı listesi sandbox'ın gerçek yanıtına
   göre düzeltildi: dokümandaki `reqNum` gelmiyor; `businessKey`, `seqNum`, `transactionCode` ve
   kimlik alanları geliyor. Kodda davranış değişikliği yok.

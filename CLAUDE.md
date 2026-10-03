@@ -25,7 +25,14 @@ Uç noktaları dokümandan yeniden üretmek (üç adım, sırayla):
 ```bash
 venv/bin/python scripts/fetch_docs.py    # dokümanları apidocs/'a indirir (yavaş, kasıtlı; eksikleri tamamlar)
 venv/bin/python scripts/build_spec.py    # apidocs/ -> spec/endpoints.json (+ uyarılar)
-venv/bin/python scripts/generate.py      # spec -> src/kuveytturk_api/resources/*.py + ENDPOINTS.md
+venv/bin/python scripts/generate.py      # spec -> resources/*.py, ENDPOINTS.md, docs/uc-noktalar/, mkdocs.yml nav
+```
+
+Doküman sitesi (MkDocs Material, Türkçe). Araçlar ayrı ortamda: `python3 -m venv .venv-docs &&
+.venv-docs/bin/pip install -e ".[docs]"`. Önizleme `.claude/launch.json` -> "docs" (port 8001).
+
+```bash
+.venv-docs/bin/mkdocs build --strict     # CI'daki docs işi de bunu çalıştırır
 ```
 
 ## Mimari
@@ -54,6 +61,10 @@ apidocs/            İndirilen API Market dokümanları (Markdown; menu.json + <
                     Kaynak budur: doküman hakkında bir şey ararken önce burada grep yap.
 scripts/            fetch_docs.py, build_spec.py, generate.py, docstore.py (apidocs okuma/yazma)
 ENDPOINTS.md        Üretilen uç nokta listesi
+mkdocs.yml, docs/   Doküman sitesi. docs/uc-noktalar/ ve mkdocs.yml'deki uç nokta nav listesi
+                    ÜRETİLİR (generate.py); diğer sayfalar elle yazılır. Sınıf referansı
+                    (docs/referans/) docstring'lerden mkdocstrings ile gelir: docstring'lerde
+                    reST rolleri (:class: vb.) ve "::" blokları değil Markdown kullan.
 examples/           Çalıştırılabilir örnek uygulamalar (ortak yardımcılar: _common.py)
 examples/web_app/   Müşteri girişi yapan Flask uygulaması (authorization code akışı). Önizleme:
                     .claude/launch.json -> "web-app-example" (port 8000 = Redirect URI'nin portu)

@@ -1,11 +1,13 @@
 """API yanıtlarının sarmalayıcısı.
 
-Kuveyt Türk API'leri yanıtlarını çoğunlukla şu zarf içinde döndürür::
+Kuveyt Türk API'leri yanıtlarını çoğunlukla şu zarf içinde döndürür:
 
-    {"value": {...}, "success": true, "results": [{"errorCode": "...", "errorMessage": "..."}]}
+```json
+{"value": {...}, "success": true, "results": [{"errorCode": "...", "errorMessage": "..."}]}
+```
 
-:class:`APIResponse` bu zarfı çözer; zarf kullanılmayan uç noktalarda da ham veriye
-:attr:`APIResponse.data` üzerinden erişilebilir.
+``APIResponse`` bu zarfı çözer; zarf kullanılmayan uç noktalarda da ham veriye
+``APIResponse.data`` üzerinden erişilebilir.
 """
 
 from __future__ import annotations
@@ -59,7 +61,7 @@ class APIResponse:
         headers: Yanıt başlıkları.
         data: Çözümlenmiş gövdenin tamamı (JSON değilse metin, boşsa ``None``).
 
-    Zarfın içindeki asıl veriye :attr:`value` ile ulaşılır. ``value`` bir sözlükse
+    Zarfın içindeki asıl veriye ``value`` ile ulaşılır. ``value`` bir sözlükse
     kısayol olarak ``response["alan"]``, ``"alan" in response`` ve
     ``response.get("alan")`` da kullanılabilir.
     """

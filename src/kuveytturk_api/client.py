@@ -1,4 +1,4 @@
-"""Senkron istemci: :class:`KuveytTurk`."""
+"""Senkron istemci: ``KuveytTurk``."""
 
 from __future__ import annotations
 
@@ -53,9 +53,9 @@ class Auth:
     * **Client credentials** — müşteri girişi gerektirmeyen uç noktalar. Token'lar ihtiyaç
       oldukça otomatik alınır ve süresi dolunca yenilenir; genelde hiçbir şey yapmanız gerekmez.
     * **Authorization code** — müşteri adına çalışan uç noktalar. Kullanıcıyı
-      :meth:`authorization_url` adresine yönlendirir, dönen ``code`` değerini
-      :meth:`exchange_code` ile token'a çevirirsiniz. Masaüstü betiklerinde hepsini
-      :meth:`login` tek adımda yapar.
+      ``authorization_url`` adresine yönlendirir, dönen ``code`` değerini
+      ``exchange_code`` ile token'a çevirirsiniz. Masaüstü betiklerinde hepsini
+      ``login`` tek adımda yapar.
     """
 
     def __init__(self, client: KuveytTurk) -> None:
@@ -115,8 +115,8 @@ class Auth:
 
         Args:
             scopes: İstenen kapsamlar. Refresh token almak için ``"offline_access"`` ekleyin.
-            state: CSRF koruması için rastgele değer (:meth:`new_state` ile üretebilirsiniz);
-                callback'te aynı değerin döndüğünü :meth:`parse_callback` ile doğrulayın.
+            state: CSRF koruması için rastgele değer (``new_state`` ile üretebilirsiniz);
+                callback'te aynı değerin döndüğünü ``parse_callback`` ile doğrulayın.
             redirect_uri: İstemcideki varsayılanı ezer; portalda kayıtlı adresle birebir aynı olmalı.
             ui_locales: Giriş ekranının dili (``"tr"`` ya da ``"en"``).
         """
@@ -248,17 +248,19 @@ class Auth:
 class KuveytTurk(ResourcesMixin):
     """Kuveyt Türk API Market istemcisi (senkron).
 
-    Örnek::
+    Örnek:
 
-        from kuveytturk_api import KuveytTurk
+    ```python
+    from kuveytturk_api import KuveytTurk
 
-        kt = KuveytTurk(
-            client_id="...",
-            client_secret="...",
-            private_key="private_key.pem",
-            environment="sandbox",
-        )
-        rates = kt.request("GET", "/v1/fx/rates", scope="public").value
+    kt = KuveytTurk(
+        client_id="...",
+        client_secret="...",
+        private_key="private_key.pem",
+        environment="sandbox",
+    )
+    rates = kt.request("GET", "/v1/fx/rates", scope="public").value
+    ```
 
     Args:
         client_id: Geliştirici portalındaki uygulamanın Client ID değeri.
@@ -266,17 +268,17 @@ class KuveytTurk(ResourcesMixin):
         private_key: İstekleri imzalayan RSA private key — dosya yolu, PEM içeriği ya da
             ``cryptography`` anahtar nesnesi. Karşılığı olan public key portalda kayıtlı olmalı.
         environment: ``"sandbox"`` (varsayılan), ``"production"`` ya da bir
-            :class:`~kuveytturk_api.Environment`.
+            ``Environment``.
         redirect_uri: Authorization code akışı için; portalda kayıtlı adresle birebir aynı.
         token_store: Token'ların saklanacağı yer. Varsayılan bellektir; betiklerde
-            :class:`~kuveytturk_api.FileTokenStore` kullanışlıdır.
+            ``FileTokenStore`` kullanışlıdır.
         timeout: Saniye cinsinden varsayılan zaman aşımı.
         max_retries: Ağ hatası ve 5xx yanıtlarında **yalnızca GET** isteklerinin kaç kez
             yeniden deneneceği. POST'lar (para transferi vb.) asla otomatik tekrarlanmaz.
         language_id: ``LanguageId`` başlığı (1: Türkçe, 2: İngilizce).
         device_id: ``DeviceId`` başlığı (denetim kayıtları için isteğe bağlı).
         raise_on_failure: Yanıt zarfında ``success: false`` gelirse
-            :class:`~kuveytturk_api.BusinessError` fırlatılsın mı.
+            ``BusinessError`` fırlatılsın mı.
         http_client: Kendi ``httpx.Client`` nesneniz (proxy, özel sertifika vb. için).
         private_key_password: Private key şifreliyse parolası.
     """
@@ -351,19 +353,21 @@ class KuveytTurk(ResourcesMixin):
 
     @property
     def auth(self) -> Auth:
-        """OAuth2 işlemleri (bkz. :class:`Auth`)."""
+        """OAuth2 işlemleri (bkz. ``Auth``)."""
         return Auth(self)
 
     def as_user(self, user: str) -> KuveytTurk:
         """Müşteri token'ı ``user`` anahtarından okunan bir istemci görünümü döndürür.
 
         Çok kullanıcılı uygulamalarda her müşteri için ayrı token saklamak içindir. Dönen
-        nesne bağlantıları ve token deposunu bu istemciyle paylaşır::
+        nesne bağlantıları ve token deposunu bu istemciyle paylaşır:
 
-            kt.auth.exchange_code(code, user="musteri-42")
-            hesaplar = kt.as_user("musteri-42").request(
-                "GET", "/v2/accounts", scope="accounts", flow="authorization_code"
-            )
+        ```python
+        kt.auth.exchange_code(code, user="musteri-42")
+        hesaplar = kt.as_user("musteri-42").request(
+            "GET", "/v2/accounts", scope="accounts", flow="authorization_code"
+        )
+        ```
         """
         if not user:
             raise ConfigurationError("user boş olamaz.")
@@ -440,10 +444,12 @@ class KuveytTurk(ResourcesMixin):
         """Herhangi bir uç noktayı çağırır; token ve imza otomatik eklenir.
 
         Hazır uç nokta metotları da bunu kullanır. Kütüphanede henüz karşılığı olmayan bir
-        uç nokta için doğrudan çağırabilirsiniz::
+        uç nokta için doğrudan çağırabilirsiniz:
 
-            kt.request("GET", "/v4/accounts/{suffix}/transactions", scope="accounts",
-                       path_params={"suffix": 1}, query={"itemCount": 10})
+        ```python
+        kt.request("GET", "/v4/accounts/{suffix}/transactions", scope="accounts",
+                   path_params={"suffix": 1}, query={"itemCount": 10})
+        ```
 
         Args:
             method: HTTP metodu.
@@ -452,7 +458,7 @@ class KuveytTurk(ResourcesMixin):
             flow: ``"client_credentials"`` ya da ``"authorization_code"``.
             query: Sorgu parametreleri; ``None`` değerler gönderilmez.
             body: JSON gövdesi (POST/PUT/PATCH).
-            options: Bu çağrıya özel ayarlar (bkz. :class:`~kuveytturk_api.RequestOptions`).
+            options: Bu çağrıya özel ayarlar (bkz. ``RequestOptions``).
 
         Raises:
             APIError: API hata yanıtı döndürdüyse (alt sınıflarına bakın).
