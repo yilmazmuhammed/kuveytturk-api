@@ -51,6 +51,7 @@ docs = [
 ]
 
 [project.urls]
+Documentation = "https://yilmazmuhammed.github.io/kuveytturk-api/"
 Homepage = "https://github.com/yilmazmuhammed/kuveytturk-api"
 Repository = "https://github.com/yilmazmuhammed/kuveytturk-api"
 Issues = "https://github.com/yilmazmuhammed/kuveytturk-api/issues"

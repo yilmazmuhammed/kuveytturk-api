@@ -35,6 +35,9 @@ Doküman sitesi (MkDocs Material, Türkçe). Araçlar ayrı ortamda: `python3 -m
 .venv-docs/bin/mkdocs build --strict     # CI'daki docs işi de bunu çalıştırır
 ```
 
+Site https://yilmazmuhammed.github.io/kuveytturk-api/ adresinde; `main`'e her gönderimde `.github/workflows/docs.yml` derleyip
+GitHub Pages'e yükler.
+
 ## Mimari
 
 ```
@@ -58,7 +61,11 @@ src/kuveytturk_api/
 spec/endpoints.json Uç nokta kataloğu (build_spec.py çıktısı; commit edilir)
 spec/overrides.json Doküman hatalarını düzeltmek için elle yazılan düzeltmeler (doküman id -> alanlar)
 apidocs/            İndirilen API Market dokümanları (Markdown; menu.json + <dil>/<kategori>/<başlık>-<id>.md).
-                    Kaynak budur: doküman hakkında bir şey ararken önce burada grep yap.
+                    Bu repoda DEĞİL: ayrı private repo `yilmazmuhammed/kuveytturk-api-apidocs`,
+                    buraya klonlanır ve .gitignore'dadır (içerik Kuveyt Türk'e ait; public repoda
+                    durmamalı). Yoksa: `gh repo clone yilmazmuhammed/kuveytturk-api-apidocs apidocs`.
+                    fetch_docs.py ile güncelledikten sonra o repoda commit + push et.
+                    Doküman hakkında bir şey ararken önce burada grep yap.
 scripts/            fetch_docs.py, build_spec.py, generate.py, docstore.py (apidocs okuma/yazma)
 ENDPOINTS.md        Üretilen uç nokta listesi
 mkdocs.yml, docs/   Doküman sitesi. docs/uc-noktalar/ ve mkdocs.yml'deki uç nokta nav listesi

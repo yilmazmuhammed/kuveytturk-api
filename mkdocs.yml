@@ -1,6 +1,10 @@
 site_name: kuveytturk-api
 site_description: Kuveyt Türk API Market için gayriresmî Python istemcisi
 site_author: Muhammed Yılmaz
+site_url: https://yilmazmuhammed.github.io/kuveytturk-api/
+repo_url: https://github.com/yilmazmuhammed/kuveytturk-api
+repo_name: yilmazmuhammed/kuveytturk-api
+edit_uri: edit/main/docs/
 copyright: Bu kütüphane gayriresmîdir; Kuveyt Türk tarafından geliştirilmemekte ve desteklenmemektedir.
 docs_dir: docs
 strict: true

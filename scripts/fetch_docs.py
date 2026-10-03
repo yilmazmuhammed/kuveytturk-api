@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Kuveyt Türk API Market dokümanlarını repodaki ``apidocs/`` klasörüne indirir.
+"""Kuveyt Türk API Market dokümanlarını ``apidocs/`` klasörüne indirir.
+
+``apidocs/`` ayrı bir private repodur (bkz. scripts/docstore.py); indirmeden sonra değişiklikleri
+orada commit'leyin.
 
 Geliştirici portalı dokümanları bir JSON API'sinden Markdown olarak sunar; bu betik menüyü ve
 doküman sayfalarını indirir. Çıktı, scripts/build_spec.py'nin girdisidir.

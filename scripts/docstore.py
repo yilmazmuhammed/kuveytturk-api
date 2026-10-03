@@ -1,4 +1,10 @@
-"""İndirilen API Market dokümanlarının repodaki deposu (``apidocs/``).
+"""İndirilen API Market dokümanlarının deposu (``apidocs/``).
+
+``apidocs/`` bu reponun parçası değildir: ayrı bir private repodur
+(``yilmazmuhammed/kuveytturk-api-apidocs``) ve proje köküne klonlanır; içerik Kuveyt Türk'e ait
+olduğu için public repoda tutulmaz::
+
+    gh repo clone yilmazmuhammed/kuveytturk-api-apidocs apidocs
 
 Düzen::
 

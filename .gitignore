@@ -11,6 +11,9 @@
 .kt_cc_tokens*.json
 .kuveytturk/
 
+# --- İndirilen API Market dokümanları: ayrı private repo (yilmazmuhammed/kuveytturk-api-apidocs) ---
+apidocs/
+
 # --- Eski deneme kodları ve geçici dosyalar ---
 .legacy/
 .cache/
