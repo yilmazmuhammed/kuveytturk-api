@@ -1,7 +1,9 @@
 site_name: kuveytturk-api
 site_description: Kuveyt Türk API Market için gayriresmî Python istemcisi
 site_author: Muhammed Yılmaz
-site_url: https://yilmazmuhammed.github.io/kuveytturk-api/
+# GitHub kullanıcı sitesinde özel alan adı (dvty.tr) tanımlı olduğu için proje sayfaları da onun
+# altında yayınlanır; yilmazmuhammed.github.io/kuveytturk-api/ buraya yönlenir.
+site_url: https://dvty.tr/kuveytturk-api/
 repo_url: https://github.com/yilmazmuhammed/kuveytturk-api
 repo_name: yilmazmuhammed/kuveytturk-api
 edit_uri: edit/main/docs/

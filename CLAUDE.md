@@ -35,7 +35,7 @@ Doküman sitesi (MkDocs Material, Türkçe). Araçlar ayrı ortamda: `python3 -m
 .venv-docs/bin/mkdocs build --strict     # CI'daki docs işi de bunu çalıştırır
 ```
 
-Site https://yilmazmuhammed.github.io/kuveytturk-api/ adresinde; `main`'e her gönderimde `.github/workflows/docs.yml` derleyip
+Site https://dvty.tr/kuveytturk-api/ adresinde (github.io adresi oraya yönlenir; kullanıcının GitHub kullanıcı sitesindeki özel alan adı); `main`'e her gönderimde `.github/workflows/docs.yml` derleyip
 GitHub Pages'e yükler.
 
 ## Mimari
@@ -205,7 +205,8 @@ alan eklerken sır sızdırmadığını `tests/test_logging.py`'deki gibi test e
 
 ## Yayın
 
-Paket PyPI'da `kuveytturk-api` adıyla yayınlanır (repo private; kullanıcı kararı). Yükleme, PyPI
+Paket PyPI'da `kuveytturk-api` adıyla yayınlanır. Repo public (2026-10-03); eski geçmişi taşıyan
+private `kuveytturk-api-eski` reposu yalnızca arşivdir, oraya bir şey gönderme. Yükleme, PyPI
 Trusted Publishing ile `.github/workflows/publish.yml` üzerinden yapılır; token yoktur.
 
 1. `src/kuveytturk_api/_version.py` ve `CHANGELOG.md` güncellenir (sürüm + tarih).
