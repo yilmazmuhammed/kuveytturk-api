@@ -198,6 +198,9 @@ alan eklerken sır sızdırmadığını `tests/test_logging.py`'deki gibi test e
 - Betik yalnızca çağırdığı uçların kaydını değiştirir; elle girilen kayıtlar (ör. müşteri
   girişiyle yapılan testler, canlı testler) korunur. Dosyayı değiştirince `generate.py` çalıştır.
 - Canlı ortamda (Go Live sonrası) aynı betik `--environment production` ile çalıştırılır.
+- Elle yapılan testler `scripts/record_test.py METOT --durum ... --sonuc ... [--environment production]`
+  ile işlenir (doküman sayfalarını da üretir). Para transferi, döviz/altın alım-satımı, ödeme gibi
+  işlem yapan uçları Claude çalıştırmaz (sandbox'ta da); kullanıcı çalıştırır, sonucu bu araçla işler.
 
 ## Testler
 

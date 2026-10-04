@@ -157,3 +157,30 @@ def test_missing_path_value_means_not_tested(private_pem):
         lambda r: envelope({}), "cards.credit_card_transactions_list_v3", private_pem
     )
     assert result["durum"] == "test edilmedi" and result["_istekler"] == []
+
+
+def test_record_test_writes_a_manual_result_and_masks_details(tmp_path, monkeypatch):
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import record_test
+
+    status_file = tmp_path / "test_status.json"
+    monkeypatch.setattr(record_test, "STATUS", status_file)
+    code = record_test.main(
+        [
+            "transfers.outgoing_money_transfer",
+            "--durum", "test edildi",
+            "--sonuc", "çalışıyor",
+            "--ayrinti", "TR33 0006 1005 1978 6457 8413 26 hesabına 1 TL",
+            "--environment", "production",
+            "--tarih", "2026-11-01",
+            "--no-generate",
+        ]
+    )  # fmt: skip
+    assert code == 0
+    data = json.loads(status_file.read_text("utf-8"))
+    entry = data["endpoints"][BY_KEY["transfers.outgoing_money_transfer"]["id"]]
+    assert entry["canli"]["durum"] == "test edildi" and entry["canli"]["tarih"] == "2026-11-01"
+    assert entry["canli"]["kaynak"] == "elle"
+    assert "8413" not in entry["canli"]["ayrinti"]
+    assert entry["sandbox"]["durum"] == "test edilmedi"
+    assert record_test.main(["olmayan.metot", "--durum", "test edildi", "--sonuc", "x"]) == 2

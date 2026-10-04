@@ -24,6 +24,15 @@ python scripts/check_endpoints.py --environment production # canlı (Go Live son
 python scripts/generate.py                                # bu sayfayı yeniden üretir
 ```
 
+Elle yapılan bir testi (işlem yapan uçlar, müşteri girişli uçlar, canlı testler) işlemek için:
+
+```bash
+python scripts/record_test.py transfers.outgoing_money_transfer \
+    --durum "test edildi" --sonuc "çalışıyor" --ayrinti "1 TL, kendi hesaplar arası"
+python scripts/record_test.py fx.fx_currency_rates --environment production \
+    --durum "test edildi" --sonuc "çalışıyor"
+```
+
 Betik yalnızca elle onaylanmış okuma uç noktalarını çağırır ve yalnızca çağırdıklarının kaydını değiştirir; elle girilmiş kayıtlar korunur.
 
 ## Uç noktalar
