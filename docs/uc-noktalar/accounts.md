@@ -6,16 +6,16 @@ Hesap yönetimi (kurumun kendi hesapları) · 8 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`account_activity_list`](#account_activity_list) | `POST /v1/accountActivities` | CC |
-| [`account_list_v3`](#account_list_v3) | `GET /v3/accounts` | CC |
-| [`account_list_with_suffix_v3`](#account_list_with_suffix_v3) | `GET /v3/accounts/{suffix}` | CC |
-| [`account_transactions_v3`](#account_transactions_v3) | `GET /v3/accounts/{suffix}/transactions` | CC |
-| [`account_transactions_v4_detail`](#account_transactions_v4_detail) | `GET /v4/accounts/{suffix}/transactions` | CC |
-| [`account_verification_v2`](#account_verification_v2) | `POST /v2/accounts/verification` | CC |
-| [`pdf_receipt_v3`](#pdf_receipt_v3) | `POST /v3/accounts/transactions/pdfReceipts` | CC |
-| [`receipt_v3`](#receipt_v3) | `POST /v3/accounts/transactions/receipts` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`account_activity_list`](#account_activity_list) | `POST /v1/accountActivities` | CC | test edilmedi | test edilmedi |
+| [`account_list_v3`](#account_list_v3) | `GET /v3/accounts` | CC | test edildi | test edilmedi |
+| [`account_list_with_suffix_v3`](#account_list_with_suffix_v3) | `GET /v3/accounts/{suffix}` | CC | test edildi | test edilmedi |
+| [`account_transactions_v3`](#account_transactions_v3) | `GET /v3/accounts/{suffix}/transactions` | CC | test edildi | test edilmedi |
+| [`account_transactions_v4_detail`](#account_transactions_v4_detail) | `GET /v4/accounts/{suffix}/transactions` | CC | test edildi | test edilmedi |
+| [`account_verification_v2`](#account_verification_v2) | `POST /v2/accounts/verification` | CC | test edilmedi | test edilmedi |
+| [`pdf_receipt_v3`](#pdf_receipt_v3) | `POST /v3/accounts/transactions/pdfReceipts` | CC | kısmen test edildi | test edilmedi |
+| [`receipt_v3`](#receipt_v3) | `POST /v3/accounts/transactions/receipts` | CC | test edildi | test edilmedi |
 
 ## `account_activity_list` { #account_activity_list }
 
@@ -26,6 +26,11 @@ Retrieves the account activities within the specified date range for the client 
 ```python
 yanit = kt.accounts.account_activity_list(begin_date=..., end_date=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: account_activities | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -45,6 +50,11 @@ This API is used to retrieve the account list of the customer associated with th
 ```python
 yanit = kt.accounts.account_list_v3()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — accountList: 50 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -69,6 +79,11 @@ This API is used to retrieve account information for the specified account suffi
 yanit = kt.accounts.account_list_with_suffix_v3(suffix=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — accountList: 1 kayıt (suffix) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `suffix` | `suffix` | yol | tam sayı | evet | Account suffix used to retrieve a specific account. This value is sent as a route parameter. |
@@ -92,6 +107,11 @@ This API is used to retrieve account transaction history for the specified accou
 yanit = kt.accounts.account_transactions_v3(suffix=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — accountActivities: 0 kayıt (suffix) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `suffix` | `suffix` | yol | tam sayı | evet | Account suffix for which transaction records will be retrieved. This value is sent as a route parameter. |
@@ -113,6 +133,11 @@ This API is used to retrieve account transaction history for the specified accou
 yanit = kt.accounts.account_transactions_v4_detail(suffix=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — results: 0 kayıt (suffix) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `suffix` | `suffix` | yol | tam sayı | evet | Account suffix for which transaction records will be retrieved. This value is sent as a route parameter. |
@@ -133,6 +158,11 @@ This API verifies beneficiary account information before processing a payment or
 ```python
 yanit = kt.accounts.account_verification_v2(correlation_identifier=..., context=..., uetr=..., creditor_account=..., creditor_name=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -163,6 +193,11 @@ This API is used to retrieve PDF receipt data for a transaction. The customer ac
 yanit = kt.accounts.pdf_receipt_v3(execution_reference_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — MessageResourceError:Message_APIBanking.WarningAboutGuid | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `execution_reference_id` | `executionReferenceId` | gövde | metin | evet | Reference ID of the transaction for which the PDF receipt data will be retrieved. |
@@ -180,6 +215,11 @@ Bu API, transactionReference değeri ile tanımlanan bir transaction için recei
 ```python
 yanit = kt.accounts.receipt_v3(transaction_reference=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — nesne (transaction_reference) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

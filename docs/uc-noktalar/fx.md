@@ -6,13 +6,13 @@ Döviz işlemleri · 5 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`fx_currency_buy`](#fx_currency_buy) | `POST /v1/fx/buy` | CC |
-| [`fx_currency_list`](#fx_currency_list) | `GET /v1/data/fecs` | CC |
-| [`fx_currency_rates`](#fx_currency_rates) | `GET /v2/fx/rates` | CC |
-| [`fx_currency_sell`](#fx_currency_sell) | `POST /v1/fx/sell` | CC |
-| [`fx_transaction_history`](#fx_transaction_history) | `POST /v1/fx/fxtransactions` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`fx_currency_buy`](#fx_currency_buy) | `POST /v1/fx/buy` | CC | test edilmedi | test edilmedi |
+| [`fx_currency_list`](#fx_currency_list) | `GET /v1/data/fecs` | CC | test edildi | test edilmedi |
+| [`fx_currency_rates`](#fx_currency_rates) | `GET /v2/fx/rates` | CC | test edildi | test edilmedi |
+| [`fx_currency_sell`](#fx_currency_sell) | `POST /v1/fx/sell` | CC | test edilmedi | test edilmedi |
+| [`fx_transaction_history`](#fx_transaction_history) | `POST /v1/fx/fxtransactions` | CC | test edilmedi | test edilmedi |
 
 ## `fx_currency_buy` { #fx_currency_buy }
 
@@ -23,6 +23,11 @@ This API is used to perform a foreign exchange buy transaction. The customer acc
 ```python
 yanit = kt.fx.fx_currency_buy(account_suffix_from=..., account_suffix_to=..., buy_rate=..., exchange_amount=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -47,6 +52,11 @@ This API is used to retrieve currency information. The response returns currency
 yanit = kt.fx.fx_currency_list()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — 46 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `isoCode`, `internationalCode`, `name`, `code`, `group`, `id`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/foreign-exchange-transactions/fx-currency-list)
@@ -61,6 +71,11 @@ This API is used to retrieve foreign exchange rates for the customer account ass
 yanit = kt.fx.fx_currency_rates()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — rateList: 2 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `name`, `fxCode`, `buyRate`, `sellRate`, `isSpreadApplied`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/foreign-exchange-transactions/fx-currency-rates)
@@ -74,6 +89,11 @@ This API is used to perform a foreign exchange sell transaction. The customer ac
 ```python
 yanit = kt.fx.fx_currency_sell(account_suffix_from=..., account_suffix_to=..., sell_rate=..., exchange_amount=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -97,6 +117,11 @@ This API is used to initiate an internal money transfer transaction based on the
 ```python
 yanit = kt.fx.fx_transaction_history(sender_account_suffix=..., receiver_account_number=..., receiver_account_suffix=..., money_transfer_amount=..., transfer_type=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

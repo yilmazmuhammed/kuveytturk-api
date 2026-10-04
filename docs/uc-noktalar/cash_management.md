@@ -6,25 +6,25 @@ Nakit yönetimi · 17 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`cheque_information_micro`](#cheque_information_micro) | `POST /v1/cheque-information-micro` | CC |
-| [`digital_banking_payment`](#digital_banking_payment) | `POST /v1/vpos/digitalPayment` | CC |
-| [`digital_banking_refund`](#digital_banking_refund) | `POST /v1/vpos/digitalPaymentRefund` | CC |
-| [`digital_banking_transaction_status`](#digital_banking_transaction_status) | `POST /v1/vpos/digitalPaymentStatus` | CC |
-| [`school_installment_payment_system_active_registration_inquiry`](#school_installment_payment_system_active_registration_inquiry) | `POST /v1/school-installment/registration-inquiry` | CC |
-| [`school_installment_system_registration_and_installment_cancellation`](#school_installment_system_registration_and_installment_cancellation) | `POST /v1/school-installment/cancelation` | CC |
-| [`school_installment_system_school_guaranteed_registration_payment`](#school_installment_system_school_guaranteed_registration_payment) | `POST /v1/school-installment/transaction-information` | CC |
-| [`supplier_financing_buyer_order_confirmation`](#supplier_financing_buyer_order_confirmation) | `POST /v1/supplierfinance/approvefrompurchaserer` | CC |
-| [`supplier_financing_buyer_order_listing`](#supplier_financing_buyer_order_listing) | `POST /v1/supplierfinance/getorderbypurchaser` | CC |
-| [`supplier_financing_invoice_cancellation`](#supplier_financing_invoice_cancellation) | `POST /v1/supplychainfinance/cancelinvoice` | CC |
-| [`supplier_financing_order_last_approval_by_supplier`](#supplier_financing_order_last_approval_by_supplier) | `POST /v1/supplierfinance/lastapprovefromsupplier` | CC |
-| [`supplier_financing_repayment_plan_calculation`](#supplier_financing_repayment_plan_calculation) | `POST /v1/supplierfinance/getpaybackplan` | CC |
-| [`supplier_financing_vendor_company_invoice_approval`](#supplier_financing_vendor_company_invoice_approval) | `POST /v1/supplychainfinance/supplierapproveinvoice` | CC |
-| [`supplier_financing_vendor_invoice_listing`](#supplier_financing_vendor_invoice_listing) | `POST /v1/supplychainfinance/supplierinvoicelist` | CC |
-| [`supplier_financing_vendor_order_cancellation`](#supplier_financing_vendor_order_cancellation) | `POST /v1/supplierfinance/cancelFromSupplier` | CC |
-| [`supplier_financing_vendor_order_confirmation`](#supplier_financing_vendor_order_confirmation) | `POST /v1/supplierfinance/lastapprovefromsupplierer` | CC |
-| [`supplier_financing_vendor_order_initiation`](#supplier_financing_vendor_order_initiation) | `POST /supplierfinance/saveordersupplier` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`cheque_information_micro`](#cheque_information_micro) | `POST /v1/cheque-information-micro` | CC | kısmen test edildi | test edilmedi |
+| [`digital_banking_payment`](#digital_banking_payment) | `POST /v1/vpos/digitalPayment` | CC | test edilmedi | test edilmedi |
+| [`digital_banking_refund`](#digital_banking_refund) | `POST /v1/vpos/digitalPaymentRefund` | CC | test edilmedi | test edilmedi |
+| [`digital_banking_transaction_status`](#digital_banking_transaction_status) | `POST /v1/vpos/digitalPaymentStatus` | CC | test edilmedi | test edilmedi |
+| [`school_installment_payment_system_active_registration_inquiry`](#school_installment_payment_system_active_registration_inquiry) | `POST /v1/school-installment/registration-inquiry` | CC | test edildi | test edilmedi |
+| [`school_installment_system_registration_and_installment_cancellation`](#school_installment_system_registration_and_installment_cancellation) | `POST /v1/school-installment/cancelation` | CC | test edilmedi | test edilmedi |
+| [`school_installment_system_school_guaranteed_registration_payment`](#school_installment_system_school_guaranteed_registration_payment) | `POST /v1/school-installment/transaction-information` | CC | test edilmedi | test edilmedi |
+| [`supplier_financing_buyer_order_confirmation`](#supplier_financing_buyer_order_confirmation) | `POST /v1/supplierfinance/approvefrompurchaserer` | CC | test edilmedi | test edilmedi |
+| [`supplier_financing_buyer_order_listing`](#supplier_financing_buyer_order_listing) | `POST /v1/supplierfinance/getorderbypurchaser` | CC | test edildi | test edilmedi |
+| [`supplier_financing_invoice_cancellation`](#supplier_financing_invoice_cancellation) | `POST /v1/supplychainfinance/cancelinvoice` | CC | test edilmedi | test edilmedi |
+| [`supplier_financing_order_last_approval_by_supplier`](#supplier_financing_order_last_approval_by_supplier) | `POST /v1/supplierfinance/lastapprovefromsupplier` | CC | test edilmedi | test edilmedi |
+| [`supplier_financing_repayment_plan_calculation`](#supplier_financing_repayment_plan_calculation) | `POST /v1/supplierfinance/getpaybackplan` | CC | kısmen test edildi | test edilmedi |
+| [`supplier_financing_vendor_company_invoice_approval`](#supplier_financing_vendor_company_invoice_approval) | `POST /v1/supplychainfinance/supplierapproveinvoice` | CC | test edilmedi | test edilmedi |
+| [`supplier_financing_vendor_invoice_listing`](#supplier_financing_vendor_invoice_listing) | `POST /v1/supplychainfinance/supplierinvoicelist` | CC | kısmen test edildi | test edilmedi |
+| [`supplier_financing_vendor_order_cancellation`](#supplier_financing_vendor_order_cancellation) | `POST /v1/supplierfinance/cancelFromSupplier` | CC | test edilmedi | test edilmedi |
+| [`supplier_financing_vendor_order_confirmation`](#supplier_financing_vendor_order_confirmation) | `POST /v1/supplierfinance/lastapprovefromsupplierer` | CC | test edilmedi | test edilmedi |
+| [`supplier_financing_vendor_order_initiation`](#supplier_financing_vendor_order_initiation) | `POST /supplierfinance/saveordersupplier` | CC | test edilmedi | test edilmedi |
 
 ## `cheque_information_micro` { #cheque_information_micro }
 
@@ -35,6 +35,11 @@ It is an API that provides the necessary data for customers to view information 
 ```python
 yanit = kt.cash_management.cheque_information_micro()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — {'success': False, 'errorCodes': '1000', 'errors': [{'errorMessage': 'State parametresi zorunlu alandır.'}, {'errorMessage': 'Status parametresi zorunlu alandır… | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -56,6 +61,11 @@ Collects the payment information from the customer's profile provided in the par
 ```python
 yanit = kt.cash_management.digital_banking_payment(transaction_id=..., merchant_id=..., soft_descriptor=..., product_type=..., cost_amount=..., comission_amount=..., amount=..., transaction_currency=..., token_interval=..., payment_method=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -91,6 +101,11 @@ Does a refund or a partial refund on the transactions made during the previous d
 yanit = kt.cash_management.digital_banking_refund(transaction_id=..., org_transaction_id=..., amount=..., currency=..., comission_amount=..., description=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `transaction_id` | `TransactionId` | gövde | metin | evet | The singular transaction number of the return transaction |
@@ -116,6 +131,11 @@ Returns the status of the transaction provided in the parameters.
 yanit = kt.cash_management.digital_banking_transaction_status(transaction_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — {'code': 403, 'message': 'Invalid Scope'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `transaction_id` | `TransactionId` | gövde | metin | evet | The singular transaction number of the transaction |
@@ -136,6 +156,11 @@ Institutions could check through this API using the Turkish National Identity Nu
 yanit = kt.cash_management.school_installment_payment_system_active_registration_inquiry(identity_number=..., client_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: POST and path: /v1/school-installment/registration-inquiry'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `identity_number` | `IdentityNumber` | gövde | metin | evet | Öğrenci TCKN bilgisi |
@@ -155,6 +180,11 @@ Schools/Institutions can perform cancellations based on installments or Turkish 
 yanit = kt.cash_management.school_installment_system_registration_and_installment_cancellation(client_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `identity_number` | `IdentityNumber` | gövde | metin |  | Öğrenci TCKN bilgisi |
@@ -172,6 +202,11 @@ School-Guaranteed schools can use this API to track parent payments based on pay
 ```python
 yanit = kt.cash_management.school_installment_system_school_guaranteed_registration_payment(client_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -191,6 +226,11 @@ It is the API where invoices are uploaded to the system by the receiving company
 ```python
 yanit = kt.cash_management.supplier_financing_buyer_order_confirmation(purchaser_tax_number=..., supplier_order_gu_id_id=..., supplier_order_id=..., list_approve_from_purchaser_contract=..., tax_exclusive_amount=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -217,6 +257,11 @@ Retrieves supplier financing buyer order records according to the provided purch
 ```python
 yanit = kt.cash_management.supplier_financing_buyer_order_listing(client_id=..., purchaser_tax_number=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | sunucu hatası — İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -245,6 +290,11 @@ This API cancels a supply chain finance invoice. The cancellation operation is p
 yanit = kt.cash_management.supplier_financing_invoice_cancellation(client_id=..., purchaser_invoice_upload_guid=..., api_client_invoice_upload_guid=..., purchaser_tax_number=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `client_id` | `client_id` | gövde | metin | evet | Client identifier used for the invoice cancellation request. |
@@ -267,6 +317,11 @@ This API performs the final approval of a supplier financing order by the suppli
 ```python
 yanit = kt.cash_management.supplier_financing_order_last_approval_by_supplier(client_id=..., supplier_tax_number=..., supplier_order_id=..., supplier_order_guid_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -291,6 +346,11 @@ It is the API where the order is canceled by the vendor.
 yanit = kt.cash_management.supplier_financing_repayment_plan_calculation(supplier_tax_number=..., supplier_order_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — Satıcı Vergi Numarası Bilgisi Bulunamadı | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `supplier_tax_number` | `SupplierTaxNumber` | gövde | metin | evet | Identify the supplier tax number. |
@@ -314,6 +374,11 @@ This API approves a supply chain finance invoice by the supplier. The approval o
 yanit = kt.cash_management.supplier_financing_vendor_company_invoice_approval(client_id=..., purchaser_invoice_upload_guid=..., api_client_invoice_upload_guid=..., supplier_tax_number=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `client_id` | `client_id` | gövde | metin | evet | Client identifier used for the supplier invoice approval request. |
@@ -336,6 +401,11 @@ This API retrieves supply chain finance invoice records for a supplier based on 
 ```python
 yanit = kt.cash_management.supplier_financing_vendor_invoice_listing(client_id=..., supplier_tax_number=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — Tedarikçi firma tanımı bulunamadı. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -361,6 +431,11 @@ It is the API where the order is canceled by the vendor.
 yanit = kt.cash_management.supplier_financing_vendor_order_cancellation(supplier_tax_number=..., supplier_order_id=..., order_number=..., supplier_order_guid_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `supplier_tax_number` | `SupplierTaxNumber` | gövde | metin | evet | Identify Supplier Tax Number. |
@@ -384,6 +459,11 @@ It is the API through which the order is approved by the vendor.
 yanit = kt.cash_management.supplier_financing_vendor_order_confirmation(supplier_tax_number=..., supplier_order_gu_id_id=..., supplier_order_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `supplier_tax_number` | `SupplierTaxNumber` | gövde | metin | evet | Identify Supplier Tax Number. |
@@ -405,6 +485,11 @@ It is the API used to initiate orders.
 ```python
 yanit = kt.cash_management.supplier_financing_vendor_order_initiation(supplier_tax_number=..., purchaser_tax_number=..., order_number=..., amount=..., fec=..., maturity_day_count=..., early_payment_day_count=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

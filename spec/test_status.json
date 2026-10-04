@@ -1,0 +1,2648 @@
+{
+ "endpoints": {
+  "3641": {
+   "metot": "accounts.account_activity_list",
+   "istek": "POST /v1/accountActivities",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: account_activities"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "2050": {
+   "metot": "accounts.account_list_v3",
+   "istek": "GET /v3/accounts",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "accountList: 50 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4684": {
+   "metot": "accounts.account_list_with_suffix_v3",
+   "istek": "GET /v3/accounts/{suffix}",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "accountList: 1 kayıt (suffix)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "752": {
+   "metot": "accounts.account_transactions_v3",
+   "istek": "GET /v3/accounts/{suffix}/transactions",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "accountActivities: 0 kayıt (suffix)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3023": {
+   "metot": "accounts.account_transactions_v4_detail",
+   "istek": "GET /v4/accounts/{suffix}/transactions",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "results: 0 kayıt (suffix)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4873": {
+   "metot": "accounts.account_verification_v2",
+   "istek": "POST /v2/accounts/verification",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "798": {
+   "metot": "accounts.pdf_receipt_v3",
+   "istek": "POST /v3/accounts/transactions/pdfReceipts",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "MessageResourceError:Message_APIBanking.WarningAboutGuid"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3257": {
+   "metot": "accounts.receipt_v3",
+   "istek": "POST /v3/accounts/transactions/receipts",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "nesne (transaction_reference)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4886": {
+   "metot": "architecht.architecht_career_change",
+   "istek": "POST /v1/architechtintegration/career/insertAssignment",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4889": {
+   "metot": "architecht.customer_consent_cancellation",
+   "istek": "POST /v1/airapi/revoke-consent",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4890": {
+   "metot": "architecht.customer_consent_list",
+   "istek": "GET /v1/airapi/consent-list",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "results: 1 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1949": {
+   "metot": "cards.credit_card_list_v3",
+   "istek": "GET /v3/creditcard/cardlist",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "creditCardListResponseModel: 2 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4919": {
+   "metot": "cards.credit_card_money_transfer",
+   "istek": "POST /v1/moneytransfer/creditcardmoneytransfer",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1950": {
+   "metot": "cards.credit_card_transactions_list_v3",
+   "istek": "GET /v3/creditcard/{cardnumber}/transactions",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "parametre değeri bilinmiyor",
+    "tarih": "2026-10-04",
+    "ayrinti": "yol parametresi: cardnumber"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4917": {
+   "metot": "cards.virtual_card_limit_update",
+   "istek": "POST /v1/cards/virtualcardlimitupdate",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4670": {
+   "metot": "cash_management.cheque_information_micro",
+   "istek": "POST /v1/cheque-information-micro",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "{'success': False, 'errorCodes': '1000', 'errors': [{'errorMessage': 'State parametresi zorunlu alandır.'}, {'errorMessage': 'Status parametresi zorunlu alandır…"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1901": {
+   "metot": "cash_management.digital_banking_payment",
+   "istek": "POST /v1/vpos/digitalPayment",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1116": {
+   "metot": "cash_management.digital_banking_refund",
+   "istek": "POST /v1/vpos/digitalPaymentRefund",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1094": {
+   "metot": "cash_management.digital_banking_transaction_status",
+   "istek": "POST /v1/vpos/digitalPaymentStatus",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "http": 403,
+    "ayrinti": "{'code': 403, 'message': 'Invalid Scope'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3674": {
+   "metot": "cash_management.school_installment_payment_system_active_registration_inquiry",
+   "istek": "POST /v1/school-installment/registration-inquiry",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: POST and path: /v1/school-installment/registration-inquiry'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3672": {
+   "metot": "cash_management.school_installment_system_registration_and_installment_cancellation",
+   "istek": "POST /v1/school-installment/cancelation",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3673": {
+   "metot": "cash_management.school_installment_system_school_guaranteed_registration_payment",
+   "istek": "POST /v1/school-installment/transaction-information",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1897": {
+   "metot": "cash_management.supplier_financing_buyer_order_confirmation",
+   "istek": "POST /v1/supplierfinance/approvefrompurchaserer",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4906": {
+   "metot": "cash_management.supplier_financing_buyer_order_listing",
+   "istek": "POST /v1/supplierfinance/getorderbypurchaser",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "sunucu hatası",
+    "tarih": "2026-10-04",
+    "http": 500,
+    "ayrinti": "İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4893": {
+   "metot": "cash_management.supplier_financing_invoice_cancellation",
+   "istek": "POST /v1/supplychainfinance/cancelinvoice",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1899": {
+   "metot": "cash_management.supplier_financing_order_last_approval_by_supplier",
+   "istek": "POST /v1/supplierfinance/lastapprovefromsupplier",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1661": {
+   "metot": "cash_management.supplier_financing_repayment_plan_calculation",
+   "istek": "POST /v1/supplierfinance/getpaybackplan",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "Satıcı Vergi Numarası Bilgisi Bulunamadı"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4895": {
+   "metot": "cash_management.supplier_financing_vendor_company_invoice_approval",
+   "istek": "POST /v1/supplychainfinance/supplierapproveinvoice",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4894": {
+   "metot": "cash_management.supplier_financing_vendor_invoice_listing",
+   "istek": "POST /v1/supplychainfinance/supplierinvoicelist",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "Tedarikçi firma tanımı bulunamadı."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1895": {
+   "metot": "cash_management.supplier_financing_vendor_order_cancellation",
+   "istek": "POST /v1/supplierfinance/cancelFromSupplier",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1898": {
+   "metot": "cash_management.supplier_financing_vendor_order_confirmation",
+   "istek": "POST /v1/supplierfinance/lastapprovefromsupplierer",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1896": {
+   "metot": "cash_management.supplier_financing_vendor_order_initiation",
+   "istek": "POST /supplierfinance/saveordersupplier",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4896": {
+   "metot": "credibility.customer_overall_limit_values",
+   "istek": "POST /v1/Loans/LastAllotmentTopLimit",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "nesne (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4897": {
+   "metot": "credibility.final_credit_decision_recommendation",
+   "istek": "POST /v1/Loans/AllotmentFinalDecision",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4865": {
+   "metot": "credibility.send_invoice_detail_v2",
+   "istek": "POST /v2/purchase/invoice",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4888": {
+   "metot": "credibility.tardes_agricultural_score_inquiry",
+   "istek": "POST /v1/inquiry/gettardesscore",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "Inquiry.IdentityNumberIsRequiredField"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4899": {
+   "metot": "credibility.taxpayer_gib_identity_information",
+   "istek": "POST /v1/inquiry/gib-tax-payer",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: POST and path: /v1/inquiry/gib-tax-payer'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1893": {
+   "metot": "donations.account_transactions_for_the_organization",
+   "istek": "POST /v1/donations/transactions",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "980": {
+   "metot": "donations.campaign_list_for_organization",
+   "istek": "POST /v1/donations/campaignList",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "964": {
+   "metot": "donations.donation_list_for_organization",
+   "istek": "POST /v1/donations/donationList",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "sunucu hatası",
+    "tarih": "2026-10-04",
+    "http": 500,
+    "ayrinti": "System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.InvalidOperationException: Nullable object mu…"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "982": {
+   "metot": "donations.donation_list_for_organization_tdv",
+   "istek": "POST /v1/donations/donationListTdv",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "981": {
+   "metot": "donations.external_payments_list",
+   "istek": "POST /v1/donations/externalPayments",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3550": {
+   "metot": "ecommerce.ecommerce_application_refund_v1",
+   "istek": "POST /v1/lendings/{applicationId}/refund",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "2139": {
+   "metot": "ecommerce.ecommerce_application_refund_v1_2",
+   "istek": "POST /v1/lendings/{applicationId}/refund",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3551": {
+   "metot": "ecommerce.ecommerce_get_lending_information_v1",
+   "istek": "GET /v1/lendings/{applicationId}",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "parametre değeri bilinmiyor",
+    "tarih": "2026-10-04",
+    "ayrinti": "yol parametresi: applicationId"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1240": {
+   "metot": "ecommerce.ecommerce_get_lending_information_v1_2",
+   "istek": "GET /v1/lendings/{applicationId}",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "parametre değeri bilinmiyor",
+    "tarih": "2026-10-04",
+    "ayrinti": "yol parametresi: applicationId"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3552": {
+   "metot": "ecommerce.ecommerce_lendings_v1",
+   "istek": "POST /v1/lendings",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1232": {
+   "metot": "ecommerce.ecommerce_lendings_v1_2",
+   "istek": "POST /v1/lendings",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3553": {
+   "metot": "ecommerce.ecommerce_monthly_payments_v1",
+   "istek": "POST /v1/query/monthly-payments",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "sunucu hatası",
+    "tarih": "2026-10-04",
+    "http": 500,
+    "ayrinti": "İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1255": {
+   "metot": "ecommerce.ecommerce_monthly_payments_v1_2",
+   "istek": "POST /v1/query/monthly-payments",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "sunucu hatası",
+    "tarih": "2026-10-04",
+    "http": 500,
+    "ayrinti": "İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3554": {
+   "metot": "ecommerce.ecommerce_pre_approved_monthly_payments_v1",
+   "istek": "POST /v1/query/pre-approved-monthly-payments",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "sunucu hatası",
+    "tarih": "2026-10-04",
+    "http": 500,
+    "ayrinti": "İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1233": {
+   "metot": "ecommerce.ecommerce_pre_approved_monthly_payments_v1_2",
+   "istek": "POST /v1/query/pre-approved-monthly-payments",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "sunucu hatası",
+    "tarih": "2026-10-04",
+    "http": 500,
+    "ayrinti": "İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4926": {
+   "metot": "financing.corporate_app_agreement_v2",
+   "istek": "GET /v2/corporateAppAgreementData",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4927": {
+   "metot": "financing.corporate_credit_card_application",
+   "istek": "POST /v2/corporateCreditCardApplication",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3584": {
+   "metot": "financing.credit_limit_request",
+   "istek": "GET /v1/loans/allotmentLimit",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4898": {
+   "metot": "financing.customer_current_credit_allocation_flow_information",
+   "istek": "POST /v1/Loans/GetLatestRouteHistoryByAccountNumber",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "boş (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4922": {
+   "metot": "financing.customer_suited_card_list",
+   "istek": "GET /v2/customerSuitedCardList",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "Geçersiz Hesap Numarası"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4931": {
+   "metot": "financing.get_digital_channel_card_application_list_v2",
+   "istek": "GET /v2/cardApplicationList",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "Geçersiz Hesap Numarası"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4923": {
+   "metot": "financing.individual_app_agreement_v2",
+   "istek": "GET /v2/individualAppAgreement",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4930": {
+   "metot": "financing.individual_credit_card_application_v2",
+   "istek": "POST /v2/individualCreditCardApplication",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3592": {
+   "metot": "financing.loan_finance_calculation",
+   "istek": "GET /v1/calculations/loan",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: GET and path: /v1/calculations/loan'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3588": {
+   "metot": "financing.loan_finance_info",
+   "istek": "GET /v1/loans/{projectNumber}/info",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3589": {
+   "metot": "financing.loan_finance_installments",
+   "istek": "GET /v1/loans/{projectNumber}/installments",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3590": {
+   "metot": "financing.loan_finance_list",
+   "istek": "GET /v1/loans",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3591": {
+   "metot": "financing.loans_price_list",
+   "istek": "GET /v1/loans/pricelist",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "DigitalLoans.EnterProductType"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4902": {
+   "metot": "financing.send_leasing_confirmation_form",
+   "istek": "POST /v1/leasing/confirmation-form",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4904": {
+   "metot": "financing.send_leasing_current_account_file",
+   "istek": "POST /v1/leasing/current-documents",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4903": {
+   "metot": "financing.send_leasing_release_documents",
+   "istek": "POST /v1/leasing/exit-documents",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1999": {
+   "metot": "fx.fx_currency_buy",
+   "istek": "POST /v1/fx/buy",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1991": {
+   "metot": "fx.fx_currency_list",
+   "istek": "GET /v1/data/fecs",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "46 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "2015": {
+   "metot": "fx.fx_currency_rates",
+   "istek": "GET /v2/fx/rates",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "rateList: 2 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1795": {
+   "metot": "fx.fx_currency_sell",
+   "istek": "POST /v1/fx/sell",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1793": {
+   "metot": "fx.fx_transaction_history",
+   "istek": "POST /v1/fx/fxtransactions",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1867": {
+   "metot": "hgs.hgs_balance_information",
+   "istek": "POST /v1/hgs/balance-info",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "MessageResourceError:Message_PaymentSystems.PlateNoAndBarcodeNotMatch"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1921": {
+   "metot": "hgs.hgs_product_information",
+   "istek": "POST /v1/hgs/product-info",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "MessageResourceError:Message_PaymentSystems.PlateNoAndBarcodeNotMatch"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3644": {
+   "metot": "hgs.hgs_usage_transactions",
+   "istek": "POST /v1/hgs/usage-transactions",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "MessageResourceError:Message_PaymentSystems.PlateNoAndBarcodeNotMatch"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3424": {
+   "metot": "information.bank_branch_list",
+   "istek": "GET /v1/data/banks/{bankId}/branches",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "parametre değeri bilinmiyor",
+    "tarih": "2026-10-04",
+    "ayrinti": "yol parametresi: bankId"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3425": {
+   "metot": "information.bank_list",
+   "istek": "GET /v1/data/banks",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "52 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3426": {
+   "metot": "information.calculate_profit_share_rate",
+   "istek": "POST /v1/calculateprofitsharerate",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "sunucu hatası",
+    "tarih": "2026-10-04",
+    "http": 500,
+    "ayrinti": "İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4892": {
+   "metot": "information.central_notification",
+   "istek": "POST /v1/notification/sendInfEng",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3428": {
+   "metot": "information.collect_installment",
+   "istek": "POST /v1/collections/collectInstallment",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3429": {
+   "metot": "information.collection_list",
+   "istek": "POST /v1/collections",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: POST and path: /v1/collections'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3437": {
+   "metot": "information.get_class_info",
+   "istek": "POST /v1/erp/lms/getClassInfo",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "nesne (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3444": {
+   "metot": "information.iban_validation_utility",
+   "istek": "POST /v1/validation/ibanvalidator",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: POST and path: /v1/validation/ibanvalidator'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3448": {
+   "metot": "information.kuveyt_turk_atm_list",
+   "istek": "GET /v1/data/atms",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "3 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3449": {
+   "metot": "information.kuveyt_turk_branch_list",
+   "istek": "GET /v1/data/branches",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "4 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3450": {
+   "metot": "information.kuveyt_turk_xtm_list",
+   "istek": "GET /v1/data/xtms",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "2 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3451": {
+   "metot": "information.loan_finance_calculation_parameter",
+   "istek": "GET /v1/data/loans",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "http": 403,
+    "ayrinti": "{'code': 403, 'message': 'Invalid Scope'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1135": {
+   "metot": "moneygram.money_gram_country_list",
+   "istek": "GET /v1/moneygram/countrylist",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: GET and path: /v1/moneygram/countrylist'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1133": {
+   "metot": "moneygram.money_gram_currency_list",
+   "istek": "GET /v1/moneygram/currencylist",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: GET and path: /v1/moneygram/currencylist'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1160": {
+   "metot": "moneygram.money_gram_get_fee",
+   "istek": "POST /v1/moneygram/getfee",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1674": {
+   "metot": "moneygram.money_gram_query_fee",
+   "istek": "GET /v1/moneygram/queryfee",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: GET and path: /v1/moneygram/queryfee'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1159": {
+   "metot": "moneygram.money_gram_query_reference",
+   "istek": "POST /v1/moneygram/queryreference",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1673": {
+   "metot": "moneygram.money_gram_send",
+   "istek": "POST /v1/moneygram/send",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4905": {
+   "metot": "other.calculate_welcome_participation_account_profit_share",
+   "istek": "POST /v1/welcomeprofitsharecalculation",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "sunucu hatası",
+    "tarih": "2026-10-04",
+    "http": 500,
+    "ayrinti": "İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4900": {
+   "metot": "other.credi_tech_intelligence_inquiry_by_credit_allocation_status",
+   "istek": "POST /v1/Loans/GetInquiryPermissionCheckByCreditechtReportNumber",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "http": 403,
+    "ayrinti": "{'code': 403, 'message': 'Invalid Scope'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4885": {
+   "metot": "other.credit_tech_pos",
+   "istek": "POST /v1/data/credittechpos",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4879": {
+   "metot": "other.fraud_notifications_exists",
+   "istek": "POST /v1/inquiry/is-fraud-notification-exists",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: POST and path: /v1/inquiry/is-fraud-notification-exists'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4880": {
+   "metot": "other.get_fraud_notifications_last_day",
+   "istek": "POST /v1/inquiry/get-fraud-notifications-daily",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: POST and path: /v1/inquiry/get-fraud-notifications-daily'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4901": {
+   "metot": "other.get_process_design_xml_by_business_process_id",
+   "istek": "POST /v1/bpm/post/grcprocessdesignxml",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "responseValue: 0 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4887": {
+   "metot": "other.saglam_pay_get_customer_full_info",
+   "istek": "GET /v1/get-customer-info-by-customerId-full",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4878": {
+   "metot": "other.visa_payment_status_notification",
+   "istek": "POST /v1/StatusNotify",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4877": {
+   "metot": "other.visa_statement_delivery",
+   "istek": "POST /v1/StatementDelivery",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3681": {
+   "metot": "payment_solutions.digital_payment_get_token",
+   "istek": "POST /v1/vpos/digitalPaymentGetToken",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3680": {
+   "metot": "payment_solutions.digital_payment_query",
+   "istek": "POST /v1/vpos/digitalPaymentQuery",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "nesne (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3682": {
+   "metot": "payment_solutions.digital_payment_refund",
+   "istek": "POST /v1/vpos/digitalPaymentDoRefund",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3683": {
+   "metot": "payment_solutions.digital_payment_send_document",
+   "istek": "POST /v1/vpos/sendDocument",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4876": {
+   "metot": "payment_solutions.pos_merchant_number_list",
+   "istek": "GET /v1/pos/merchant-number",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: GET and path: /v1/pos/merchant-number'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3407": {
+   "metot": "payment_solutions.pos_transaction_details_for_tpp_v2",
+   "istek": "POST /v2/pos/detail-transactions",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3409": {
+   "metot": "payment_solutions.pos_transaction_details_v3",
+   "istek": "POST /v3/pos/detail-transactions",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "merchantBlockNumber parametresi zorunlu alandır."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3260": {
+   "metot": "payment_solutions.pos_transactions_summary_for_tpp_v2",
+   "istek": "POST /v2/pos/transactions",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3408": {
+   "metot": "payment_solutions.pos_transactions_summary_v3",
+   "istek": "POST /v3/pos/transactions",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "Yetkili kullanıcı adı gönderilmelidir."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4863": {
+   "metot": "payment_solutions.send_order_distribution_detail_v2",
+   "istek": "POST /v3/purchase/orderdistribution",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4912": {
+   "metot": "payment_solutions.virtual_pos",
+   "istek": "POST /v1/vpos",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4915": {
+   "metot": "payment_solutions.virtual_pos_end_day_all_list",
+   "istek": "POST /v1/vpos/endDayAllList",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4914": {
+   "metot": "payment_solutions.virtual_pos_end_of_day",
+   "istek": "POST /v1/vpos/endOfDay",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3405": {
+   "metot": "payment_solutions.virtual_pos_general_transaction",
+   "istek": "POST /v1/vpos/transaction",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4913": {
+   "metot": "payment_solutions.virtual_pos_order_filter",
+   "istek": "POST /v1/vpos/orderFilter",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4852": {
+   "metot": "payments.account_validation_by_account_number_for_group_money_transfer",
+   "istek": "POST /v1/groupmoneytransfer/accountvalidation",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: intrabank_money_transfers"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4853": {
+   "metot": "payments.account_validation_by_iban_for_group_money_transfer",
+   "istek": "POST /v1/groupmoneytransfer/account",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: intrabank_money_transfers"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4862": {
+   "metot": "payments.account_validation_by_iban_for_group_money_transfer_v2",
+   "istek": "POST /v2/groupmoneytransfer/account",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: intrabank_money_transfers"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4854": {
+   "metot": "payments.cancel_money_transfers_from_kt_bank_to_kuveyt_turk",
+   "istek": "POST /v1/groupmoneytransfer/incomingtransfer/cancellist",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4855": {
+   "metot": "payments.check_money_transfers_status_from_kt_bank_to_kuveyt_turk",
+   "istek": "POST /v1/groupmoneytransfer/incomingtransfer/checkstatuslist",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4875": {
+   "metot": "payments.do_stamp_duty_tax_payment_offline",
+   "istek": "POST /v1/tax/do-stamp-duty-tax-payment-offline",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4856": {
+   "metot": "payments.insert_money_transfers_from_kt_bank_to_kuveyt_turk",
+   "istek": "POST /v1/groupmoneytransfer/incomingtransfer/insertlist",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1569": {
+   "metot": "payments.invoice_company_list",
+   "istek": "GET /v1/invoices/companies",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4857": {
+   "metot": "payments.kt_bank_error_message_list",
+   "istek": "GET /v1/groupmoneytransfer/errormessagelist",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: intrabank_money_transfers"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4858": {
+   "metot": "payments.kuveyt_turk_branch_list_for_group_money_transfer",
+   "istek": "GET /v1/groupmoneytransfer/branchlist",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: intrabank_money_transfers"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4859": {
+   "metot": "payments.return_money_transfers_from_kt_bank_to_kuveyt_turk",
+   "istek": "POST /v1/groupmoneytransfer/incomingtransfer/returnlist",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4864": {
+   "metot": "payments.send_multiple_invoice_v2",
+   "istek": "POST /v2/purchase/multipleinvoice",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1880": {
+   "metot": "payments.send_offer_vendor_detail",
+   "istek": "POST /v1/purchase/offervendor",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "858": {
+   "metot": "payments.send_order_distribution_detail",
+   "istek": "POST /v1/purchase/orderdistribution",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4866": {
+   "metot": "payments.send_order_distribution_detail_v2",
+   "istek": "POST /v3/purchase/orderdistribution",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4872": {
+   "metot": "sgk.consume_insurance_queue",
+   "istek": "POST /v1/insurance/consumeQueue",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4868": {
+   "metot": "sms_otp.pr_customer_validation",
+   "istek": "POST /v1/paymentrequest/customerValidation",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4871": {
+   "metot": "sms_otp.pr_get_account_details_by_iban",
+   "istek": "POST /v1/paymentrequest/getAccountByIban",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4869": {
+   "metot": "sms_otp.pr_get_fast_result",
+   "istek": "GET /v1/paymentrequest/getFastResult",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: GET and path: /v1/paymentrequest/getFastResult'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4870": {
+   "metot": "sms_otp.pr_payment_request_control",
+   "istek": "POST /v1/paymentrequest/paymentControl",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4891": {
+   "metot": "sms_otp.pr_payment_transaction",
+   "istek": "POST /v1/paymentrequest/transfer",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1732": {
+   "metot": "support.kt_incident_activity_type_list",
+   "istek": "GET /v1/incident/activityTypes",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: incident_operations"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1734": {
+   "metot": "support.kt_incident_cancel",
+   "istek": "POST /v1/incident/cancel",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4849": {
+   "metot": "support.kt_incident_creation",
+   "istek": "POST /v1/incident/operation/create",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4884": {
+   "metot": "support.kt_incident_creation_by_company",
+   "istek": "POST /v1/company/incident/create",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1711": {
+   "metot": "support.kt_incident_defined_document_list",
+   "istek": "GET /v1/incident/defiendDocuments",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: incident_operations"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4851": {
+   "metot": "support.kt_incident_info",
+   "istek": "POST /v1/incident/information/info",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: incident_operations"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1894": {
+   "metot": "support.kt_incident_insert_activity",
+   "istek": "POST /v1/incident/insertActivity",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1020": {
+   "metot": "support.kt_incident_insert_document",
+   "istek": "POST /v1/incident/insertDocument",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4882": {
+   "metot": "support.kt_incident_neova_info",
+   "istek": "POST /v1/incident/neova/info",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: incident_operations"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4881": {
+   "metot": "support.kt_incident_neova_list",
+   "istek": "POST /v1/incident/neova/list",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: incident_operations"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4883": {
+   "metot": "support.kt_incident_neova_update",
+   "istek": "POST /v1/incident/neova/update",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "684": {
+   "metot": "support.kt_incident_optional_field_list",
+   "istek": "POST /v1/incident/optionalFieldList",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: incident_operations"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4850": {
+   "metot": "support.kt_incident_product_list",
+   "istek": "GET /v1/incident/information/products",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "uygulamanın kapsam yetkisi yok",
+    "tarih": "2026-10-04",
+    "ayrinti": "kapsam: incident_operations"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1024": {
+   "metot": "support.kt_incident_reopen",
+   "istek": "POST /v1/incident/reopen",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1908": {
+   "metot": "tpp_accounts.account_list_v2",
+   "istek": "GET /v2/accounts",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-03",
+    "ayrinti": "müşteri girişiyle elle test edildi (Sandık banka hesabı entegrasyonu oturumu); alanlar dokümanla aynı"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4867": {
+   "metot": "tpp_accounts.account_list_with_suffix_v2",
+   "istek": "GET /v2/accounts/{suffix}",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "müşteri girişi gerekiyor",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3026": {
+   "metot": "tpp_accounts.account_transactions_v2",
+   "istek": "GET /v2/accounts/{suffix}/transactions",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-03",
+    "ayrinti": "müşteri girişiyle elle test edildi (Sandık banka hesabı entegrasyonu oturumu); 22 kayıt, tarih filtresi tutarsız"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4907": {
+   "metot": "tpp_accounts.receipt_v1",
+   "istek": "GET /v1/accounts/{suffix}/transactions/{businessKey}",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-03",
+    "ayrinti": "müşteri girişiyle elle test edildi (Sandık banka hesabı entegrasyonu oturumu); üç farklı hareketle 404 Path not found"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3025": {
+   "metot": "tpp_accounts.receipt_v2",
+   "istek": "POST /v2/accounts/transactions/receipts",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor, içerik boş",
+    "tarih": "2026-10-03",
+    "ayrinti": "müşteri girişiyle elle test edildi (Sandık banka hesabı entegrasyonu oturumu); denenen iki harekette slipList yok"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1943": {
+   "metot": "transfers.cash_withdrawal_from_atm_via_qr_code",
+   "istek": "POST /v1/transfers/fromATMByQRCode",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4685": {
+   "metot": "transfers.customer_iban_info_for_money_transfer",
+   "istek": "GET /v1/moneytransfer/{iban}/customeribaninfo",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "nesne (iban)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4689": {
+   "metot": "transfers.internal_money_transfer",
+   "istek": "POST /v1/moneytransfer/interbankmoneytransfer",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4874": {
+   "metot": "transfers.investment_account_activities_report",
+   "istek": "POST /v1/investment/report-for-account-activities",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: POST and path: /v1/investment/report-for-account-activities'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4687": {
+   "metot": "transfers.money_transfer_payment_type",
+   "istek": "POST /v1/moneytransfer/paymenttype",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3687": {
+   "metot": "transfers.money_transfer_state",
+   "istek": "GET /v1/moneytransfer-state",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: GET and path: /v1/moneytransfer-state'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1796": {
+   "metot": "transfers.money_transfer_to_gsm",
+   "istek": "POST /v1/transfers/toGSM",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3290": {
+   "metot": "transfers.outgoing_money_transfer",
+   "istek": "POST /v1/moneytransfer/outgoingmoneytransfer",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3228": {
+   "metot": "transfers.outgoing_money_transfer_v2",
+   "istek": "POST /v2/moneytransfer/outgoingmoneytransfer",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4692": {
+   "metot": "transfers.transaction_validation_list",
+   "istek": "GET /v1/transactionvalidation/transactionlist",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "TransactionGuid: ile gerçekleşen bir işlem bulunmamaktadır."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4848": {
+   "metot": "treasury.fx_and_precious_metal_rates",
+   "istek": "GET /v1/fx/rates",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "25 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "1324": {
+   "metot": "treasury.fx_and_precious_metals_transaction_history",
+   "istek": "POST /v1/fx/fxtransactions",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3637": {
+   "metot": "treasury.precious_metal_buy",
+   "istek": "POST /v1/preciousmetal/buy",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3638": {
+   "metot": "treasury.precious_metal_rates",
+   "istek": "GET /v1/preciousmetal/rates",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "çalışıyor",
+    "tarih": "2026-10-04",
+    "http": 200,
+    "ayrinti": "rateList: 4 kayıt (parametresiz)"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3639": {
+   "metot": "treasury.precious_metal_sell",
+   "istek": "POST /v1/preciousmetal/sell",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4676": {
+   "metot": "vpos.add_card_to_merchant_safe",
+   "istek": "POST /v1/vpos/addCardToMerchantSafe",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4860": {
+   "metot": "vpos.digital_payment_commission_reconciliation",
+   "istek": "POST /v1/vpos/commissionReconciliation",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4675": {
+   "metot": "vpos.get_customer_by_safe_key",
+   "istek": "POST /v1/vpos/getCustomerBySafeKey",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4662": {
+   "metot": "vpos.get_seller_order_details",
+   "istek": "POST /v1/vpos/getMerchantOrderDetail",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "Müşteri no giriniz."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4665": {
+   "metot": "vpos.non_3_d_payment",
+   "istek": "POST /v1/vpos/non3DPayment",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4672": {
+   "metot": "vpos.non_three_d_payment_by_merchant_safe",
+   "istek": "POST /v1/vpos/nonThreeDPaymentByMerchantSafe",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4666": {
+   "metot": "vpos.order_detail_with_payment_id",
+   "istek": "POST /v1/vpos/orderDetailWithPaymentId",
+   "sandbox": {
+    "durum": "kısmen test edildi",
+    "sonuc": "erişilebilir, parametre/iş kuralı hatası",
+    "tarih": "2026-10-04",
+    "http": 400,
+    "ayrinti": "Müşteri no giriniz."
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4683": {
+   "metot": "vpos.payment_order_reversal",
+   "istek": "POST /v1/vpos/paymentOrderReversal",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4679": {
+   "metot": "vpos.pre_authorization",
+   "istek": "POST /v1/vpos/preAuthorization",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4668": {
+   "metot": "vpos.recurring_non_three_d_payment",
+   "istek": "POST /v1/vpos/recurringNonThreeDPayment",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4680": {
+   "metot": "vpos.sale_order_reversal",
+   "istek": "POST /v1/vpos/saleOrderReversal",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4659": {
+   "metot": "vpos.secure_partner_payment",
+   "istek": "POST /v1/vpos/secureCommonPaymentToken",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4660": {
+   "metot": "vpos.threee_d_payment",
+   "istek": "POST /v1/vpos/threeDPayment",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3404": {
+   "metot": "vpos.virtual_pos_non_three_d_payment",
+   "istek": "POST /v1/vpos/nonThreeDPayment",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "3403": {
+   "metot": "vpos.virtual_pos_sale_reversal",
+   "istek": "POST /v1/vpos/saleReversal",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4908": {
+   "metot": "your_banking.your_banking_account_application",
+   "istek": "POST /v1/yourbank/accountApplications",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4910": {
+   "metot": "your_banking.your_banking_account_application_documents",
+   "istek": "POST /v1/yourbank/accountApplicationDocuments",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4909": {
+   "metot": "your_banking.your_banking_account_application_sms_validation",
+   "istek": "POST /v1/yourbank/accountSmsOtp",
+   "sandbox": {
+    "durum": "test edilmedi",
+    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
+    "tarih": "2026-10-04"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  },
+  "4911": {
+   "metot": "your_banking.your_banking_account_application_status_query",
+   "istek": "POST /v1/yourbank/accountApplicationStatus",
+   "sandbox": {
+    "durum": "test edildi",
+    "sonuc": "bu ortamda yok (404)",
+    "tarih": "2026-10-04",
+    "http": 404,
+    "ayrinti": "{'code': 404, 'message': 'Path not found. Method: POST and path: /v1/yourbank/accountApplicationStatus'}"
+   },
+   "canli": {
+    "durum": "test edilmedi",
+    "sonuc": "henüz denenmedi"
+   }
+  }
+ },
+ "_aciklama": "Uç noktaların sandbox ve canlı ortamda test durumu. scripts/check_endpoints.py yazar; elle de düzenlenebilir (durum: 'test edildi' | 'kısmen test edildi' | 'test edilmedi'). Değiştirdikten sonra scripts/generate.py ile doküman sayfalarını yeniden üretin."
+}

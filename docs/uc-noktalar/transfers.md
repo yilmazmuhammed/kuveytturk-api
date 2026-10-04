@@ -6,18 +6,18 @@ Para transferleri · 10 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`cash_withdrawal_from_atm_via_qr_code`](#cash_withdrawal_from_atm_via_qr_code) | `POST /v1/transfers/fromATMByQRCode` | AC |
-| [`customer_iban_info_for_money_transfer`](#customer_iban_info_for_money_transfer) | `GET /v1/moneytransfer/{iban}/customeribaninfo` | CC |
-| [`internal_money_transfer`](#internal_money_transfer) | `POST /v1/moneytransfer/interbankmoneytransfer` | CC |
-| [`investment_account_activities_report`](#investment_account_activities_report) | `POST /v1/investment/report-for-account-activities` | CC |
-| [`money_transfer_payment_type`](#money_transfer_payment_type) | `POST /v1/moneytransfer/paymenttype` | CC |
-| [`money_transfer_state`](#money_transfer_state) | `GET /v1/moneytransfer-state` | CC |
-| [`money_transfer_to_gsm`](#money_transfer_to_gsm) | `POST /v1/transfers/toGSM` | AC |
-| [`outgoing_money_transfer`](#outgoing_money_transfer) | `POST /v1/moneytransfer/outgoingmoneytransfer` | CC |
-| [`outgoing_money_transfer_v2`](#outgoing_money_transfer_v2) | `POST /v2/moneytransfer/outgoingmoneytransfer` | AC |
-| [`transaction_validation_list`](#transaction_validation_list) | `GET /v1/transactionvalidation/transactionlist` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`cash_withdrawal_from_atm_via_qr_code`](#cash_withdrawal_from_atm_via_qr_code) | `POST /v1/transfers/fromATMByQRCode` | AC | test edilmedi | test edilmedi |
+| [`customer_iban_info_for_money_transfer`](#customer_iban_info_for_money_transfer) | `GET /v1/moneytransfer/{iban}/customeribaninfo` | CC | test edildi | test edilmedi |
+| [`internal_money_transfer`](#internal_money_transfer) | `POST /v1/moneytransfer/interbankmoneytransfer` | CC | test edilmedi | test edilmedi |
+| [`investment_account_activities_report`](#investment_account_activities_report) | `POST /v1/investment/report-for-account-activities` | CC | test edildi | test edilmedi |
+| [`money_transfer_payment_type`](#money_transfer_payment_type) | `POST /v1/moneytransfer/paymenttype` | CC | test edilmedi | test edilmedi |
+| [`money_transfer_state`](#money_transfer_state) | `GET /v1/moneytransfer-state` | CC | test edildi | test edilmedi |
+| [`money_transfer_to_gsm`](#money_transfer_to_gsm) | `POST /v1/transfers/toGSM` | AC | test edilmedi | test edilmedi |
+| [`outgoing_money_transfer`](#outgoing_money_transfer) | `POST /v1/moneytransfer/outgoingmoneytransfer` | CC | test edilmedi | test edilmedi |
+| [`outgoing_money_transfer_v2`](#outgoing_money_transfer_v2) | `POST /v2/moneytransfer/outgoingmoneytransfer` | AC | test edilmedi | test edilmedi |
+| [`transaction_validation_list`](#transaction_validation_list) | `GET /v1/transactionvalidation/transactionlist` | CC | kısmen test edildi | test edilmedi |
 
 ## `cash_withdrawal_from_atm_via_qr_code` { #cash_withdrawal_from_atm_via_qr_code }
 
@@ -28,6 +28,11 @@ This API enables cash withdrawal from an ATM via QR code. The customer scans the
 ```python
 yanit = kt.transfers.cash_withdrawal_from_atm_via_qr_code(sender_account_suffix=..., amount=..., qr_code=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -47,6 +52,11 @@ This API is used to retrieve customer account information associated with a give
 yanit = kt.transfers.customer_iban_info_for_money_transfer(iban=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — nesne (iban) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `iban` | `iban` | yol | metin | evet | IBAN number for which customer account information will be retrieved. This value is sent as a route parameter. |
@@ -64,6 +74,11 @@ This API is used to initiate an internal account-to-account money transfer trans
 ```python
 yanit = kt.transfers.internal_money_transfer(sender_account_suffix=..., receiver_account_number=..., receiver_account_suffix=..., money_transfer_amount=..., transfer_type=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -88,6 +103,11 @@ Retrieves the account activities report for Kuveyt Türk Investment Securities I
 yanit = kt.transfers.investment_account_activities_report(language_id=..., transaction_date=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: POST and path: /v1/investment/report-for-account-activities'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `language_id` | `languageId` | gövde | tam sayı | evet | Language identifier used for report content and descriptions. |
@@ -109,6 +129,11 @@ Bir transfer için geçerli ödeme türünü sorgular. Dikkat: resmî dokümanda
 yanit = kt.transfers.money_transfer_payment_type(sender_account_suffix=..., receiver_iban=..., amount=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `sender_account_suffix` | `senderAccountSuffix` | gövde | tam sayı | evet | Gönderen hesabın ek numarası. |
@@ -126,6 +151,11 @@ This API is used to check the current state of a money transfer transaction. The
 ```python
 yanit = kt.transfers.money_transfer_state(transfer_type=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: GET and path: /v1/moneytransfer-state'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -147,6 +177,11 @@ Sends money from an authorized user’s current or deposit account (sent via tok
 yanit = kt.transfers.money_transfer_to_gsm(sender_account_suffix=..., receiver_name=..., receiver_phone_number=..., amount=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `sender_account_suffix` | `SenderAccountSuffix` | gövde | tam sayı | evet | Indicates the sender's account suffix number. |
@@ -166,6 +201,11 @@ Müşteri hesabından bir IBAN'a para transferi (havale / EFT / FAST) başlatır
 ```python
 yanit = kt.transfers.outgoing_money_transfer(sender_account_suffix=..., receiver_iban=..., money_transfer_amount=..., corporate_web_user_name=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -192,6 +232,11 @@ Müşteri girişiyle (authorization code) para transferi. Dikkat: resmî doküma
 yanit = kt.transfers.outgoing_money_transfer_v2(suffix=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `suffix` | `suffix` | gövde | tam sayı | evet | Account suffix for which transaction records will be retrieved. |
@@ -212,6 +257,11 @@ This API is used to retrieve the transaction list used in transaction validation
 ```python
 yanit = kt.transfers.transaction_validation_list()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — TransactionGuid: ile gerçekleşen bir işlem bulunmamaktadır. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

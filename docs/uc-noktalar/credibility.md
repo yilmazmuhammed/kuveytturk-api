@@ -6,13 +6,13 @@ Kredibilite · 5 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`customer_overall_limit_values`](#customer_overall_limit_values) | `POST /v1/Loans/LastAllotmentTopLimit` | CC |
-| [`final_credit_decision_recommendation`](#final_credit_decision_recommendation) | `POST /v1/Loans/AllotmentFinalDecision` | CC |
-| [`send_invoice_detail_v2`](#send_invoice_detail_v2) | `POST /v2/purchase/invoice` | CC |
-| [`tardes_agricultural_score_inquiry`](#tardes_agricultural_score_inquiry) | `POST /v1/inquiry/gettardesscore` | CC |
-| [`taxpayer_gib_identity_information`](#taxpayer_gib_identity_information) | `POST /v1/inquiry/gib-tax-payer` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`customer_overall_limit_values`](#customer_overall_limit_values) | `POST /v1/Loans/LastAllotmentTopLimit` | CC | test edildi | test edilmedi |
+| [`final_credit_decision_recommendation`](#final_credit_decision_recommendation) | `POST /v1/Loans/AllotmentFinalDecision` | CC | test edilmedi | test edilmedi |
+| [`send_invoice_detail_v2`](#send_invoice_detail_v2) | `POST /v2/purchase/invoice` | CC | test edilmedi | test edilmedi |
+| [`tardes_agricultural_score_inquiry`](#tardes_agricultural_score_inquiry) | `POST /v1/inquiry/gettardesscore` | CC | kısmen test edildi | test edilmedi |
+| [`taxpayer_gib_identity_information`](#taxpayer_gib_identity_information) | `POST /v1/inquiry/gib-tax-payer` | CC | test edildi | test edilmedi |
 
 ## `customer_overall_limit_values` { #customer_overall_limit_values }
 
@@ -23,6 +23,11 @@ Retrieves the latest allotment top limit information for the specified account n
 ```python
 yanit = kt.credibility.customer_overall_limit_values(account_number=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — nesne (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -41,6 +46,11 @@ Retrieves final credit decision recommendation and allotment decision summary in
 ```python
 yanit = kt.credibility.final_credit_decision_recommendation(account_number_list=..., group_number=..., credere_art_report_number=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -62,6 +72,11 @@ Submits invoice details to the BOA system for delivery records related to the pu
 yanit = kt.credibility.send_invoice_detail_v2(delivery_id_list=..., invoice_number_serial=..., invoice_date=..., attachment=..., document_extension=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `delivery_id_list` | `DeliveryIdList` | gövde | liste | evet | List of delivery record IDs to be associated with the invoice. |
@@ -82,6 +97,11 @@ Retrieves Tardes agricultural score details by using the provided identity numbe
 yanit = kt.credibility.tardes_agricultural_score_inquiry(identity_number=..., force_daily=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — Inquiry.IdentityNumberIsRequiredField | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `identity_number` | `identityNumber` | gövde | metin | evet | Identity number used to retrieve Tardes agricultural score details. |
@@ -100,6 +120,11 @@ Retrieves taxpayer identity and registration information from GIB by using the p
 ```python
 yanit = kt.credibility.taxpayer_gib_identity_information(identity_number=..., force_online=..., resource_code=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: POST and path: /v1/inquiry/gib-tax-payer'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

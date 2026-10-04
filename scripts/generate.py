@@ -23,6 +23,10 @@ OUT = ROOT / "src" / "kuveytturk_api" / "resources"
 ENDPOINTS_MD = ROOT / "ENDPOINTS.md"
 DOCS_OUT = ROOT / "docs" / "uc-noktalar"
 MKDOCS_YML = ROOT / "mkdocs.yml"
+STATUS_JSON = ROOT / "spec" / "test_status.json"
+#: spec/test_status.json içeriği (main() doldurur): {doküman id: {"sandbox": {...}, "canli": {...}}}
+TEST_STATUS: dict[str, Any] = {}
+ENVIRONMENTS = (("sandbox", "Sandbox"), ("canli", "Canlı"))
 KEEP = {"_resource.py"}
 NAV_BEGIN = "      # >>> uç nokta sayfaları: scripts/generate.py üretir, elle düzenlemeyin"
 NAV_END = "      # <<< uç nokta sayfaları"
@@ -319,7 +323,8 @@ def render_endpoints_md(resources: dict[str, list[dict[str, Any]]]) -> str:
         "`scripts/generate.py` tarafından üretilir; elle düzenlemeyin.",
         "",
         "Akış sütunu: **CC** = client credentials (token otomatik alınır), ",
-        "**AC** = authorization code (müşteri girişi gerekir).",
+        "**AC** = authorization code (müşteri girişi gerekir). Sandbox / Canlı sütunları",
+        "`spec/test_status.json`'dan gelir (bkz. docs/uc-noktalar/test-durumu.md).",
         "",
         "| Kaynak | Açıklama | Uç nokta |",
         "| - | - | - |",
@@ -331,12 +336,16 @@ def render_endpoints_md(resources: dict[str, list[dict[str, Any]]]) -> str:
         )
     for name in sorted(resources):
         lines += ["", f"## kt.{name}", "", RESOURCE_TITLES.get(name, name), ""]
-        lines += ["| Metot | İstek | Kapsam | Akış |", "| - | - | - | - |"]
+        lines += [
+            "| Metot | İstek | Kapsam | Akış | Sandbox | Canlı |",
+            "| - | - | - | - | - | - |",
+        ]
         for endpoint in resources[name]:
             flow = "AC" if endpoint["flow"] == "authorization_code" else "CC"
             lines.append(
                 f"| [`{endpoint['name']}`]({endpoint['doc_url']}) | "
-                f"`{endpoint['method']} {endpoint['path']}` | {endpoint['scope'] or '-'} | {flow} |"
+                f"`{endpoint['method']} {endpoint['path']}` | {endpoint['scope'] or '-'} | {flow} | "
+                f"{test_cell(endpoint, 'sandbox')} | {test_cell(endpoint, 'canli')} |"
             )
     return "\n".join(lines) + "\n"
 
@@ -347,6 +356,28 @@ def render_endpoints_md(resources: dict[str, list[dict[str, Any]]]) -> str:
 def md_cell(text: str) -> str:
     """Tablo hücresine güvenle konacak metin (``|`` ve HTML kaçışlanır)."""
     return " ".join(text.replace("|", "\\|").replace("<", "&lt;").replace(">", "&gt;").split())
+
+
+def test_entry(endpoint: dict[str, Any], environment: str) -> dict[str, Any]:
+    entry = TEST_STATUS.get(endpoint["id"], {}).get(environment)
+    return entry or {"durum": "test edilmedi", "sonuc": "henüz denenmedi"}
+
+
+def test_cell(endpoint: dict[str, Any], environment: str) -> str:
+    return str(test_entry(endpoint, environment)["durum"])
+
+
+def test_table(endpoint: dict[str, Any]) -> list[str]:
+    lines = ["| Ortam | Durum | Sonuç | Tarih |", "| - | - | - | - |"]
+    for key, label in ENVIRONMENTS:
+        entry = test_entry(endpoint, key)
+        result = entry["sonuc"]
+        if entry.get("ayrinti"):
+            result += f" — {entry['ayrinti']}"
+        lines.append(
+            f"| {label} | {entry['durum']} | {md_cell(str(result))} | {entry.get('tarih', '')} |"
+        )
+    return [*lines, ""]
 
 
 def call_example(resource: str, endpoint: dict[str, Any]) -> str:
@@ -373,6 +404,7 @@ def render_docs_endpoint(resource: str, endpoint: dict[str, Any]) -> list[str]:
     if endpoint["description"]:
         lines += [md_cell(endpoint["description"]), ""]
     lines += ["```python", call_example(resource, endpoint), "```", ""]
+    lines += test_table(endpoint)
     params = all_params(endpoint)
     if params:
         lines += [
@@ -409,14 +441,15 @@ def render_docs_resource(resource: str, endpoints: list[dict[str, Any]]) -> str:
         "`extra_query`, `extra_body` ve `request_options` kabul eder "
         "([ayrıntı](../kilavuzlar/dogrudan-istek.md)).",
         "",
-        "| Metot | İstek | Akış |",
-        "| - | - | - |",
+        "| Metot | İstek | Akış | Sandbox | Canlı |",
+        "| - | - | - | - | - |",
     ]
     for endpoint in endpoints:
         flow = "CC" if endpoint["flow"] == "client_credentials" else "AC"
         lines.append(
             f"| [`{endpoint['name']}`](#{endpoint['name']}) | "
-            f"`{endpoint['method']} {endpoint['path']}` | {flow} |"
+            f"`{endpoint['method']} {endpoint['path']}` | {flow} | "
+            f"{test_cell(endpoint, 'sandbox')} | {test_cell(endpoint, 'canli')} |"
         )
     lines.append("")
     for endpoint in endpoints:
@@ -455,10 +488,73 @@ def render_docs_index(resources: dict[str, list[dict[str, Any]]]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def render_docs_status(resources: dict[str, list[dict[str, Any]]]) -> str:
+    """Bütün uç noktaların sandbox ve canlı test durumunu tek tabloda gösteren sayfa."""
+    endpoints = [e for name in sorted(resources) for e in resources[name]]
+    lines = [
+        "<!-- Bu sayfa scripts/generate.py tarafından spec/test_status.json'dan üretildi. -->",
+        "",
+        "# Test durumu",
+        "",
+        "Her uç noktanın sandbox'ta ve canlı ortamda denenip denenmediği. Kaynak dosya "
+        "`spec/test_status.json`; ayrıntılar her uç noktanın kendi sayfasında.",
+        "",
+        "| Durum | Anlamı |",
+        "| - | - |",
+        "| test edildi | Uç noktaya istek atıldı ve anlamlı bir yanıt alındı (çalışıyor ya da bu "
+        "ortamda bulunmadığı görüldü). |",
+        "| kısmen test edildi | Uç nokta var ve uygulamanın yetkisi yeterli, ama gerçek parametre "
+        "değerleri olmadığı için yalnızca doğrulama hatası alındı. |",
+        "| test edilmedi | İstek atılmadı: işlem yapan uç nokta (para hareketi, ödeme, başvuru, kayıt "
+        "oluşturma, bildirim), müşteri girişi gerekiyor, uygulamanın kapsam yetkisi yok ya da "
+        "parametre değeri bilinmiyor. |",
+        "",
+    ]
+    for key, label in ENVIRONMENTS:
+        counts: dict[str, int] = {}
+        for endpoint in endpoints:
+            durum = test_cell(endpoint, key)
+            counts[durum] = counts.get(durum, 0) + 1
+        summary = ", ".join(f"{durum}: {count}" for durum, count in sorted(counts.items()))
+        lines.append(f"- **{label}:** {summary}")
+    lines += [
+        "",
+        '!!! info "İşlem yapan uç noktalar otomatik denenmez"',
+        "    Para hareketi, ödeme, başvuru, kayıt oluşturma/iptal, bildirim ya da SMS gönderen uç "
+        "noktalara test betiği hiç istek atmaz. Bunları denemek isteyen, sonuçlarını bilerek elle "
+        "dener ve `spec/test_status.json`'daki kaydı elle günceller.",
+        "",
+        "## Nasıl güncellenir",
+        "",
+        "```bash",
+        "python scripts/check_endpoints.py                         # sandbox",
+        "python scripts/check_endpoints.py --environment production # canlı (Go Live sonrası)",
+        "python scripts/generate.py                                # bu sayfayı yeniden üretir",
+        "```",
+        "",
+        "Betik yalnızca elle onaylanmış okuma uç noktalarını çağırır ve yalnızca çağırdıklarının "
+        "kaydını değiştirir; elle girilmiş kayıtlar korunur.",
+        "",
+        "## Uç noktalar",
+        "",
+        "| Metot | İstek | Sandbox | Canlı |",
+        "| - | - | - | - |",
+    ]
+    for endpoint in endpoints:
+        anchor = f"{endpoint['resource']}.md#{endpoint['name']}"
+        lines.append(
+            f"| [`{endpoint['resource']}.{endpoint['name']}`]({anchor}) | "
+            f"`{endpoint['method']} {endpoint['path']}` | "
+            f"{test_cell(endpoint, 'sandbox')} | {test_cell(endpoint, 'canli')} |"
+        )
+    return "\n".join(lines) + "\n"
+
+
 def render_mkdocs_nav(current: str, resources: dict[str, list[dict[str, Any]]]) -> str:
     """mkdocs.yml'deki uç nokta sayfaları listesini (işaretler arasını) yeniden yazar."""
     start, end = current.index(NAV_BEGIN), current.index(NAV_END)
-    entries = [f"      - kt.{name}: uc-noktalar/{name}.md" for name in sorted(resources)]
+    entries = ["      - Test durumu: uc-noktalar/test-durumu.md"]
+    entries += [f"      - kt.{name}: uc-noktalar/{name}.md" for name in sorted(resources)]
     return current[: start + len(NAV_BEGIN)] + "\n" + "\n".join(entries) + "\n" + current[end:]
 
 
@@ -468,6 +564,8 @@ def main() -> int:
     args = parser.parse_args()
 
     endpoints = json.loads(SPEC.read_text(encoding="utf-8"))
+    if STATUS_JSON.exists():
+        TEST_STATUS.update(json.loads(STATUS_JSON.read_text(encoding="utf-8")).get("endpoints", {}))
     resources: dict[str, list[dict[str, Any]]] = {}
     for endpoint in endpoints:
         resources.setdefault(endpoint["resource"], []).append(endpoint)
@@ -476,6 +574,7 @@ def main() -> int:
     files[OUT / "__init__.py"] = render_init(resources)
     files[ENDPOINTS_MD] = render_endpoints_md(resources)
     files[DOCS_OUT / "index.md"] = render_docs_index(resources)
+    files[DOCS_OUT / "test-durumu.md"] = render_docs_status(resources)
     for name, items in resources.items():
         files[DOCS_OUT / f"{name}.md"] = render_docs_resource(name, items)
     files[MKDOCS_YML] = render_mkdocs_nav(MKDOCS_YML.read_text(encoding="utf-8"), resources)

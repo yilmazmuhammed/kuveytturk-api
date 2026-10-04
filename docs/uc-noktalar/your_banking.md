@@ -6,12 +6,12 @@ Senin Bankan · 4 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`your_banking_account_application`](#your_banking_account_application) | `POST /v1/yourbank/accountApplications` | CC |
-| [`your_banking_account_application_documents`](#your_banking_account_application_documents) | `POST /v1/yourbank/accountApplicationDocuments` | CC |
-| [`your_banking_account_application_sms_validation`](#your_banking_account_application_sms_validation) | `POST /v1/yourbank/accountSmsOtp` | CC |
-| [`your_banking_account_application_status_query`](#your_banking_account_application_status_query) | `POST /v1/yourbank/accountApplicationStatus` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`your_banking_account_application`](#your_banking_account_application) | `POST /v1/yourbank/accountApplications` | CC | test edilmedi | test edilmedi |
+| [`your_banking_account_application_documents`](#your_banking_account_application_documents) | `POST /v1/yourbank/accountApplicationDocuments` | CC | test edilmedi | test edilmedi |
+| [`your_banking_account_application_sms_validation`](#your_banking_account_application_sms_validation) | `POST /v1/yourbank/accountSmsOtp` | CC | test edilmedi | test edilmedi |
+| [`your_banking_account_application_status_query`](#your_banking_account_application_status_query) | `POST /v1/yourbank/accountApplicationStatus` | CC | test edildi | test edilmedi |
 
 ## `your_banking_account_application` { #your_banking_account_application }
 
@@ -22,6 +22,11 @@ This endpoint is used to create or validate a YourBank account application by ch
 ```python
 yanit = kt.your_banking.your_banking_account_application(identity_number=..., application_code=..., birth_day=..., name_and_surname=..., gsm_country_code=..., gsm_area_code=..., gsm_number=..., sms_validation_code=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -57,6 +62,11 @@ Retrieves Your Banking account application documents according to the provided i
 yanit = kt.your_banking.your_banking_account_application_documents(identity_number=..., application_code=..., gsm_country_code=..., gsm_area_code=..., gsm_number=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `identity_number` | `IdentityNumber` | gövde | metin | evet | Identity number used to retrieve account application documents. |
@@ -80,6 +90,11 @@ This endpoint is used to validate the SMS OTP code and create or update person i
 ```python
 yanit = kt.your_banking.your_banking_account_application_sms_validation(application_id=..., identity_number=..., gsm_country_code=..., gsm_area_code=..., gsm_number=..., sms_validation_code=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -108,6 +123,11 @@ This endpoint is used to retrieve account application status information for You
 ```python
 yanit = kt.your_banking.your_banking_account_application_status_query(identity_number=..., gsm_area_code=..., gsm_number=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: POST and path: /v1/yourbank/accountApplicationStatus'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

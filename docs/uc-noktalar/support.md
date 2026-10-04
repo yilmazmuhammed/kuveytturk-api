@@ -6,22 +6,22 @@ Destek yönetimi · 14 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`kt_incident_activity_type_list`](#kt_incident_activity_type_list) | `GET /v1/incident/activityTypes` | CC |
-| [`kt_incident_cancel`](#kt_incident_cancel) | `POST /v1/incident/cancel` | CC |
-| [`kt_incident_creation`](#kt_incident_creation) | `POST /v1/incident/operation/create` | CC |
-| [`kt_incident_creation_by_company`](#kt_incident_creation_by_company) | `POST /v1/company/incident/create` | CC |
-| [`kt_incident_defined_document_list`](#kt_incident_defined_document_list) | `GET /v1/incident/defiendDocuments` | CC |
-| [`kt_incident_info`](#kt_incident_info) | `POST /v1/incident/information/info` | CC |
-| [`kt_incident_insert_activity`](#kt_incident_insert_activity) | `POST /v1/incident/insertActivity` | CC |
-| [`kt_incident_insert_document`](#kt_incident_insert_document) | `POST /v1/incident/insertDocument` | CC |
-| [`kt_incident_neova_info`](#kt_incident_neova_info) | `POST /v1/incident/neova/info` | CC |
-| [`kt_incident_neova_list`](#kt_incident_neova_list) | `POST /v1/incident/neova/list` | CC |
-| [`kt_incident_neova_update`](#kt_incident_neova_update) | `POST /v1/incident/neova/update` | CC |
-| [`kt_incident_optional_field_list`](#kt_incident_optional_field_list) | `POST /v1/incident/optionalFieldList` | CC |
-| [`kt_incident_product_list`](#kt_incident_product_list) | `GET /v1/incident/information/products` | CC |
-| [`kt_incident_reopen`](#kt_incident_reopen) | `POST /v1/incident/reopen` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`kt_incident_activity_type_list`](#kt_incident_activity_type_list) | `GET /v1/incident/activityTypes` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_cancel`](#kt_incident_cancel) | `POST /v1/incident/cancel` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_creation`](#kt_incident_creation) | `POST /v1/incident/operation/create` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_creation_by_company`](#kt_incident_creation_by_company) | `POST /v1/company/incident/create` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_defined_document_list`](#kt_incident_defined_document_list) | `GET /v1/incident/defiendDocuments` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_info`](#kt_incident_info) | `POST /v1/incident/information/info` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_insert_activity`](#kt_incident_insert_activity) | `POST /v1/incident/insertActivity` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_insert_document`](#kt_incident_insert_document) | `POST /v1/incident/insertDocument` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_neova_info`](#kt_incident_neova_info) | `POST /v1/incident/neova/info` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_neova_list`](#kt_incident_neova_list) | `POST /v1/incident/neova/list` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_neova_update`](#kt_incident_neova_update) | `POST /v1/incident/neova/update` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_optional_field_list`](#kt_incident_optional_field_list) | `POST /v1/incident/optionalFieldList` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_product_list`](#kt_incident_product_list) | `GET /v1/incident/information/products` | CC | test edilmedi | test edilmedi |
+| [`kt_incident_reopen`](#kt_incident_reopen) | `POST /v1/incident/reopen` | CC | test edilmedi | test edilmedi |
 
 ## `kt_incident_activity_type_list` { #kt_incident_activity_type_list }
 
@@ -32,6 +32,11 @@ Returns the list of activity types to be used while inserting an activity.
 ```python
 yanit = kt.support.kt_incident_activity_type_list()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: incident_operations | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 Yanıt alanları (dokümana göre): `activityTypeId`, `activityTypeName`
 
@@ -46,6 +51,11 @@ Cancels the given incident if the status of the incident permits and the user ha
 ```python
 yanit = kt.support.kt_incident_cancel()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -65,6 +75,11 @@ Creates an incident record with the provided summary, description, product, user
 ```python
 yanit = kt.support.kt_incident_creation(summary_description=..., incident_description=..., product_id=..., user_name=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -90,6 +105,11 @@ Creates a company incident record with the provided incident details, customer i
 ```python
 yanit = kt.support.kt_incident_creation_by_company(summary_description=..., incident_description=..., product_id=..., user_name=..., customer_id=..., software_company_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -117,6 +137,11 @@ Returns the list of defined documents to be used for attaching documents while c
 yanit = kt.support.kt_incident_defined_document_list()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: incident_operations | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `docId`, `docName`, `isMandatory`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-defined-document-list)
@@ -130,6 +155,11 @@ Retrieves detailed incident information by using the provided incident identifie
 ```python
 yanit = kt.support.kt_incident_info(incident_id=..., user_name=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: incident_operations | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -149,6 +179,11 @@ Inserts an activity record for the given incident as the given activity type.
 ```python
 yanit = kt.support.kt_incident_insert_activity(incident_id=..., activity_type_id=..., description=..., send_mail=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -171,6 +206,11 @@ Inserts additional documents into the given incident.
 yanit = kt.support.kt_incident_insert_document()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `document_contract` | `documentContract` | gövde | liste |  |  |
@@ -189,6 +229,11 @@ Retrieves detailed Neova incident information by using the provided incident num
 yanit = kt.support.kt_incident_neova_info(incident_no=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: incident_operations | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `incident_no` | `incidentNo` | gövde | metin | evet | Incident number used to retrieve Neova incident details. |
@@ -206,6 +251,11 @@ Retrieves the Neova incident list according to the provided filter criteria. The
 ```python
 yanit = kt.support.kt_incident_neova_list()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: incident_operations | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -249,6 +299,11 @@ Updates Neova incident information according to the provided incident, category,
 yanit = kt.support.kt_incident_neova_update(incident_no=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `incident_no` | `IncidentNo` | gövde | metin | evet | Incident number of the record to be updated. |
@@ -289,6 +344,11 @@ Returns the list of optional field related to the provided product.
 yanit = kt.support.kt_incident_optional_field_list(product_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: incident_operations | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `product_id` | `productId` | gövde | tam sayı | evet | Id of the product. |
@@ -307,6 +367,11 @@ Retrieves the product list used for incident operations. The response includes p
 yanit = kt.support.kt_incident_product_list()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: incident_operations | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `productId`, `demandUnitWorkgroupId`, `demandUnitName`, `productPath`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/support-management/kt-incident-product-list)
@@ -320,6 +385,11 @@ Reopens the given incident if the status of the incident permits and the user ha
 ```python
 yanit = kt.support.kt_incident_reopen()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

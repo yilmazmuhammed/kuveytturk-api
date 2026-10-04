@@ -6,13 +6,13 @@ Hazine servisleri (kıymetli maden, kur) · 5 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`fx_and_precious_metal_rates`](#fx_and_precious_metal_rates) | `GET /v1/fx/rates` | CC |
-| [`fx_and_precious_metals_transaction_history`](#fx_and_precious_metals_transaction_history) | `POST /v1/fx/fxtransactions` | CC |
-| [`precious_metal_buy`](#precious_metal_buy) | `POST /v1/preciousmetal/buy` | CC |
-| [`precious_metal_rates`](#precious_metal_rates) | `GET /v1/preciousmetal/rates` | CC |
-| [`precious_metal_sell`](#precious_metal_sell) | `POST /v1/preciousmetal/sell` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`fx_and_precious_metal_rates`](#fx_and_precious_metal_rates) | `GET /v1/fx/rates` | CC | test edildi | test edilmedi |
+| [`fx_and_precious_metals_transaction_history`](#fx_and_precious_metals_transaction_history) | `POST /v1/fx/fxtransactions` | CC | test edilmedi | test edilmedi |
+| [`precious_metal_buy`](#precious_metal_buy) | `POST /v1/preciousmetal/buy` | CC | test edilmedi | test edilmedi |
+| [`precious_metal_rates`](#precious_metal_rates) | `GET /v1/preciousmetal/rates` | CC | test edildi | test edilmedi |
+| [`precious_metal_sell`](#precious_metal_sell) | `POST /v1/preciousmetal/sell` | CC | test edilmedi | test edilmedi |
 
 ## `fx_and_precious_metal_rates` { #fx_and_precious_metal_rates }
 
@@ -23,6 +23,11 @@ This API retrieves the current foreign exchange rates, including currency inform
 ```python
 yanit = kt.treasury.fx_and_precious_metal_rates()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — 25 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 Yanıt alanları (dokümana göre): `name`, `fxCode`, `fxId`, `buyRate`, `sellRate`, `parityBuyRate`, `paritySellRate`
 
@@ -37,6 +42,11 @@ It carries out precious metal sales transactions.
 ```python
 yanit = kt.treasury.fx_and_precious_metals_transaction_history(sender_account_suffix=..., receiver_account_number=..., receiver_account_suffix=..., money_transfer_description=..., money_transfer_amount=..., transfer_type=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -64,6 +74,11 @@ Performs precious metal purchasing transactions. The request includes the source
 yanit = kt.treasury.precious_metal_buy(account_suffix_from=..., account_suffix_to=..., corporate_web_user_name=..., buy_rate=..., exchange_amount=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `cm_customer_id` | `cm:CustomerId` | gövde | tam sayı |  |  |
@@ -88,6 +103,11 @@ A service for querying many common precious metal rates. Precious metal rates re
 yanit = kt.treasury.precious_metal_rates()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — rateList: 4 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `FxName`, `FxCode`, `BuyRate`, `SellRate`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/treasury-services/precious-metal-rates)
@@ -101,6 +121,11 @@ Performs precious metal sales transactions. The request includes the source prec
 ```python
 yanit = kt.treasury.precious_metal_sell(account_suffix_from=..., account_suffix_to=..., corporate_web_user_name=..., sell_rate=..., exchange_amount=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

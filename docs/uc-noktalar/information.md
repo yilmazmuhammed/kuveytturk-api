@@ -6,20 +6,20 @@ Bilgi servisleri (şube, ATM, parametre sorguları...) · 12 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`bank_branch_list`](#bank_branch_list) | `GET /v1/data/banks/{bankId}/branches` | CC |
-| [`bank_list`](#bank_list) | `GET /v1/data/banks` | CC |
-| [`calculate_profit_share_rate`](#calculate_profit_share_rate) | `POST /v1/calculateprofitsharerate` | CC |
-| [`central_notification`](#central_notification) | `POST /v1/notification/sendInfEng` | CC |
-| [`collect_installment`](#collect_installment) | `POST /v1/collections/collectInstallment` | CC |
-| [`collection_list`](#collection_list) | `POST /v1/collections` | CC |
-| [`get_class_info`](#get_class_info) | `POST /v1/erp/lms/getClassInfo` | CC |
-| [`iban_validation_utility`](#iban_validation_utility) | `POST /v1/validation/ibanvalidator` | CC |
-| [`kuveyt_turk_atm_list`](#kuveyt_turk_atm_list) | `GET /v1/data/atms` | CC |
-| [`kuveyt_turk_branch_list`](#kuveyt_turk_branch_list) | `GET /v1/data/branches` | CC |
-| [`kuveyt_turk_xtm_list`](#kuveyt_turk_xtm_list) | `GET /v1/data/xtms` | CC |
-| [`loan_finance_calculation_parameter`](#loan_finance_calculation_parameter) | `GET /v1/data/loans` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`bank_branch_list`](#bank_branch_list) | `GET /v1/data/banks/{bankId}/branches` | CC | test edilmedi | test edilmedi |
+| [`bank_list`](#bank_list) | `GET /v1/data/banks` | CC | test edildi | test edilmedi |
+| [`calculate_profit_share_rate`](#calculate_profit_share_rate) | `POST /v1/calculateprofitsharerate` | CC | test edildi | test edilmedi |
+| [`central_notification`](#central_notification) | `POST /v1/notification/sendInfEng` | CC | test edilmedi | test edilmedi |
+| [`collect_installment`](#collect_installment) | `POST /v1/collections/collectInstallment` | CC | test edilmedi | test edilmedi |
+| [`collection_list`](#collection_list) | `POST /v1/collections` | CC | test edildi | test edilmedi |
+| [`get_class_info`](#get_class_info) | `POST /v1/erp/lms/getClassInfo` | CC | test edildi | test edilmedi |
+| [`iban_validation_utility`](#iban_validation_utility) | `POST /v1/validation/ibanvalidator` | CC | test edildi | test edilmedi |
+| [`kuveyt_turk_atm_list`](#kuveyt_turk_atm_list) | `GET /v1/data/atms` | CC | test edildi | test edilmedi |
+| [`kuveyt_turk_branch_list`](#kuveyt_turk_branch_list) | `GET /v1/data/branches` | CC | test edildi | test edilmedi |
+| [`kuveyt_turk_xtm_list`](#kuveyt_turk_xtm_list) | `GET /v1/data/xtms` | CC | test edildi | test edilmedi |
+| [`loan_finance_calculation_parameter`](#loan_finance_calculation_parameter) | `GET /v1/data/loans` | CC | test edilmedi | test edilmedi |
 
 ## `bank_branch_list` { #bank_branch_list }
 
@@ -30,6 +30,11 @@ Returns the list of branches of given bank id and city id within Turkish Banking
 ```python
 yanit = kt.information.bank_branch_list(bank_id=..., city_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | parametre değeri bilinmiyor — yol parametresi: bankId | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -50,6 +55,11 @@ Returns the list of banks within Turkish Banking System.
 yanit = kt.information.bank_list()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — 52 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `bankId`, `name`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/notification-services/bank-list)
@@ -63,6 +73,11 @@ This API calculates the profit share rate according to Kuveyt Turk rates and giv
 ```python
 yanit = kt.information.calculate_profit_share_rate(expire_day=..., fx_type=..., product=..., amount=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | sunucu hatası — İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -83,6 +98,11 @@ Sends a notification by using the provided template code, parameter list, reques
 yanit = kt.information.central_notification(template_code=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `template_code` | `templateCode` | gövde | metin | evet | Template code used to generate and send the notification. |
@@ -101,6 +121,11 @@ Collects the installment from the customer's account provided in the parameters.
 ```python
 yanit = kt.information.collect_installment(process_id=..., account_number=..., account_suffix=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -121,6 +146,11 @@ Returns the list of collection records associated with the account number provid
 ```python
 yanit = kt.information.collection_list(account_number=..., account_suffix=..., process_id=..., is_ptt_collection=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: POST and path: /v1/collections'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -143,6 +173,11 @@ To ensure that the active training information of the class is displayed on the 
 yanit = kt.information.get_class_info()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — nesne (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `classroom_id` | `classroomId` | gövde | tam sayı |  |  |
@@ -158,6 +193,11 @@ This API endpoint is a utility endpoint that performs validity control for a giv
 ```python
 yanit = kt.information.iban_validation_utility(iban=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: POST and path: /v1/validation/ibanvalidator'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -177,6 +217,11 @@ Returns the list of off-site Kuveyt Turk ATMs.
 yanit = kt.information.kuveyt_turk_atm_list()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — 3 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `name`, `cityName`, `longitude`, `latitude`, `address`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/notification-services/kuveyt-turk-atm-list)
@@ -190,6 +235,11 @@ Returns the list of Kuveyt Turk branches.
 ```python
 yanit = kt.information.kuveyt_turk_branch_list()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — 4 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 Yanıt alanları (dokümana göre): `name`, `cityName`, `longitude`, `latitude`, `address`, `phone`, `fax`, `email`
 
@@ -205,6 +255,11 @@ Returns the list of Kuveyt Turk XTMs.
 yanit = kt.information.kuveyt_turk_xtm_list()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — 2 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `name`, `cityName`, `longitude`, `latitude`, `address`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/notification-services/kuveyt-turk-xtm-list)
@@ -218,6 +273,11 @@ Returns the list of loan product types. This API is used to determine loan calcu
 ```python
 yanit = kt.information.loan_finance_calculation_parameter()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — {'code': 403, 'message': 'Invalid Scope'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 Yanıt alanları (dokümana göre): `productTypeCode`, `productName`
 

@@ -113,6 +113,7 @@ nav:
   - Uç noktalar:
       - uc-noktalar/index.md
       # >>> uç nokta sayfaları: scripts/generate.py üretir, elle düzenlemeyin
+      - Test durumu: uc-noktalar/test-durumu.md
       - kt.accounts: uc-noktalar/accounts.md
       - kt.architecht: uc-noktalar/architecht.md
       - kt.cards: uc-noktalar/cards.md

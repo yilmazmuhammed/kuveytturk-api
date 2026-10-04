@@ -6,13 +6,13 @@ Hesap yönetimi (TPP - müşteri adına) · 5 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`account_list_v2`](#account_list_v2) | `GET /v2/accounts` | AC |
-| [`account_list_with_suffix_v2`](#account_list_with_suffix_v2) | `GET /v2/accounts/{suffix}` | AC |
-| [`account_transactions_v2`](#account_transactions_v2) | `GET /v2/accounts/{suffix}/transactions` | AC |
-| [`receipt_v1`](#receipt_v1) | `GET /v1/accounts/{suffix}/transactions/{businessKey}` | AC |
-| [`receipt_v2`](#receipt_v2) | `POST /v2/accounts/transactions/receipts` | AC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`account_list_v2`](#account_list_v2) | `GET /v2/accounts` | AC | test edildi | test edilmedi |
+| [`account_list_with_suffix_v2`](#account_list_with_suffix_v2) | `GET /v2/accounts/{suffix}` | AC | test edilmedi | test edilmedi |
+| [`account_transactions_v2`](#account_transactions_v2) | `GET /v2/accounts/{suffix}/transactions` | AC | test edildi | test edilmedi |
+| [`receipt_v1`](#receipt_v1) | `GET /v1/accounts/{suffix}/transactions/{businessKey}` | AC | test edildi | test edilmedi |
+| [`receipt_v2`](#receipt_v2) | `POST /v2/accounts/transactions/receipts` | AC | test edildi | test edilmedi |
 
 ## `account_list_v2` { #account_list_v2 }
 
@@ -23,6 +23,11 @@ This API is used to retrieve the account list of the customer associated with th
 ```python
 yanit = kt.tpp_accounts.account_list_v2()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — müşteri girişiyle elle test edildi (Sandık banka hesabı entegrasyonu oturumu); alanlar dokümanla aynı | 2026-10-03 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -46,6 +51,11 @@ Retrieves the account information for the authenticated customer by account suff
 ```python
 yanit = kt.tpp_accounts.account_list_with_suffix_v2(suffix=..., customer_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -72,6 +82,11 @@ This API is used to retrieve account transaction history for the specified accou
 yanit = kt.tpp_accounts.account_transactions_v2(suffix=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — müşteri girişiyle elle test edildi (Sandık banka hesabı entegrasyonu oturumu); 22 kayıt, tarih filtresi tutarsız | 2026-10-03 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `suffix` | `suffix` | yol | tam sayı | evet | Account suffix for which transaction records will be retrieved. This value is sent as a route parameter. |
@@ -93,6 +108,11 @@ Returns the receipt values of the transaction that is given by the businesskey. 
 yanit = kt.tpp_accounts.receipt_v1(suffix=..., business_key=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — müşteri girişiyle elle test edildi (Sandık banka hesabı entegrasyonu oturumu); üç farklı hareketle 404 Path not found | 2026-10-03 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `suffix` | `suffix` | yol | metin | evet |  |
@@ -109,6 +129,11 @@ This API is used to retrieve receipt information for a transaction identified by
 ```python
 yanit = kt.tpp_accounts.receipt_v2(transaction_reference=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor, içerik boş — müşteri girişiyle elle test edildi (Sandık banka hesabı entegrasyonu oturumu); denenen iki harekette slipList yok | 2026-10-03 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

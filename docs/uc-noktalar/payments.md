@@ -6,23 +6,23 @@
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`account_validation_by_account_number_for_group_money_transfer`](#account_validation_by_account_number_for_group_money_transfer) | `POST /v1/groupmoneytransfer/accountvalidation` | CC |
-| [`account_validation_by_iban_for_group_money_transfer`](#account_validation_by_iban_for_group_money_transfer) | `POST /v1/groupmoneytransfer/account` | CC |
-| [`account_validation_by_iban_for_group_money_transfer_v2`](#account_validation_by_iban_for_group_money_transfer_v2) | `POST /v2/groupmoneytransfer/account` | CC |
-| [`cancel_money_transfers_from_kt_bank_to_kuveyt_turk`](#cancel_money_transfers_from_kt_bank_to_kuveyt_turk) | `POST /v1/groupmoneytransfer/incomingtransfer/cancellist` | CC |
-| [`check_money_transfers_status_from_kt_bank_to_kuveyt_turk`](#check_money_transfers_status_from_kt_bank_to_kuveyt_turk) | `POST /v1/groupmoneytransfer/incomingtransfer/checkstatuslist` | AC |
-| [`do_stamp_duty_tax_payment_offline`](#do_stamp_duty_tax_payment_offline) | `POST /v1/tax/do-stamp-duty-tax-payment-offline` | CC |
-| [`insert_money_transfers_from_kt_bank_to_kuveyt_turk`](#insert_money_transfers_from_kt_bank_to_kuveyt_turk) | `POST /v1/groupmoneytransfer/incomingtransfer/insertlist` | CC |
-| [`invoice_company_list`](#invoice_company_list) | `GET /v1/invoices/companies` | AC |
-| [`kt_bank_error_message_list`](#kt_bank_error_message_list) | `GET /v1/groupmoneytransfer/errormessagelist` | CC |
-| [`kuveyt_turk_branch_list_for_group_money_transfer`](#kuveyt_turk_branch_list_for_group_money_transfer) | `GET /v1/groupmoneytransfer/branchlist` | CC |
-| [`return_money_transfers_from_kt_bank_to_kuveyt_turk`](#return_money_transfers_from_kt_bank_to_kuveyt_turk) | `POST /v1/groupmoneytransfer/incomingtransfer/returnlist` | CC |
-| [`send_multiple_invoice_v2`](#send_multiple_invoice_v2) | `POST /v2/purchase/multipleinvoice` | CC |
-| [`send_offer_vendor_detail`](#send_offer_vendor_detail) | `POST /v1/purchase/offervendor` | CC |
-| [`send_order_distribution_detail`](#send_order_distribution_detail) | `POST /v1/purchase/orderdistribution` | CC |
-| [`send_order_distribution_detail_v2`](#send_order_distribution_detail_v2) | `POST /v3/purchase/orderdistribution` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`account_validation_by_account_number_for_group_money_transfer`](#account_validation_by_account_number_for_group_money_transfer) | `POST /v1/groupmoneytransfer/accountvalidation` | CC | test edilmedi | test edilmedi |
+| [`account_validation_by_iban_for_group_money_transfer`](#account_validation_by_iban_for_group_money_transfer) | `POST /v1/groupmoneytransfer/account` | CC | test edilmedi | test edilmedi |
+| [`account_validation_by_iban_for_group_money_transfer_v2`](#account_validation_by_iban_for_group_money_transfer_v2) | `POST /v2/groupmoneytransfer/account` | CC | test edilmedi | test edilmedi |
+| [`cancel_money_transfers_from_kt_bank_to_kuveyt_turk`](#cancel_money_transfers_from_kt_bank_to_kuveyt_turk) | `POST /v1/groupmoneytransfer/incomingtransfer/cancellist` | CC | test edilmedi | test edilmedi |
+| [`check_money_transfers_status_from_kt_bank_to_kuveyt_turk`](#check_money_transfers_status_from_kt_bank_to_kuveyt_turk) | `POST /v1/groupmoneytransfer/incomingtransfer/checkstatuslist` | AC | test edilmedi | test edilmedi |
+| [`do_stamp_duty_tax_payment_offline`](#do_stamp_duty_tax_payment_offline) | `POST /v1/tax/do-stamp-duty-tax-payment-offline` | CC | test edilmedi | test edilmedi |
+| [`insert_money_transfers_from_kt_bank_to_kuveyt_turk`](#insert_money_transfers_from_kt_bank_to_kuveyt_turk) | `POST /v1/groupmoneytransfer/incomingtransfer/insertlist` | CC | test edilmedi | test edilmedi |
+| [`invoice_company_list`](#invoice_company_list) | `GET /v1/invoices/companies` | AC | test edilmedi | test edilmedi |
+| [`kt_bank_error_message_list`](#kt_bank_error_message_list) | `GET /v1/groupmoneytransfer/errormessagelist` | CC | test edilmedi | test edilmedi |
+| [`kuveyt_turk_branch_list_for_group_money_transfer`](#kuveyt_turk_branch_list_for_group_money_transfer) | `GET /v1/groupmoneytransfer/branchlist` | CC | test edilmedi | test edilmedi |
+| [`return_money_transfers_from_kt_bank_to_kuveyt_turk`](#return_money_transfers_from_kt_bank_to_kuveyt_turk) | `POST /v1/groupmoneytransfer/incomingtransfer/returnlist` | CC | test edilmedi | test edilmedi |
+| [`send_multiple_invoice_v2`](#send_multiple_invoice_v2) | `POST /v2/purchase/multipleinvoice` | CC | test edilmedi | test edilmedi |
+| [`send_offer_vendor_detail`](#send_offer_vendor_detail) | `POST /v1/purchase/offervendor` | CC | test edilmedi | test edilmedi |
+| [`send_order_distribution_detail`](#send_order_distribution_detail) | `POST /v1/purchase/orderdistribution` | CC | test edilmedi | test edilmedi |
+| [`send_order_distribution_detail_v2`](#send_order_distribution_detail_v2) | `POST /v3/purchase/orderdistribution` | CC | test edilmedi | test edilmedi |
 
 ## `account_validation_by_account_number_for_group_money_transfer` { #account_validation_by_account_number_for_group_money_transfer }
 
@@ -33,6 +33,11 @@ Validates a list of recipient accounts by account number and account suffix for 
 ```python
 yanit = kt.payments.account_validation_by_account_number_for_group_money_transfer(account_list_to_validate=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: intrabank_money_transfers | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -52,6 +57,11 @@ Validates a list of recipient accounts by IBAN for group money transfer operatio
 yanit = kt.payments.account_validation_by_iban_for_group_money_transfer(account_list_to_validate=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: intrabank_money_transfers | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `account_list_to_validate` | `accountListToValidate` | gövde | liste | evet | List of account records to be validated by IBAN. |
@@ -69,6 +79,11 @@ This endpoint is used to validate a list of receiver accounts by IBAN for group 
 ```python
 yanit = kt.payments.account_validation_by_iban_for_group_money_transfer_v2(account_list_to_validate=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: intrabank_money_transfers | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -88,6 +103,11 @@ Cancels a list of incoming transfer records for group money transfer operations.
 yanit = kt.payments.cancel_money_transfers_from_kt_bank_to_kuveyt_turk(incoming_transfer_list_to_cancel=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `incoming_transfer_list_to_cancel` | `incomingTransferListToCancel` | gövde | liste | evet | List of incoming transfer records to be cancelled. |
@@ -106,6 +126,11 @@ Checks the status of incoming transfer records for group money transfer operatio
 yanit = kt.payments.check_money_transfers_status_from_kt_bank_to_kuveyt_turk(reference_number_list=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `reference_number_list` | `referenceNumberList` | gövde | liste | evet | List of reference numbers to be checked for incoming transfer status. |
@@ -123,6 +148,11 @@ Performs an offline stamp duty tax payment according to the provided taxpayer, p
 ```python
 yanit = kt.payments.do_stamp_duty_tax_payment_offline(contract=..., resource_code=..., main_debit_contract=..., tax_code=..., installment_number=..., tax_amount=..., total_amount=..., due_date=..., amount=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -170,6 +200,11 @@ Creates a list of incoming transfer records for group money transfer operations.
 yanit = kt.payments.insert_money_transfers_from_kt_bank_to_kuveyt_turk(incoming_transfer_list=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `incoming_transfer_list` | `incomingTransferList` | gövde | liste | evet | List of incoming transfer records to be created. |
@@ -188,6 +223,11 @@ Yanıt alanları (dokümana göre): `ReferenceNumber`, `MessageCode`, `MessageDe
 yanit = kt.payments.invoice_company_list()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `companyList`, `description`, `name`, `companyId`, `fullName`, `companyDebtDetails`, `debtTypeId`, `installmentNumberName`, `installmentNumberDescription`, `installmentNumberLength`, `corporationType`, `corporationTypeInt`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/payments/invoice-company-list)
@@ -201,6 +241,11 @@ Retrieves the error message list used in group money transfer operations. The li
 ```python
 yanit = kt.payments.kt_bank_error_message_list()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: intrabank_money_transfers | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -219,6 +264,11 @@ Retrieves the branch list for group money transfer operations according to the p
 ```python
 yanit = kt.payments.kuveyt_turk_branch_list_for_group_money_transfer()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — kapsam: intrabank_money_transfers | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -243,6 +293,11 @@ Returns a list of incoming transfer records for group money transfer operations.
 yanit = kt.payments.return_money_transfers_from_kt_bank_to_kuveyt_turk(incoming_transfer_list_to_return=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `incoming_transfer_list_to_return` | `incomingTransferListToReturn` | gövde | liste | evet | List of incoming transfer records to be returned. |
@@ -260,6 +315,11 @@ Submits invoice details to the BOA system for multiple delivery records related 
 ```python
 yanit = kt.payments.send_multiple_invoice_v2(delivery_id_list=..., invoice_number_serial=..., invoice_date=..., attachment=..., document_extension=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -281,6 +341,11 @@ This API endpoint is called to send the vendor information, price fields used in
 yanit = kt.payments.send_offer_vendor_detail(contract_list=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `contract_list` | `contractList` | gövde | nesne | evet | Offer detail object |
@@ -298,6 +363,11 @@ This API endpoint is called to send the distribution details used in the purchas
 yanit = kt.payments.send_order_distribution_detail()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `distribution_list` | `distributionList` | gövde | nesne |  | Order a distribution object. |
@@ -313,5 +383,10 @@ This API endpoint is called to send the distribution details used in the purchas
 ```python
 yanit = kt.payments.send_order_distribution_detail_v2()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/payments/send-order-distribution-detail-v2)

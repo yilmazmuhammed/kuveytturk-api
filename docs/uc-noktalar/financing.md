@@ -6,24 +6,24 @@ Finansman çözümleri · 16 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`corporate_app_agreement_v2`](#corporate_app_agreement_v2) | `GET /v2/corporateAppAgreementData` | CC |
-| [`corporate_credit_card_application`](#corporate_credit_card_application) | `POST /v2/corporateCreditCardApplication` | CC |
-| [`credit_limit_request`](#credit_limit_request) | `GET /v1/loans/allotmentLimit` | AC |
-| [`customer_current_credit_allocation_flow_information`](#customer_current_credit_allocation_flow_information) | `POST /v1/Loans/GetLatestRouteHistoryByAccountNumber` | CC |
-| [`customer_suited_card_list`](#customer_suited_card_list) | `GET /v2/customerSuitedCardList` | CC |
-| [`get_digital_channel_card_application_list_v2`](#get_digital_channel_card_application_list_v2) | `GET /v2/cardApplicationList` | CC |
-| [`individual_app_agreement_v2`](#individual_app_agreement_v2) | `GET /v2/individualAppAgreement` | CC |
-| [`individual_credit_card_application_v2`](#individual_credit_card_application_v2) | `POST /v2/individualCreditCardApplication` | CC |
-| [`loan_finance_calculation`](#loan_finance_calculation) | `GET /v1/calculations/loan` | CC |
-| [`loan_finance_info`](#loan_finance_info) | `GET /v1/loans/{projectNumber}/info` | AC |
-| [`loan_finance_installments`](#loan_finance_installments) | `GET /v1/loans/{projectNumber}/installments` | AC |
-| [`loan_finance_list`](#loan_finance_list) | `GET /v1/loans` | AC |
-| [`loans_price_list`](#loans_price_list) | `GET /v1/loans/pricelist` | CC |
-| [`send_leasing_confirmation_form`](#send_leasing_confirmation_form) | `POST /v1/leasing/confirmation-form` | CC |
-| [`send_leasing_current_account_file`](#send_leasing_current_account_file) | `POST /v1/leasing/current-documents` | CC |
-| [`send_leasing_release_documents`](#send_leasing_release_documents) | `POST /v1/leasing/exit-documents` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`corporate_app_agreement_v2`](#corporate_app_agreement_v2) | `GET /v2/corporateAppAgreementData` | CC | test edilmedi | test edilmedi |
+| [`corporate_credit_card_application`](#corporate_credit_card_application) | `POST /v2/corporateCreditCardApplication` | CC | test edilmedi | test edilmedi |
+| [`credit_limit_request`](#credit_limit_request) | `GET /v1/loans/allotmentLimit` | AC | test edilmedi | test edilmedi |
+| [`customer_current_credit_allocation_flow_information`](#customer_current_credit_allocation_flow_information) | `POST /v1/Loans/GetLatestRouteHistoryByAccountNumber` | CC | test edildi | test edilmedi |
+| [`customer_suited_card_list`](#customer_suited_card_list) | `GET /v2/customerSuitedCardList` | CC | kısmen test edildi | test edilmedi |
+| [`get_digital_channel_card_application_list_v2`](#get_digital_channel_card_application_list_v2) | `GET /v2/cardApplicationList` | CC | kısmen test edildi | test edilmedi |
+| [`individual_app_agreement_v2`](#individual_app_agreement_v2) | `GET /v2/individualAppAgreement` | CC | test edilmedi | test edilmedi |
+| [`individual_credit_card_application_v2`](#individual_credit_card_application_v2) | `POST /v2/individualCreditCardApplication` | CC | test edilmedi | test edilmedi |
+| [`loan_finance_calculation`](#loan_finance_calculation) | `GET /v1/calculations/loan` | CC | test edildi | test edilmedi |
+| [`loan_finance_info`](#loan_finance_info) | `GET /v1/loans/{projectNumber}/info` | AC | test edilmedi | test edilmedi |
+| [`loan_finance_installments`](#loan_finance_installments) | `GET /v1/loans/{projectNumber}/installments` | AC | test edilmedi | test edilmedi |
+| [`loan_finance_list`](#loan_finance_list) | `GET /v1/loans` | AC | test edilmedi | test edilmedi |
+| [`loans_price_list`](#loans_price_list) | `GET /v1/loans/pricelist` | CC | kısmen test edildi | test edilmedi |
+| [`send_leasing_confirmation_form`](#send_leasing_confirmation_form) | `POST /v1/leasing/confirmation-form` | CC | test edilmedi | test edilmedi |
+| [`send_leasing_current_account_file`](#send_leasing_current_account_file) | `POST /v1/leasing/current-documents` | CC | test edilmedi | test edilmedi |
+| [`send_leasing_release_documents`](#send_leasing_release_documents) | `POST /v1/leasing/exit-documents` | CC | test edilmedi | test edilmedi |
 
 ## `corporate_app_agreement_v2` { #corporate_app_agreement_v2 }
 
@@ -36,6 +36,11 @@ This API is used to retrieve credit card agreement documents before submitting a
 ```python
 yanit = kt.financing.corporate_app_agreement_v2(customer_number=..., language_id=..., product_code=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -59,6 +64,11 @@ This API is used to submit and save a corporate credit card application in BOA. 
 ```python
 yanit = kt.financing.corporate_credit_card_application(customer_number=..., digital_slip_choice=..., statement_day=..., product_code=..., statement_delivery_type=..., card_sending_address_id=..., product_number=..., installment_count=..., suffix_customer_id=..., required_rate=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -87,6 +97,11 @@ You can request the customer''s (sent via token) credit limits in the bank. You 
 yanit = kt.financing.credit_limit_request()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `accountNumber`, `status`, `AllotmentStatusName`, `maturityDate`, `tranDate`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/financing-solutions/credit-limit-request)
@@ -100,6 +115,11 @@ Retrieves the latest route history records for the specified account number. The
 ```python
 yanit = kt.financing.customer_current_credit_allocation_flow_information(account_number=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — boş (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -121,6 +141,11 @@ This API is used to list eligible individual and/or corporate credit card produc
 yanit = kt.financing.customer_suited_card_list(customer_number=..., language_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — Geçersiz Hesap Numarası | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `customer_number` | `customerNumber` | sorgu | tam sayı | evet | Customer number for which eligible credit card products will be queried. |
@@ -141,6 +166,11 @@ This API is used to list the customer’s individual or corporate credit card ap
 ```python
 yanit = kt.financing.get_digital_channel_card_application_list_v2(customer_number=..., language_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — Geçersiz Hesap Numarası | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -165,6 +195,11 @@ This API is used to retrieve credit card agreement documents before submitting a
 yanit = kt.financing.individual_app_agreement_v2(customer_number=..., product_code=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `customer_number` | `customerNumber` | sorgu | tam sayı | evet | Customer number for which individual credit card agreements will be retrieved. |
@@ -185,6 +220,11 @@ This API is used to submit and save an individual credit card application in BOA
 ```python
 yanit = kt.financing.individual_credit_card_application_v2(customer_number=..., card_sending_address_id=..., product_code=..., product_number=..., statement_day=..., monthly_net_income=..., statement_delivery_type=..., digital_slip_choice=..., email_id=..., email=..., job_starting_year=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -214,6 +254,11 @@ Calculates the loan repayment plan according to the provided product type, insta
 yanit = kt.financing.loan_finance_calculation(product_code=..., installment_count=..., funding_amount=..., is_total_amount_by_installment_amount=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: GET and path: /v1/calculations/loan'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `product_code` | `ProductCode` | sorgu | metin | evet | Product type code used for the loan calculation. |
@@ -235,6 +280,11 @@ Returns a loan belong to given account and project number.
 yanit = kt.financing.loan_finance_info(project_number=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `project_number` | `projectNumber` | yol | tam sayı | evet | Represents the procy identifier number. |
@@ -252,6 +302,11 @@ Returns list of installments belonging to the given project (each loan is consid
 ```python
 yanit = kt.financing.loan_finance_installments(project_number=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -271,6 +326,11 @@ Returns a list of loans belonging to the given account number.
 yanit = kt.financing.loan_finance_list()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 Yanıt alanları (dokümana göre): `productName`, `projectNumber`, `type`, `fxCode`, `projectStartDate`, `projectFinishDate`, `totalLoanAmount`, `loanAmount`, `remainDebt`, `paymentStatus`
 
 [Resmî doküman](https://developer.kuveytturk.com.tr/documentation/financing-solutions/loan-finance-list)
@@ -284,6 +344,11 @@ Provides information about the prices of loan product information.
 ```python
 yanit = kt.financing.loans_price_list(product_type=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — DigitalLoans.EnterProductType | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -302,6 +367,11 @@ Receives the leasing confirmation form together with the related reference, tran
 ```python
 yanit = kt.financing.send_leasing_confirmation_form(reference_number=..., transaction_amount=..., customs_tax_amount=..., confirmation_form=..., customs_firm_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -323,6 +393,11 @@ Receives the leasing current account document and import file closing document f
 yanit = kt.financing.send_leasing_current_account_file(reference_number=..., current_excel=..., import_file_closing=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `reference_number` | `referenceNumber` | gövde | tam sayı | evet | Reference number associated with the leasing transaction. |
@@ -340,6 +415,11 @@ Receives leasing release documents for the specified reference number. The reque
 ```python
 yanit = kt.financing.send_leasing_release_documents(reference_number=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

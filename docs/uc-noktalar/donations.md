@@ -6,13 +6,13 @@ Bağışlar · 5 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`account_transactions_for_the_organization`](#account_transactions_for_the_organization) | `POST /v1/donations/transactions` | AC |
-| [`campaign_list_for_organization`](#campaign_list_for_organization) | `POST /v1/donations/campaignList` | AC |
-| [`donation_list_for_organization`](#donation_list_for_organization) | `POST /v1/donations/donationList` | CC |
-| [`donation_list_for_organization_tdv`](#donation_list_for_organization_tdv) | `POST /v1/donations/donationListTdv` | CC |
-| [`external_payments_list`](#external_payments_list) | `POST /v1/donations/externalPayments` | AC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`account_transactions_for_the_organization`](#account_transactions_for_the_organization) | `POST /v1/donations/transactions` | AC | test edilmedi | test edilmedi |
+| [`campaign_list_for_organization`](#campaign_list_for_organization) | `POST /v1/donations/campaignList` | AC | test edilmedi | test edilmedi |
+| [`donation_list_for_organization`](#donation_list_for_organization) | `POST /v1/donations/donationList` | CC | test edildi | test edilmedi |
+| [`donation_list_for_organization_tdv`](#donation_list_for_organization_tdv) | `POST /v1/donations/donationListTdv` | CC | test edilmedi | test edilmedi |
+| [`external_payments_list`](#external_payments_list) | `POST /v1/donations/externalPayments` | AC | test edilmedi | test edilmedi |
 
 ## `account_transactions_for_the_organization` { #account_transactions_for_the_organization }
 
@@ -23,6 +23,11 @@ Returns the list of all transactions between the start and end date made to the 
 ```python
 yanit = kt.donations.account_transactions_for_the_organization(organization_id=..., password=..., start_date=..., end_date=..., campaign_account_suffix=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -46,6 +51,11 @@ Returns the list of all transactions between the start and end date made to the 
 yanit = kt.donations.campaign_list_for_organization(organization_id=..., password=..., start_date=..., end_date=..., campaign_account_suffix=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `organization_id` | `organizationId` | gövde | tam sayı | evet | Organization Code |
@@ -67,6 +77,11 @@ Retrieves the donation payment list for an organization. The request can be filt
 ```python
 yanit = kt.donations.donation_list_for_organization(customer_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | sunucu hatası — System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---&gt; System.InvalidOperationException: Nullable object mu… | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -91,6 +106,11 @@ Retrieves the donation payment list for TDV within the specified date range. The
 yanit = kt.donations.donation_list_for_organization_tdv(organization_id=..., password=..., campaign_id=..., last_payment_id=..., is_canceled_included=..., start_date=..., end_date=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `organization_id` | `organizationId` | gövde | tam sayı | evet | Organization identifier used to retrieve donation payments. |
@@ -114,6 +134,11 @@ Returns all the external payments, such as EFT, money transfers, and cash proces
 ```python
 yanit = kt.donations.external_payments_list(organization_id=..., password=..., start_date=..., end_date=..., account_suffix=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

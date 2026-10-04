@@ -6,23 +6,23 @@ Sanal POS · 15 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`add_card_to_merchant_safe`](#add_card_to_merchant_safe) | `POST /v1/vpos/addCardToMerchantSafe` | CC |
-| [`digital_payment_commission_reconciliation`](#digital_payment_commission_reconciliation) | `POST /v1/vpos/commissionReconciliation` | CC |
-| [`get_customer_by_safe_key`](#get_customer_by_safe_key) | `POST /v1/vpos/getCustomerBySafeKey` | CC |
-| [`get_seller_order_details`](#get_seller_order_details) | `POST /v1/vpos/getMerchantOrderDetail` | CC |
-| [`non_3_d_payment`](#non_3_d_payment) | `POST /v1/vpos/non3DPayment` | CC |
-| [`non_three_d_payment_by_merchant_safe`](#non_three_d_payment_by_merchant_safe) | `POST /v1/vpos/nonThreeDPaymentByMerchantSafe` | CC |
-| [`order_detail_with_payment_id`](#order_detail_with_payment_id) | `POST /v1/vpos/orderDetailWithPaymentId` | CC |
-| [`payment_order_reversal`](#payment_order_reversal) | `POST /v1/vpos/paymentOrderReversal` | CC |
-| [`pre_authorization`](#pre_authorization) | `POST /v1/vpos/preAuthorization` | CC |
-| [`recurring_non_three_d_payment`](#recurring_non_three_d_payment) | `POST /v1/vpos/recurringNonThreeDPayment` | CC |
-| [`sale_order_reversal`](#sale_order_reversal) | `POST /v1/vpos/saleOrderReversal` | CC |
-| [`secure_partner_payment`](#secure_partner_payment) | `POST /v1/vpos/secureCommonPaymentToken` | CC |
-| [`threee_d_payment`](#threee_d_payment) | `POST /v1/vpos/threeDPayment` | CC |
-| [`virtual_pos_non_three_d_payment`](#virtual_pos_non_three_d_payment) | `POST /v1/vpos/nonThreeDPayment` | CC |
-| [`virtual_pos_sale_reversal`](#virtual_pos_sale_reversal) | `POST /v1/vpos/saleReversal` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`add_card_to_merchant_safe`](#add_card_to_merchant_safe) | `POST /v1/vpos/addCardToMerchantSafe` | CC | test edilmedi | test edilmedi |
+| [`digital_payment_commission_reconciliation`](#digital_payment_commission_reconciliation) | `POST /v1/vpos/commissionReconciliation` | CC | test edilmedi | test edilmedi |
+| [`get_customer_by_safe_key`](#get_customer_by_safe_key) | `POST /v1/vpos/getCustomerBySafeKey` | CC | test edilmedi | test edilmedi |
+| [`get_seller_order_details`](#get_seller_order_details) | `POST /v1/vpos/getMerchantOrderDetail` | CC | kısmen test edildi | test edilmedi |
+| [`non_3_d_payment`](#non_3_d_payment) | `POST /v1/vpos/non3DPayment` | CC | test edilmedi | test edilmedi |
+| [`non_three_d_payment_by_merchant_safe`](#non_three_d_payment_by_merchant_safe) | `POST /v1/vpos/nonThreeDPaymentByMerchantSafe` | CC | test edilmedi | test edilmedi |
+| [`order_detail_with_payment_id`](#order_detail_with_payment_id) | `POST /v1/vpos/orderDetailWithPaymentId` | CC | kısmen test edildi | test edilmedi |
+| [`payment_order_reversal`](#payment_order_reversal) | `POST /v1/vpos/paymentOrderReversal` | CC | test edilmedi | test edilmedi |
+| [`pre_authorization`](#pre_authorization) | `POST /v1/vpos/preAuthorization` | CC | test edilmedi | test edilmedi |
+| [`recurring_non_three_d_payment`](#recurring_non_three_d_payment) | `POST /v1/vpos/recurringNonThreeDPayment` | CC | test edilmedi | test edilmedi |
+| [`sale_order_reversal`](#sale_order_reversal) | `POST /v1/vpos/saleOrderReversal` | CC | test edilmedi | test edilmedi |
+| [`secure_partner_payment`](#secure_partner_payment) | `POST /v1/vpos/secureCommonPaymentToken` | CC | test edilmedi | test edilmedi |
+| [`threee_d_payment`](#threee_d_payment) | `POST /v1/vpos/threeDPayment` | CC | test edilmedi | test edilmedi |
+| [`virtual_pos_non_three_d_payment`](#virtual_pos_non_three_d_payment) | `POST /v1/vpos/nonThreeDPayment` | CC | test edilmedi | test edilmedi |
+| [`virtual_pos_sale_reversal`](#virtual_pos_sale_reversal) | `POST /v1/vpos/saleReversal` | CC | test edilmedi | test edilmedi |
 
 ## `add_card_to_merchant_safe` { #add_card_to_merchant_safe }
 
@@ -33,6 +33,11 @@ This API is used to securely store a customer’s card information in the paymen
 ```python
 yanit = kt.vpos.add_card_to_merchant_safe(merchant_id=..., customer_id=..., user_name=..., hash_data=..., merchant_order_id=..., payment_customer_id=..., card_number=..., card_expire_date_month=..., card_expire_date_year=..., card_cvv2=..., card_holder_name=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -85,6 +90,11 @@ Performs commission reconciliation for digital payment transactions by using the
 yanit = kt.vpos.digital_payment_commission_reconciliation(transaction_list=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `transaction_list` | `transactionList` | gövde | liste | evet | List of digital payment transactions to be included in commission reconciliation. |
@@ -102,6 +112,11 @@ This API is used to retrieve payment customer card information defined in the pa
 ```python
 yanit = kt.vpos.get_customer_by_safe_key(merchant_id=..., customer_id=..., payment_customer_id=..., user_name=..., hash_data=..., safe_key=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -130,6 +145,11 @@ The Get Merchant Order Detail API allows merchants to query payment and transact
 yanit = kt.vpos.get_seller_order_details(merchant_id=..., customer_id=..., user_name=..., hash_data=..., start_date=..., end_date=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — Müşteri no giriniz. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `merchant_id` | `merchantId` | gövde | tam sayı | evet | Merchant identifier for the Virtual POS transaction. |
@@ -156,6 +176,11 @@ This API is used to process Non-3D Secure Virtual POS payments. In Non-3D paymen
 ```python
 yanit = kt.vpos.non_3_d_payment(merchant_id=..., customer_id=..., user_name=..., amount=..., merchant_order_id=..., currency=..., hash_data=..., installment_count=..., deferring_count=..., card_number=..., card_expire_date_year=..., card_expire_date_month=..., card_cvv2=..., card_holder_name=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -193,6 +218,11 @@ This API is used for merchant-approved Non-3D payment processing by using a card
 yanit = kt.vpos.non_three_d_payment_by_merchant_safe(merchant_id=..., customer_id=..., payment_customer_id=..., merchant_order_id=..., user_name=..., hash_data=..., amount=..., currency=..., safe_key=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `merchant_id` | `merchantId` | gövde | tam sayı | evet | Merchant identifier for the Virtual POS transaction. |
@@ -223,6 +253,11 @@ This API is used to query the details of collections created under a payment ins
 ```python
 yanit = kt.vpos.order_detail_with_payment_id(merchant_id=..., customer_id=..., user_name=..., hash_data=..., amount=..., payment_id=..., parent_payment_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — Müşteri no giriniz. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -255,6 +290,11 @@ It is used to cancel a coming payment that has not yet been finalized or convert
 ```python
 yanit = kt.vpos.payment_order_reversal(customer_id=..., merchant_id=..., hash_data=..., merchant_order_id=..., user_name=..., parent_payment_id=..., payment_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -289,6 +329,11 @@ This virtual POS service is used to obtain a preauthorization, which places a li
 yanit = kt.vpos.pre_authorization(merchant_id=..., customer_id=..., user_name=..., amount=..., merchant_order_id=..., currency=..., hash_data=..., card_number=..., card_expire_date_year=..., card_expire_date_month=..., card_cvv2=..., card_holder_name=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `merchant_id` | `merchantId` | gövde | tam sayı | evet | Merchant identifier for the Virtual POS transaction. |
@@ -322,6 +367,11 @@ This API is used to create recurring Non-3D payment instructions for regular pay
 ```python
 yanit = kt.vpos.recurring_non_three_d_payment(merchant_order_id=..., merchant_id=..., customer_id=..., user_name=..., hash_data=..., amount=..., currency=..., card_number=..., card_expire_date_year=..., card_expire_date_month=..., card_cvv2=..., card_holder_name=..., customer_name=..., payment_start_date=..., iteration_counter=..., period_number=..., period_type=..., card_holder_customer_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -382,6 +432,11 @@ It enables the complete reversal of a successful sale transaction by cancelling 
 yanit = kt.vpos.sale_order_reversal(merchant_id=..., customer_id=..., user_name=..., amount=..., merchant_order_id=..., hash_data=..., sale_reversal_type=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `merchant_id` | `merchantId` | gövde | tam sayı | evet | Merchant identifier for the Virtual POS transaction. |
@@ -408,6 +463,11 @@ This API is used to generate a Secure Common Payment token for Virtual POS trans
 ```python
 yanit = kt.vpos.secure_partner_payment(merchant_id=..., user_name=..., amount=..., merchant_order_id=..., currency_code=..., transaction_type=..., token_type=..., success_url=..., fail_url=..., hash_data=..., installment_count=..., client_ip=..., card_holder_ip=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -444,6 +504,11 @@ Virtual POS 3D Secure payment API is used to initiate an online card payment wit
 ```python
 yanit = kt.vpos.threee_d_payment(merchant_id=..., customer_id=..., user_name=..., amount=..., merchant_order_id=..., currency=..., success_url=..., fail_url=..., hash_data=..., installment_count=..., deferring_count=..., card_number=..., card_expire_date_year=..., card_expire_date_month=..., card_cvv2=..., card_holder_name=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -484,6 +549,11 @@ This API is used to perform Non-3D payment transactions through Virtual POS by u
 yanit = kt.vpos.virtual_pos_non_three_d_payment(merchant_id=..., user_name=..., amount=..., merchant_order_id=..., card_number=..., currency_code=..., transaction_type=..., identity_tax_number=..., hash_data=..., installment_count=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `merchant_id` | `merchantId` | gövde | tam sayı | evet | The merchant's registered merchant ID at the bank. |
@@ -515,6 +585,11 @@ This API is used to reverse a sales transaction performed through Virtual POS. A
 ```python
 yanit = kt.vpos.virtual_pos_sale_reversal(merchant_id=..., user_name=..., amount=..., merchant_order_id=..., currency_code=..., transaction_type=..., order_id=..., provision_number=..., r_rn=..., stan=..., hash_data=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

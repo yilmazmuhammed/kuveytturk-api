@@ -6,11 +6,11 @@ HGS servisleri · 3 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`hgs_balance_information`](#hgs_balance_information) | `POST /v1/hgs/balance-info` | CC |
-| [`hgs_product_information`](#hgs_product_information) | `POST /v1/hgs/product-info` | CC |
-| [`hgs_usage_transactions`](#hgs_usage_transactions) | `POST /v1/hgs/usage-transactions` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`hgs_balance_information`](#hgs_balance_information) | `POST /v1/hgs/balance-info` | CC | kısmen test edildi | test edilmedi |
+| [`hgs_product_information`](#hgs_product_information) | `POST /v1/hgs/product-info` | CC | kısmen test edildi | test edilmedi |
+| [`hgs_usage_transactions`](#hgs_usage_transactions) | `POST /v1/hgs/usage-transactions` | CC | kısmen test edildi | test edilmedi |
 
 ## `hgs_balance_information` { #hgs_balance_information }
 
@@ -21,6 +21,11 @@ This API takes plate and HGS barcode numbers as request parameters and returns t
 ```python
 yanit = kt.hgs.hgs_balance_information(plate_no=..., barcodeno=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — MessageResourceError:Message_PaymentSystems.PlateNoAndBarcodeNotMatch | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -41,6 +46,11 @@ This API takes plate number and HGS barcode number as request parameters and ret
 yanit = kt.hgs.hgs_product_information(plate_no=..., barcodeno=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — MessageResourceError:Message_PaymentSystems.PlateNoAndBarcodeNotMatch | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `plate_no` | `plateNo` | gövde | metin | evet | Represents the plate number of the vehicle. |
@@ -59,6 +69,11 @@ This API returns HGS usage transaction information for the customer. It takes pl
 ```python
 yanit = kt.hgs.hgs_usage_transactions(plate_no=..., barcode_no=..., start=..., end=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — MessageResourceError:Message_PaymentSystems.PlateNoAndBarcodeNotMatch | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

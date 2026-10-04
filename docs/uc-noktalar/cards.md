@@ -6,12 +6,12 @@ Kredi kartı işlemleri · 4 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`credit_card_list_v3`](#credit_card_list_v3) | `GET /v3/creditcard/cardlist` | CC |
-| [`credit_card_money_transfer`](#credit_card_money_transfer) | `POST /v1/moneytransfer/creditcardmoneytransfer` | CC |
-| [`credit_card_transactions_list_v3`](#credit_card_transactions_list_v3) | `GET /v3/creditcard/{cardnumber}/transactions` | CC |
-| [`virtual_card_limit_update`](#virtual_card_limit_update) | `POST /v1/cards/virtualcardlimitupdate` | AC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`credit_card_list_v3`](#credit_card_list_v3) | `GET /v3/creditcard/cardlist` | CC | test edildi | test edilmedi |
+| [`credit_card_money_transfer`](#credit_card_money_transfer) | `POST /v1/moneytransfer/creditcardmoneytransfer` | CC | test edilmedi | test edilmedi |
+| [`credit_card_transactions_list_v3`](#credit_card_transactions_list_v3) | `GET /v3/creditcard/{cardnumber}/transactions` | CC | test edilmedi | test edilmedi |
+| [`virtual_card_limit_update`](#virtual_card_limit_update) | `POST /v1/cards/virtualcardlimitupdate` | AC | test edilmedi | test edilmedi |
 
 ## `credit_card_list_v3` { #credit_card_list_v3 }
 
@@ -22,6 +22,11 @@ This API is used to retrieve the credit card list for the customer. The response
 ```python
 yanit = kt.cards.credit_card_list_v3()
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — creditCardListResponseModel: 2 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -40,6 +45,11 @@ This API is used to initiate a money transfer transaction from a customer accoun
 ```python
 yanit = kt.cards.credit_card_money_transfer(sender_account_suffix=..., receiver_account_number=..., receiver_account_suffix=..., money_transfer_amount=..., transfer_type=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -64,6 +74,11 @@ This API is used to retrieve credit card transaction information for the specifi
 yanit = kt.cards.credit_card_transactions_list_v3(cardnumber=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | parametre değeri bilinmiyor — yol parametresi: cardnumber | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `cardnumber` | `cardnumber` | yol | metin | evet | Credit card number for which transaction information will be retrieved. This value is sent as a route parameter. |
@@ -81,6 +96,11 @@ This API updates the limit of a virtual credit card for the authenticated custom
 ```python
 yanit = kt.cards.virtual_card_limit_update(credit_card_number=..., limit=..., customer_id=..., language_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

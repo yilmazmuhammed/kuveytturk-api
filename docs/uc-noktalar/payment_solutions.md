@@ -6,23 +6,23 @@
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`digital_payment_get_token`](#digital_payment_get_token) | `POST /v1/vpos/digitalPaymentGetToken` | CC |
-| [`digital_payment_query`](#digital_payment_query) | `POST /v1/vpos/digitalPaymentQuery` | CC |
-| [`digital_payment_refund`](#digital_payment_refund) | `POST /v1/vpos/digitalPaymentDoRefund` | CC |
-| [`digital_payment_send_document`](#digital_payment_send_document) | `POST /v1/vpos/sendDocument` | CC |
-| [`pos_merchant_number_list`](#pos_merchant_number_list) | `GET /v1/pos/merchant-number` | CC |
-| [`pos_transaction_details_for_tpp_v2`](#pos_transaction_details_for_tpp_v2) | `POST /v2/pos/detail-transactions` | AC |
-| [`pos_transaction_details_v3`](#pos_transaction_details_v3) | `POST /v3/pos/detail-transactions` | CC |
-| [`pos_transactions_summary_for_tpp_v2`](#pos_transactions_summary_for_tpp_v2) | `POST /v2/pos/transactions` | AC |
-| [`pos_transactions_summary_v3`](#pos_transactions_summary_v3) | `POST /v3/pos/transactions` | CC |
-| [`send_order_distribution_detail_v2`](#send_order_distribution_detail_v2) | `POST /v3/purchase/orderdistribution` | CC |
-| [`virtual_pos`](#virtual_pos) | `POST /v1/vpos` | CC |
-| [`virtual_pos_end_day_all_list`](#virtual_pos_end_day_all_list) | `POST /v1/vpos/endDayAllList` | AC |
-| [`virtual_pos_end_of_day`](#virtual_pos_end_of_day) | `POST /v1/vpos/endOfDay` | AC |
-| [`virtual_pos_general_transaction`](#virtual_pos_general_transaction) | `POST /v1/vpos/transaction` | AC |
-| [`virtual_pos_order_filter`](#virtual_pos_order_filter) | `POST /v1/vpos/orderFilter` | AC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`digital_payment_get_token`](#digital_payment_get_token) | `POST /v1/vpos/digitalPaymentGetToken` | CC | test edilmedi | test edilmedi |
+| [`digital_payment_query`](#digital_payment_query) | `POST /v1/vpos/digitalPaymentQuery` | CC | test edildi | test edilmedi |
+| [`digital_payment_refund`](#digital_payment_refund) | `POST /v1/vpos/digitalPaymentDoRefund` | CC | test edilmedi | test edilmedi |
+| [`digital_payment_send_document`](#digital_payment_send_document) | `POST /v1/vpos/sendDocument` | CC | test edilmedi | test edilmedi |
+| [`pos_merchant_number_list`](#pos_merchant_number_list) | `GET /v1/pos/merchant-number` | CC | test edildi | test edilmedi |
+| [`pos_transaction_details_for_tpp_v2`](#pos_transaction_details_for_tpp_v2) | `POST /v2/pos/detail-transactions` | AC | test edilmedi | test edilmedi |
+| [`pos_transaction_details_v3`](#pos_transaction_details_v3) | `POST /v3/pos/detail-transactions` | CC | kısmen test edildi | test edilmedi |
+| [`pos_transactions_summary_for_tpp_v2`](#pos_transactions_summary_for_tpp_v2) | `POST /v2/pos/transactions` | AC | test edilmedi | test edilmedi |
+| [`pos_transactions_summary_v3`](#pos_transactions_summary_v3) | `POST /v3/pos/transactions` | CC | kısmen test edildi | test edilmedi |
+| [`send_order_distribution_detail_v2`](#send_order_distribution_detail_v2) | `POST /v3/purchase/orderdistribution` | CC | test edilmedi | test edilmedi |
+| [`virtual_pos`](#virtual_pos) | `POST /v1/vpos` | CC | test edilmedi | test edilmedi |
+| [`virtual_pos_end_day_all_list`](#virtual_pos_end_day_all_list) | `POST /v1/vpos/endDayAllList` | AC | test edilmedi | test edilmedi |
+| [`virtual_pos_end_of_day`](#virtual_pos_end_of_day) | `POST /v1/vpos/endOfDay` | AC | test edilmedi | test edilmedi |
+| [`virtual_pos_general_transaction`](#virtual_pos_general_transaction) | `POST /v1/vpos/transaction` | AC | test edilmedi | test edilmedi |
+| [`virtual_pos_order_filter`](#virtual_pos_order_filter) | `POST /v1/vpos/orderFilter` | AC | test edilmedi | test edilmedi |
 
 ## `digital_payment_get_token` { #digital_payment_get_token }
 
@@ -33,6 +33,11 @@ It is used to finance e commerce. It can work with various payment methods. (Fun
 ```python
 yanit = kt.payment_solutions.digital_payment_get_token(transaction_id=..., order_number=..., merchant_id=..., is_sub_merchant=..., soft_descriptor=..., payment_type=..., amount=..., channel=..., order_item_count=..., currency=..., basket_product_list=..., request_date=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -71,6 +76,11 @@ Used to query the transaction result
 yanit = kt.payment_solutions.digital_payment_query(merchant_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — nesne (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `transaction_id` | `transactionId` | gövde | metin |  | End-to-end unique ID for the transaction. |
@@ -93,6 +103,11 @@ Used for digital payment's refund transactions.
 ```python
 yanit = kt.payment_solutions.digital_payment_refund(transaction_id=..., org_transaction_id=..., merchant_id=..., amount=..., currency=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -120,6 +135,11 @@ Used to send document after funding/sale transactions.
 yanit = kt.payment_solutions.digital_payment_send_document()
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `document_list` | `documentList` | gövde | liste |  |  |
@@ -139,6 +159,11 @@ Retrieves POS merchant detail transactions according to the provided customer, c
 ```python
 yanit = kt.payment_solutions.pos_merchant_number_list(customer_id=..., start_date=..., end_date=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: GET and path: /v1/pos/merchant-number'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -164,6 +189,11 @@ With this API, you can behave as a TPP (Third Party Provider) / Fintech and acce
 yanit = kt.payment_solutions.pos_transaction_details_for_tpp_v2(merchant_block_number=..., count=..., start_date=..., end_date=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `merchant_block_number` | `merchantBlockNumber` | gövde | metin | evet | Represents the blocked number which belongs to customer for POS transactions. This information must be obtained using the POS Transactions Summary V2 service. |
@@ -183,6 +213,11 @@ With this API, you can only access the POS transaction details of your own accou
 ```python
 yanit = kt.payment_solutions.pos_transaction_details_v3(merchant_block_number=..., count=..., start_date=..., end_date=..., corporate_user_name=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — merchantBlockNumber parametresi zorunlu alandır. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -204,6 +239,11 @@ Bu API, belirtilen müşteri ve üye işyeri numarası için verilen tarih aral�
 ```python
 yanit = kt.payment_solutions.pos_transactions_summary_for_tpp_v2(customer_id=..., member_number=..., start_date=..., end_date=..., extract_type=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -227,6 +267,11 @@ With this API, you can only access the POS transactions of your own accounts. If
 yanit = kt.payment_solutions.pos_transactions_summary_v3(corporate_user_name=..., start_date=..., end_date=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | kısmen test edildi | erişilebilir, parametre/iş kuralı hatası — Yetkili kullanıcı adı gönderilmelidir. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `corporate_user_name` | `corporateUserName` | gövde | metin | evet | Represents the User Name information belonging to an authorized user of the customer for POS transactions. |
@@ -247,6 +292,11 @@ Submits order distribution and delivery details to the BOA system for the purcha
 yanit = kt.payment_solutions.send_order_distribution_detail_v2(distribution_list=..., e_tender_delivery_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `distribution_list` | `DistributionList` | gövde | liste | evet | List of order distribution records to be submitted. |
@@ -265,6 +315,11 @@ This endpoint is used to initiate a Virtual POS 3D Model payment transaction. Th
 ```python
 yanit = kt.payment_solutions.virtual_pos(ok_url=..., fail_url=..., hash_data=..., merchant_id=..., user_name=..., transaction_type=..., currency_code=..., transaction_security=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -324,6 +379,11 @@ This endpoint is used to retrieve the end-of-day transaction list for a Virtual 
 yanit = kt.payment_solutions.virtual_pos_end_day_all_list(order_filter_contract=..., v_pos_login_contract=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `order_filter_contract` | `OrderFilterContract` | gövde | nesne | evet | Object that contains the end-of-day list filter criteria. |
@@ -342,6 +402,11 @@ This endpoint is used to perform the end-of-day closing operation for Virtual PO
 ```python
 yanit = kt.payment_solutions.virtual_pos_end_of_day(order_filter_contract=..., v_pos_login_contract=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -362,6 +427,11 @@ This endpoint is used to perform Virtual POS transaction operations such as refu
 yanit = kt.payment_solutions.virtual_pos_general_transaction(order_filter_contract=..., v_pos_login_contract=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `order_filter_contract` | `OrderFilterContract` | gövde | nesne | evet | Object that contains the transaction operation details. |
@@ -380,6 +450,11 @@ This endpoint is used to retrieve Virtual POS order records based on the specifi
 ```python
 yanit = kt.payment_solutions.virtual_pos_order_filter(order_filter_contract=..., v_pos_login_contract=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | müşteri girişi gerekiyor | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

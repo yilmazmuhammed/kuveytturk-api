@@ -6,6 +6,9 @@ göre düzeltildi; kendi kodunuzu yazarken de bunları göz önünde bulundurun.
 
 ## Neler denendi
 
+Her uç noktanın sandbox ve canlı ortamdaki durumu ayrıntılı olarak
+[Test durumu](uc-noktalar/test-durumu.md) sayfasında. Özetle:
+
 | Konu | Durum |
 | - | - |
 | Client credentials token, imzalı GET ve POST | Denendi, çalışıyor |

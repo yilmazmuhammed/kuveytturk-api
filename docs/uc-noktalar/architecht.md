@@ -6,11 +6,11 @@ Architecht · 3 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`architecht_career_change`](#architecht_career_change) | `POST /v1/architechtintegration/career/insertAssignment` | CC |
-| [`customer_consent_cancellation`](#customer_consent_cancellation) | `POST /v1/airapi/revoke-consent` | CC |
-| [`customer_consent_list`](#customer_consent_list) | `GET /v1/airapi/consent-list` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`architecht_career_change`](#architecht_career_change) | `POST /v1/architechtintegration/career/insertAssignment` | CC | test edilmedi | test edilmedi |
+| [`customer_consent_cancellation`](#customer_consent_cancellation) | `POST /v1/airapi/revoke-consent` | CC | test edilmedi | test edilmedi |
+| [`customer_consent_list`](#customer_consent_list) | `GET /v1/airapi/consent-list` | CC | test edildi | test edilmedi |
 
 ## `architecht_career_change` { #architecht_career_change }
 
@@ -21,6 +21,11 @@ This API is used to create an assignment record for career integration. The requ
 ```python
 yanit = kt.architecht.architecht_career_change(person_id=..., organization_id=..., job_id=..., position_id=..., assignment_grade=..., identity_number=..., effective_start_date=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -49,6 +54,11 @@ This API is used to revoke customer consent records. The request includes the cu
 yanit = kt.architecht.customer_consent_cancellation(customer_id=..., token_data=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `customer_id` | `customerId` | gövde | metin | evet | Customer ID for which consent records will be revoked. |
@@ -67,6 +77,11 @@ This API is used to retrieve the customer consent list. The service returns cons
 ```python
 yanit = kt.architecht.customer_consent_list(customerid=..., tokentype=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — results: 1 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

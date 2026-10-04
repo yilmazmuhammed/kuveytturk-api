@@ -6,18 +6,18 @@ E-ticaret · 10 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`ecommerce_application_refund_v1`](#ecommerce_application_refund_v1) | `POST /v1/lendings/{applicationId}/refund` | CC |
-| [`ecommerce_application_refund_v1_2`](#ecommerce_application_refund_v1_2) | `POST /v1/lendings/{applicationId}/refund` | CC |
-| [`ecommerce_get_lending_information_v1`](#ecommerce_get_lending_information_v1) | `GET /v1/lendings/{applicationId}` | CC |
-| [`ecommerce_get_lending_information_v1_2`](#ecommerce_get_lending_information_v1_2) | `GET /v1/lendings/{applicationId}` | CC |
-| [`ecommerce_lendings_v1`](#ecommerce_lendings_v1) | `POST /v1/lendings` | CC |
-| [`ecommerce_lendings_v1_2`](#ecommerce_lendings_v1_2) | `POST /v1/lendings` | CC |
-| [`ecommerce_monthly_payments_v1`](#ecommerce_monthly_payments_v1) | `POST /v1/query/monthly-payments` | CC |
-| [`ecommerce_monthly_payments_v1_2`](#ecommerce_monthly_payments_v1_2) | `POST /v1/query/monthly-payments` | CC |
-| [`ecommerce_pre_approved_monthly_payments_v1`](#ecommerce_pre_approved_monthly_payments_v1) | `POST /v1/query/pre-approved-monthly-payments` | CC |
-| [`ecommerce_pre_approved_monthly_payments_v1_2`](#ecommerce_pre_approved_monthly_payments_v1_2) | `POST /v1/query/pre-approved-monthly-payments` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`ecommerce_application_refund_v1`](#ecommerce_application_refund_v1) | `POST /v1/lendings/{applicationId}/refund` | CC | test edilmedi | test edilmedi |
+| [`ecommerce_application_refund_v1_2`](#ecommerce_application_refund_v1_2) | `POST /v1/lendings/{applicationId}/refund` | CC | test edilmedi | test edilmedi |
+| [`ecommerce_get_lending_information_v1`](#ecommerce_get_lending_information_v1) | `GET /v1/lendings/{applicationId}` | CC | test edilmedi | test edilmedi |
+| [`ecommerce_get_lending_information_v1_2`](#ecommerce_get_lending_information_v1_2) | `GET /v1/lendings/{applicationId}` | CC | test edilmedi | test edilmedi |
+| [`ecommerce_lendings_v1`](#ecommerce_lendings_v1) | `POST /v1/lendings` | CC | test edilmedi | test edilmedi |
+| [`ecommerce_lendings_v1_2`](#ecommerce_lendings_v1_2) | `POST /v1/lendings` | CC | test edilmedi | test edilmedi |
+| [`ecommerce_monthly_payments_v1`](#ecommerce_monthly_payments_v1) | `POST /v1/query/monthly-payments` | CC | test edildi | test edilmedi |
+| [`ecommerce_monthly_payments_v1_2`](#ecommerce_monthly_payments_v1_2) | `POST /v1/query/monthly-payments` | CC | test edildi | test edilmedi |
+| [`ecommerce_pre_approved_monthly_payments_v1`](#ecommerce_pre_approved_monthly_payments_v1) | `POST /v1/query/pre-approved-monthly-payments` | CC | test edildi | test edilmedi |
+| [`ecommerce_pre_approved_monthly_payments_v1_2`](#ecommerce_pre_approved_monthly_payments_v1_2) | `POST /v1/query/pre-approved-monthly-payments` | CC | test edildi | test edilmedi |
 
 ## `ecommerce_application_refund_v1` { #ecommerce_application_refund_v1 }
 
@@ -28,6 +28,11 @@ Allows partial or full refund of funding.
 ```python
 yanit = kt.ecommerce.ecommerce_application_refund_v1(application_id=..., reference_id=..., refund_type=..., refund_amount=..., order_date=..., order_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -52,6 +57,11 @@ This API performs a refund transaction for a lending application. The refund is 
 ```python
 yanit = kt.ecommerce.ecommerce_application_refund_v1_2(application_id=..., x_company_id=..., x_sub_company_id=..., reference_id=..., refund_type=..., refund_amount=..., order_date=..., order_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -81,6 +91,11 @@ Its purpose is to question the details of the loan applied for.
 yanit = kt.ecommerce.ecommerce_get_lending_information_v1(application_id=..., applicaction_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | parametre değeri bilinmiyor — yol parametresi: applicationId | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `application_id` | `applicationId` | yol | metin | evet |  |
@@ -99,6 +114,11 @@ This API retrieves the details of a lending application by application id. The r
 ```python
 yanit = kt.ecommerce.ecommerce_get_lending_information_v1_2(application_id=..., client_id=..., x_sub_company_id=..., date=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | parametre değeri bilinmiyor — yol parametresi: applicationId | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -120,6 +140,11 @@ Allows you to apply for funding.
 ```python
 yanit = kt.ecommerce.ecommerce_lendings_v1(reference_id=..., pre_approved_application_id=..., national_identity_number=..., gsm_number=..., total_term=..., type=..., time_to_live=..., order_id=..., cart=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -149,6 +174,11 @@ This API creates a lending application using the customer's pre-approved applica
 ```python
 yanit = kt.ecommerce.ecommerce_lendings_v1_2(x_company_id=..., x_sub_company_id=..., reference_id=..., pre_approved_application_id=..., callback_url=..., failcallback_url=..., national_identity_number=..., birth_date=..., gsm_number=..., total_term=..., type=..., time_to_live=..., order_id=..., company_code=..., cart=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -183,6 +213,11 @@ Estimated monthly return service based on the customer's cart.
 yanit = kt.ecommerce.ecommerce_monthly_payments_v1(reference_id=..., max_term=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | sunucu hatası — İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `reference_id` | `referenceId` | gövde | metin | evet | Unique ID number of the request |
@@ -203,6 +238,11 @@ This API queries available monthly payment options based on company information,
 ```python
 yanit = kt.ecommerce.ecommerce_monthly_payments_v1_2(x_company_id=..., x_sub_company_id=..., reference_id=..., max_term=..., cart=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | sunucu hatası — İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -226,6 +266,11 @@ Returns the pre-approved monthly payment table according to the customer's cart 
 ```python
 yanit = kt.ecommerce.ecommerce_pre_approved_monthly_payments_v1(reference_id=..., national_identity_number=..., gsm_number=..., max_term=..., order_id=..., cart=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | sunucu hatası — İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -252,6 +297,11 @@ This API queries pre-approved monthly payment options for a customer based on co
 ```python
 yanit = kt.ecommerce.ecommerce_pre_approved_monthly_payments_v1_2(x_company_id=..., x_sub_company_id=..., agent_code=..., reference_id=..., national_identity_number=..., birth_date=..., gsm_number=..., max_term=..., order_id=..., company_code=..., cart=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | sunucu hatası — İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

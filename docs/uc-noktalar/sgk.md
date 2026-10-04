@@ -6,9 +6,9 @@ SGK · 1 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`consume_insurance_queue`](#consume_insurance_queue) | `POST /v1/insurance/consumeQueue` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`consume_insurance_queue`](#consume_insurance_queue) | `POST /v1/insurance/consumeQueue` | CC | test edilmedi | test edilmedi |
 
 ## `consume_insurance_queue` { #consume_insurance_queue }
 
@@ -19,6 +19,11 @@ Consumes an insurance queue message by using the provided unique identifier, bus
 ```python
 yanit = kt.sgk.consume_insurance_queue(unique_id=..., business_key=..., base64_data=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

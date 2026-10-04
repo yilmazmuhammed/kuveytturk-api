@@ -6,13 +6,13 @@ SMS / OTP · 5 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`pr_customer_validation`](#pr_customer_validation) | `POST /v1/paymentrequest/customerValidation` | CC |
-| [`pr_get_account_details_by_iban`](#pr_get_account_details_by_iban) | `POST /v1/paymentrequest/getAccountByIban` | CC |
-| [`pr_get_fast_result`](#pr_get_fast_result) | `GET /v1/paymentrequest/getFastResult` | CC |
-| [`pr_payment_request_control`](#pr_payment_request_control) | `POST /v1/paymentrequest/paymentControl` | CC |
-| [`pr_payment_transaction`](#pr_payment_transaction) | `POST /v1/paymentrequest/transfer` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`pr_customer_validation`](#pr_customer_validation) | `POST /v1/paymentrequest/customerValidation` | CC | test edilmedi | test edilmedi |
+| [`pr_get_account_details_by_iban`](#pr_get_account_details_by_iban) | `POST /v1/paymentrequest/getAccountByIban` | CC | test edilmedi | test edilmedi |
+| [`pr_get_fast_result`](#pr_get_fast_result) | `GET /v1/paymentrequest/getFastResult` | CC | test edildi | test edilmedi |
+| [`pr_payment_request_control`](#pr_payment_request_control) | `POST /v1/paymentrequest/paymentControl` | CC | test edilmedi | test edilmedi |
+| [`pr_payment_transaction`](#pr_payment_transaction) | `POST /v1/paymentrequest/transfer` | CC | test edilmedi | test edilmedi |
 
 ## `pr_customer_validation` { #pr_customer_validation }
 
@@ -23,6 +23,11 @@ Validates customer information for payment request operations by using the provi
 ```python
 yanit = kt.sms_otp.pr_customer_validation(iban=..., title=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -43,6 +48,11 @@ Retrieves account balance information for payment request operations by using th
 yanit = kt.sms_otp.pr_get_account_details_by_iban(i_ban=..., account_number=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `i_ban` | `iBAN` | gövde | metin | evet | IBAN used to retrieve account balance details. |
@@ -62,6 +72,11 @@ Retrieves the FAST transaction result for payment request operations by using th
 yanit = kt.sms_otp.pr_get_fast_result(oi_reference=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: GET and path: /v1/paymentrequest/getFastResult'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `oi_reference` | `oiReference` | sorgu | metin | evet | OI reference number used to retrieve the FAST transaction result. |
@@ -79,6 +94,11 @@ Checks and validates a payment request by using the provided payment reference, 
 ```python
 yanit = kt.sms_otp.pr_payment_request_control(request_payment_reference=..., request_payment_flow_type=..., creditor_identity_value=..., creditor_title=..., creditor_iban=..., amount=..., payment_intent=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -103,6 +123,11 @@ Retrieves the account list for payment request transfer operations according to 
 ```python
 yanit = kt.sms_otp.pr_payment_transaction(account_number=..., language_id=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

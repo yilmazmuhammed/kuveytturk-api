@@ -6,17 +6,17 @@ Diğer · 9 uç nokta
 
 Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. Her metot ayrıca `extra_query`, `extra_body` ve `request_options` kabul eder ([ayrıntı](../kilavuzlar/dogrudan-istek.md)).
 
-| Metot | İstek | Akış |
-| - | - | - |
-| [`calculate_welcome_participation_account_profit_share`](#calculate_welcome_participation_account_profit_share) | `POST /v1/welcomeprofitsharecalculation` | CC |
-| [`credi_tech_intelligence_inquiry_by_credit_allocation_status`](#credi_tech_intelligence_inquiry_by_credit_allocation_status) | `POST /v1/Loans/GetInquiryPermissionCheckByCreditechtReportNumber` | CC |
-| [`credit_tech_pos`](#credit_tech_pos) | `POST /v1/data/credittechpos` | CC |
-| [`fraud_notifications_exists`](#fraud_notifications_exists) | `POST /v1/inquiry/is-fraud-notification-exists` | CC |
-| [`get_fraud_notifications_last_day`](#get_fraud_notifications_last_day) | `POST /v1/inquiry/get-fraud-notifications-daily` | CC |
-| [`get_process_design_xml_by_business_process_id`](#get_process_design_xml_by_business_process_id) | `POST /v1/bpm/post/grcprocessdesignxml` | CC |
-| [`saglam_pay_get_customer_full_info`](#saglam_pay_get_customer_full_info) | `GET /v1/get-customer-info-by-customerId-full` | CC |
-| [`visa_payment_status_notification`](#visa_payment_status_notification) | `POST /v1/StatusNotify` | CC |
-| [`visa_statement_delivery`](#visa_statement_delivery) | `POST /v1/StatementDelivery` | CC |
+| Metot | İstek | Akış | Sandbox | Canlı |
+| - | - | - | - | - |
+| [`calculate_welcome_participation_account_profit_share`](#calculate_welcome_participation_account_profit_share) | `POST /v1/welcomeprofitsharecalculation` | CC | test edildi | test edilmedi |
+| [`credi_tech_intelligence_inquiry_by_credit_allocation_status`](#credi_tech_intelligence_inquiry_by_credit_allocation_status) | `POST /v1/Loans/GetInquiryPermissionCheckByCreditechtReportNumber` | CC | test edilmedi | test edilmedi |
+| [`credit_tech_pos`](#credit_tech_pos) | `POST /v1/data/credittechpos` | CC | test edilmedi | test edilmedi |
+| [`fraud_notifications_exists`](#fraud_notifications_exists) | `POST /v1/inquiry/is-fraud-notification-exists` | CC | test edildi | test edilmedi |
+| [`get_fraud_notifications_last_day`](#get_fraud_notifications_last_day) | `POST /v1/inquiry/get-fraud-notifications-daily` | CC | test edildi | test edilmedi |
+| [`get_process_design_xml_by_business_process_id`](#get_process_design_xml_by_business_process_id) | `POST /v1/bpm/post/grcprocessdesignxml` | CC | test edildi | test edilmedi |
+| [`saglam_pay_get_customer_full_info`](#saglam_pay_get_customer_full_info) | `GET /v1/get-customer-info-by-customerId-full` | CC | test edilmedi | test edilmedi |
+| [`visa_payment_status_notification`](#visa_payment_status_notification) | `POST /v1/StatusNotify` | CC | test edilmedi | test edilmedi |
+| [`visa_statement_delivery`](#visa_statement_delivery) | `POST /v1/StatementDelivery` | CC | test edilmedi | test edilmedi |
 
 ## `calculate_welcome_participation_account_profit_share` { #calculate_welcome_participation_account_profit_share }
 
@@ -27,6 +27,11 @@ Calculates the welcome participation account profit share according to the provi
 ```python
 yanit = kt.other.calculate_welcome_participation_account_profit_share(product_code=..., maturity_term=..., fec=..., product_group=..., deposit_amount=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | sunucu hatası — İşleminiz gerçekleştirilemedi. Daha sonra tekrar deneyiniz. | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -54,6 +59,11 @@ Checks the inquiry permission status for the specified Creditecht report number.
 yanit = kt.other.credi_tech_intelligence_inquiry_by_credit_allocation_status(creditecht_report_number=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | uygulamanın kapsam yetkisi yok — {'code': 403, 'message': 'Invalid Scope'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `creditecht_report_number` | `creditechtReportNumber` | gövde | tam sayı | evet | Creditecht report number used to check inquiry permission status. |
@@ -71,6 +81,11 @@ Retrieves CreditTech POS data for the specified identity number and query period
 ```python
 yanit = kt.other.credit_tech_pos(query_begin_period=..., query_end_period=..., identity_number=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -94,6 +109,11 @@ Checks whether an active fraud notification record exists for the provided ident
 yanit = kt.other.fraud_notifications_exists(identity_number=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: POST and path: /v1/inquiry/is-fraud-notification-exists'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `identity_number` | `IdentityNumber` | gövde | metin | evet | Identity number or tax number used to check whether a fraud notification record exists. |
@@ -113,6 +133,11 @@ This API retrieves fraud notification records for the last 24 hours based on the
 ```python
 yanit = kt.other.get_fraud_notifications_last_day(reference_date=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | bu ortamda yok (404) — {'code': 404, 'message': 'Path not found. Method: POST and path: /v1/inquiry/get-fraud-notifications-daily'} | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -134,6 +159,11 @@ This API is used to retrieve the process design XML definition for a specified b
 yanit = kt.other.get_process_design_xml_by_business_process_id(business_process_id=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edildi | çalışıyor — responseValue: 0 kayıt (parametresiz) | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `business_process_id` | `businessProcessId` | gövde | tam sayı | evet | Business process ID for which the process design XML definition will be retrieved. |
@@ -151,6 +181,11 @@ Retrieves full customer-related account and money transfer information by using 
 ```python
 yanit = kt.other.saglam_pay_get_customer_full_info(sender_account_number=..., sender_account_suffix=..., receiver_account_number=..., receiver_account_suffix=..., money_transfer_amount=..., transfer_type=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
@@ -176,6 +211,11 @@ Sends a document for status notification by using the provided document template
 yanit = kt.other.visa_payment_status_notification(document_template_id=..., doc_base64_content=...)
 ```
 
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
+
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |
 | `document_template_id` | `DocumentTemplateId` | gövde | tam sayı | evet | Document template identifier used for the status notification document. |
@@ -194,6 +234,11 @@ Sends a document for statement delivery by using the provided document template 
 ```python
 yanit = kt.other.visa_statement_delivery(document_template_id=..., doc_base64_content=...)
 ```
+
+| Ortam | Durum | Sonuç | Tarih |
+| - | - | - | - |
+| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |
 | - | - | - | - | - | - |

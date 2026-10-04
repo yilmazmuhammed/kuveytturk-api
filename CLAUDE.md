@@ -185,6 +185,20 @@ alan eklerken sır sızdırmadığını `tests/test_logging.py`'deki gibi test e
 - `.legacy/` eski deneme kodlarını ve eski doküman kazımalarını tutar (git'e girmez); içinde
   gömülü sırlar var. Kullanılmıyor, kullanıcı isterse silinebilir.
 
+## Uç noktaların ortamlarda denenmesi
+
+- `spec/test_status.json`: her uç noktanın (doküman id'siyle) `sandbox` ve `canli` test durumu
+  (`test edildi` | `kısmen test edildi` | `test edilmedi`, sonuç, tarih, maskelenmiş ayrıntı).
+  Doküman sitesindeki "Test durumu" sayfası ve uç nokta sayfalarındaki tablolar buradan üretilir.
+- `scripts/check_endpoints.py [--environment production]` dosyayı günceller. **Yalnızca**
+  betikteki `READ_ONLY` listesinde elle onaylanmış okuma uç noktalarını çağırır; para hareketi,
+  ödeme, başvuru, kayıt oluşturma/iptal, bildirim ya da SMS gönderen uç noktalara asla istek
+  atmaz. Listeye bir uç nokta eklemeden önce dokümanını oku; `tests/test_check_endpoints.py`
+  işlem yapan adları listeye karşı denetler. Müşteri girişi isteyen uçlar çağrılmaz.
+- Betik yalnızca çağırdığı uçların kaydını değiştirir; elle girilen kayıtlar (ör. müşteri
+  girişiyle yapılan testler, canlı testler) korunur. Dosyayı değiştirince `generate.py` çalıştır.
+- Canlı ortamda (Go Live sonrası) aynı betik `--environment production` ile çalıştırılır.
+
 ## Testler
 
 - Birim testleri `httpx.MockTransport` ile çalışır (`tests/conftest.py::Recorder`); ağa çıkmaz.
