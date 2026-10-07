@@ -8,6 +8,13 @@
     - Transferin para gönderen adımı bu kütüphanenin testlerinde gerçek sandbox'a karşı
       **çalıştırılmamıştır**. İlk kullanımda sandbox'ta deneyin.
 
+!!! failure "Sandbox'ta şu an çalışmıyor (2026-10-07)"
+    `outgoing_money_transfer` ve `money_transfer_payment_type` sandbox'ta zorunlu alanlar
+    doldurulduğunda HTTP 500 `Object reference not set to an instance of an object.` dönüyor
+    (para çıkmıyor). `LanguageId` / `DeviceId` başlıkları ve `transferType` eklemek sonucu
+    değiştirmedi; sorun büyük olasılıkla bankanın sandbox tarafında ve API Market'e
+    bildirilmesi gerekiyor. Durum: [Test durumu](../uc-noktalar/test-durumu.md).
+
 ## 1. Alıcıyı doğrulayın
 
 Göndermeden önce IBAN'ın kime ait olduğunu sorgulayın. Banka maskeli adı ve bankayı döndürür:

@@ -131,7 +131,7 @@ yanit = kt.transfers.money_transfer_payment_type(sender_account_suffix=..., rece
 
 | Ortam | Durum | Sonuç | Tarih |
 | - | - | - | - |
-| Sandbox | kısmen test edildi | sunucu hatası (500) — Kullanıcı senderAccountSuffix, receiverIban, amount ile denedi (1 TL, kendi hesapları). Yanıt: 500 Object reference not set to an instance of an object. Boş göv… | 2026-10-07 |
+| Sandbox | kısmen test edildi | sunucu hatası (500) — Kullanıcı senderAccountSuffix, receiverIban, amount ile üç kez denedi: başlıksız, LanguageId+DeviceId ile ve transferType=2 eklenerek. Üçü de 500 Object referen… | 2026-10-07 |
 | Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |

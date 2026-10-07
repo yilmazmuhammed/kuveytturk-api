@@ -139,6 +139,16 @@ Müşteri girişli `tpp_accounts.account_transactions_v2` (22 kayıt) ve client 
   sürenin yenilemeyle uzayıp uzamadığı ölçülmedi.
 - Sandbox uygulaması `account_activities` kapsamına yetkili değil (`invalid_scope`).
 
+### Para transferi: sandbox'ta 500 (2026-10-07)
+
+Kullanıcı `outgoing_money_transfer` (1 TL, ek no 5 -> ek no 4) ve `money_transfer_payment_type`
+uçlarını çalıştırdı. İkisi de zorunlu alanlar doluyken HTTP 500
+`Object reference not set to an instance of an object.` döndü; bakiyeler değişmedi.
+`LanguageId` + `DeviceId` başlıkları ve `transferType=2` eklemek sonucu değiştirmedi. Boş gövdeye
+doğrulama hatası dönüyor, yani uç noktalar var ve kapsam yetkisi tamam. Sorun büyük olasılıkla
+banka tarafında; kullanıcıya API Market'e bildirmesi önerildi. Doğru gövde öğrenilene kadar
+`spec/overrides.json`'daki 3290 / 4687 kayıtlarına tahminle alan ekleme.
+
 Bir isteğin sandbox'ta neden başarısız olduğunu anlamak için önce
 `KUVEYTTURK_LOG=debug venv/bin/python examples/...` ile isteği ve yanıtı gör. Loglara yeni bir
 alan eklerken sır sızdırmadığını `tests/test_logging.py`'deki gibi test et.

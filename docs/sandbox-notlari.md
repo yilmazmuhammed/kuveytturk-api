@@ -15,7 +15,7 @@ Her uç noktanın sandbox ve canlı ortamdaki durumu ayrıntılı olarak
 | Kurumun hesap listesi ve hareketleri (`kt.accounts`) | Denendi, çalışıyor |
 | Müşteri girişiyle hesap listesi ve hareketleri (`kt.tpp_accounts`) | Denendi, çalışıyor |
 | Kurlar, IBAN sorgulama, şube/ATM listeleri | Denendi, çalışıyor |
-| IBAN'a transferin gönderim adımı | **Denenmedi** |
+| IBAN'a transferin gönderim adımı | Denendi: zorunlu alanlar doluyken **500** dönüyor, para çıkmıyor |
 | Diğer uç noktaların çoğu | Denenmedi; uygulamanın kapsam yetkisine bağlı |
 
 ## Dokümandan farklı olanlar
