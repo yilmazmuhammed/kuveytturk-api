@@ -104,6 +104,7 @@ nav:
   - Kılavuzlar:
       - Hesaplar ve hareketler: kilavuzlar/hesaplar.md
       - IBAN'a para transferi: kilavuzlar/para-transferi.md
+      - Döviz ve maden alım-satımı: kilavuzlar/doviz-islemleri.md
       - Web uygulamasında müşteri girişi: kilavuzlar/web-uygulamasi.md
       - Asenkron kullanım: kilavuzlar/asenkron.md
       - Hata yönetimi: kilavuzlar/hata-yonetimi.md

@@ -46,6 +46,15 @@ ACCOUNTS_V3 = {
             "iban": "TR34",
             "productType": "Kıymetli Maden",
         },
+        {
+            "name": "Dolar",
+            "suffix": 2,
+            "balance": 10.0,
+            "availableBalance": 10.0,
+            "fxId": 1,
+            "iban": "TR35",
+            "productType": "Döviz Hesabı",
+        },
     ]
 }
 ACCOUNTS_V2 = {
@@ -138,6 +147,10 @@ ROUTES: dict[tuple[str, str], Any] = {
     ("GET", "/v2/fx/rates"): RATES,
     ("GET", "/v1/preciousmetal/rates"): METALS,
     ("GET", f"/v1/moneytransfer/{VALID_IBAN}/customeribaninfo"): IBAN_INFO,
+    ("POST", "/v1/fx/buy"): {"ExecutionReferenceId": "fx-1", "FxRate": 45.73486},
+    ("POST", "/v1/fx/sell"): {"ExecutionReferenceId": "fx-2", "FxRate": 44.71732},
+    ("POST", "/v1/preciousmetal/buy"): {"ExecutionReferenceId": "pm-1"},
+    ("POST", "/v1/preciousmetal/sell"): {"ExecutionReferenceId": "pm-2"},
     ("POST", "/v1/moneytransfer/outgoingmoneytransfer"): {
         "executionReferenceId": "exec-1",
         "moneyTransferTransactionId": 39284624,
@@ -442,3 +455,200 @@ async def test_async_usage(private_pem, monkeypatch, capsys):
 def test_every_example_compiles():
     for path in EXAMPLES.glob("*.py"):
         compile(path.read_text(encoding="utf-8"), str(path), "exec")
+
+
+# --------------------------------------------------------------------------- fx_trade.py
+
+TRADE_PATHS = ("/v1/fx/buy", "/v1/fx/sell", "/v1/preciousmetal/buy", "/v1/preciousmetal/sell")
+
+
+def trade_requests(recorder: Recorder) -> list[httpx.Request]:
+    return [r for r in recorder.api_requests if r.url.path in TRADE_PATHS]
+
+
+def test_fx_trade_is_a_dry_run_by_default(example, recorder, capsys):
+    example("fx_trade").main(
+        ["buy", "USD", "1", "--tl-suffix", "1", "--fx-suffix", "2", "--corporate-user", "k"]
+    )
+    out = capsys.readouterr().out
+    assert trade_requests(recorder) == []
+    assert "1 USD alış" in out and "45.73486" in out and "Deneme modu" in out
+
+
+def test_fx_trade_buy_uses_the_bank_buy_rate_and_tl_as_source(
+    example, recorder, monkeypatch, capsys
+):
+    monkeypatch.setattr("builtins.input", lambda prompt: "EVET")
+    example("fx_trade").main(
+        [
+            "buy",
+            "usd",
+            "1.5",
+            "--tl-suffix",
+            "1",
+            "--fx-suffix",
+            "2",
+            "--corporate-user",
+            "k",
+            "--execute",
+        ]
+    )
+    (request,) = trade_requests(recorder)
+    assert request.url.path == "/v1/fx/buy"
+    assert json.loads(request.content) == {
+        "AccountSuffixFrom": 1,
+        "AccountSuffixTo": 2,
+        "CorporateWebUserName": "k",
+        "BuyRate": 45.73486,
+        "ExchangeAmount": 1.5,
+    }
+    assert "fx-1" in capsys.readouterr().out
+
+
+def test_fx_trade_sell_metal_uses_sell_rate_and_metal_account_as_source(example, recorder, capsys):
+    example("fx_trade").main(
+        [
+            "sell",
+            "ALT",
+            "2",
+            "--tl-suffix",
+            "1",
+            "--fx-suffix",
+            "101",
+            "--corporate-user",
+            "k",
+            "--execute",
+            "--yes",
+        ]
+    )
+    (request,) = trade_requests(recorder)
+    assert request.url.path == "/v1/preciousmetal/sell"
+    body = json.loads(request.content)
+    assert (body["AccountSuffixFrom"], body["AccountSuffixTo"], body["SellRate"]) == (
+        101,
+        1,
+        6067.5,
+    )
+    capsys.readouterr()
+
+
+@pytest.mark.parametrize(
+    "arguments",
+    [
+        [
+            "buy",
+            "EUR",
+            "1",
+            "--tl-suffix",
+            "1",
+            "--fx-suffix",
+            "2",
+            "--corporate-user",
+            "k",
+        ],  # 2 USD hesabı
+        [
+            "buy",
+            "USD",
+            "1",
+            "--tl-suffix",
+            "2",
+            "--fx-suffix",
+            "2",
+            "--corporate-user",
+            "k",
+        ],  # 2 TL değil
+        [
+            "buy",
+            "USD",
+            "1",
+            "--tl-suffix",
+            "1",
+            "--fx-suffix",
+            "99",
+            "--corporate-user",
+            "k",
+        ],  # hesap yok
+        ["buy", "ALT", "1", "--tl-suffix", "1", "--fx-suffix", "101"],  # madende kullanıcı zorunlu
+    ],
+)
+def test_fx_trade_refuses_mismatched_accounts_before_any_trade(
+    example, recorder, monkeypatch, arguments, capsys
+):
+    monkeypatch.delenv("KUVEYTTURK_CORPORATE_USER", raising=False)
+    with pytest.raises(SystemExit) as info:
+        example("fx_trade").main([*arguments, "--execute", "--yes"])
+    assert info.value.code == 2
+    assert trade_requests(recorder) == []
+    capsys.readouterr()
+
+
+def test_fx_trade_needs_typed_confirmation_and_allow_production(
+    example, recorder, monkeypatch, capsys
+):
+    module = example("fx_trade")
+    monkeypatch.setattr("builtins.input", lambda prompt: "evet")
+    module.main(
+        [
+            "buy",
+            "USD",
+            "1",
+            "--tl-suffix",
+            "1",
+            "--fx-suffix",
+            "2",
+            "--corporate-user",
+            "k",
+            "--execute",
+        ]
+    )
+    assert trade_requests(recorder) == [] and "Vazgeçildi" in capsys.readouterr().out
+
+    monkeypatch.setattr(
+        module, "create_client", lambda: example.create_client(environment="production")
+    )
+    recorder.api = lambda r: route(r) if "gateway" in r.url.host else conftest_token()
+    with pytest.raises(SystemExit) as info:
+        module.main(
+            [
+                "buy",
+                "USD",
+                "1",
+                "--tl-suffix",
+                "1",
+                "--fx-suffix",
+                "2",
+                "--corporate-user",
+                "k",
+                "--execute",
+                "--yes",
+            ]
+        )
+    assert info.value.code == 2 and trade_requests(recorder) == []
+    assert "--allow-production" in capsys.readouterr().err
+
+
+def test_fx_trade_timeout_is_reported_not_retried(example, recorder, capsys):
+    def flaky(request: httpx.Request) -> httpx.Response:
+        if request.url.path in TRADE_PATHS:
+            raise httpx.ReadTimeout("zaman aşımı")
+        return route(request)
+
+    recorder.api = flaky
+    with pytest.raises(SystemExit) as info:
+        example("fx_trade").main(
+            [
+                "sell",
+                "USD",
+                "1",
+                "--tl-suffix",
+                "1",
+                "--fx-suffix",
+                "2",
+                "--corporate-user",
+                "k",
+                "--execute",
+                "--yes",
+            ]
+        )
+    assert info.value.code == 3 and len(trade_requests(recorder)) == 1
+    assert "Yeniden GÖNDERMEYİN" in capsys.readouterr().err

@@ -190,6 +190,7 @@ kt.post("/v1/ornek", scope="public", body={"alan": "değer"})
 | [`exchange_rates.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/exchange_rates.py) | Döviz ve kıymetli maden kurları |
 | [`iban_lookup.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/iban_lookup.py) | IBAN sahibini ve bankasını sorgulama |
 | [`money_transfer.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/money_transfer.py) | Bir IBAN'a para transferi (önce alıcı doğrulama), durum sorgulama |
+| [`fx_trade.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/fx_trade.py) | Döviz ve kıymetli maden alım-satımı |
 | [`async_usage.py`](https://github.com/yilmazmuhammed/kuveytturk-api/blob/main/examples/async_usage.py) | Asenkron istemci |
 | [`web_app/`](https://github.com/yilmazmuhammed/kuveytturk-api/tree/main/examples/web_app) | Müşteri girişi yapan örnek web uygulaması (Flask): bağlan, hesaplar, hareketler |
 

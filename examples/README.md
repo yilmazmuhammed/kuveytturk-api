@@ -15,6 +15,7 @@ python examples/account_list.py
 | [`exchange_rates.py`](exchange_rates.py) | Döviz ve kıymetli maden kurları | CC |
 | [`iban_lookup.py`](iban_lookup.py) | IBAN'ın sahibini ve bankasını sorgular | CC |
 | [`money_transfer.py`](money_transfer.py) | Bir IBAN'a para transferi ve durum sorgulama | CC |
+| [`fx_trade.py`](fx_trade.py) | Döviz (USD, EUR) ve kıymetli maden (ALT, GMS, PLT) alım-satımı | CC |
 | [`async_usage.py`](async_usage.py) | Asenkron istemciyle eşzamanlı istekler | CC |
 | [`web_app/`](web_app/) | Müşteri girişi yapan örnek web uygulaması (Flask); ayrıntı: [web_app/README.md](web_app/README.md) | AC |
 
