@@ -12,7 +12,7 @@ Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. 
 | [`customer_iban_info_for_money_transfer`](#customer_iban_info_for_money_transfer) | `GET /v1/moneytransfer/{iban}/customeribaninfo` | CC | test edildi | test edilmedi |
 | [`internal_money_transfer`](#internal_money_transfer) | `POST /v1/moneytransfer/interbankmoneytransfer` | CC | test edilmedi | test edilmedi |
 | [`investment_account_activities_report`](#investment_account_activities_report) | `POST /v1/investment/report-for-account-activities` | CC | test edildi | test edilmedi |
-| [`money_transfer_payment_type`](#money_transfer_payment_type) | `POST /v1/moneytransfer/paymenttype` | CC | test edilmedi | test edilmedi |
+| [`money_transfer_payment_type`](#money_transfer_payment_type) | `POST /v1/moneytransfer/paymenttype` | CC | kısmen test edildi | test edilmedi |
 | [`money_transfer_state`](#money_transfer_state) | `GET /v1/moneytransfer-state` | CC | test edildi | test edilmedi |
 | [`money_transfer_to_gsm`](#money_transfer_to_gsm) | `POST /v1/transfers/toGSM` | AC | test edilmedi | test edilmedi |
 | [`outgoing_money_transfer`](#outgoing_money_transfer) | `POST /v1/moneytransfer/outgoingmoneytransfer` | CC | kısmen test edildi | test edilmedi |
@@ -131,7 +131,7 @@ yanit = kt.transfers.money_transfer_payment_type(sender_account_suffix=..., rece
 
 | Ortam | Durum | Sonuç | Tarih |
 | - | - | - | - |
-| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Sandbox | kısmen test edildi | sunucu hatası (500) — Kullanıcı senderAccountSuffix, receiverIban, amount ile denedi (1 TL, kendi hesapları). Yanıt: 500 Object reference not set to an instance of an object. Boş göv… | 2026-10-07 |
 | Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |

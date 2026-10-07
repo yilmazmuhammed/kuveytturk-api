@@ -2243,9 +2243,11 @@
    "metot": "transfers.money_transfer_payment_type",
    "istek": "POST /v1/moneytransfer/paymenttype",
    "sandbox": {
-    "durum": "test edilmedi",
-    "sonuc": "işlem yapan uç nokta; otomatik test edilmez",
-    "tarih": "2026-10-04"
+    "durum": "kısmen test edildi",
+    "sonuc": "sunucu hatası (500)",
+    "tarih": "2026-10-07",
+    "ayrinti": "Kullanıcı senderAccountSuffix, receiverIban, amount ile denedi (1 TL, kendi hesapları). Yanıt: 500 Object reference not set to an instance of an object. Boş göv…",
+    "kaynak": "elle"
    },
    "canli": {
     "durum": "test edilmedi",
