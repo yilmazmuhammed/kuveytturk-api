@@ -15,7 +15,7 @@ Asenkron istemcide (`AsyncKuveytTurk`) aynı metotlar `await` ile çağrılır. 
 | [`money_transfer_payment_type`](#money_transfer_payment_type) | `POST /v1/moneytransfer/paymenttype` | CC | test edilmedi | test edilmedi |
 | [`money_transfer_state`](#money_transfer_state) | `GET /v1/moneytransfer-state` | CC | test edildi | test edilmedi |
 | [`money_transfer_to_gsm`](#money_transfer_to_gsm) | `POST /v1/transfers/toGSM` | AC | test edilmedi | test edilmedi |
-| [`outgoing_money_transfer`](#outgoing_money_transfer) | `POST /v1/moneytransfer/outgoingmoneytransfer` | CC | test edilmedi | test edilmedi |
+| [`outgoing_money_transfer`](#outgoing_money_transfer) | `POST /v1/moneytransfer/outgoingmoneytransfer` | CC | kısmen test edildi | test edilmedi |
 | [`outgoing_money_transfer_v2`](#outgoing_money_transfer_v2) | `POST /v2/moneytransfer/outgoingmoneytransfer` | AC | test edilmedi | test edilmedi |
 | [`transaction_validation_list`](#transaction_validation_list) | `GET /v1/transactionvalidation/transactionlist` | CC | kısmen test edildi | test edilmedi |
 
@@ -204,7 +204,7 @@ yanit = kt.transfers.outgoing_money_transfer(sender_account_suffix=..., receiver
 
 | Ortam | Durum | Sonuç | Tarih |
 | - | - | - | - |
-| Sandbox | test edilmedi | işlem yapan uç nokta; otomatik test edilmez | 2026-10-04 |
+| Sandbox | kısmen test edildi | sunucu hatası (500) — Kullanıcı 1 TL kendi hesapları arasında denedi (senderAccountSuffix, receiverIban, moneyTransferAmount, corporateWebUserName, moneyTransferDescription). Yanıt: … | 2026-10-07 |
 | Canlı | test edilmedi | henüz denenmedi |  |
 
 | Parametre | API'deki adı | Yer | Tür | Zorunlu | Açıklama |

@@ -10,7 +10,7 @@ Her uç noktanın sandbox'ta ve canlı ortamda denenip denenmediği. Kaynak dosy
 | kısmen test edildi | Uç nokta var ve uygulamanın yetkisi yeterli, ama gerçek parametre değerleri olmadığı için yalnızca doğrulama hatası alındı. |
 | test edilmedi | İstek atılmadı: işlem yapan uç nokta (para hareketi, ödeme, başvuru, kayıt oluşturma, bildirim), müşteri girişi gerekiyor, uygulamanın kapsam yetkisi yok ya da parametre değeri bilinmiyor. |
 
-- **Sandbox:** kısmen test edildi: 16, test edildi: 48, test edilmedi: 128
+- **Sandbox:** kısmen test edildi: 17, test edildi: 48, test edilmedi: 127
 - **Canlı:** test edilmedi: 192
 
 !!! info "İşlem yapan uç noktalar otomatik denenmez"
@@ -204,7 +204,7 @@ Betik yalnızca elle onaylanmış okuma uç noktalarını çağırır ve yalnız
 | [`transfers.money_transfer_payment_type`](transfers.md#money_transfer_payment_type) | `POST /v1/moneytransfer/paymenttype` | test edilmedi | test edilmedi |
 | [`transfers.money_transfer_state`](transfers.md#money_transfer_state) | `GET /v1/moneytransfer-state` | test edildi | test edilmedi |
 | [`transfers.money_transfer_to_gsm`](transfers.md#money_transfer_to_gsm) | `POST /v1/transfers/toGSM` | test edilmedi | test edilmedi |
-| [`transfers.outgoing_money_transfer`](transfers.md#outgoing_money_transfer) | `POST /v1/moneytransfer/outgoingmoneytransfer` | test edilmedi | test edilmedi |
+| [`transfers.outgoing_money_transfer`](transfers.md#outgoing_money_transfer) | `POST /v1/moneytransfer/outgoingmoneytransfer` | kısmen test edildi | test edilmedi |
 | [`transfers.outgoing_money_transfer_v2`](transfers.md#outgoing_money_transfer_v2) | `POST /v2/moneytransfer/outgoingmoneytransfer` | test edilmedi | test edilmedi |
 | [`transfers.transaction_validation_list`](transfers.md#transaction_validation_list) | `GET /v1/transactionvalidation/transactionlist` | kısmen test edildi | test edilmedi |
 | [`treasury.fx_and_precious_metal_rates`](treasury.md#fx_and_precious_metal_rates) | `GET /v1/fx/rates` | test edildi | test edilmedi |

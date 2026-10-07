@@ -337,7 +337,7 @@ Para transferleri
 | [`money_transfer_payment_type`](https://developer.kuveytturk.com.tr/documentation/money-transfers/money-transfer-payment-type) | `POST /v1/moneytransfer/paymenttype` | transfers | CC | test edilmedi | test edilmedi |
 | [`money_transfer_state`](https://developer.kuveytturk.com.tr/documentation/money-transfers/money-transfer-state) | `GET /v1/moneytransfer-state` | transfers | CC | test edildi | test edilmedi |
 | [`money_transfer_to_gsm`](https://developer.kuveytturk.com.tr/documentation/other/money-transfer-to-gsm) | `POST /v1/transfers/toGSM` | transfers | AC | test edilmedi | test edilmedi |
-| [`outgoing_money_transfer`](https://developer.kuveytturk.com.tr/documentation/para-transferleri/para-transferi-havale-eft-fast-virman) | `POST /v1/moneytransfer/outgoingmoneytransfer` | transfers | CC | test edilmedi | test edilmedi |
+| [`outgoing_money_transfer`](https://developer.kuveytturk.com.tr/documentation/para-transferleri/para-transferi-havale-eft-fast-virman) | `POST /v1/moneytransfer/outgoingmoneytransfer` | transfers | CC | kısmen test edildi | test edilmedi |
 | [`outgoing_money_transfer_v2`](https://developer.kuveytturk.com.tr/documentation/money-transfers/outgoing-money-transfer-v2) | `POST /v2/moneytransfer/outgoingmoneytransfer` | transfers | AC | test edilmedi | test edilmedi |
 | [`transaction_validation_list`](https://developer.kuveytturk.com.tr/documentation/money-transfers/transaction-validation-list) | `GET /v1/transactionvalidation/transactionlist` | public | CC | kısmen test edildi | test edilmedi |
 
